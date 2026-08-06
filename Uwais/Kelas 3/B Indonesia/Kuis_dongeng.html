@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuis Interaktif - Materi Dongeng (Kelas 3 SD)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap');
+
+  :root {
+    --cream: #fff8ec; --orange: #ff8a3d; --orange-light: #ffe4cc;
+    --pink: #ff6f91; --pink-light: #ffe3ec; --green: #4caf7d;
+    --blue: #4d8fdb; --purple: #7d5fd4; --purple-light: #ece5fb;
+    --teal: #2cb5a0; --red: #e6584f; --ink: #3a2e2e;
+    --shadow: 0 6px 0 rgba(0,0,0,0.06);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: 'Nunito', sans-serif;
+    background: radial-gradient(circle at 6% 8%, #ffe0c2 0, transparent 42%), radial-gradient(circle at 94% 90%, #ffe3ec 0, transparent 42%), var(--cream);
+    color: var(--ink); padding: 20px 15px;
+  }
+  .sheet { max-width: 860px; margin: 0 auto; }
+  header.title { text-align: center; background: #fff; border-radius: 28px; padding: 24px 20px; box-shadow: var(--shadow); border: 3px dashed var(--orange); }
+  header.title .eyebrow { font-family: 'Baloo 2', sans-serif; font-weight: 700; letter-spacing: 2px; color: var(--purple); font-size: 14px; text-transform: uppercase; }
+  header.title h1 { font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: clamp(24px, 5vw, 36px); margin: 6px 0 8px; background: linear-gradient(90deg, #ff8a3d, #ff6f91, #7d5fd4); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  header.title .sub { display: inline-block; background: var(--pink); color: #fff; font-family: 'Baloo 2', sans-serif; font-weight: 600; padding: 6px 20px; border-radius: 999px; font-size: 14px; }
+  .idbox { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .idbox label { font-family: 'Baloo 2', sans-serif; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; }
+  .idbox input { border: 2px solid var(--orange-light); background: var(--orange-light); border-radius: 10px; padding: 7px 12px; font-family: 'Nunito', sans-serif; font-size: 14px; width: 140px; outline: none; }
+  .notes { margin-top: 20px; background: #fff; border-radius: 22px; padding: 22px 20px; box-shadow: var(--shadow); border: 3px solid var(--purple-light); }
+  .notes-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .notes-badge { font-size: 22px; background: var(--purple); color: #fff; width: 40px; height: 40px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex: none; }
+  .notes-head h2 { font-family: 'Baloo 2', sans-serif; font-size: 20px; margin: 0; color: #5a3fa3; }
+  .notes-title { text-align: center; font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 16px; color: var(--pink); background: var(--pink-light); border-radius: 999px; padding: 8px 16px; margin: 14px 0 16px; }
+  .cat-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  @media(min-width: 640px) { .cat-grid.three-cols { grid-template-columns: 1fr 1fr 1fr; } }
+  .cat-card { border-radius: 16px; padding: 14px 16px; border: 2px solid; }
+  .cat-card.c1 { border-color: #bfe8d3; background: #f1fbf6; }
+  .cat-card.c2 { border-color: #ffc9dc; background: #fff3f7; }
+  .cat-card.c3 { border-color: #b9d9f7; background: #f2f8ff; }
+  .cat-card h3 { font-family: 'Baloo 2', sans-serif; font-size: 16px; margin: 0 0 6px; color: var(--ink); }
+  .cat-card p, .cat-card ul { font-size: 13.5px; margin: 4px 0; color: #5c4c4c; line-height: 1.5; }
+  .cat-card ul { padding-left: 18px; }
+  .footnote { text-align: center; margin-top: 16px; font-size: 13.5px; font-style: italic; color: #8a7a7a; }
+  .quiz-header-banner { margin-top: 24px; background: linear-gradient(90deg, var(--teal), var(--blue)); color: #fff; padding: 12px 20px; border-radius: 16px; font-family: 'Baloo 2', sans-serif; font-size: 18px; font-weight: 700; text-align: center; }
+  .qcard { margin-top: 16px; background: #fff; border-radius: 22px; padding: 18px 20px 20px; box-shadow: var(--shadow); border: 3px solid var(--orange-light); }
+  .qhead { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+  .qnum { font-family: 'Baloo 2', sans-serif; font-weight: 800; color: #fff; background: var(--orange); width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex: none; }
+  .qtext { font-family: 'Baloo 2', sans-serif; font-size: 16px; line-height: 1.4; padding-top: 3px; }
+  .options { display: grid; gap: 9px; }
+  .opt { display: flex; align-items: center; gap: 10px; background: #fbfaf7; border: 2px solid #ece6df; border-radius: 14px; padding: 11px 14px; cursor: pointer; font-size: 15px; transition: all 0.15s ease; }
+  .opt:hover { border-color: var(--orange); }
+  .opt .letter { font-family: 'Baloo 2', sans-serif; font-weight: 700; width: 26px; height: 26px; border-radius: 50%; background: #e9e4dd; display: flex; align-items: center; justify-content: center; font-size: 13px; flex: none; }
+  .opt.selected { border-color: var(--orange); background: var(--orange-light); }
+  .opt.selected .letter { background: var(--orange); color: #fff; }
+  .opt.correct { border-color: var(--green); background: #e7f6ee; }
+  .opt.correct .letter { background: var(--green); color: #fff; }
+  .opt.wrong { border-color: var(--red); background: #fdeceb; }
+  .opt.wrong .letter { background: var(--red); color: #fff; }
+  .opt .mark { margin-left: auto; font-size: 17px; display: none; }
+  .controls { display: flex; justify-content: center; gap: 14px; margin-top: 24px; flex-wrap: wrap; }
+  .btn-main { font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 16px; padding: 13px 30px; border-radius: 999px; border: none; cursor: pointer; color: #fff; box-shadow: 0 4px 0 rgba(0,0,0,0.12); }
+  .btn-check { background: linear-gradient(90deg, var(--orange), var(--pink)); }
+  .btn-reset { background: #b9b1b1; }
+  .score-panel { display: none; margin-top: 20px; text-align: center; background: #ffd166; color: #4a3300; border-radius: 20px; padding: 18px; font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; }
+  .score-panel .big { font-size: 30px; display: block; margin-bottom: 4px; }
+  footer.foot { text-align: center; margin: 30px 0 10px; font-family: 'Baloo 2', sans-serif; color: var(--purple); font-weight: 700; font-size: 15px; }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+  <header class="title">
+    <div class="eyebrow">Materi Pembelajaran & Kuis Interaktif</div>
+    <h1>📚 Bahasa Indonesia: Dongeng</h1>
+    <div class="sub">Mengenal Dongeng dan Jenis-Jenisnya · Kelas 3 SD</div>
+    <div class="idbox">
+      <label>Nama: <input type="text" id="nama" placeholder="Tulis namamu"></label>
+      <label>Kelas: <input type="text" id="kelas" placeholder="3A" style="width:70px"></label>
+      <label>No. Absen: <input type="text" id="absen" placeholder="00" style="width:70px"></label>
+    </div>
+  </header>
+
+  <section class="notes">
+    <div class="notes-head">
+      <div class="notes-badge">📖</div>
+      <h2>Catatan Materi: Mengenal Dongeng dan Jenis-Jenisnya</h2>
+    </div>
+    <div class="notes-title">Apa itu Dongeng?</div>
+    <p style="text-align:center; margin:0 0 14px; font-size:14px; color:#4a3e3e;">
+      <strong>Dongeng</strong> adalah cerita khayalan atau rekaan yang tidak benar-benar terjadi di dunia nyata. Dongeng bertujuan untuk menghibur pembaca serta menyampaikan pesan moral (nasihat kebaikan).
+    </p>
+
+    <div class="cat-grid three-cols">
+      <div class="cat-card c1">
+        <h3>1. Fabel</h3>
+        <p><strong>Pengertian:</strong> Dongeng yang tokoh-tokohnya diperankan oleh <strong>hewan</strong> yang bisa berbicara seperti manusia.</p>
+        <p><strong>Contoh:</strong> Kancil Mencuri Timun, Kura-kura dan Kelinci.</p>
+      </div>
+      <div class="cat-card c2">
+        <h3>2. Legenda</h3>
+        <p><strong>Pengertian:</strong> Cerita rakyat berhubungan dengan asal-usul <strong>terjadinya suatu tempat</strong>.</p>
+        <p><strong>Contoh:</strong> Asal-usul Gunung Tangkuban Perahu, Legenda Rawa Pening.</p>
+      </div>
+      <div class="cat-card c3">
+        <h3>3. Mitos</h3>
+        <p><strong>Pengertian:</strong> Cerita rakyat tentang <strong>makhluk halus, dewa-dewi, atau kekuatan gaib</strong>.</p>
+        <p><strong>Contoh:</strong> Nyi Roro Kidul, Nyi Blorong.</p>
+      </div>
+    </div>
+    <div class="footnote">Bacalah materi di atas dengan saksama sebelum mengerjakan 15 soal kuis di bawah ini!</div>
+  </section>
+
+  <div class="quiz-header-banner">✍️ Kuis Dongeng (15 Soal Pilihan Ganda)</div>
+  <div id="quizArea"></div>
+
+  <div class="controls">
+    <button class="btn-main btn-check" onclick="checkAnswers()">✅ Periksa Jawaban</button>
+    <button class="btn-main btn-reset" onclick="resetQuiz()">🔄 Ulangi Kuis</button>
+  </div>
+
+  <div class="score-panel" id="scorePanel">
+    <span class="big" id="scoreBig"></span>
+    <span id="scoreMsg"></span>
+  </div>
+
+  <footer class="foot">🌟 Selamat Belajar! Semangat Menuntut Ilmu Setiap Hari! 🌟</footer>
+</div>
+
+<script>
+const BANK_DONGENG = [
+  { text: "Cerita khayalan atau rekaan yang tidak benar-benar terjadi di dunia nyata disebut ....", options: ["Dongeng", "Sejarah", "Berita", "Laporan"], correct: 0 },
+  { text: "Dongeng yang tokoh-tokoh utamanya adalah hewan yang bisa berbicara disebut ....", options: ["Legenda", "Fabel", "Mitos", "Komik"], correct: 1 },
+  { text: "Salah satu contoh cerita fabel yang terkenal menceritakan kecerdikan hewan adalah ....", options: ["Kancil Mencuri Timun", "Danau Toba", "Nyi Roro Kidul", "Tangkuban Perahu"], correct: 0 },
+  { text: "Cerita rakyat yang menceritakan asal-usul terjadinya suatu tempat atau gunung dinamakan ....", options: ["Fabel", "Legenda", "Mitos", "Puisi"], correct: 1 },
+  { text: "Cerita 'Asal-usul Gunung Tangkuban Perahu' termasuk ke dalam jenis dongeng ....", options: ["Mitos", "Legenda", "Fabel", "Pantun"], correct: 1 },
+  { text: "Dongeng yang berhubungan dengan kepercayaan masyarakat terhadap makhluk halus atau dewa-dewi disebut ....", options: ["Fabel", "Legenda", "Mitos", "Sajak"], correct: 2 },
+  { text: "Kisah Nyi Roro Kidul dan Nyi Blorong merupakan contoh dari jenis dongeng ....", options: ["Mitos", "Fabel", "Legenda", "Sejarah"], correct: 0 },
+  { text: "Tujuan utama dibuatnya sebuah dongeng bagi pembacanya adalah untuk ....", options: ["Menakut-nakuti", "Menghibur dan memberikan pesan moral", "Memberikan berita harian", "Mengajarkan matematika"], correct: 1 },
+  { text: "Dalam cerita fabel 'Kura-kura dan Kelinci', hewan yang diceritakan memiliki sifat sombong adalah ....", options: ["Kura-kura", "Kelinci", "Kancil", "Siput"], correct: 1 },
+  { text: "Nasihat atau pesan kebaikan yang terkandung dalam suatu dongeng disebut ....", options: ["Pesan moral", "Judul cerita", "Tokoh utama", "Latar tempat"], correct: 0 },
+  { text: "Cerita 'Legenda Rawa Pening' berasal dari daerah Jawa Tengah dan menceritakan tentang asal-usul ....", options: ["Gunung", "Danau / Danau Rawa Pening", "Laut", "Hutan"], correct: 1 },
+  { text: "Hewan dalam cerita fabel bertingkah laku dan berbincang seperti ....", options: ["Tumbuhan", "Manusia", "Batu", "Bintang"], correct: 1 },
+  { text: "Siapakah tokoh dalam mitos yang dikenal masyarakat sebagai penguasa laut selatan?", options: ["Nyi Roro Kidul", "Kancil", "Sangkuriang", "Malin Kundang"], correct: 0 },
+  { text: "Ciri utama dari cerita fabel adalah ....", options: ["Tokohnya berupa hewan", "Menceritakan kerajaan gaib", "Terjadinya suatu danau", "Ditulis di koran"], correct: 0 },
+  { text: "Jika adik membaca cerita tentang perlombaan lari antara Kura-kura dan Kelinci, maka adik sedang membaca ....", options: ["Mitos", "Legenda", "Fabel", "Cerita Sejarah"], correct: 2 }
+];
+
+const LETTERS = ['A', 'B', 'C', 'D'];
+let currentQuiz = [];
+
+function shuffle(arr) {
+  let a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function initQuiz() {
+  let shuffledBank = shuffle(BANK_DONGENG);
+  currentQuiz = shuffledBank.map(q => {
+    let opts = q.options.map((opt, idx) => ({ text: opt, isCorrect: idx === q.correct }));
+    return { text: q.text, options: shuffle(opts), answered: null };
+  });
+  renderQuiz();
+}
+
+function renderQuiz() {
+  const container = document.getElementById('quizArea');
+  container.innerHTML = '';
+  currentQuiz.forEach((q, qi) => {
+    const card = document.createElement('div');
+    card.className = 'qcard';
+    let optsHtml = q.options.map((opt, oi) => `
+      <div class="opt" id="opt-${qi}-${oi}" onclick="selectOption(${qi}, ${oi})">
+        <span class="letter">${LETTERS[oi]}</span>
+        <span>${opt.text}</span>
+        <span class="mark" id="mark-${qi}-${oi}"></span>
+      </div>
+    `).join('');
+    card.innerHTML = `<div class="qhead"><div class="qnum">${qi + 1}</div><div class="qtext">${q.text}</div></div><div class="options">${optsHtml}</div>`;
+    container.appendChild(card);
+  });
+}
+
+function selectOption(qi, oi) {
+  currentQuiz[qi].answered = oi;
+  currentQuiz[qi].options.forEach((_, i) => document.getElementById(`opt-${qi}-${i}`).classList.remove('selected'));
+  document.getElementById(`opt-${qi}-${oi}`).classList.add('selected');
+}
+
+function checkAnswers() {
+  let correctCount = 0;
+  currentQuiz.forEach((q, qi) => {
+    q.options.forEach((opt, oi) => {
+      let el = document.getElementById(`opt-${qi}-${oi}`);
+      let mark = document.getElementById(`mark-${qi}-${oi}`);
+      el.classList.remove('correct', 'wrong');
+      mark.style.display = 'none';
+      if (opt.isCorrect) {
+        el.classList.add('correct'); mark.style.display = 'inline'; mark.textContent = '✅';
+      } else if (q.answered === oi) {
+        el.classList.add('wrong'); mark.style.display = 'inline'; mark.textContent = '❌';
+      }
+    });
+    if (q.answered !== null && q.options[q.answered].isCorrect) correctCount++;
+  });
+  const total = currentQuiz.length;
+  const panel = document.getElementById('scorePanel');
+  panel.style.display = 'block';
+  document.getElementById('scoreBig').textContent = `Skor Kamu: ${correctCount} / ${total}`;
+  document.getElementById('scoreMsg').textContent = correctCount === total ? '🎉 Sempurna! Kamu hebat!' : '👏 Bagus sekali! Tingkatkan terus prestasimu!';
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function resetQuiz() {
+  document.getElementById('scorePanel').style.display = 'none';
+  initQuiz();
+}
+
+initQuiz();
+</script>
+</body>
+</html>
