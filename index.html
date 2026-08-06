@@ -23,7 +23,7 @@
       radial-gradient(circle at 94% 90%, #d6f3ef 0, transparent 42%),
       var(--cream);
     color:var(--ink);
-    padding:20px;
+    padding:18px;
   }
   .wrap{ max-width:900px; margin:0 auto; }
 
@@ -31,7 +31,7 @@
     text-align:center;
     background:#fff;
     border-radius:28px;
-    padding:26px 18px;
+    padding:24px 18px;
     box-shadow:var(--shadow);
     border:3px dashed var(--pink);
   }
@@ -46,7 +46,7 @@
   header h1{
     font-family:'Baloo 2', sans-serif;
     font-weight:800;
-    font-size:clamp(26px, 6vw, 38px);
+    font-size:clamp(24px, 6vw, 34px);
     margin:8px 0 6px;
     background:linear-gradient(90deg,#ff7fa8,#ffc94d,#4d8fdb,#2fb573);
     -webkit-background-clip:text;
@@ -54,10 +54,34 @@
     color:transparent;
   }
   header p{
-    font-size:14.5px;
+    font-size:14px;
     color:#7a6a6a;
     margin:6px 0 0;
   }
+
+  .breadcrumb{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:4px;
+    margin:18px 2px 0;
+    font-family:'Baloo 2', sans-serif;
+    font-size:14px;
+  }
+  .crumb{
+    color:var(--purple);
+    cursor:pointer;
+    padding:4px 8px;
+    border-radius:8px;
+    font-weight:700;
+  }
+  .crumb:hover{ background:#fff; }
+  .crumb.current{
+    color:#8a7a7a;
+    cursor:default;
+  }
+  .crumb.current:hover{ background:none; }
+  .crumb-sep{ color:#c9beb2; }
 
   .status{
     text-align:center;
@@ -67,68 +91,54 @@
     font-size:14px;
   }
 
-  .folders{
-    margin-top:24px;
+  .grid{
+    margin-top:14px;
     display:grid;
     grid-template-columns:1fr;
     gap:14px;
   }
+  @media(min-width:640px){
+    .grid.cards{ grid-template-columns:1fr 1fr; }
+  }
 
-  .folder{
+  .card{
     background:#fff;
-    border-radius:22px;
+    border-radius:20px;
     padding:16px 18px;
     box-shadow:var(--shadow);
     border:3px solid;
     cursor:pointer;
-    transition:transform .1s ease;
-  }
-  .folder:active{ transform:scale(0.99); }
-
-  .folder-head{
     display:flex;
     align-items:center;
     gap:12px;
+    transition:transform .1s ease;
   }
-  .folder-icon{
-    font-size:26px;
-    width:44px; height:44px;
+  .card:active{ transform:scale(0.98); }
+
+  .card-icon{
+    font-size:24px;
+    width:42px; height:42px;
     background:#fff;
-    border-radius:14px;
+    border-radius:13px;
     display:flex; align-items:center; justify-content:center;
     flex:none;
     box-shadow:0 2px 0 rgba(0,0,0,0.06);
   }
-  .folder-head .fh-text{ flex:1; }
-  .folder-head h2{
+  .card-text{ flex:1; }
+  .card-text h2{
     font-family:'Baloo 2', sans-serif;
-    font-size:17px;
+    font-size:16px;
     margin:0;
   }
-  .folder-head span{
+  .card-text span{
     display:block;
     font-size:12px;
     color:#8a7a7a;
     font-weight:600;
   }
-  .chevron{
-    font-size:18px;
-    color:#8a7a7a;
-    transition:transform .2s ease;
-    flex:none;
-  }
-  .folder.open .chevron{ transform:rotate(90deg); }
+  .card-arrow{ color:#bbb; font-size:16px; flex:none; }
 
-  .folder-body{
-    display:none;
-    margin-top:14px;
-    padding-top:14px;
-    border-top:2px dashed rgba(0,0,0,0.08);
-    cursor:default;
-  }
-  .folder.open .folder-body{ display:block; }
-
-  .file-list{ display:grid; gap:8px; }
+  .file-list{ display:grid; gap:8px; margin-top:4px; }
   .file-item{
     display:flex;
     align-items:center;
@@ -140,6 +150,8 @@
     color:var(--ink);
     font-size:14.5px;
     font-weight:600;
+    box-shadow:var(--shadow);
+    border:2px solid #eee6de;
     transition:transform .12s ease;
   }
   .file-item:hover{ transform:translateX(3px); }
@@ -152,19 +164,12 @@
     white-space:nowrap;
   }
 
-  .loading-mini{
-    font-size:13px;
-    color:#9a8a8a;
-    font-family:'Baloo 2', sans-serif;
-    padding:6px 2px;
-  }
-
   .pagination{
     display:flex;
     justify-content:center;
     align-items:center;
     gap:10px;
-    margin-top:12px;
+    margin-top:14px;
   }
   .page-btn{
     font-family:'Baloo 2', sans-serif;
@@ -177,10 +182,7 @@
     border-radius:999px;
     cursor:pointer;
   }
-  .page-btn:disabled{
-    opacity:0.4;
-    cursor:default;
-  }
+  .page-btn:disabled{ opacity:0.4; cursor:default; }
   .page-label{
     font-family:'Baloo 2', sans-serif;
     font-size:13px;
@@ -213,25 +215,26 @@
 
   <header>
     <div class="eyebrow">Bank Soal Interaktif</div>
-    <h1>📚 Belajar Anak - Kelas 1</h1>
-    <p>Ketuk kategori untuk membuka daftar soal. Soal terbaru muncul paling atas.</p>
+    <h1>📚 Belajar Anak</h1>
+    <p>Pilih nama anak → kelas → mata pelajaran → soal yang ingin dikerjakan.</p>
   </header>
 
-  <div id="status" class="status">Memuat daftar kategori...</div>
-  <div id="folders" class="folders"></div>
+  <div class="breadcrumb" id="breadcrumb"></div>
+  <div id="status" class="status">Memuat...</div>
+  <div id="content"></div>
 
   <footer>🌟 Belajar dengan semangat, prestasi pun akan hebat! 🌟</footer>
 </div>
 
 <script>
-// ======== SESUAIKAN 3 BARIS INI KALAU REPO/PATH BERUBAH ========
+// ======== SESUAIKAN 2 BARIS INI KALAU REPO BERUBAH ========
 const OWNER = 'hdtyan';
 const REPO = 'Belajar-Anak';
-const BASE_PATH = 'Maisun/Kelas 1'; // folder tempat semua kategori berada
-// =================================================================
+// struktur yang dibaca: {NamaAnak}/{Kelas}/{MataPelajaran}/{file.html}
+// ============================================================
 
 const PAGE_SIZE = 5;
-const dateCache = {}; // cache tanggal commit per file path, supaya tidak fetch berulang
+const dateCache = {};
 
 const COLOR_PALETTE = [
   {border:'#ffe3a3', bg:'#fff3d6'},
@@ -240,14 +243,18 @@ const COLOR_PALETTE = [
   {border:'#e1f0ff', bg:'#e1f0ff'},
   {border:'#ece5fb', bg:'#ece5fb'},
 ];
-const ICON_PALETTE = ['📘','🔢','🌍','🎵','🎨','🏃','🔤','🧪','🌱','⭐'];
+const ICON_ANAK = ['🧒','👧'];
+const ICON_KELAS = ['🏷️','📁','📂','🗂️'];
+const ICON_MAPEL = ['📘','🔢','🌍','🎵','🎨','🏃','🔤','🧪','🌱','⭐'];
 
 function colorFor(name){
   let hash = 0;
   for(let i=0;i<name.length;i++) hash = name.charCodeAt(i) + ((hash<<5)-hash);
-  const idx = Math.abs(hash) % COLOR_PALETTE.length;
-  const icon = ICON_PALETTE[Math.abs(hash) % ICON_PALETTE.length];
-  return {...COLOR_PALETTE[idx], icon};
+  return { hash: Math.abs(hash), color: COLOR_PALETTE[Math.abs(hash) % COLOR_PALETTE.length] };
+}
+function iconFor(name, palette){
+  const { hash } = colorFor(name);
+  return palette[hash % palette.length];
 }
 
 function niceName(filename){
@@ -264,7 +271,7 @@ function formatDate(iso){
 }
 
 async function fetchFileDate(path){
-  if(dateCache[path]) return dateCache[path];
+  if(dateCache[path] !== undefined) return dateCache[path];
   try{
     const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/commits?path=${encodeURIComponent(path)}&per_page=1`);
     if(!res.ok) throw new Error();
@@ -278,91 +285,79 @@ async function fetchFileDate(path){
   }
 }
 
-let CATEGORIES = {}; // { catName: [{filename, path}] }
-const folderState = {}; // { catName: { loaded:false, items:[], page:1 } }
+let TREE = {}; // { anak: { kelas: { mapel: [ {filename, path} ] } } }
+let currentPath = []; // breadcrumb, contoh: ['Maisun','Kelas 1','Matematika']
+let currentPage = 1;
+let currentFiles = [];
 
 async function loadTree(){
   const statusEl = document.getElementById('status');
-  const foldersEl = document.getElementById('folders');
   try{
     const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/git/trees/main?recursive=1`);
     if(!res.ok) throw new Error('Gagal mengambil data dari GitHub (status ' + res.status + ')');
     const data = await res.json();
 
-    const prefix = BASE_PATH + '/';
-    const files = data.tree.filter(item =>
-      item.type === 'blob' &&
-      item.path.startsWith(prefix) &&
-      item.path.toLowerCase().endsWith('.html')
-    );
-
-    CATEGORIES = {};
-    files.forEach(f => {
-      const rel = f.path.slice(prefix.length);
-      const parts = rel.split('/');
-      if(parts.length < 2) return;
-      const cat = parts[0];
-      const filename = parts[parts.length - 1];
-      if(!CATEGORIES[cat]) CATEGORIES[cat] = [];
-      CATEGORIES[cat].push({ filename, path: f.path });
+    TREE = {};
+    data.tree.forEach(item => {
+      if(item.type !== 'blob' || !item.path.toLowerCase().endsWith('.html')) return;
+      const parts = item.path.split('/');
+      if(parts.length !== 4) return; // hanya anak/kelas/mapel/file.html
+      const [anak, kelas, mapel, filename] = parts;
+      TREE[anak] = TREE[anak] || {};
+      TREE[anak][kelas] = TREE[anak][kelas] || {};
+      TREE[anak][kelas][mapel] = TREE[anak][kelas][mapel] || [];
+      TREE[anak][kelas][mapel].push({ filename, path: item.path });
     });
-
-    const catNames = Object.keys(CATEGORIES).sort();
-
-    if(catNames.length === 0){
-      statusEl.textContent = 'Belum ada soal yang ditemukan. Upload file .html ke dalam folder kategori di dalam "' + BASE_PATH + '".';
-      return;
-    }
 
     statusEl.style.display = 'none';
-    foldersEl.innerHTML = '';
-
-    catNames.forEach(cat => {
-      const color = colorFor(cat);
-      folderState[cat] = { loaded:false, items:[], page:1 };
-
-      const div = document.createElement('div');
-      div.className = 'folder';
-      div.id = 'folder-' + cat.replace(/\s+/g,'_');
-      div.style.borderColor = color.border;
-      div.style.background = color.bg;
-      div.innerHTML = `
-        <div class="folder-head" onclick="toggleFolder('${cat.replace(/'/g,"\\'")}')">
-          <div class="folder-icon">${color.icon}</div>
-          <div class="fh-text">
-            <h2>${cat}</h2>
-            <span>${CATEGORIES[cat].length} soal</span>
-          </div>
-          <div class="chevron">›</div>
-        </div>
-        <div class="folder-body" id="body-${cat.replace(/\s+/g,'_')}"></div>
-      `;
-      foldersEl.appendChild(div);
-    });
-
+    render();
   } catch(err){
-    statusEl.style.display = 'none';
-    foldersEl.innerHTML = `<div class="error-box">⚠️ Tidak bisa memuat daftar soal otomatis.<br>${err.message}<br><br>Coba refresh halaman ini beberapa saat lagi.</div>`;
+    statusEl.textContent = '';
+    document.getElementById('content').innerHTML = `<div class="error-box">⚠️ Tidak bisa memuat daftar soal.<br>${err.message}<br><br>Coba refresh halaman ini beberapa saat lagi.</div>`;
   }
 }
 
-async function toggleFolder(cat){
-  const safeId = cat.replace(/\s+/g,'_');
-  const folderDiv = document.getElementById('folder-' + safeId);
-  const bodyDiv = document.getElementById('body-' + safeId);
-  const isOpen = folderDiv.classList.contains('open');
+function getNode(path){
+  let node = TREE;
+  for(const seg of path) node = node?.[seg];
+  return node;
+}
 
-  if(isOpen){
-    folderDiv.classList.remove('open');
+function renderBreadcrumb(){
+  const el = document.getElementById('breadcrumb');
+  const labels = ['🏠 Beranda', ...currentPath];
+  el.innerHTML = labels.map((label, i) => {
+    const isLast = i === labels.length - 1;
+    const depth = i; // 0 = beranda
+    return `${i>0 ? '<span class="crumb-sep">/</span>' : ''}<span class="crumb ${isLast?'current':''}" onclick="goTo(${depth})">${label}</span>`;
+  }).join('');
+}
+
+function goTo(depth){
+  currentPath = currentPath.slice(0, depth);
+  render();
+}
+
+function goInto(name){
+  currentPath = [...currentPath, name];
+  render();
+}
+
+async function render(){
+  renderBreadcrumb();
+  const contentEl = document.getElementById('content');
+  const node = getNode(currentPath);
+
+  if(!node){
+    contentEl.innerHTML = `<div class="error-box">Folder tidak ditemukan.</div>`;
     return;
   }
-  folderDiv.classList.add('open');
 
-  const state = folderState[cat];
-  if(!state.loaded){
-    bodyDiv.innerHTML = `<div class="loading-mini">Mengurutkan soal terbaru...</div>`;
+  if(Array.isArray(node)){
+    // level file (Anak/Kelas/Mapel dipilih) -> tampilkan daftar file
+    contentEl.innerHTML = `<div class="status">Mengurutkan soal terbaru...</div>`;
     const withDates = await Promise.all(
-      CATEGORIES[cat].map(async it => ({ ...it, date: await fetchFileDate(it.path) }))
+      node.map(async it => ({ ...it, date: await fetchFileDate(it.path) }))
     );
     withDates.sort((a,b) => {
       if(!a.date && !b.date) return a.filename.localeCompare(b.filename);
@@ -370,21 +365,54 @@ async function toggleFolder(cat){
       if(!b.date) return -1;
       return new Date(b.date) - new Date(a.date);
     });
-    state.items = withDates;
-    state.loaded = true;
+    currentFiles = withDates;
+    currentPage = 1;
+    renderFilePage();
+    return;
   }
-  renderPage(cat);
+
+  // level folder (beranda / anak / kelas)
+  const depth = currentPath.length; // 0=anak,1=kelas,2=mapel
+  const keys = Object.keys(node).sort();
+  const iconPalette = depth === 0 ? ICON_ANAK : depth === 1 ? ICON_KELAS : ICON_MAPEL;
+
+  const cards = keys.map(key => {
+    const child = node[key];
+    let subtitle;
+    if(Array.isArray(child)){
+      subtitle = `${child.length} soal`;
+    } else {
+      const count = Object.keys(child).length;
+      subtitle = depth === 0 ? `${count} kelas` : `${count} mata pelajaran`;
+    }
+    const { color } = colorFor(key);
+    const icon = iconFor(key, iconPalette);
+    return `
+      <div class="card" style="border-color:${color.border}; background:${color.bg}" onclick="goInto('${key.replace(/'/g,"\\'")}')">
+        <div class="card-icon">${icon}</div>
+        <div class="card-text">
+          <h2>${key}</h2>
+          <span>${subtitle}</span>
+        </div>
+        <div class="card-arrow">›</div>
+      </div>
+    `;
+  }).join('');
+
+  if(keys.length === 0){
+    contentEl.innerHTML = `<div class="status">Folder ini masih kosong.</div>`;
+  } else {
+    contentEl.innerHTML = `<div class="grid cards">${cards}</div>`;
+  }
 }
 
-function renderPage(cat){
-  const safeId = cat.replace(/\s+/g,'_');
-  const bodyDiv = document.getElementById('body-' + safeId);
-  const state = folderState[cat];
-  const totalPages = Math.max(1, Math.ceil(state.items.length / PAGE_SIZE));
-  if(state.page > totalPages) state.page = totalPages;
+function renderFilePage(){
+  const contentEl = document.getElementById('content');
+  const totalPages = Math.max(1, Math.ceil(currentFiles.length / PAGE_SIZE));
+  if(currentPage > totalPages) currentPage = totalPages;
 
-  const start = (state.page - 1) * PAGE_SIZE;
-  const pageItems = state.items.slice(start, start + PAGE_SIZE);
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const pageItems = currentFiles.slice(start, start + PAGE_SIZE);
 
   const fileItems = pageItems.map(it => `
     <a class="file-item" href="${encodeURI(it.path)}">
@@ -394,21 +422,24 @@ function renderPage(cat){
     </a>
   `).join('');
 
-  const paginationHtml = state.items.length > PAGE_SIZE ? `
+  const paginationHtml = currentFiles.length > PAGE_SIZE ? `
     <div class="pagination">
-      <button class="page-btn" onclick="changePage('${cat.replace(/'/g,"\\'")}', -1)" ${state.page<=1 ? 'disabled':''}>‹ Sebelumnya</button>
-      <span class="page-label">Halaman ${state.page} / ${totalPages}</span>
-      <button class="page-btn" onclick="changePage('${cat.replace(/'/g,"\\'")}', 1)" ${state.page>=totalPages ? 'disabled':''}>Selanjutnya ›</button>
+      <button class="page-btn" onclick="changePage(-1)" ${currentPage<=1 ? 'disabled':''}>‹ Sebelumnya</button>
+      <span class="page-label">Halaman ${currentPage} / ${totalPages}</span>
+      <button class="page-btn" onclick="changePage(1)" ${currentPage>=totalPages ? 'disabled':''}>Selanjutnya ›</button>
     </div>
   ` : '';
 
-  bodyDiv.innerHTML = `<div class="file-list">${fileItems}</div>${paginationHtml}`;
+  const listOrEmpty = currentFiles.length === 0
+    ? `<div class="status">Belum ada soal di mata pelajaran ini.</div>`
+    : `<div class="file-list">${fileItems}</div>${paginationHtml}`;
+
+  contentEl.innerHTML = listOrEmpty;
 }
 
-function changePage(cat, dir){
-  const state = folderState[cat];
-  state.page += dir;
-  renderPage(cat);
+function changePage(dir){
+  currentPage += dir;
+  renderFilePage();
 }
 
 loadTree();
