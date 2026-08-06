@@ -234,7 +234,19 @@ const REPO = 'Belajar-Anak';
 // ============================================================
 
 const PAGE_SIZE = 5;
-const dateCache = {};
+const CACHE_KEY = 'soal_date_cache_v1';
+const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // cache berlaku 24 jam
+
+function loadCache(){
+  try{
+    const raw = localStorage.getItem(CACHE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch(e){ return {}; }
+}
+function saveCache(cache){
+  try{ localStorage.setItem(CACHE_KEY, JSON.stringify(cache)); } catch(e){ /* abaikan kalau penuh */ }
+}
+const dateCache = loadCache();
 
 const COLOR_PALETTE = [
   {border:'#ffe3a3', bg:'#fff3d6'},
@@ -277,17 +289,21 @@ function formatDate(iso){
 }
 
 async function fetchFileDate(path){
-  if(dateCache[path] !== undefined) return dateCache[path];
+  const cached = dateCache[path];
+  if(cached && (Date.now() - cached.ts) < CACHE_TTL_MS){
+    return cached.date;
+  }
   try{
     const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/commits?path=${encodeURIComponent(path)}&per_page=1`);
     if(!res.ok) throw new Error();
     const data = await res.json();
     const iso = data[0]?.commit?.committer?.date || data[0]?.commit?.author?.date || null;
-    dateCache[path] = iso;
+    dateCache[path] = { date: iso, ts: Date.now() };
+    saveCache(dateCache);
     return iso;
   } catch(e){
-    dateCache[path] = null;
-    return null;
+    // kalau gagal (misal rate limit), pakai cache lama walau sudah kedaluwarsa, atau null
+    return cached ? cached.date : null;
   }
 }
 
@@ -319,7 +335,16 @@ async function loadTree(){
     render();
   } catch(err){
     statusEl.textContent = '';
-    document.getElementById('content').innerHTML = `<div class="error-box">⚠️ Tidak bisa memuat daftar soal.<br>${err.message}<br><br>Coba refresh halaman ini beberapa saat lagi.</div>`;
+    const isRateLimit = err.message.includes('403');
+    const msg = isRateLimit
+      ? 'Jatah akses gratis ke GitHub untuk saat ini sudah penuh (batas 60x per jam). Ini bukan karena file rusak — coba lagi dalam beberapa menit.'
+      : err.message;
+    document.getElementById('content').innerHTML = `
+      <div class="error-box">
+        ⚠️ Tidak bisa memuat daftar soal.<br>${msg}
+        <br><br>
+        <button class="page-btn" onclick="loadTree()">🔄 Coba Lagi</button>
+      </div>`;
   }
 }
 
