@@ -247,6 +247,12 @@ const ICON_ANAK = ['🧒','👧'];
 const ICON_KELAS = ['🏷️','📁','📂','🗂️'];
 const ICON_MAPEL = ['📘','🔢','🌍','🎵','🎨','🏃','🔤','🧪','🌱','⭐'];
 
+// tema personal untuk tiap anak (tambahkan nama baru di sini kalau perlu)
+const ANAK_THEME = {
+  'Maisun': { icon: '🦄', color: { border:'#ffb3c8', bg:'#ffe3ec' } },
+  'Uwais':  { icon: '🥷', color: { border:'#ff8a80', bg:'#ffe0dc' } },
+};
+
 function colorFor(name){
   let hash = 0;
   for(let i=0;i<name.length;i++) hash = name.charCodeAt(i) + ((hash<<5)-hash);
@@ -383,10 +389,21 @@ async function render(){
       subtitle = `${child.length} soal`;
     } else {
       const count = Object.keys(child).length;
-      subtitle = depth === 0 ? `${count} kelas` : `${count} mata pelajaran`;
+      subtitle = depth === 0
+        ? `${count} folder kelas tersedia`
+        : `${count} mata pelajaran`;
     }
-    const { color } = colorFor(key);
-    const icon = iconFor(key, iconPalette);
+
+    // pakai tema personal kalau ini level anak (depth 0) dan namanya dikenali
+    let color, icon;
+    if(depth === 0 && ANAK_THEME[key]){
+      color = ANAK_THEME[key].color;
+      icon = ANAK_THEME[key].icon;
+    } else {
+      color = colorFor(key).color;
+      icon = iconFor(key, iconPalette);
+    }
+
     return `
       <div class="card" style="border-color:${color.border}; background:${color.bg}" onclick="goInto('${key.replace(/'/g,"\\'")}')">
         <div class="card-icon">${icon}</div>
