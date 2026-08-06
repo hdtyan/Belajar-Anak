@@ -1,23 +1,5 @@
 {
   "tree": {
-    "Uwais": {
-      "Kelas 3": {
-        "Matematika": [
-          {
-            "filename": "lkpd-vokal-konsonan.html",
-            "path": "Uwais/Kelas 3/Matematika/lkpd-vokal-konsonan.html",
-            "date": "2026-08-06T10:57:30+07:00"
-          }
-        ],
-        "B Indonesia": [
-          {
-            "filename": "lkpd-vokal-konsonan.html",
-            "path": "Uwais/Kelas 3/B Indonesia/lkpd-vokal-konsonan.html",
-            "date": "2026-08-06T11:13:12+07:00"
-          }
-        ]
-      }
-    },
     "Maisun": {
       "Kelas 1": {
         "B Inggris": [
@@ -34,13 +16,6 @@
             "date": "2026-08-06T10:17:33+07:00"
           }
         ],
-        "Calistung": [
-          {
-            "filename": "lkpd-vokal-konsonan.html",
-            "path": "Maisun/Kelas 1/Calistung/lkpd-vokal-konsonan.html",
-            "date": "2026-08-06T10:46:40+07:00"
-          }
-        ],
         "Matematika": [
           {
             "filename": "lkpd-matematika-perbandingan.html",
@@ -53,11 +28,6 @@
             "filename": "lkpd-vokal-konsonan.html",
             "path": "Maisun/Kelas 1/B Indonesia/lkpd-vokal-konsonan.html",
             "date": "2026-08-06T10:17:33+07:00"
-          },
-          {
-            "filename": "lkpd-matematika-perbandingan.html",
-            "path": "Maisun/Kelas 1/B Indonesia/lkpd-matematika-perbandingan.html",
-            "date": "2026-08-06T10:29:34+07:00"
           }
         ]
       }
