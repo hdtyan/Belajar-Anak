@@ -10,15 +10,7 @@
   :root{
     --cream:#fff8ec;
     --pink:#ff7fa8;
-    --pink-light:#ffe3ec;
-    --blue:#4d8fdb;
-    --blue-light:#e1f0ff;
-    --green:#2fb573;
-    --green-light:#d8f5e6;
-    --yellow:#ffc94d;
-    --yellow-light:#fff3d6;
     --purple:#7d5fd4;
-    --purple-light:#ece5fb;
     --ink:#3a2e2e;
     --shadow:0 6px 0 rgba(0,0,0,0.06);
   }
@@ -67,6 +59,14 @@
     margin:6px 0 0;
   }
 
+  .status{
+    text-align:center;
+    font-family:'Baloo 2', sans-serif;
+    color:#9a8a8a;
+    margin:24px 0;
+    font-size:14px;
+  }
+
   .folders{
     margin-top:24px;
     display:grid;
@@ -84,10 +84,6 @@
     box-shadow:var(--shadow);
     border:3px solid;
   }
-  .folder.mtk{ border-color:var(--yellow-light); background:var(--yellow-light); }
-  .folder.bindo{ border-color:var(--pink-light); background:var(--pink-light); }
-  .folder.bing{ border-color:var(--green-light); background:var(--green-light); }
-  .folder.sbdp{ border-color:var(--purple-light); background:var(--purple-light); }
 
   .folder-head{
     display:flex;
@@ -134,6 +130,17 @@
   .file-item .fi-icon{ font-size:18px; flex:none; }
   .file-item .fi-arrow{ margin-left:auto; color:#bbb; }
 
+  .error-box{
+    background:#fff;
+    border:2px solid #f3c7c2;
+    border-radius:18px;
+    padding:16px;
+    text-align:center;
+    color:#a83f34;
+    font-size:14px;
+    margin-top:20px;
+  }
+
   footer{
     text-align:center;
     margin:26px 0 6px;
@@ -153,79 +160,116 @@
     <p>Ketuk kategori di bawah, lalu pilih soal yang ingin dikerjakan. Semua soal terbuka langsung di browser, tidak perlu download.</p>
   </header>
 
-  <div class="folders">
-
-    <div class="folder mtk">
-      <div class="folder-head">
-        <div class="folder-icon">🔢</div>
-        <div>
-          <h2>Matematika</h2>
-          <span>1 soal</span>
-        </div>
-      </div>
-      <div class="file-list">
-        <a class="file-item" href="Maisun/Kelas 1/Matematika/lkpd-matematika-perbandingan.html">
-          <span class="fi-icon">📝</span>
-          <span>Membandingkan Banyak Benda & Bilangan</span>
-          <span class="fi-arrow">›</span>
-        </a>
-      </div>
-    </div>
-
-    <div class="folder bindo">
-      <div class="folder-head">
-        <div class="folder-icon">🔤</div>
-        <div>
-          <h2>Bahasa Indonesia</h2>
-          <span>1 soal</span>
-        </div>
-      </div>
-      <div class="file-list">
-        <a class="file-item" href="Maisun/Kelas 1/B Indonesia/lkpd-vokal-konsonan.html">
-          <span class="fi-icon">📝</span>
-          <span>Huruf Vokal & Konsonan</span>
-          <span class="fi-arrow">›</span>
-        </a>
-      </div>
-    </div>
-
-    <div class="folder bing">
-      <div class="folder-head">
-        <div class="folder-icon">🌍</div>
-        <div>
-          <h2>Bahasa Inggris</h2>
-          <span>1 soal</span>
-        </div>
-      </div>
-      <div class="file-list">
-        <a class="file-item" href="Maisun/Kelas 1/B Inggris/kuis-greeting-response.html">
-          <span class="fi-icon">📝</span>
-          <span>Greeting & Response</span>
-          <span class="fi-arrow">›</span>
-        </a>
-      </div>
-    </div>
-
-    <div class="folder sbdp">
-      <div class="folder-head">
-        <div class="folder-icon">🎵</div>
-        <div>
-          <h2>Seni Musik</h2>
-          <span>1 soal</span>
-        </div>
-      </div>
-      <div class="file-list">
-        <a class="file-item" href="Maisun/Kelas 1/Seni Musik/kuis-irama-anggota-tubuh.html">
-          <span class="fi-icon">📝</span>
-          <span>Irama Anggota Tubuh</span>
-          <span class="fi-arrow">›</span>
-        </a>
-      </div>
-    </div>
-
-  </div>
+  <div id="status" class="status">Memuat daftar soal...</div>
+  <div id="folders" class="folders"></div>
 
   <footer>🌟 Belajar dengan semangat, prestasi pun akan hebat! 🌟</footer>
 </div>
+
+<script>
+// ======== SESUAIKAN 3 BARIS INI KALAU REPO/PATH BERUBAH ========
+const OWNER = 'hdtyan';
+const REPO = 'Belajar-Anak';
+const BASE_PATH = 'Maisun/Kelas 1'; // folder tempat semua kategori berada
+// =================================================================
+
+const COLOR_PALETTE = [
+  {border:'#ffe3a3', bg:'#fff3d6'}, // kuning
+  {border:'#ffe3ec', bg:'#ffe3ec'}, // pink
+  {border:'#d8f5e6', bg:'#d8f5e6'}, // hijau
+  {border:'#e1f0ff', bg:'#e1f0ff'}, // biru
+  {border:'#ece5fb', bg:'#ece5fb'}, // ungu
+];
+const ICON_PALETTE = ['📘','🔢','🌍','🎵','🎨','🏃','🔤','🧪','🌱','⭐'];
+
+function colorFor(name){
+  let hash = 0;
+  for(let i=0;i<name.length;i++) hash = name.charCodeAt(i) + ((hash<<5)-hash);
+  const idx = Math.abs(hash) % COLOR_PALETTE.length;
+  const icon = ICON_PALETTE[Math.abs(hash) % ICON_PALETTE.length];
+  return {...COLOR_PALETTE[idx], icon};
+}
+
+function niceName(filename){
+  return filename
+    .replace(/\.html$/i, '')
+    .replace(/[-_]/g, ' ')
+    .replace(/\b\w/g, c => c.toUpperCase());
+}
+
+async function loadTree(){
+  const statusEl = document.getElementById('status');
+  const foldersEl = document.getElementById('folders');
+  try{
+    const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/git/trees/main?recursive=1`);
+    if(!res.ok) throw new Error('Gagal mengambil data dari GitHub (status ' + res.status + ')');
+    const data = await res.json();
+
+    const prefix = BASE_PATH + '/';
+    const files = data.tree.filter(item =>
+      item.type === 'blob' &&
+      item.path.startsWith(prefix) &&
+      item.path.toLowerCase().endsWith('.html')
+    );
+
+    const categories = {};
+    files.forEach(f => {
+      const rel = f.path.slice(prefix.length); // contoh: "B Indonesia/lkpd-vokal-konsonan.html"
+      const parts = rel.split('/');
+      if(parts.length < 2) return; // lewati file yang tidak ada di dalam subfolder kategori
+      const cat = parts[0];
+      const filename = parts[parts.length - 1];
+      if(!categories[cat]) categories[cat] = [];
+      categories[cat].push({ filename, path: f.path });
+    });
+
+    const catNames = Object.keys(categories).sort();
+
+    if(catNames.length === 0){
+      statusEl.textContent = 'Belum ada soal yang ditemukan. Upload file .html ke dalam folder kategori di dalam "' + BASE_PATH + '".';
+      return;
+    }
+
+    statusEl.style.display = 'none';
+    foldersEl.innerHTML = '';
+
+    catNames.forEach(cat => {
+      const color = colorFor(cat);
+      const items = categories[cat].sort((a,b) => a.filename.localeCompare(b.filename));
+
+      const div = document.createElement('div');
+      div.className = 'folder';
+      div.style.borderColor = color.border;
+      div.style.background = color.bg;
+
+      const fileItems = items.map(it => `
+        <a class="file-item" href="${encodeURI(it.path)}">
+          <span class="fi-icon">📝</span>
+          <span>${niceName(it.filename)}</span>
+          <span class="fi-arrow">›</span>
+        </a>
+      `).join('');
+
+      div.innerHTML = `
+        <div class="folder-head">
+          <div class="folder-icon">${color.icon}</div>
+          <div>
+            <h2>${cat}</h2>
+            <span>${items.length} soal</span>
+          </div>
+        </div>
+        <div class="file-list">${fileItems}</div>
+      `;
+      foldersEl.appendChild(div);
+    });
+
+  } catch(err){
+    statusEl.style.display = 'none';
+    foldersEl.innerHTML = `<div class="error-box">⚠️ Tidak bisa memuat daftar soal otomatis.<br>${err.message}<br><br>Coba refresh halaman ini beberapa saat lagi.</div>`;
+  }
+}
+
+loadTree();
+</script>
 </body>
 </html>
