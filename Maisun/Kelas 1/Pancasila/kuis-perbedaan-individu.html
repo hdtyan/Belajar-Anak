@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuis Perbedaan Individu</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap');
+
+  :root{
+    --cream:#fff8ec;
+    --orange:#ff8a3d;
+    --orange-light:#ffe4cc;
+    --pink:#ff6f91;
+    --pink-light:#ffe3ec;
+    --green:#4caf7d;
+    --green-light:#d8f5e6;
+    --blue:#4d8fdb;
+    --blue-light:#e1f0ff;
+    --purple:#7d5fd4;
+    --purple-light:#ece5fb;
+    --red:#e6584f;
+    --ink:#3a2e2e;
+    --shadow:0 6px 0 rgba(0,0,0,0.06);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Nunito', sans-serif;
+    background:
+      radial-gradient(circle at 6% 8%, #ffe0c2 0, transparent 42%),
+      radial-gradient(circle at 94% 90%, #ffe3ec 0, transparent 42%),
+      var(--cream);
+    color:var(--ink);
+    padding:18px;
+  }
+  .sheet{ max-width:860px; margin:0 auto; }
+
+  header.title{
+    text-align:center;
+    background:#fff;
+    border-radius:28px;
+    padding:22px 18px 24px;
+    box-shadow:var(--shadow);
+    border:3px dashed var(--orange);
+  }
+  header.title .eyebrow{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    letter-spacing:2px;
+    color:var(--purple);
+    font-size:13px;
+    text-transform:uppercase;
+  }
+  header.title h1{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:clamp(24px, 6vw, 36px);
+    margin:6px 0 8px;
+    background:linear-gradient(90deg,#ff8a3d,#ff6f91,#7d5fd4);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  header.title .sub{
+    display:inline-block;
+    background:var(--pink);
+    color:#fff;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:600;
+    padding:6px 18px;
+    border-radius:999px;
+    font-size:13px;
+  }
+
+  .idbox{
+    margin-top:16px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    justify-content:center;
+  }
+  .idbox label{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .idbox input{
+    border:2px solid var(--orange-light);
+    background:var(--orange-light);
+    border-radius:10px;
+    padding:7px 10px;
+    font-family:'Nunito',sans-serif;
+    font-size:14px;
+    width:140px;
+    outline:none;
+  }
+  .idbox input:focus{ border-color:var(--orange); }
+
+  /* ===== CATATAN MATERI ===== */
+  .notes{
+    margin-top:18px;
+    background:#fff;
+    border-radius:22px;
+    padding:20px 18px 22px;
+    box-shadow:var(--shadow);
+    border:3px solid var(--purple-light);
+  }
+  .notes-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:6px;
+  }
+  .notes-badge{
+    font-size:20px;
+    background:var(--purple);
+    width:36px;height:36px;
+    border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    flex:none;
+  }
+  .notes-head h2{
+    font-family:'Baloo 2', sans-serif;
+    font-size:18px;
+    margin:0;
+    color:#5a3fa3;
+  }
+  .notes-title{
+    text-align:center;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:15px;
+    color:var(--pink);
+    background:var(--pink-light);
+    border-radius:999px;
+    padding:8px 14px;
+    margin:12px 0 14px;
+  }
+
+  .cat-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+  @media(min-width:640px){
+    .cat-grid{ grid-template-columns:1fr 1fr; }
+  }
+  .cat-card{
+    border-radius:16px;
+    padding:12px 14px;
+    border:2px solid;
+  }
+  .cat-card.c1{ border-color:#bfe8d3; background:#f1fbf6; }
+  .cat-card.c2{ border-color:#ffc9dc; background:#fff3f7; }
+  .cat-card.c3{ border-color:#b9d9f7; background:#f2f8ff; }
+  .cat-card.c4{ border-color:#ffd9a3; background:#fff8ef; }
+  .cat-card.c5{ border-color:#d4c3f5; background:#f8f5ff; }
+
+  .cat-card .cat-num{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:22px;height:22px;
+    border-radius:50%;
+    color:#fff;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:12px;
+    margin-right:6px;
+  }
+  .c1 .cat-num{ background:#3fb87e; }
+  .c2 .cat-num{ background:#ff5f8f; }
+  .c3 .cat-num{ background:#4d8fdb; }
+  .c4 .cat-num{ background:#ff9c3d; }
+  .c5 .cat-num{ background:#8a63d2; }
+
+  .cat-card h3{
+    font-family:'Baloo 2', sans-serif;
+    font-size:14.5px;
+    margin:0 0 4px;
+    display:inline;
+  }
+  .cat-card p{
+    font-size:13px;
+    margin:6px 0 0;
+    color:#5c4c4c;
+    line-height:1.5;
+  }
+
+  .anugerah{
+    text-align:center;
+    margin-top:12px;
+    background:var(--pink-light);
+    border-radius:14px;
+    padding:10px 14px;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    color:#b3416a;
+    font-size:14px;
+  }
+
+  .example-title{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:14.5px;
+    color:var(--orange);
+    margin:18px 0 8px;
+  }
+  .table-wrap{ overflow-x:auto; }
+  .ex-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+  }
+  .ex-table th{
+    font-family:'Baloo 2', sans-serif;
+    background:var(--orange-light);
+    color:#8a5a00;
+    text-align:left;
+    padding:8px 10px;
+    border-bottom:2px solid var(--orange);
+  }
+  .ex-table td{
+    padding:8px 10px;
+    border-bottom:1px solid #eee6de;
+  }
+  .ex-table tr:nth-child(odd) td{ background:#fffaf3; }
+  .ex-table td.answer{ font-weight:700; color:var(--green); }
+
+  .footnote{
+    text-align:center;
+    margin-top:14px;
+    font-size:13px;
+    font-style:italic;
+    color:#8a7a7a;
+  }
+
+  /* ===== KUIS ===== */
+  .qcard{
+    margin-top:16px;
+    background:#fff;
+    border-radius:22px;
+    padding:18px 18px 20px;
+    box-shadow:var(--shadow);
+    border:3px solid var(--orange-light);
+  }
+  .qhead{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    margin-bottom:14px;
+  }
+  .qnum{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    color:#fff;
+    background:var(--orange);
+    width:34px;height:34px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:16px;
+    flex:none;
+  }
+  .qtext{
+    font-family:'Baloo 2', sans-serif;
+    font-size:16px;
+    line-height:1.4;
+    padding-top:4px;
+  }
+
+  .options{ display:grid; gap:9px; }
+  .opt{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#fbfaf7;
+    border:2px solid #ece6df;
+    border-radius:14px;
+    padding:11px 14px;
+    cursor:pointer;
+    font-size:15px;
+    transition:all .15s ease;
+    touch-action:manipulation;
+  }
+  .opt:hover{ border-color:var(--orange); }
+  .opt .letter{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    width:26px;height:26px;
+    border-radius:50%;
+    background:#e9e4dd;
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;
+    flex:none;
+  }
+  .opt.selected{ border-color:var(--orange); background:var(--orange-light); }
+  .opt.selected .letter{ background:var(--orange); color:#fff; }
+  .opt.correct{ border-color:var(--green); background:#e7f6ee; }
+  .opt.correct .letter{ background:var(--green); color:#fff; }
+  .opt.wrong{ border-color:var(--red); background:#fdeceb; }
+  .opt.wrong .letter{ background:var(--red); color:#fff; }
+  .opt .mark{ margin-left:auto; font-size:17px; display:none; }
+
+  .controls{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    margin-top:24px;
+    flex-wrap:wrap;
+  }
+  .btn-main{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:16px;
+    padding:13px 30px;
+    border-radius:999px;
+    border:none;
+    cursor:pointer;
+    color:#fff;
+    box-shadow:0 4px 0 rgba(0,0,0,0.12);
+    touch-action:manipulation;
+  }
+  .btn-check{ background:linear-gradient(90deg,var(--orange),var(--pink)); }
+  .btn-reset{ background:#b9b1b1; }
+  .btn-main:active{ transform:translateY(2px); box-shadow:0 2px 0 rgba(0,0,0,0.12); }
+
+  .score-panel{
+    display:none;
+    margin-top:20px;
+    text-align:center;
+    background:#ffd166;
+    color:#4a3300;
+    border-radius:20px;
+    padding:18px;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:18px;
+  }
+  .score-panel .big{ font-size:30px; display:block; margin-bottom:4px;}
+
+  footer.foot{
+    text-align:center;
+    margin:26px 0 6px;
+    font-family:'Baloo 2', sans-serif;
+    color:var(--purple);
+    font-weight:700;
+    font-size:15px;
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="title">
+    <div class="eyebrow">Ringkasan Materi & Kuis Interaktif</div>
+    <h1>🤝 Perbedaan Individu</h1>
+    <div class="sub">Pendidikan Pancasila · Kelas 1 SD</div>
+    <div class="idbox">
+      <label>Nama: <input type="text" id="nama" placeholder="tulis namamu"></label>
+      <label>Kelas: <input type="text" id="kelas" placeholder="1A" style="width:70px"></label>
+      <label>No. Absen: <input type="text" id="absen" placeholder="00" style="width:70px"></label>
+    </div>
+  </header>
+
+  <!-- ===== CATATAN MATERI ===== -->
+  <section class="notes">
+    <div class="notes-head">
+      <div class="notes-badge">📝</div>
+      <h2>Catatan Materi</h2>
+    </div>
+    <div class="notes-title">Setiap orang itu unik — kita semua punya perbedaan!</div>
+
+    <div class="cat-grid">
+      <div class="cat-card c1">
+        <h3><span class="cat-num">1</span>Perbedaan Ciri Fisik / Ciri Tubuh</h3>
+        <p>Contoh: bentuk tubuh (gemuk, kurus, sedang), warna &amp; bentuk rambut, warna kulit, bentuk hidung, bentuk mata, jenis kelamin (laki-laki &amp; perempuan).</p>
+      </div>
+      <div class="cat-card c2">
+        <h3><span class="cat-num">2</span>Perbedaan Sifat</h3>
+        <p>Contoh: pemarah, penyabar, pemalu, suka bercerita, pemaaf, dan lain-lain.</p>
+      </div>
+      <div class="cat-card c3">
+        <h3><span class="cat-num">3</span>Perbedaan Agama / Keyakinan</h3>
+        <p>Contoh: agama Islam, Kristen, Katolik, Hindu, Buddha, Konghucu.</p>
+      </div>
+      <div class="cat-card c4">
+        <h3><span class="cat-num">4</span>Perbedaan Hobi / Kegemaran</h3>
+        <p>Contoh: suka berolahraga, menyanyi, melukis, bermain musik, membaca, dan lain-lain.</p>
+      </div>
+      <div class="cat-card c5">
+        <h3><span class="cat-num">5</span>Perbedaan Suku</h3>
+        <p>Contoh: suku Jawa, Sunda, Batak, Madura, dan lain-lain.</p>
+      </div>
+    </div>
+
+    <div class="anugerah">💗 Perbedaan adalah anugerah Allah. Walaupun berbeda-beda, kita harus saling menghormati, menghargai, dan tidak membeda-bedakan teman.</div>
+
+    <div class="example-title">Contoh dari Papan Tulis</div>
+    <div class="table-wrap">
+      <table class="ex-table">
+        <thead>
+          <tr><th>No</th><th>Contoh Kalimat</th><th>Jenis Perbedaan</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Beni berambut lurus, Edo berambut keriting</td><td class="answer">Ciri Fisik</td></tr>
+          <tr><td>2</td><td>Lani suka bermain piano, Kiya suka menggambar</td><td class="answer">Hobi</td></tr>
+          <tr><td>3</td><td>Sita anak pendiam, Doni banyak bicara</td><td class="answer">Sifat</td></tr>
+          <tr><td>4</td><td>Yusuf beragama Islam, Soni beragama Kristen</td><td class="answer">Agama</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="footnote">Bacalah catatan di atas dulu sebelum mengerjakan soal di bawah ini ya!</div>
+  </section>
+
+  <!-- ===== KUIS ===== -->
+  <div id="quizArea"></div>
+
+  <div class="controls">
+    <button class="btn-main btn-check" onclick="checkAnswers()">✅ Periksa Jawaban</button>
+    <button class="btn-main btn-reset" onclick="newSoal()">🔄 Ulangi</button>
+  </div>
+
+  <div class="score-panel" id="scorePanel">
+    <span class="big" id="scoreBig"></span>
+    <span id="scoreMsg"></span>
+  </div>
+
+  <footer class="foot">🌟 Walaupun berbeda, kita tetap saling menyayangi! 🌟</footer>
+</div>
+
+<script>
+const QUESTION_BANK = [
+  {
+    text: 'Beni berambut lurus, Edo berambut keriting. Mereka memiliki perbedaan ....',
+    options: ['ciri fisik', 'sifat', 'agama', 'hobi'],
+    correct: 0
+  },
+  {
+    text: 'Lani suka bermain piano, Kiya suka menggambar. Lani dan Kiya berbeda ....',
+    options: ['sifat', 'hobi', 'suku', 'agama'],
+    correct: 1
+  },
+  {
+    text: 'Sita anak pendiam, Doni banyak bicara. Mereka berbeda ....',
+    options: ['hobi', 'agama', 'sifat', 'ciri fisik'],
+    correct: 2
+  },
+  {
+    text: 'Yusuf beragama Islam, Soni beragama Kristen. Mereka berbeda ....',
+    options: ['suku', 'agama', 'sifat', 'hobi'],
+    correct: 1
+  },
+  {
+    text: 'Perbedaan warna kulit, bentuk rambut, dan bentuk mata termasuk perbedaan ....',
+    options: ['ciri fisik', 'sifat', 'hobi', 'suku'],
+    correct: 0
+  },
+  {
+    text: 'Contoh perbedaan sifat adalah ....',
+    options: ['suka menyanyi', 'pemarah dan penyabar', 'suku Jawa', 'beragama Islam'],
+    correct: 1
+  },
+  {
+    text: 'Agama yang ada di Indonesia antara lain Islam, Kristen, Katolik, Hindu, Buddha, dan ....',
+    options: ['Konghucu', 'Protestan', 'Animisme', 'Ateisme'],
+    correct: 0
+  },
+  {
+    text: 'Contoh perbedaan hobi/kegemaran adalah ....',
+    options: ['pemalu', 'suku Sunda', 'bermain musik', 'beragama Hindu'],
+    correct: 2
+  },
+  {
+    text: 'Suku Jawa, Sunda, Batak, dan Madura adalah contoh perbedaan ....',
+    options: ['suku', 'sifat', 'hobi', 'ciri fisik'],
+    correct: 0
+  },
+  {
+    text: 'Perbedaan bentuk tubuh seperti gemuk, kurus, dan sedang termasuk perbedaan ....',
+    options: ['suku', 'ciri fisik', 'hobi', 'agama'],
+    correct: 1
+  },
+  {
+    text: 'Sikap yang tepat terhadap teman yang berbeda suku, agama, atau hobi adalah ....',
+    options: ['menjauhinya', 'mengejeknya', 'saling menghormati', 'tidak mau berteman'],
+    correct: 2
+  },
+  {
+    text: 'Menurut catatan materi, perbedaan adalah ....',
+    options: ['hal yang harus dihindari', 'anugerah Allah', 'suatu kesalahan', 'sesuatu yang buruk'],
+    correct: 1
+  },
+  {
+    text: 'Contoh perbedaan berdasarkan jenis kelamin adalah ....',
+    options: ['laki-laki dan perempuan', 'Islam dan Kristen', 'Jawa dan Sunda', 'pemarah dan penyabar'],
+    correct: 0
+  },
+  {
+    text: 'Meskipun berbeda-beda, kita harus saling ... satu sama lain.',
+    options: ['membeda-bedakan', 'menghormati dan menghargai', 'menjauhi', 'mengejek'],
+    correct: 1
+  },
+  {
+    text: 'Perbedaan warna dan bentuk rambut merupakan contoh perbedaan ....',
+    options: ['sifat', 'ciri fisik', 'agama', 'suku'],
+    correct: 1
+  }
+];
+
+const LETTERS = ['A','B','C','D'];
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+let currentQuiz = [];
+
+function buildQuiz(){
+  const shuffledQuestions = shuffle(QUESTION_BANK);
+  return shuffledQuestions.map(q => {
+    const optObjs = q.options.map((opt, i) => ({ label: opt, isCorrect: i === q.correct }));
+    const shuffledOpts = shuffle(optObjs);
+    return { text: q.text, options: shuffledOpts, answered: null };
+  });
+}
+
+function renderQuiz(){
+  const area = document.getElementById('quizArea');
+  area.innerHTML = '';
+  currentQuiz.forEach((q, qi) => {
+    const card = document.createElement('div');
+    card.className = 'qcard';
+    const optsHtml = q.options.map((opt, oi) => `
+      <div class="opt" id="opt${qi}-${oi}" onclick="selectOpt(${qi},${oi})">
+        <span class="letter">${LETTERS[oi]}</span>
+        <span>${opt.label}</span>
+        <span class="mark" id="mark${qi}-${oi}"></span>
+      </div>
+    `).join('');
+    card.innerHTML = `
+      <div class="qhead">
+        <div class="qnum">${qi+1}</div>
+        <div class="qtext">${q.text}</div>
+      </div>
+      <div class="options">${optsHtml}</div>
+    `;
+    area.appendChild(card);
+  });
+}
+
+function selectOpt(qi, oi){
+  currentQuiz[qi].answered = oi;
+  currentQuiz[qi].options.forEach((_, i) => {
+    document.getElementById(`opt${qi}-${i}`).classList.remove('selected');
+  });
+  document.getElementById(`opt${qi}-${oi}`).classList.add('selected');
+}
+
+function checkAnswers(){
+  let correctCount = 0;
+  currentQuiz.forEach((q, qi) => {
+    q.options.forEach((opt, oi) => {
+      const el = document.getElementById(`opt${qi}-${oi}`);
+      const mark = document.getElementById(`mark${qi}-${oi}`);
+      el.classList.remove('correct','wrong');
+      mark.style.display = 'none';
+      mark.textContent = '';
+      if(opt.isCorrect){
+        el.classList.add('correct');
+        mark.style.display = 'inline';
+        mark.textContent = '✅';
+      } else if(q.answered === oi){
+        el.classList.add('wrong');
+        mark.style.display = 'inline';
+        mark.textContent = '❌';
+      }
+    });
+    if(q.answered !== null && q.options[q.answered].isCorrect) correctCount++;
+  });
+
+  const total = currentQuiz.length;
+  const panel = document.getElementById('scorePanel');
+  const big = document.getElementById('scoreBig');
+  const msg = document.getElementById('scoreMsg');
+  panel.style.display = 'block';
+  big.textContent = `Skor: ${correctCount} / ${total}`;
+
+  let text;
+  if(correctCount === total) text = '🎉 Sempurna! Kamu hebat sekali!';
+  else if(correctCount >= total*0.7) text = '👏 Bagus sekali, terus semangat belajar!';
+  else if(correctCount >= total*0.4) text = '💪 Sudah lumayan, ayo coba lagi ya!';
+  else text = '📚 Yuk baca lagi catatan materinya, kamu pasti bisa!';
+  msg.textContent = text;
+
+  panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function newSoal(){
+  currentQuiz = buildQuiz();
+  renderQuiz();
+  document.getElementById('scorePanel').style.display = 'none';
+}
+
+newSoal();
+</script>
+</body>
+</html>
