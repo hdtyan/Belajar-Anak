@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bank Soal Interaktif - Belajar Anak</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap');
+
+  :root{
+    --cream:#fff8ec;
+    --pink:#ff7fa8;
+    --pink-light:#ffe3ec;
+    --blue:#4d8fdb;
+    --blue-light:#e1f0ff;
+    --green:#2fb573;
+    --green-light:#d8f5e6;
+    --yellow:#ffc94d;
+    --yellow-light:#fff3d6;
+    --purple:#7d5fd4;
+    --purple-light:#ece5fb;
+    --ink:#3a2e2e;
+    --shadow:0 6px 0 rgba(0,0,0,0.06);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Nunito', sans-serif;
+    background:
+      radial-gradient(circle at 6% 8%, #ffe0c2 0, transparent 42%),
+      radial-gradient(circle at 94% 90%, #d6f3ef 0, transparent 42%),
+      var(--cream);
+    color:var(--ink);
+    padding:20px;
+  }
+  .wrap{ max-width:900px; margin:0 auto; }
+
+  header{
+    text-align:center;
+    background:#fff;
+    border-radius:28px;
+    padding:26px 18px;
+    box-shadow:var(--shadow);
+    border:3px dashed var(--pink);
+  }
+  header .eyebrow{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    letter-spacing:2px;
+    color:var(--purple);
+    font-size:13px;
+    text-transform:uppercase;
+  }
+  header h1{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:clamp(26px, 6vw, 38px);
+    margin:8px 0 6px;
+    background:linear-gradient(90deg,#ff7fa8,#ffc94d,#4d8fdb,#2fb573);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  header p{
+    font-size:14.5px;
+    color:#7a6a6a;
+    margin:6px 0 0;
+  }
+
+  .folders{
+    margin-top:24px;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+  @media(min-width:640px){
+    .folders{ grid-template-columns:1fr 1fr; }
+  }
+
+  .folder{
+    background:#fff;
+    border-radius:22px;
+    padding:18px 18px 16px;
+    box-shadow:var(--shadow);
+    border:3px solid;
+  }
+  .folder.mtk{ border-color:var(--yellow-light); background:var(--yellow-light); }
+  .folder.bindo{ border-color:var(--pink-light); background:var(--pink-light); }
+  .folder.bing{ border-color:var(--green-light); background:var(--green-light); }
+  .folder.sbdp{ border-color:var(--purple-light); background:var(--purple-light); }
+
+  .folder-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:12px;
+  }
+  .folder-icon{
+    font-size:26px;
+    width:44px; height:44px;
+    background:#fff;
+    border-radius:14px;
+    display:flex; align-items:center; justify-content:center;
+    flex:none;
+    box-shadow:0 2px 0 rgba(0,0,0,0.06);
+  }
+  .folder-head h2{
+    font-family:'Baloo 2', sans-serif;
+    font-size:17px;
+    margin:0;
+  }
+  .folder-head span{
+    display:block;
+    font-size:12px;
+    color:#8a7a7a;
+    font-weight:600;
+  }
+
+  .file-list{ display:grid; gap:8px; }
+  .file-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#fff;
+    border-radius:14px;
+    padding:11px 13px;
+    text-decoration:none;
+    color:var(--ink);
+    font-size:14.5px;
+    font-weight:600;
+    transition:transform .12s ease;
+  }
+  .file-item:hover{ transform:translateX(3px); }
+  .file-item .fi-icon{ font-size:18px; flex:none; }
+  .file-item .fi-arrow{ margin-left:auto; color:#bbb; }
+
+  footer{
+    text-align:center;
+    margin:26px 0 6px;
+    font-family:'Baloo 2', sans-serif;
+    color:var(--purple);
+    font-weight:700;
+    font-size:14px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Bank Soal Interaktif</div>
+    <h1>📚 Belajar Anak - Kelas 1</h1>
+    <p>Ketuk kategori di bawah, lalu pilih soal yang ingin dikerjakan. Semua soal terbuka langsung di browser, tidak perlu download.</p>
+  </header>
+
+  <div class="folders">
+
+    <div class="folder mtk">
+      <div class="folder-head">
+        <div class="folder-icon">🔢</div>
+        <div>
+          <h2>Matematika</h2>
+          <span>1 soal</span>
+        </div>
+      </div>
+      <div class="file-list">
+        <a class="file-item" href="Maisun/Kelas 1/Matematika/lkpd-matematika-perbandingan.html">
+          <span class="fi-icon">📝</span>
+          <span>Membandingkan Banyak Benda & Bilangan</span>
+          <span class="fi-arrow">›</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="folder bindo">
+      <div class="folder-head">
+        <div class="folder-icon">🔤</div>
+        <div>
+          <h2>Bahasa Indonesia</h2>
+          <span>1 soal</span>
+        </div>
+      </div>
+      <div class="file-list">
+        <a class="file-item" href="Maisun/Kelas 1/B Indonesia/lkpd-vokal-konsonan.html">
+          <span class="fi-icon">📝</span>
+          <span>Huruf Vokal & Konsonan</span>
+          <span class="fi-arrow">›</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="folder bing">
+      <div class="folder-head">
+        <div class="folder-icon">🌍</div>
+        <div>
+          <h2>Bahasa Inggris</h2>
+          <span>1 soal</span>
+        </div>
+      </div>
+      <div class="file-list">
+        <a class="file-item" href="Maisun/Kelas 1/B Inggris/kuis-greeting-response.html">
+          <span class="fi-icon">📝</span>
+          <span>Greeting & Response</span>
+          <span class="fi-arrow">›</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="folder sbdp">
+      <div class="folder-head">
+        <div class="folder-icon">🎵</div>
+        <div>
+          <h2>Seni Musik</h2>
+          <span>1 soal</span>
+        </div>
+      </div>
+      <div class="file-list">
+        <a class="file-item" href="Maisun/Kelas 1/Seni Musik/kuis-irama-anggota-tubuh.html">
+          <span class="fi-icon">📝</span>
+          <span>Irama Anggota Tubuh</span>
+          <span class="fi-arrow">›</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>🌟 Belajar dengan semangat, prestasi pun akan hebat! 🌟</footer>
+</div>
+</body>
+</html>
