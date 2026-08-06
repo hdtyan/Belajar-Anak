@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LKPD Matematika - Membandingkan Banyak Benda & Bilangan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap');
+
+  :root{
+    --cream:#fffaf0;
+    --pink:#ff6f91;
+    --pink-light:#ffe3ec;
+    --blue:#4d8fdb;
+    --blue-light:#e1f0ff;
+    --yellow:#ffb703;
+    --green:#4caf7d;
+    --purple:#8a63d2;
+    --ink:#3a2e2e;
+    --card-shadow: 0 6px 0 rgba(0,0,0,0.06);
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    font-family:'Nunito', sans-serif;
+    background:
+      radial-gradient(circle at 8% 12%, #ffe9c7 0, transparent 40%),
+      radial-gradient(circle at 92% 85%, #d9f2ff 0, transparent 40%),
+      var(--cream);
+    color:var(--ink);
+    padding:18px;
+  }
+
+  .sheet{
+    max-width:900px;
+    margin:0 auto;
+  }
+
+  header.title{
+    text-align:center;
+    background:#fff;
+    border-radius:28px;
+    padding:22px 18px 26px;
+    box-shadow:var(--card-shadow);
+    border:3px dashed var(--pink);
+    position:relative;
+    overflow:hidden;
+  }
+
+  header.title .eyebrow{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    letter-spacing:2px;
+    color:var(--purple);
+    font-size:14px;
+    text-transform:uppercase;
+  }
+
+  header.title h1{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:clamp(28px, 6vw, 42px);
+    margin:6px 0 8px;
+    background:linear-gradient(90deg,#ff6f91,#ffb703,#4d8fdb,#4caf7d);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    letter-spacing:1px;
+  }
+
+  header.title .sub{
+    display:inline-block;
+    background:var(--purple);
+    color:#fff;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:600;
+    padding:6px 18px;
+    border-radius:999px;
+    font-size:13px;
+  }
+
+  .idbox{
+    margin-top:18px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    justify-content:center;
+  }
+  .idbox label{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    color:var(--ink);
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .idbox input{
+    border:2px solid var(--pink-light);
+    background:var(--pink-light);
+    border-radius:10px;
+    padding:7px 10px;
+    font-family:'Nunito',sans-serif;
+    font-size:14px;
+    width:150px;
+    outline:none;
+  }
+  .idbox input:focus{ border-color:var(--pink); }
+
+  section.block{
+    margin-top:22px;
+    background:#fff;
+    border-radius:24px;
+    padding:20px 18px 26px;
+    box-shadow:var(--card-shadow);
+  }
+  section.block.a{ border:3px solid var(--pink-light); }
+  section.block.b{ border:3px solid var(--blue-light); }
+
+  .block-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:6px;
+  }
+  .block-badge{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    color:#fff;
+    width:34px;height:34px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:17px;
+    flex:none;
+  }
+  .a .block-badge{ background:var(--pink); }
+  .b .block-badge{ background:var(--blue); }
+
+  .block-header h2{
+    font-family:'Baloo 2', sans-serif;
+    font-size:19px;
+    margin:0;
+    color:var(--ink);
+  }
+
+  .instruction{
+    font-size:14.5px;
+    line-height:1.5;
+    margin:6px 0 18px;
+    color:#5c4c4c;
+  }
+  .instruction b.opt1{ color:var(--pink); }
+  .instruction b.opt2{ color:var(--blue); }
+  .instruction b.opt3{ color:var(--green); }
+
+  /* Section A items */
+  .item-a{
+    display:grid;
+    grid-template-columns:38px 1fr 1fr;
+    grid-template-rows:auto auto;
+    gap:6px 10px;
+    align-items:center;
+    padding:14px 10px;
+    border-radius:16px;
+    margin-bottom:12px;
+    background:#fffdf9;
+  }
+  .item-a:nth-child(odd){ background:#fff7fb; }
+
+  .num-badge{
+    grid-row:1 / 3;
+    background:var(--pink);
+    color:#fff;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    width:32px;height:32px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:15px;
+  }
+
+  .item-a .group{
+    background:#fff;
+    border:2px solid var(--pink-light);
+    border-radius:14px;
+    padding:10px 8px;
+    text-align:center;
+    font-size:26px;
+    letter-spacing:4px;
+    min-height:52px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .item-a .answer-row{
+    grid-column:1 / 4;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:8px;
+  }
+
+  .item-a .connector-label{
+    font-family:'Baloo 2', sans-serif;
+    font-size:13px;
+    color:#8a7a7a;
+    margin:0 2px;
+  }
+
+  .choice-btn{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:600;
+    font-size:12.5px;
+    border:2px solid #e5dede;
+    background:#fff;
+    color:#6b5b5b;
+    border-radius:999px;
+    padding:7px 12px;
+    cursor:pointer;
+    transition:all .15s ease;
+    touch-action:manipulation;
+  }
+  .choice-btn:hover{ transform:translateY(-1px); }
+  .choice-btn.sel-more{ border-color:var(--pink); }
+  .choice-btn.sel-less{ border-color:var(--blue); }
+  .choice-btn.sel-equal{ border-color:var(--green); }
+  .choice-btn.active.sel-more{ background:var(--pink); color:#fff; }
+  .choice-btn.active.sel-less{ background:var(--blue); color:#fff; }
+  .choice-btn.active.sel-equal{ background:var(--green); color:#fff; }
+
+  .feedback-icon{
+    font-size:18px;
+    margin-left:4px;
+    display:none;
+  }
+
+  /* Section B */
+  .grid-b{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+  @media(min-width:640px){
+    .grid-b{ grid-template-columns:1fr 1fr; }
+  }
+
+  .item-b{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:#f7fbff;
+    border-radius:14px;
+    padding:10px 12px;
+    flex-wrap:wrap;
+  }
+  .item-b:nth-child(odd){ background:#f4f9ff; }
+
+  .item-b .num-badge{ background:var(--blue); width:28px;height:28px;font-size:13px; }
+
+  .item-b .numbox{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:19px;
+    background:#fff;
+    border:2px solid var(--blue-light);
+    border-radius:10px;
+    padding:6px 14px;
+    min-width:40px;
+    text-align:center;
+  }
+
+  .item-b .symbol-choices{
+    display:flex;
+    gap:5px;
+    flex:1;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+
+  .sym-btn{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:16px;
+    width:36px;height:36px;
+    border-radius:10px;
+    border:2px solid #dbe7f5;
+    background:#fff;
+    color:#5b6b7b;
+    cursor:pointer;
+    touch-action:manipulation;
+  }
+  .sym-btn.active{ background:var(--blue); color:#fff; border-color:var(--blue); }
+
+  .item-b .fb{ font-size:17px; display:none; }
+
+  /* controls */
+  .controls{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    margin-top:26px;
+    flex-wrap:wrap;
+  }
+  .btn-main{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:16px;
+    padding:13px 30px;
+    border-radius:999px;
+    border:none;
+    cursor:pointer;
+    color:#fff;
+    box-shadow:0 4px 0 rgba(0,0,0,0.12);
+    touch-action:manipulation;
+  }
+  .btn-check{ background:linear-gradient(90deg,var(--pink),var(--purple)); }
+  .btn-reset{ background:#b9b1b1; }
+  .btn-main:active{ transform:translateY(2px); box-shadow:0 2px 0 rgba(0,0,0,0.12); }
+
+  .score-panel{
+    display:none;
+    margin-top:20px;
+    text-align:center;
+    background:var(--yellow);
+    color:#4a3300;
+    border-radius:20px;
+    padding:16px;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:18px;
+  }
+  .score-panel .big{ font-size:30px; display:block; margin-bottom:4px;}
+
+  footer.foot{
+    text-align:center;
+    margin:26px 0 6px;
+    font-family:'Baloo 2', sans-serif;
+    color:var(--purple);
+    font-weight:700;
+    font-size:15px;
+  }
+
+  .hint{
+    font-size:12px;
+    color:#a99;
+    text-align:center;
+    margin-top:4px;
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="title">
+    <div class="eyebrow">Lembar Kerja Peserta Didik</div>
+    <h1>MATEMATIKA</h1>
+    <div class="sub">Kelas 1 SD · Membandingkan Banyak Benda & Bilangan</div>
+    <div class="idbox">
+      <label>Nama: <input type="text" id="nama" placeholder="tulis namamu"></label>
+      <label>Kelas: <input type="text" id="kelas" placeholder="1A" style="width:70px"></label>
+      <label>No. Absen: <input type="text" id="absen" placeholder="00" style="width:70px"></label>
+    </div>
+  </header>
+
+  <section class="block a">
+    <div class="block-header">
+      <div class="block-badge">A</div>
+      <h2>Membandingkan Banyak Benda</h2>
+    </div>
+    <div class="instruction">
+      Perhatikan gambar di setiap soal, lalu ketuk pilihan yang tepat:
+      <b class="opt1">lebih banyak dari</b>, <b class="opt2">lebih sedikit dari</b>, atau <b class="opt3">sama banyak dengan</b>.
+    </div>
+    <div id="sectionA"></div>
+  </section>
+
+  <section class="block b">
+    <div class="block-header">
+      <div class="block-badge">B</div>
+      <h2>Membandingkan Bilangan</h2>
+    </div>
+    <div class="instruction">
+      Ketuk tanda yang tepat: <b>&gt;</b> (lebih dari), <b>&lt;</b> (kurang dari), atau <b>=</b> (sama dengan).
+    </div>
+    <div class="grid-b" id="sectionB"></div>
+  </section>
+
+  <div class="controls">
+    <button class="btn-main btn-check" onclick="checkAnswers()">✅ Periksa Jawaban</button>
+    <button class="btn-main btn-reset" onclick="resetAll()">🔄 Ulangi</button>
+  </div>
+
+  <div class="score-panel" id="scorePanel">
+    <span class="big" id="scoreBig"></span>
+    <span id="scoreMsg"></span>
+  </div>
+
+  <footer class="foot">🌟 Semangat Belajar! 🌟</footer>
+</div>
+
+<script>
+// ---------- HELPERS ----------
+function relationOf(l, r){
+  if(l > r) return 'more';
+  if(l < r) return 'less';
+  return 'equal';
+}
+function randInt(min, max){
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const EMOJI_POOL = ['🍎','⭐','🎈','🥕','🍦','🍓','🐟','🌸','🍩','🐝','🚗','🦋'];
+
+let dataA = [];
+let dataB = [];
+let answersA = [];
+let answersB = [];
+
+// ---------- GENERATORS ----------
+// Section A: 5 soal, kombinasi acak relasi (lebih banyak / lebih sedikit / sama),
+// jumlah benda antara 1-6 per sisi biar mudah dihitung & digambar di layar.
+function generateDataA(){
+  const emojis = shuffle(EMOJI_POOL).slice(0, 5);
+  // pastikan variasi relasi: campuran more/less/equal, tidak semuanya sama
+  const relPool = shuffle(['more','less','equal','more','less']);
+  return emojis.map((emoji, i) => {
+    const rel = relPool[i];
+    let left, right;
+    if(rel === 'equal'){
+      left = randInt(2, 6);
+      right = left;
+    } else if(rel === 'more'){
+      right = randInt(1, 5);
+      left = randInt(right + 1, Math.min(right + 4, 7));
+    } else { // less
+      left = randInt(1, 5);
+      right = randInt(left + 1, Math.min(left + 4, 7));
+    }
+    return {emoji, left, right};
+  });
+}
+
+// Section B: 10 soal bilangan 1-10, campuran relasi
+function generateDataB(){
+  const relPool = shuffle([
+    'more','more','more','more',
+    'less','less','less','less',
+    'equal','equal'
+  ]);
+  return relPool.map(rel => {
+    let left, right;
+    if(rel === 'equal'){
+      left = randInt(1, 10);
+      right = left;
+    } else if(rel === 'more'){
+      right = randInt(1, 9);
+      left = randInt(right + 1, 10);
+    } else { // less
+      left = randInt(1, 9);
+      right = randInt(left + 1, 10);
+    }
+    return [left, right];
+  });
+}
+
+// ---------- RENDER ----------
+function renderSectionA(){
+  const secA = document.getElementById('sectionA');
+  secA.innerHTML = '';
+  dataA.forEach((d, i) => {
+    const div = document.createElement('div');
+    div.className = 'item-a';
+    div.innerHTML = `
+      <div class="num-badge">${i+1}</div>
+      <div class="group">${d.emoji.repeat(d.left)}</div>
+      <div class="group">${d.emoji.repeat(d.right)}</div>
+      <div class="answer-row" data-index="${i}">
+        <button class="choice-btn sel-more" data-val="more" onclick="selectA(${i},'more',this)">lebih banyak dari</button>
+        <button class="choice-btn sel-less" data-val="less" onclick="selectA(${i},'less',this)">lebih sedikit dari</button>
+        <button class="choice-btn sel-equal" data-val="equal" onclick="selectA(${i},'equal',this)">sama banyak dengan</button>
+        <span class="feedback-icon" id="fbA${i}"></span>
+      </div>
+    `;
+    secA.appendChild(div);
+  });
+}
+
+function renderSectionB(){
+  const secB = document.getElementById('sectionB');
+  secB.innerHTML = '';
+  dataB.forEach((pair, i) => {
+    const div = document.createElement('div');
+    div.className = 'item-b';
+    div.innerHTML = `
+      <div class="num-badge">${i+1}</div>
+      <div class="numbox">${pair[0]}</div>
+      <div class="symbol-choices" data-index="${i}">
+        <button class="sym-btn" data-val="more" onclick="selectB(${i},'more',this)">&gt;</button>
+        <button class="sym-btn" data-val="less" onclick="selectB(${i},'less',this)">&lt;</button>
+        <button class="sym-btn" data-val="equal" onclick="selectB(${i},'equal',this)">=</button>
+      </div>
+      <div class="numbox">${pair[1]}</div>
+      <span class="fb" id="fbB${i}"></span>
+    `;
+    secB.appendChild(div);
+  });
+}
+
+function selectA(i, val, btn){
+  answersA[i] = val;
+  const row = btn.parentElement;
+  row.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function selectB(i, val, btn){
+  answersB[i] = val;
+  const row = btn.parentElement;
+  row.querySelectorAll('.sym-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ---------- SETUP / RESET ----------
+function newSoal(){
+  dataA = generateDataA();
+  dataB = generateDataB();
+  answersA = new Array(dataA.length).fill(null);
+  answersB = new Array(dataB.length).fill(null);
+  renderSectionA();
+  renderSectionB();
+  document.getElementById('scorePanel').style.display = 'none';
+}
+
+// ---------- CHECK ----------
+function checkAnswers(){
+  let correct = 0;
+  const total = dataA.length + dataB.length;
+
+  dataA.forEach((d,i) => {
+    const correctRel = relationOf(d.left, d.right);
+    const fb = document.getElementById('fbA'+i);
+    fb.style.display = 'inline';
+    if(answersA[i] === correctRel){
+      fb.textContent = '✅';
+      correct++;
+    } else if(answersA[i] === null){
+      fb.textContent = '❔';
+    } else {
+      fb.textContent = '❌';
+    }
+  });
+
+  dataB.forEach((pair,i) => {
+    const correctRel = relationOf(pair[0], pair[1]);
+    const fb = document.getElementById('fbB'+i);
+    fb.style.display = 'inline';
+    if(answersB[i] === correctRel){
+      fb.textContent = '✅';
+      correct++;
+    } else if(answersB[i] === null){
+      fb.textContent = '❔';
+    } else {
+      fb.textContent = '❌';
+    }
+  });
+
+  const panel = document.getElementById('scorePanel');
+  const big = document.getElementById('scoreBig');
+  const msg = document.getElementById('scoreMsg');
+  panel.style.display = 'block';
+  big.textContent = `Skor: ${correct} / ${total}`;
+
+  let text;
+  if(correct === total) text = '🎉 Sempurna! Kamu hebat sekali!';
+  else if(correct >= total*0.7) text = '👏 Bagus sekali, terus semangat belajar!';
+  else if(correct >= total*0.4) text = '💪 Sudah lumayan, ayo coba lagi ya!';
+  else text = '📚 Yuk periksa lagi jawabanmu, kamu pasti bisa!';
+  msg.textContent = text;
+
+  panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function resetAll(){
+  newSoal();
+}
+
+// ---------- INIT ----------
+newSoal();
+</script>
+</body>
+</html>
