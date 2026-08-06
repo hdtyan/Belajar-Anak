@@ -1,0 +1,57 @@
+name: Build Soal Manifest
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: write
+
+jobs:
+  build-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate manifest.json
+        run: |
+          python3 <<'EOF'
+          import json, subprocess, os
+
+          tree = {}
+          for root, dirs, files in os.walk('.'):
+              # lewati folder internal git & github actions
+              if '/.git' in root or root == './.git' or '.github' in root:
+                  continue
+              for f in files:
+                  if not f.lower().endswith('.html'):
+                      continue
+                  if f.lower() == 'index.html' and root == '.':
+                      continue
+                  full = os.path.normpath(os.path.join(root, f))
+                  parts = full.split(os.sep)
+                  if len(parts) != 4:
+                      continue
+                  anak, kelas, mapel, filename = parts
+                  result = subprocess.run(
+                      ['git', 'log', '-1', '--format=%cI', '--', full],
+                      capture_output=True, text=True
+                  )
+                  date = result.stdout.strip() or None
+                  tree.setdefault(anak, {}).setdefault(kelas, {}).setdefault(mapel, []).append(
+                      {"filename": filename, "path": full.replace(os.sep, '/'), "date": date}
+                  )
+
+          with open('manifest.json', 'w', encoding='utf-8') as out:
+              json.dump({"tree": tree}, out, ensure_ascii=False, indent=2)
+          EOF
+
+      - name: Commit manifest.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add manifest.json
+          git diff --staged --quiet || git commit -m "Update manifest.json [skip ci]"
+          git push
