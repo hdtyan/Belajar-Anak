@@ -71,25 +71,24 @@
     margin-top:24px;
     display:grid;
     grid-template-columns:1fr;
-    gap:16px;
-  }
-  @media(min-width:640px){
-    .folders{ grid-template-columns:1fr 1fr; }
+    gap:14px;
   }
 
   .folder{
     background:#fff;
     border-radius:22px;
-    padding:18px 18px 16px;
+    padding:16px 18px;
     box-shadow:var(--shadow);
     border:3px solid;
+    cursor:pointer;
+    transition:transform .1s ease;
   }
+  .folder:active{ transform:scale(0.99); }
 
   .folder-head{
     display:flex;
     align-items:center;
-    gap:10px;
-    margin-bottom:12px;
+    gap:12px;
   }
   .folder-icon{
     font-size:26px;
@@ -100,6 +99,7 @@
     flex:none;
     box-shadow:0 2px 0 rgba(0,0,0,0.06);
   }
+  .folder-head .fh-text{ flex:1; }
   .folder-head h2{
     font-family:'Baloo 2', sans-serif;
     font-size:17px;
@@ -111,6 +111,22 @@
     color:#8a7a7a;
     font-weight:600;
   }
+  .chevron{
+    font-size:18px;
+    color:#8a7a7a;
+    transition:transform .2s ease;
+    flex:none;
+  }
+  .folder.open .chevron{ transform:rotate(90deg); }
+
+  .folder-body{
+    display:none;
+    margin-top:14px;
+    padding-top:14px;
+    border-top:2px dashed rgba(0,0,0,0.08);
+    cursor:default;
+  }
+  .folder.open .folder-body{ display:block; }
 
   .file-list{ display:grid; gap:8px; }
   .file-item{
@@ -128,7 +144,48 @@
   }
   .file-item:hover{ transform:translateX(3px); }
   .file-item .fi-icon{ font-size:18px; flex:none; }
-  .file-item .fi-arrow{ margin-left:auto; color:#bbb; }
+  .file-item .fi-meta{
+    margin-left:auto;
+    font-size:11px;
+    font-weight:600;
+    color:#a99;
+    white-space:nowrap;
+  }
+
+  .loading-mini{
+    font-size:13px;
+    color:#9a8a8a;
+    font-family:'Baloo 2', sans-serif;
+    padding:6px 2px;
+  }
+
+  .pagination{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-top:12px;
+  }
+  .page-btn{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    border:none;
+    background:#f1eee8;
+    color:#6b5b5b;
+    padding:7px 14px;
+    border-radius:999px;
+    cursor:pointer;
+  }
+  .page-btn:disabled{
+    opacity:0.4;
+    cursor:default;
+  }
+  .page-label{
+    font-family:'Baloo 2', sans-serif;
+    font-size:13px;
+    color:#8a7a7a;
+  }
 
   .error-box{
     background:#fff;
@@ -157,10 +214,10 @@
   <header>
     <div class="eyebrow">Bank Soal Interaktif</div>
     <h1>📚 Belajar Anak - Kelas 1</h1>
-    <p>Ketuk kategori di bawah, lalu pilih soal yang ingin dikerjakan. Semua soal terbuka langsung di browser, tidak perlu download.</p>
+    <p>Ketuk kategori untuk membuka daftar soal. Soal terbaru muncul paling atas.</p>
   </header>
 
-  <div id="status" class="status">Memuat daftar soal...</div>
+  <div id="status" class="status">Memuat daftar kategori...</div>
   <div id="folders" class="folders"></div>
 
   <footer>🌟 Belajar dengan semangat, prestasi pun akan hebat! 🌟</footer>
@@ -173,12 +230,15 @@ const REPO = 'Belajar-Anak';
 const BASE_PATH = 'Maisun/Kelas 1'; // folder tempat semua kategori berada
 // =================================================================
 
+const PAGE_SIZE = 5;
+const dateCache = {}; // cache tanggal commit per file path, supaya tidak fetch berulang
+
 const COLOR_PALETTE = [
-  {border:'#ffe3a3', bg:'#fff3d6'}, // kuning
-  {border:'#ffe3ec', bg:'#ffe3ec'}, // pink
-  {border:'#d8f5e6', bg:'#d8f5e6'}, // hijau
-  {border:'#e1f0ff', bg:'#e1f0ff'}, // biru
-  {border:'#ece5fb', bg:'#ece5fb'}, // ungu
+  {border:'#ffe3a3', bg:'#fff3d6'},
+  {border:'#ffe3ec', bg:'#ffe3ec'},
+  {border:'#d8f5e6', bg:'#d8f5e6'},
+  {border:'#e1f0ff', bg:'#e1f0ff'},
+  {border:'#ece5fb', bg:'#ece5fb'},
 ];
 const ICON_PALETTE = ['📘','🔢','🌍','🎵','🎨','🏃','🔤','🧪','🌱','⭐'];
 
@@ -197,6 +257,30 @@ function niceName(filename){
     .replace(/\b\w/g, c => c.toUpperCase());
 }
 
+function formatDate(iso){
+  if(!iso) return '';
+  const d = new Date(iso);
+  return d.toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric' });
+}
+
+async function fetchFileDate(path){
+  if(dateCache[path]) return dateCache[path];
+  try{
+    const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/commits?path=${encodeURIComponent(path)}&per_page=1`);
+    if(!res.ok) throw new Error();
+    const data = await res.json();
+    const iso = data[0]?.commit?.committer?.date || data[0]?.commit?.author?.date || null;
+    dateCache[path] = iso;
+    return iso;
+  } catch(e){
+    dateCache[path] = null;
+    return null;
+  }
+}
+
+let CATEGORIES = {}; // { catName: [{filename, path}] }
+const folderState = {}; // { catName: { loaded:false, items:[], page:1 } }
+
 async function loadTree(){
   const statusEl = document.getElementById('status');
   const foldersEl = document.getElementById('folders');
@@ -212,18 +296,18 @@ async function loadTree(){
       item.path.toLowerCase().endsWith('.html')
     );
 
-    const categories = {};
+    CATEGORIES = {};
     files.forEach(f => {
-      const rel = f.path.slice(prefix.length); // contoh: "B Indonesia/lkpd-vokal-konsonan.html"
+      const rel = f.path.slice(prefix.length);
       const parts = rel.split('/');
-      if(parts.length < 2) return; // lewati file yang tidak ada di dalam subfolder kategori
+      if(parts.length < 2) return;
       const cat = parts[0];
       const filename = parts[parts.length - 1];
-      if(!categories[cat]) categories[cat] = [];
-      categories[cat].push({ filename, path: f.path });
+      if(!CATEGORIES[cat]) CATEGORIES[cat] = [];
+      CATEGORIES[cat].push({ filename, path: f.path });
     });
 
-    const catNames = Object.keys(categories).sort();
+    const catNames = Object.keys(CATEGORIES).sort();
 
     if(catNames.length === 0){
       statusEl.textContent = 'Belum ada soal yang ditemukan. Upload file .html ke dalam folder kategori di dalam "' + BASE_PATH + '".';
@@ -235,30 +319,23 @@ async function loadTree(){
 
     catNames.forEach(cat => {
       const color = colorFor(cat);
-      const items = categories[cat].sort((a,b) => a.filename.localeCompare(b.filename));
+      folderState[cat] = { loaded:false, items:[], page:1 };
 
       const div = document.createElement('div');
       div.className = 'folder';
+      div.id = 'folder-' + cat.replace(/\s+/g,'_');
       div.style.borderColor = color.border;
       div.style.background = color.bg;
-
-      const fileItems = items.map(it => `
-        <a class="file-item" href="${encodeURI(it.path)}">
-          <span class="fi-icon">📝</span>
-          <span>${niceName(it.filename)}</span>
-          <span class="fi-arrow">›</span>
-        </a>
-      `).join('');
-
       div.innerHTML = `
-        <div class="folder-head">
+        <div class="folder-head" onclick="toggleFolder('${cat.replace(/'/g,"\\'")}')">
           <div class="folder-icon">${color.icon}</div>
-          <div>
+          <div class="fh-text">
             <h2>${cat}</h2>
-            <span>${items.length} soal</span>
+            <span>${CATEGORIES[cat].length} soal</span>
           </div>
+          <div class="chevron">›</div>
         </div>
-        <div class="file-list">${fileItems}</div>
+        <div class="folder-body" id="body-${cat.replace(/\s+/g,'_')}"></div>
       `;
       foldersEl.appendChild(div);
     });
@@ -267,6 +344,71 @@ async function loadTree(){
     statusEl.style.display = 'none';
     foldersEl.innerHTML = `<div class="error-box">⚠️ Tidak bisa memuat daftar soal otomatis.<br>${err.message}<br><br>Coba refresh halaman ini beberapa saat lagi.</div>`;
   }
+}
+
+async function toggleFolder(cat){
+  const safeId = cat.replace(/\s+/g,'_');
+  const folderDiv = document.getElementById('folder-' + safeId);
+  const bodyDiv = document.getElementById('body-' + safeId);
+  const isOpen = folderDiv.classList.contains('open');
+
+  if(isOpen){
+    folderDiv.classList.remove('open');
+    return;
+  }
+  folderDiv.classList.add('open');
+
+  const state = folderState[cat];
+  if(!state.loaded){
+    bodyDiv.innerHTML = `<div class="loading-mini">Mengurutkan soal terbaru...</div>`;
+    const withDates = await Promise.all(
+      CATEGORIES[cat].map(async it => ({ ...it, date: await fetchFileDate(it.path) }))
+    );
+    withDates.sort((a,b) => {
+      if(!a.date && !b.date) return a.filename.localeCompare(b.filename);
+      if(!a.date) return 1;
+      if(!b.date) return -1;
+      return new Date(b.date) - new Date(a.date);
+    });
+    state.items = withDates;
+    state.loaded = true;
+  }
+  renderPage(cat);
+}
+
+function renderPage(cat){
+  const safeId = cat.replace(/\s+/g,'_');
+  const bodyDiv = document.getElementById('body-' + safeId);
+  const state = folderState[cat];
+  const totalPages = Math.max(1, Math.ceil(state.items.length / PAGE_SIZE));
+  if(state.page > totalPages) state.page = totalPages;
+
+  const start = (state.page - 1) * PAGE_SIZE;
+  const pageItems = state.items.slice(start, start + PAGE_SIZE);
+
+  const fileItems = pageItems.map(it => `
+    <a class="file-item" href="${encodeURI(it.path)}">
+      <span class="fi-icon">📝</span>
+      <span>${niceName(it.filename)}</span>
+      <span class="fi-meta">${formatDate(it.date)}</span>
+    </a>
+  `).join('');
+
+  const paginationHtml = state.items.length > PAGE_SIZE ? `
+    <div class="pagination">
+      <button class="page-btn" onclick="changePage('${cat.replace(/'/g,"\\'")}', -1)" ${state.page<=1 ? 'disabled':''}>‹ Sebelumnya</button>
+      <span class="page-label">Halaman ${state.page} / ${totalPages}</span>
+      <button class="page-btn" onclick="changePage('${cat.replace(/'/g,"\\'")}', 1)" ${state.page>=totalPages ? 'disabled':''}>Selanjutnya ›</button>
+    </div>
+  ` : '';
+
+  bodyDiv.innerHTML = `<div class="file-list">${fileItems}</div>${paginationHtml}`;
+}
+
+function changePage(cat, dir){
+  const state = folderState[cat];
+  state.page += dir;
+  renderPage(cat);
 }
 
 loadTree();
