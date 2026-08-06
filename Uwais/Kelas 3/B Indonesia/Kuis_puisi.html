@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuis Memahami Teks Puisi "Petak Umpet" - Kelas 3 SD</title>
+<style>
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f7f9fc; color: #333; padding: 20px; }
+  .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+  h1 { text-align: center; color: #4d8fdb; }
+  .materi { background: #e1f0ff; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #4d8fdb; }
+  .soal { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px dashed #ccc; }
+  .opsi { display: block; margin: 8px 0; padding: 10px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; }
+  .opsi:hover { background: #cfe2ff; }
+  .benar { background: #c8e6c9 !important; border-color: #4caf50 !important; }
+  .salah { background: #ffcdd2 !important; border-color: #f44336 !important; }
+  button { display: block; width: 100%; padding: 15px; background: #4d8fdb; color: white; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; margin-top: 20px; }
+  button:hover { background: #3b73b5; }
+  #hasil { text-align: center; font-size: 24px; font-weight: bold; margin-top: 20px; display: none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>📜 Kuis Bahasa Indonesia: Puisi "Petak Umpet"</h1>
+  
+  <div class="materi">
+    <h3>Catatan Materi:</h3>
+    <p><strong>Puisi</strong> adalah karya sastra menggunakan bahasa yang indah, terikat baris dan bait.</p>
+    <ul>
+      <li><strong>Judul:</strong> Petak Umpet (Karya Anri Rachman)</li>
+      <li><strong>Isi:</strong> Menceritakan keseruan permainan tradisional, mulai dari berhitung 1-10, mencari teman, hingga manfaat melatih kejelian dan kesabaran.</li>
+    </ul>
+  </div>
+
+  <div id="kuis-container"></div>
+  <button onclick="periksaJawaban()">✅ Periksa Jawaban</button>
+  <div id="hasil"></div>
+</div>
+
+<script>
+const soalData = [
+  { t: "Apa judul puisi yang terdapat pada materi tersebut?", o: ["Bermain Layangan", "Petak Umpet", "Kancil dan Buaya", "Pergi ke Sekolah"], a: 1 },
+  { t: "Siapakah pengarang puisi berjudul 'Petak Umpet' tersebut?", o: ["Anri Rachman", "Ponidi", "Ibu Sud", "Pak Kasur"], a: 0 },
+  { t: "Sebelum mulai mencari temannya, apa yang dilakukan penjaga dalam puisi?", o: ["Berlari kencang", "Menutup mata lalu berhitung", "Bersembunyi di balik pohon", "Berteriak memanggil nama teman"], a: 1 },
+  { t: "Angka berapa saja yang disebutkan saat penjaga mulai berhitung dalam puisi?", o: ["Satu sampai lima", "Satu sampai seratus", "Satu sampai sepuluh", "Sepuluh sampai dua puluh"], a: 2 },
+  { t: "'Tak ada suara' Kalimat tersebut menggambarkan suasana saat...", o: ["Ramai penonton", "Teman-teman sedang bersembunyi", "Bel sekolah berbunyi", "Hujan turun lebat"], a: 1 },
+  { t: "Setelah selesai berhitung, apa yang dilakukan selanjutnya oleh penjaga?", o: ["Pulang ke rumah", "Membuka mata dan melihat ke kanan-kiri", "Duduk di kelas", "Menangis karena sendiri"], a: 1 },
+  { t: "Di mana biasanya tempat teman-teman bersembunyi dalam permainan petak umpet?", o: ["Di dalam air", "Di tempat tersembunyi seperti di balik pohon", "Di atas awan", "Di tengah jalan raya"], a: 1 },
+  { t: "Dalam puisi, ketajaman mata penjaga yang sedang mencari mangsa disamakan dengan burung apa?", o: ["Elang", "Merpati", "Bebek", "Ayam"], a: 0 },
+  { t: "Menurut puisi tersebut, permainan petak umpet dirasakan sebagai permainan yang...", o: ["Membosankan", "Menakutkan", "Seru", "Melelahkan"], a: 2 },
+  { t: "Apa manfaat atau nilai positif dari bermain petak umpet berdasarkan bait terakhir puisi?", o: ["Melatih kejelian dan kesabaran", "Membuat badan sakit", "Belajar berhitung cepat", "Melatih kepandaian memasak"], a: 0 },
+  { t: "Apa ciri utama penulisan sebuah puisi dibandingkan cerita biasa?", o: ["Terdiri dari bab dan sub-bab", "Menggunakan bentuk paragraf panjang", "Disusun dalam bentuk baris dan bait", "Berisi berita kejadian nyata"], a: 2 },
+  { t: "Ketika semua teman sudah bersembunyi, sikap yang harus dilakukan penjaga adalah...", o: ["Menyerah dan berhenti", "Mencari-cari tempat persembunyian teman", "Tidur di bawah pohon", "Pulang duluan"], a: 1 },
+  { t: "Gambar ilustrasi pada materi tersebut menunjukkan anak sedang...", o: ["Bermain tali", "Menyapu halaman", "Bermain petak umpet di dekat pohon", "Membaca buku bersama"], a: 2 },
+  { t: "Sebelum mempelajari teks puisi, materi apa yang baru saja dipelajari oleh siswa di buku tersebut?", o: ["Teks doa", "Teks cerita", "Rumus matematika", "Gambar dekoratif"], a: 1 },
+  { t: "'Kutajamkan mata / Seperti elang mencari mangsa'. Kata 'mangsa' dalam baris puisi tersebut merujuk pada...", o: ["Makanan burung elang", "Ikan di sungai", "Teman yang sedang bersembunyi", "Buah di pohon"], a: 2 }
+];
+
+const container = document.getElementById('kuis-container');
+soalData.forEach((s, i) => {
+  let html = `<div class="soal" id="s${i}"><strong>${i+1}. ${s.t}</strong>`;
+  s.o.forEach((opt, j) => {
+    html += `<label class="opsi"><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`;
+  });
+  html += `</div>`;
+  container.innerHTML += html;
+});
+
+function periksaJawaban() {
+  let skor = 0;
+  soalData.forEach((s, i) => {
+    const radios = document.getElementsByName(`q${i}`);
+    const div = document.getElementById(`s${i}`);
+    const labels = div.getElementsByClassName('opsi');
+    
+    let dijawab = false;
+    for(let j=0; j<radios.length; j++) {
+      labels[j].className = 'opsi'; 
+      if(radios[j].checked) {
+        dijawab = true;
+        if(j === s.a) {
+          labels[j].classList.add('benar');
+          skor++;
+        } else {
+          labels[j].classList.add('salah');
+          labels[s.a].classList.add('benar');
+        }
+      }
+    }
+    if(!dijawab) labels[s.a].classList.add('benar');
+  });
+  
+  const hasil = document.getElementById('hasil');
+  hasil.style.display = 'block';
+  hasil.innerHTML = `Skor Kamu: ${skor} dari 15 <br> ${skor === 15 ? '🎉 Sempurna!' : 'Semangat belajar lagi!'}`;
+  window.scrollTo(0, document.body.scrollHeight);
+}
+</script>
+</body>
+</html>
