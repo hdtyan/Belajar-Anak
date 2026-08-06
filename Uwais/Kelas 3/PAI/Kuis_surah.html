@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuis Interaktif - Kandungan Surah Pendek (Kelas 3 SD)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap');
+
+  :root {
+    --cream: #fff8ec; --orange: #ff8a3d; --green: #4caf7d;
+    --blue: #4d8fdb; --blue-light: #e1f0ff; --purple: #7d5fd4;
+    --purple-light: #ece5fb; --teal: #2cb5a0; --red: #e6584f;
+    --ink: #3a2e2e; --shadow: 0 6px 0 rgba(0,0,0,0.06);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: 'Nunito', sans-serif;
+    background: radial-gradient(circle at 6% 8%, #ffe0c2 0, transparent 42%), radial-gradient(circle at 94% 90%, #ffe3ec 0, transparent 42%), var(--cream);
+    color: var(--ink); padding: 20px 15px;
+  }
+  .sheet { max-width: 860px; margin: 0 auto; }
+  header.title { text-align: center; background: #fff; border-radius: 28px; padding: 24px 20px; box-shadow: var(--shadow); border: 3px dashed var(--teal); }
+  header.title .eyebrow { font-family: 'Baloo 2', sans-serif; font-weight: 700; letter-spacing: 2px; color: var(--purple); font-size: 14px; text-transform: uppercase; }
+  header.title h1 { font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: clamp(24px, 5vw, 36px); margin: 6px 0 8px; background: linear-gradient(90deg, #2cb5a0, #4d8fdb, #7d5fd4); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  header.title .sub { display: inline-block; background: var(--teal); color: #fff; font-family: 'Baloo 2', sans-serif; font-weight: 600; padding: 6px 20px; border-radius: 999px; font-size: 14px; }
+  .idbox { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .idbox label { font-family: 'Baloo 2', sans-serif; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 6px; }
+  .idbox input { border: 2px solid var(--blue-light); background: var(--blue-light); border-radius: 10px; padding: 7px 12px; font-family: 'Nunito', sans-serif; font-size: 14px; width: 140px; outline: none; }
+  .notes { margin-top: 20px; background: #fff; border-radius: 22px; padding: 22px 20px; box-shadow: var(--shadow); border: 3px solid var(--purple-light); }
+  .notes-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .notes-badge { font-size: 22px; background: var(--purple); color: #fff; width: 40px; height: 40px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex: none; }
+  .notes-head h2 { font-family: 'Baloo 2', sans-serif; font-size: 20px; margin: 0; color: #5a3fa3; }
+  .notes-title { text-align: center; font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 16px; color: var(--teal); background: #e0f7f4; border-radius: 999px; padding: 8px 16px; margin: 14px 0 16px; }
+  .cat-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  @media(min-width: 640px) { .cat-grid.three-cols { grid-template-columns: 1fr 1fr 1fr; } }
+  .cat-card { border-radius: 16px; padding: 14px 16px; border: 2px solid; }
+  .cat-card.c1 { border-color: #bfe8d3; background: #f1fbf6; }
+  .cat-card.c2 { border-color: #ffd9a3; background: #fff8ef; }
+  .cat-card.c3 { border-color: #b9d9f7; background: #f2f8ff; }
+  .cat-card h3 { font-family: 'Baloo 2', sans-serif; font-size: 16px; margin: 0 0 6px; color: var(--ink); }
+  .cat-card p, .cat-card ul { font-size: 13.5px; margin: 4px 0; color: #5c4c4c; line-height: 1.5; }
+  .cat-card ul { padding-left: 18px; }
+  .footnote { text-align: center; margin-top: 16px; font-size: 13.5px; font-style: italic; color: #8a7a7a; }
+  .quiz-header-banner { margin-top: 24px; background: linear-gradient(90deg, var(--teal), var(--blue)); color: #fff; padding: 12px 20px; border-radius: 16px; font-family: 'Baloo 2', sans-serif; font-size: 18px; font-weight: 700; text-align: center; }
+  .qcard { margin-top: 16px; background: #fff; border-radius: 22px; padding: 18px 20px 20px; box-shadow: var(--shadow); border: 3px solid var(--blue-light); }
+  .qhead { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+  .qnum { font-family: 'Baloo 2', sans-serif; font-weight: 800; color: #fff; background: var(--blue); width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex: none; }
+  .qtext { font-family: 'Baloo 2', sans-serif; font-size: 16px; line-height: 1.4; padding-top: 3px; }
+  .options { display: grid; gap: 9px; }
+  .opt { display: flex; align-items: center; gap: 10px; background: #fbfaf7; border: 2px solid #ece6df; border-radius: 14px; padding: 11px 14px; cursor: pointer; font-size: 15px; transition: all 0.15s ease; }
+  .opt:hover { border-color: var(--blue); }
+  .opt .letter { font-family: 'Baloo 2', sans-serif; font-weight: 700; width: 26px; height: 26px; border-radius: 50%; background: #e9e4dd; display: flex; align-items: center; justify-content: center; font-size: 13px; flex: none; }
+  .opt.selected { border-color: var(--blue); background: var(--blue-light); }
+  .opt.selected .letter { background: var(--blue); color: #fff; }
+  .opt.correct { border-color: var(--green); background: #e7f6ee; }
+  .opt.correct .letter { background: var(--green); color: #fff; }
+  .opt.wrong { border-color: var(--red); background: #fdeceb; }
+  .opt.wrong .letter { background: var(--red); color: #fff; }
+  .opt .mark { margin-left: auto; font-size: 17px; display: none; }
+  .controls { display: flex; justify-content: center; gap: 14px; margin-top: 24px; flex-wrap: wrap; }
+  .btn-main { font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 16px; padding: 13px 30px; border-radius: 999px; border: none; cursor: pointer; color: #fff; box-shadow: 0 4px 0 rgba(0,0,0,0.12); }
+  .btn-check { background: linear-gradient(90deg, var(--teal), var(--blue)); }
+  .btn-reset { background: #b9b1b1; }
+  .score-panel { display: none; margin-top: 20px; text-align: center; background: #ffd166; color: #4a3300; border-radius: 20px; padding: 18px; font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; }
+  .score-panel .big { font-size: 30px; display: block; margin-bottom: 4px; }
+  footer.foot { text-align: center; margin: 30px 0 10px; font-family: 'Baloo 2', sans-serif; color: var(--purple); font-weight: 700; font-size: 15px; }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+  <header class="title">
+    <div class="eyebrow">Materi Pembelajaran & Kuis Interaktif</div>
+    <h1>🕌 PAI: Kandungan Surah Pendek</h1>
+    <div class="sub">Q.S. Al-Qari'ah, At-Takatsur, dan Al-Zalzalah · Kelas 3 SD</div>
+    <div class="idbox">
+      <label>Nama: <input type="text" id="nama" placeholder="Tulis namamu"></label>
+      <label>Kelas: <input type="text" id="kelas" placeholder="3A" style="width:70px"></label>
+      <label>No. Absen: <input type="text" id="absen" placeholder="00" style="width:70px"></label>
+    </div>
+  </header>
+
+  <section class="notes">
+    <div class="notes-head">
+      <div class="notes-badge">🕌</div>
+      <h2>Catatan Materi: Kandungan Surah-Surah Pendek</h2>
+    </div>
+    <div class="notes-title">Penjelasan Isi Kandungan Surah Al-Qariah, At-Takatsur, dan Al-Zalzalah</div>
+
+    <div class="cat-grid three-cols">
+      <div class="cat-card c1">
+        <h3>A. Q.S. Al-Qari'ah</h3>
+        <ul>
+          <li>Menjelaskan dahsyatnya peristiwa <strong>hari kiamat</strong>.</li>
+          <li>Manusia digambarkan seperti <strong>anai-anai (laron) berterbangan</strong>.</li>
+          <li>Gunung-gunung hancur bagaikan <strong>bulu dihamburkan</strong>.</li>
+        </ul>
+      </div>
+      <div class="cat-card c2">
+        <h3>B. Q.S. At-Takatsur</h3>
+        <ul>
+          <li>Ancaman kepada manusia yang ingkar nikmat & bermegah-megahan harta.</li>
+          <li>Manusia sering lalai hingga masuk ke <strong>liang kubur</strong>.</li>
+          <li>Larangan memiliki sikap <strong>bakhil (pelit)</strong>.</li>
+        </ul>
+      </div>
+      <div class="cat-card c3">
+        <h3>C. Q.S. Al-Zalzalah</h3>
+        <ul>
+          <li>Menceritakan <strong>guncangan dahsyat</strong> bumi saat hari kiamat.</li>
+          <li>Kebaikan & keburukan sekecil apapun (zarrah) akan mendapat <strong>balasan</strong>.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footnote">Pahami ringkasan kandungan surah di atas sebelum menjawab 15 soal di bawah ini!</div>
+  </section>
+
+  <div class="quiz-header-banner">✍️ Kuis Kandungan Surah (15 Soal Pilihan Ganda)</div>
+  <div id="quizArea"></div>
+
+  <div class="controls">
+    <button class="btn-main btn-check" onclick="checkAnswers()">✅ Periksa Jawaban</button>
+    <button class="btn-main btn-reset" onclick="resetQuiz()">🔄 Ulangi Kuis</button>
+  </div>
+
+  <div class="score-panel" id="scorePanel">
+    <span class="big" id="scoreBig"></span>
+    <span id="scoreMsg"></span>
+  </div>
+
+  <footer class="foot">🌟 Selamat Belajar! Semangat Menuntut Ilmu Setiap Hari! 🌟</footer>
+</div>
+
+<script>
+const BANK_SURAH = [
+  { text: "Surah Al-Qari'ah terutama menceritakan tentang peristiwa dahsyat yaitu ....", options: ["Hari Kiamat", "Kelahiran Nabi", "Hijrah ke Madinah", "Perang Badar"], correct: 0 },
+  { text: "Dalam Surah Al-Qari'ah, manusia pada hari kiamat digambarkan seperti ....", options: ["Bulu terbang", "Anai-anai (laron) yang berterbangan", "Batu keras", "Pohon tumbang"], correct: 1 },
+  { text: "Keadaan gunung-gunung saat hari kiamat menurut Surah Al-Qari'ah adalah seperti ....", options: ["Bulu yang dihambur-hamburkan", "Air mengalir", "Awan putih", "Tanah yang subur"], correct: 0 },
+  { text: "Orang yang berat timbangan amal kebaikannya pada hari kiamat akan mendapatkan balasan berupa ....", options: ["Masuk Neraka Hawiyah", "Masuk Surga", "Kembali ke dunia", "Tidur di kubur"], correct: 1 },
+  { text: "Surah At-Takatsur memberikan peringatan kepada manusia yang suka bermegah-megahan dengan ....", options: ["Harta dan keturunan", "Ilmu pengetahuan", "Ibadah malam", "Pekerjaan rumah"], correct: 0 },
+  { text: "Ancaman dalam Surah At-Takatsur ditujukan kepada manusia yang kufur/ingkar terhadap ....", options: ["Nikmat Allah SWT", "Teman sekolah", "Pelajaran", "Makanan"], correct: 0 },
+  { text: "Sifat tidak mau berbagi atau enggan mengeluarkan harta di jalan kebaikan disebut ....", options: ["Jujur", "Bakhil (pelit)", "Pemaaf", "Sabar"], correct: 1 },
+  { text: "Surah At-Takatsur mengingatkan bahwa manusia sering lalai menumpuk harta sampai mereka masuk ke ....", options: ["Liang kubur", "Pasar", "Rumah mewah", "Sekolah"], correct: 0 },
+  { text: "Kata 'Al-Zalzalah' secara bahasa memiliki arti ....", options: ["Guncangan dahsyat", "Megah", "Anai-anai", "Bulu"], correct: 0 },
+  { text: "Surah Al-Zalzalah menjelaskan bahwa bumi akan mengeluarkan isinya karena terjadinya guncangan pada hari ....", options: ["Jumat biasa", "Kiamat", "Raya Idul Fitri", "Senin"], correct: 1 },
+  { text: "Menurut Surah Al-Zalzalah, setelah dibangkitkan dari alam kubur, manusia akan melihat ....", options: ["Balasan amalnya semasa hidup", "Harta yang ditinggalkan", "Tempat wisatanya", "Mainannya"], correct: 0 },
+  { text: "Barangsiapa mengerjakan kebaikan sekecil apapun (zarrah), dalam Surah Al-Zalzalah disebutkan bahwa ia akan ....", options: ["Melihat balasan kebaikannya", "Rugi", "Dilupakan", "Mendapat hukuman"], correct: 0 },
+  { text: "Begitu pula jika seseorang melakukan keburukan sekecil zarrah, maka ia akan ....", options: ["Melihat balasan keburukannya", "Bebas dari hukuman", "Dipuji", "Diabaikan"], correct: 0 },
+  { text: "Setiap manusia kelak di akhirat akan dimintai pertanggungjawaban atas ....", options: ["Semua amal perbuatannya", "Pakaian temannya", "Sepeda tetangga", "Nama sekolahnya"], correct: 0 },
+  { text: "Sikap yang benar setelah mempelajari kandungan Surah At-Takatsur adalah ....", options: ["Selalu bersyukur dan tidak bermegah-megahan", "Suka pamer harta", "Menjadi anak yang pelit", "Melupakan ibadah"], correct: 0 }
+];
+
+const LETTERS = ['A', 'B', 'C', 'D'];
+let currentQuiz = [];
+
+function shuffle(arr) {
+  let a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function initQuiz() {
+  let shuffledBank = shuffle(BANK_SURAH);
+  currentQuiz = shuffledBank.map(q => {
+    let opts = q.options.map((opt, idx) => ({ text: opt, isCorrect: idx === q.correct }));
+    return { text: q.text, options: shuffle(opts), answered: null };
+  });
+  renderQuiz();
+}
+
+function renderQuiz() {
+  const container = document.getElementById('quizArea');
+  container.innerHTML = '';
+  currentQuiz.forEach((q, qi) => {
+    const card = document.createElement('div');
+    card.className = 'qcard';
+    let optsHtml = q.options.map((opt, oi) => `
+      <div class="opt" id="opt-${qi}-${oi}" onclick="selectOption(${qi}, ${oi})">
+        <span class="letter">${LETTERS[oi]}</span>
+        <span>${opt.text}</span>
+        <span class="mark" id="mark-${qi}-${oi}"></span>
+      </div>
+    `).join('');
+    card.innerHTML = `<div class="qhead"><div class="qnum">${qi + 1}</div><div class="qtext">${q.text}</div></div><div class="options">${optsHtml}</div>`;
+    container.appendChild(card);
+  });
+}
+
+function selectOption(qi, oi) {
+  currentQuiz[qi].answered = oi;
+  currentQuiz[qi].options.forEach((_, i) => document.getElementById(`opt-${qi}-${i}`).classList.remove('selected'));
+  document.getElementById(`opt-${qi}-${oi}`).classList.add('selected');
+}
+
+function checkAnswers() {
+  let correctCount = 0;
+  currentQuiz.forEach((q, qi) => {
+    q.options.forEach((opt, oi) => {
+      let el = document.getElementById(`opt-${qi}-${oi}`);
+      let mark = document.getElementById(`mark-${qi}-${oi}`);
+      el.classList.remove('correct', 'wrong');
+      mark.style.display = 'none';
+      if (opt.isCorrect) {
+        el.classList.add('correct'); mark.style.display = 'inline'; mark.textContent = '✅';
+      } else if (q.answered === oi) {
+        el.classList.add('wrong'); mark.style.display = 'inline'; mark.textContent = '❌';
+      }
+    });
+    if (q.answered !== null && q.options[q.answered].isCorrect) correctCount++;
+  });
+  const total = currentQuiz.length;
+  const panel = document.getElementById('scorePanel');
+  panel.style.display = 'block';
+  document.getElementById('scoreBig').textContent = `Skor Kamu: ${correctCount} / ${total}`;
+  document.getElementById('scoreMsg').textContent = correctCount === total ? '🎉 Sempurna! Kamu hebat!' : '👏 Bagus sekali! Tingkatkan terus prestasimu!';
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function resetQuiz() {
+  document.getElementById('scorePanel').style.display = 'none';
+  initQuiz();
+}
+
+initQuiz();
+</script>
+</body>
+</html>
