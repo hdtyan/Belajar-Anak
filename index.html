@@ -216,7 +216,7 @@
   <header>
     <div class="eyebrow">Bank Soal Interaktif</div>
     <h1>📚 Belajar Anak</h1>
-    <p>Pilih nama anak → kelas → mata pelajaran → soal yang ingin dikerjakan.</p>
+    <p>Pilih nama anak / folder umum → pilih soal yang ingin dikerjakan.</p>
   </header>
 
   <div class="breadcrumb" id="breadcrumb"></div>
@@ -227,9 +227,6 @@
 </div>
 
 <script>
-// struktur yang dibaca: {NamaAnak}/{Kelas}/{MataPelajaran}/{file.html}
-// data diambil dari manifest.json (dibuat otomatis oleh GitHub Actions)
-
 const PAGE_SIZE = 5;
 
 const COLOR_PALETTE = [
@@ -243,10 +240,11 @@ const ICON_ANAK = ['🧒','👧'];
 const ICON_KELAS = ['🏷️','📁','📂','🗂️'];
 const ICON_MAPEL = ['📘','🔢','🌍','🎵','🎨','🏃','🔤','🧪','🌱','⭐'];
 
-// tema personal untuk tiap anak (tambahkan nama baru di sini kalau perlu)
+// Tema personal (Umum sudah ditambahkan di sini)
 const ANAK_THEME = {
   'Maisun': { icon: '🦄', color: { border:'#ffb3c8', bg:'#ffe3ec' } },
   'Uwais':  { icon: '🥷', color: { border:'#ff8a80', bg:'#ffe0dc' } },
+  'Umum':   { icon: '📁', color: { border:'#b2dfdb', bg:'#e0f2f1' } }
 };
 
 function colorFor(name){
@@ -272,8 +270,8 @@ function formatDate(iso){
   return d.toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric' });
 }
 
-let TREE = {}; // { anak: { kelas: { mapel: [ {filename, path, date} ] } } }
-let currentPath = []; // breadcrumb, contoh: ['Maisun','Kelas 1','Matematika']
+let TREE = {}; 
+let currentPath = []; 
 let currentPage = 1;
 let currentFiles = [];
 
@@ -283,7 +281,6 @@ async function loadTree(){
   statusEl.textContent = 'Memuat...';
   document.getElementById('content').innerHTML = '';
   try{
-    // tambahkan timestamp supaya browser tidak memakai cache lama
     const res = await fetch(`manifest.json?t=${Date.now()}`);
     if(!res.ok) throw new Error('manifest.json belum tersedia (status ' + res.status + ')');
     const data = await res.json();
@@ -314,7 +311,7 @@ function renderBreadcrumb(){
   const labels = ['🏠 Beranda', ...currentPath];
   el.innerHTML = labels.map((label, i) => {
     const isLast = i === labels.length - 1;
-    const depth = i; // 0 = beranda
+    const depth = i; 
     return `${i>0 ? '<span class="crumb-sep">/</span>' : ''}<span class="crumb ${isLast?'current':''}" onclick="goTo(${depth})">${label}</span>`;
   }).join('');
 }
@@ -339,8 +336,8 @@ async function render(){
     return;
   }
 
+  // JIKA YANG DIKLIK ADALAH KUMPULAN FILE (Array)
   if(Array.isArray(node)){
-    // level file (Anak/Kelas/Mapel dipilih) -> tampilkan daftar file, urut terbaru
     const sorted = [...node].sort((a,b) => {
       if(!a.date && !b.date) return a.filename.localeCompare(b.filename);
       if(!a.date) return 1;
@@ -353,24 +350,28 @@ async function render(){
     return;
   }
 
-  // level folder (beranda / anak / kelas)
-  const depth = currentPath.length; // 0=anak,1=kelas,2=mapel
-  const keys = Object.keys(node).sort();
+  // Pengaturan agar Umum tampil pertama, dan pengurutan abjad untuk lainnya
+  const keys = Object.keys(node).sort((a, b) => {
+    if (a === 'Umum') return -1;
+    if (b === 'Umum') return 1;
+    return a.localeCompare(b);
+  });
+
+  const depth = currentPath.length; // 0=akar utama, 1=anak/umum, dst
   const iconPalette = depth === 0 ? ICON_ANAK : depth === 1 ? ICON_KELAS : ICON_MAPEL;
 
   const cards = keys.map(key => {
     const child = node[key];
     let subtitle;
+    
+    // Penyesuaian agar mendeteksi jika langsung berisi file
     if(Array.isArray(child)){
       subtitle = `${child.length} soal`;
     } else {
       const count = Object.keys(child).length;
-      subtitle = depth === 0
-        ? `${count} folder kelas tersedia`
-        : `${count} mata pelajaran`;
+      subtitle = `${count} item tersedia`;
     }
 
-    // pakai tema personal kalau ini level anak (depth 0) dan namanya dikenali
     let color, icon;
     if(depth === 0 && ANAK_THEME[key]){
       color = ANAK_THEME[key].color;
