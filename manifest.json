@@ -1,5 +1,35 @@
 {
   "tree": {
+    "Umum": [
+      {
+        "filename": "tambah_kurang.html",
+        "path": "Umum/tambah_kurang.html",
+        "date": "2026-08-07T13:27:21+07:00"
+      }
+    ],
+    "Uwais": {
+      "Kelas 3": {
+        "PAI": [
+          {
+            "filename": "Kuis_surah.html",
+            "path": "Uwais/Kelas 3/PAI/Kuis_surah.html",
+            "date": "2026-08-06T21:07:32+07:00"
+          }
+        ],
+        "B Indonesia": [
+          {
+            "filename": "Kuis_dongeng.html",
+            "path": "Uwais/Kelas 3/B Indonesia/Kuis_dongeng.html",
+            "date": "2026-08-06T21:08:40+07:00"
+          },
+          {
+            "filename": "Kuis_puisi.html",
+            "path": "Uwais/Kelas 3/B Indonesia/Kuis_puisi.html",
+            "date": "2026-08-06T21:29:55+07:00"
+          }
+        ]
+      }
+    },
     "Maisun": {
       "Kelas 1": {
         "B Inggris": [
@@ -16,11 +46,11 @@
             "date": "2026-08-06T10:17:33+07:00"
           }
         ],
-        "Pancasila": [
+        "Matematika": [
           {
-            "filename": "kuis-perbedaan-individu.html",
-            "path": "Maisun/Kelas 1/Pancasila/kuis-perbedaan-individu.html",
-            "date": "2026-08-06T15:56:50+07:00"
+            "filename": "lkpd-matematika-perbandingan.html",
+            "path": "Maisun/Kelas 1/Matematika/lkpd-matematika-perbandingan.html",
+            "date": "2026-08-06T10:17:33+07:00"
           }
         ],
         "B Indonesia": [
@@ -30,34 +60,11 @@
             "date": "2026-08-06T10:17:33+07:00"
           }
         ],
-        "Matematika": [
+        "Pancasila": [
           {
-            "filename": "lkpd-matematika-perbandingan.html",
-            "path": "Maisun/Kelas 1/Matematika/lkpd-matematika-perbandingan.html",
-            "date": "2026-08-06T10:17:33+07:00"
-          }
-        ]
-      }
-    },
-    "Uwais": {
-      "Kelas 3": {
-        "PAI": [
-          {
-            "filename": "Kuis_surah.html",
-            "path": "Uwais/Kelas 3/PAI/Kuis_surah.html",
-            "date": "2026-08-06T21:07:32+07:00"
-          }
-        ],
-        "B Indonesia": [
-          {
-            "filename": "Kuis_puisi.html",
-            "path": "Uwais/Kelas 3/B Indonesia/Kuis_puisi.html",
-            "date": "2026-08-06T21:29:55+07:00"
-          },
-          {
-            "filename": "Kuis_dongeng.html",
-            "path": "Uwais/Kelas 3/B Indonesia/Kuis_dongeng.html",
-            "date": "2026-08-06T21:08:40+07:00"
+            "filename": "kuis-perbedaan-individu.html",
+            "path": "Maisun/Kelas 1/Pancasila/kuis-perbedaan-individu.html",
+            "date": "2026-08-06T15:56:50+07:00"
           }
         ]
       }
