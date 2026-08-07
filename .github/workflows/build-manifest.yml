@@ -32,17 +32,26 @@ jobs:
                       continue
                   full = os.path.normpath(os.path.join(root, f))
                   parts = full.split(os.sep)
-                  if len(parts) != 4:
-                      continue
-                  anak, kelas, mapel, filename = parts
+
+                  # ambil tanggal commit terakhir untuk file ini
                   result = subprocess.run(
                       ['git', 'log', '-1', '--format=%cI', '--', full],
                       capture_output=True, text=True
                   )
                   date = result.stdout.strip() or None
-                  tree.setdefault(anak, {}).setdefault(kelas, {}).setdefault(mapel, []).append(
-                      {"filename": filename, "path": full.replace(os.sep, '/'), "date": date}
-                  )
+                  entry = {"filename": f, "path": full.replace(os.sep, '/'), "date": date}
+
+                  if len(parts) == 4:
+                      # struktur: Anak/Kelas/Mapel/file.html
+                      anak, kelas, mapel, filename = parts
+                      tree.setdefault(anak, {}).setdefault(kelas, {}).setdefault(mapel, []).append(entry)
+                  elif len(parts) == 2:
+                      # struktur datar: Umum/file.html (langsung berisi file)
+                      folder, filename = parts
+                      tree.setdefault(folder, []).append(entry)
+                  else:
+                      # kedalaman lain, lewati
+                      continue
 
           with open('manifest.json', 'w', encoding='utf-8') as out:
               json.dump({"tree": tree}, out, ensure_ascii=False, indent=2)
