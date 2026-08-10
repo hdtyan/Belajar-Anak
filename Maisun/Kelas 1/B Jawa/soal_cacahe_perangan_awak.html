@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="jv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soal Interaktif - Cacahe Perangan Awak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF8EC;
+    --teal:#2FB6A3;
+    --teal-light:#DEF6F1;
+    --orange:#FF9A4D;
+    --orange-light:#FFEAD9;
+    --brown:#8B5E34;
+    --gold:#F2B705;
+    --ink:#3A2E28;
+    --white:#ffffff;
+    --purple:#9B6ADE;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Nunito', sans-serif;
+    background:
+      radial-gradient(circle at 8% 6%, #FFE6C9 0%, transparent 30%),
+      radial-gradient(circle at 94% 8%, #D6F3EC 0%, transparent 28%),
+      radial-gradient(circle at 92% 92%, #FFE0C2 0%, transparent 30%),
+      var(--cream);
+    color:var(--ink);
+    min-height:100vh;
+    padding:24px 16px 60px;
+  }
+  .wrap{max-width:760px;margin:0 auto;}
+
+  header{
+    background:var(--white);
+    border-radius:28px;
+    padding:22px 26px;
+    text-align:center;
+    box-shadow:0 10px 0 rgba(47,182,163,0.18), 0 2px 18px rgba(0,0,0,0.05);
+    border:3px dashed var(--teal);
+    position:relative;
+    overflow:hidden;
+  }
+  header .badge{
+    display:inline-block;
+    background:var(--orange);
+    color:#fff;
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    letter-spacing:1px;
+    padding:6px 18px;
+    border-radius:999px;
+    margin-bottom:10px;
+  }
+  header h1{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:clamp(21px,5vw,30px);
+    margin:4px 0 6px;
+    color:var(--teal);
+  }
+  header p{
+    margin:0;
+    font-size:15px;
+    font-weight:600;
+    color:#8A7660;
+  }
+  .deco{position:absolute;font-size:26px;opacity:0.9;}
+  .deco.d1{top:10px;left:14px;}
+  .deco.d2{top:14px;right:16px;}
+  .deco.d3{bottom:8px;left:22px;}
+  .deco.d4{bottom:10px;right:20px;}
+
+  .progress-bar{
+    background:#F3E9DC;
+    border-radius:999px;
+    height:14px;
+    margin:20px 0 4px;
+    overflow:hidden;
+    border:2px solid #fff;
+    box-shadow:0 0 0 2px var(--teal-light);
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg, var(--orange), var(--teal));
+    border-radius:999px;
+    transition:width .4s ease;
+  }
+  .progress-label{
+    text-align:center;
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    color:#A08A6D;
+    margin-bottom:14px;
+  }
+
+  #quiz-area{display:flex;flex-direction:column;gap:16px;}
+
+  .qcard{
+    background:var(--white);
+    border-radius:24px;
+    padding:22px 22px 20px;
+    box-shadow:0 8px 0 rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.05);
+    border:3px solid #FDEEDD;
+    animation:pop .35s ease;
+  }
+  @keyframes pop{
+    from{opacity:0; transform:translateY(10px) scale(.98);}
+    to{opacity:1; transform:translateY(0) scale(1);}
+  }
+  .qnum{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:34px;height:34px;
+    border-radius:50%;
+    background:var(--gold);
+    color:#5C4300;
+    font-family:'Baloo 2',sans-serif;
+    font-weight:800;
+    font-size:15px;
+    margin-bottom:10px;
+  }
+  .qtext{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:19px;
+    margin:0 0 4px;
+    color:var(--ink);
+  }
+  .qtext .stmt{
+    color:var(--teal);
+    background:var(--teal-light);
+    padding:2px 10px;
+    border-radius:10px;
+    display:inline-block;
+  }
+  .qgloss{
+    font-size:13px;
+    font-weight:600;
+    color:#A08A6D;
+    margin:0 0 14px;
+  }
+  .options{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  @media (max-width:480px){
+    .options{grid-template-columns:1fr;}
+  }
+  .opt{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:16px;
+    padding:12px 14px;
+    border-radius:14px;
+    border:2.5px solid #F0E4D2;
+    background:#FFFDF9;
+    cursor:pointer;
+    text-align:left;
+    transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+    color:var(--ink);
+  }
+  .opt:hover:not(:disabled){
+    transform:translateY(-2px);
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  }
+  .opt:disabled{cursor:default;}
+  .opt.correct{
+    background:var(--teal-light);
+    border-color:var(--teal);
+    color:#175C4F;
+  }
+  .opt.wrong{
+    background:#FFE3E3;
+    border-color:#FF8B8B;
+    color:#B23838;
+  }
+  .opt.dim{opacity:0.55;}
+
+  .feedback{
+    margin-top:12px;
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:14px;
+    padding:10px 14px;
+    border-radius:12px;
+    display:none;
+  }
+  .feedback.show{display:block; animation:pop .3s ease;}
+  .feedback.good{background:var(--teal-light); color:#175C4F;}
+  .feedback.bad{background:#FFE3E3; color:#B23838;}
+
+  .footer-actions{
+    display:flex;
+    justify-content:center;
+    margin-top:22px;
+  }
+  #next-btn, #restart-btn, #shuffle-btn{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:16px;
+    padding:12px 30px;
+    border-radius:999px;
+    border:none;
+    cursor:pointer;
+    color:#fff;
+    background:linear-gradient(135deg, var(--orange), var(--teal));
+    box-shadow:0 5px 0 #C9873E;
+    transition:transform .1s ease;
+  }
+  #next-btn:active, #restart-btn:active, #shuffle-btn:active{
+    transform:translateY(3px);
+    box-shadow:0 2px 0 #C9873E;
+  }
+  #next-btn:disabled{
+    opacity:0.4;
+    cursor:not-allowed;
+    box-shadow:0 5px 0 #ccc;
+  }
+
+  /* Result screen */
+  #result-screen{display:none; text-align:center;}
+  #result-screen.show{display:block; animation:pop .4s ease;}
+  .result-card{
+    background:var(--white);
+    border-radius:28px;
+    padding:34px 24px;
+    box-shadow:0 10px 0 rgba(47,182,163,0.18), 0 4px 20px rgba(0,0,0,0.06);
+    border:3px dashed var(--teal);
+  }
+  .result-emoji{font-size:56px; margin-bottom:6px;}
+  .result-title{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:800;
+    font-size:24px;
+    color:var(--teal);
+    margin:4px 0;
+  }
+  .score-big{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:800;
+    font-size:44px;
+    color:var(--orange);
+    margin:10px 0;
+  }
+  .score-sub{font-weight:700; color:#A08A6D; margin-bottom:20px;}
+  .btn-row{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
+
+  #start-screen{
+    background:var(--white);
+    border-radius:28px;
+    padding:30px 24px;
+    text-align:center;
+    box-shadow:0 10px 0 rgba(47,182,163,0.18), 0 4px 20px rgba(0,0,0,0.06);
+    border:3px dashed var(--teal);
+    margin-top:18px;
+  }
+  #start-screen h2{
+    font-family:'Baloo 2',sans-serif;
+    color:var(--teal);
+    font-size:20px;
+  }
+  #start-screen p{font-weight:600; color:#8A7660; font-size:15px; line-height:1.6;}
+  #start-btn{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:17px;
+    padding:14px 36px;
+    border-radius:999px;
+    border:none;
+    cursor:pointer;
+    color:#fff;
+    background:linear-gradient(135deg, var(--teal), var(--orange));
+    box-shadow:0 5px 0 #C9873E;
+    margin-top:10px;
+  }
+  #start-btn:active{transform:translateY(3px); box-shadow:0 2px 0 #C9873E;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <span class="deco d1">✏️</span>
+    <span class="deco d2">🔢</span>
+    <span class="deco d3">🌼</span>
+    <span class="deco d4">⭐</span>
+    <div class="badge">BASA JAWA · KELAS 1</div>
+    <h1>Cacahe Perangan Awak</h1>
+    <p>Ayo tebak, ana pira cacahe perangan awak iki? (banyaknya bagian tubuh)</p>
+  </header>
+
+  <div id="start-screen">
+    <h2>Siap dolanan karo sinau? 🌟</h2>
+    <p>Ana 15 soal pilihan ganda babagan <b>cacahe perangan awak</b> (jumlah bagian tubuh) nganggo basa Jawa.<br>
+    Contone: "cacahe mripat ana pira?" &rarr; jawabane <b>loro</b> (2).</p>
+    <button id="start-btn">Mulai Nggarap 🚀</button>
+  </div>
+
+  <div class="progress-label" id="progress-label" style="display:none;">Soal 1 dari 15</div>
+  <div class="progress-bar" id="progress-bar" style="display:none;">
+    <div class="progress-fill" id="progress-fill"></div>
+  </div>
+
+  <div id="quiz-area"></div>
+
+  <div class="footer-actions" id="next-wrap" style="display:none;">
+    <button id="next-btn" disabled>Soal Berikutnya ➜</button>
+  </div>
+
+  <div id="result-screen">
+    <div class="result-card">
+      <div class="result-emoji" id="result-emoji">🎉</div>
+      <div class="result-title" id="result-title">Apik Tenan!</div>
+      <div class="score-big" id="score-big">0/15</div>
+      <div class="score-sub" id="score-sub">Kowe njawab bener sekian soal</div>
+      <div class="btn-row">
+        <button id="restart-btn">Baleni Soal Iki 🔁</button>
+        <button id="shuffle-btn">Gawe Soal Anyar 🎲</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ---------- ANGKA BASA JAWA ----------
+const NUM_WORDS = {
+  1:"siji", 2:"loro", 3:"telu", 4:"papat", 5:"lima",
+  6:"enem", 7:"pitu", 8:"wolu", 9:"sanga", 10:"sepuluh"
+};
+
+// ---------- BANK SOAL: perangan awak + cacahe (jumlah) ----------
+const BANK = [
+  {part:"mripat", gloss:"mata", n:2},
+  {part:"irung", gloss:"hidung", n:1},
+  {part:"tutuk", gloss:"mulut", n:1},
+  {part:"tangan", gloss:"tangan", n:2},
+  {part:"driji tangan", gloss:"jari tangan", n:10},
+  {part:"sikil", gloss:"kaki", n:2},
+  {part:"driji sikil", gloss:"jari kaki", n:10},
+  {part:"kuping", gloss:"telinga", n:2},
+  {part:"alis", gloss:"alis", n:2},
+  {part:"bathuk", gloss:"dahi", n:1},
+  {part:"gulu", gloss:"leher", n:1},
+  {part:"weteng", gloss:"perut", n:1},
+  {part:"dhadha", gloss:"dada", n:1},
+  {part:"lambe", gloss:"bibir", n:2},
+  {part:"pipi", gloss:"pipi", n:2},
+  {part:"sikut", gloss:"siku", n:2},
+  {part:"dhengkul", gloss:"lutut", n:2},
+  {part:"jempol tangan", gloss:"ibu jari tangan", n:2},
+  {part:"dagu", gloss:"dagu", n:1},
+  {part:"pundhak", gloss:"pundak/bahu", n:2}
+];
+
+const TOTAL_Q = 15;
+
+let questions = [];
+let currentIndex = 0;
+let score = 0;
+let answered = false;
+
+function shuffleArr(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function makeOptions(correctN){
+  const pool = [1,2,3,4,5,6,7,8,9,10].filter(n => n !== correctN);
+  // pilih 3 distraktor, sebisa mungkin dekat dengan angka benar supaya masuk akal
+  const near = pool.sort((a,b) => Math.abs(a-correctN) - Math.abs(b-correctN));
+  const distractors = shuffleArr(near.slice(0,5)).slice(0,3);
+  const all = shuffleArr([correctN, ...distractors]);
+  return all;
+}
+
+function buildQuestions(){
+  const pool = shuffleArr(BANK).slice(0, TOTAL_Q);
+  return pool.map(item => {
+    return {
+      part: item.part,
+      gloss: item.gloss,
+      correct: item.n,
+      options: makeOptions(item.n)
+    };
+  });
+}
+
+function startQuiz(){
+  questions = buildQuestions();
+  currentIndex = 0;
+  score = 0;
+  document.getElementById('start-screen').style.display='none';
+  document.getElementById('result-screen').classList.remove('show');
+  document.getElementById('progress-label').style.display='block';
+  document.getElementById('progress-bar').style.display='block';
+  document.getElementById('next-wrap').style.display='flex';
+  renderQuestion();
+}
+
+function renderQuestion(){
+  answered = false;
+  const area = document.getElementById('quiz-area');
+  const q = questions[currentIndex];
+  const nextBtn = document.getElementById('next-btn');
+  nextBtn.disabled = true;
+  nextBtn.textContent = (currentIndex === TOTAL_Q-1) ? "Deleng Asile 🏁" : "Soal Berikutnya ➜";
+
+  document.getElementById('progress-label').textContent = `Soal ${currentIndex+1} dari ${TOTAL_Q}`;
+  document.getElementById('progress-fill').style.width = `${(currentIndex/TOTAL_Q)*100}%`;
+
+  const optHtml = q.options.map(n => {
+    return `<button class="opt" data-val="${n}">${NUM_WORDS[n]}</button>`;
+  }).join('');
+
+  area.innerHTML = `
+    <div class="qcard">
+      <div class="qnum">${currentIndex+1}</div>
+      <p class="qtext">Cacahe <span class="stmt">${q.part}</span> ana pira?</p>
+      <p class="qgloss">(banyaknya ${q.gloss})</p>
+      <div class="options">${optHtml}</div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+  `;
+
+  area.querySelectorAll('.opt').forEach(btn => {
+    btn.addEventListener('click', () => handleAnswer(btn, q));
+  });
+}
+
+function handleAnswer(btn, q){
+  if(answered) return;
+  answered = true;
+  const chosen = parseInt(btn.dataset.val, 10);
+  const allOpts = document.querySelectorAll('.opt');
+  const feedback = document.getElementById('feedback');
+
+  allOpts.forEach(o => {
+    o.disabled = true;
+    const val = parseInt(o.dataset.val, 10);
+    if(val === q.correct){
+      o.classList.add('correct');
+    } else if(o === btn){
+      o.classList.add('wrong');
+    } else {
+      o.classList.add('dim');
+    }
+  });
+
+  if(chosen === q.correct){
+    score++;
+    feedback.textContent = `Bener! 🎉 Cacahe ${q.part} ana ${NUM_WORDS[q.correct]} (${q.correct}).`;
+    feedback.className = "feedback show good";
+  } else {
+    feedback.textContent = `Durung pas. Cacahe ${q.part} ana ${NUM_WORDS[q.correct]} (${q.correct}).`;
+    feedback.className = "feedback show bad";
+  }
+
+  document.getElementById('next-btn').disabled = false;
+}
+
+function nextQuestion(){
+  if(currentIndex < TOTAL_Q - 1){
+    currentIndex++;
+    renderQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult(){
+  document.getElementById('progress-fill').style.width = '100%';
+  document.getElementById('quiz-area').innerHTML = '';
+  document.getElementById('next-wrap').style.display='none';
+  document.getElementById('progress-label').style.display='none';
+  document.getElementById('progress-bar').style.display='none';
+
+  const pct = Math.round((score/TOTAL_Q)*100);
+  let emoji = "🌱", title = "Sinau Terus Ya!";
+  if(pct >= 90){ emoji="🏆"; title="Pinter Tenan!"; }
+  else if(pct >= 70){ emoji="🎉"; title="Apik Tenan!"; }
+  else if(pct >= 50){ emoji="👍"; title="Wis Lumayan!"; }
+
+  document.getElementById('result-emoji').textContent = emoji;
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('score-big').textContent = `${score}/${TOTAL_Q}`;
+  document.getElementById('score-sub').textContent = `Kowe njawab bener ${score} saka ${TOTAL_Q} soal (${pct}%)`;
+  document.getElementById('result-screen').classList.add('show');
+}
+
+document.getElementById('start-btn').addEventListener('click', startQuiz);
+document.getElementById('next-btn').addEventListener('click', nextQuestion);
+document.getElementById('restart-btn').addEventListener('click', () => {
+  currentIndex = 0;
+  score = 0;
+  document.getElementById('progress-label').style.display='block';
+  document.getElementById('progress-bar').style.display='block';
+  document.getElementById('next-wrap').style.display='flex';
+  document.getElementById('result-screen').classList.remove('show');
+  renderQuestion();
+});
+document.getElementById('shuffle-btn').addEventListener('click', () => {
+  document.getElementById('result-screen').classList.remove('show');
+  startQuiz();
+});
+</script>
+</body>
+</html>
