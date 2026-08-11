@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kereta Bangun Datar - Menentukan Posisi Urutan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky:#EAF6FF;
+    --sky-deep:#CDE9FB;
+    --navy:#2B3A55;
+    --coral:#FF6B6B;
+    --sun:#FFC93C;
+    --leaf:#4CAF7D;
+    --lilac:#8E7CC3;
+    --white:#FFFFFF;
+    --shadow: 0 8px 0 rgba(43,58,85,0.12);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(circle at 10% 8%, #fff 0 3%, transparent 3.6%),
+      radial-gradient(circle at 92% 14%, #fff 0 2.4%, transparent 3%),
+      radial-gradient(circle at 80% 85%, #fff 0 2.8%, transparent 3.4%),
+      radial-gradient(circle at 6% 78%, #fff 0 2%, transparent 2.6%),
+      linear-gradient(180deg, var(--sky) 0%, var(--sky-deep) 100%);
+    font-family:'Nunito', sans-serif;
+    color:var(--navy);
+    display:flex;
+    justify-content:center;
+    padding:28px 14px 60px;
+  }
+  h1,h2,h3,.display{font-family:'Baloo 2', sans-serif;}
+  .wrap{ width:100%; max-width:640px; }
+
+  /* ---- Header: the shape-train signature element ---- */
+  .header{
+    text-align:center;
+    margin-bottom:18px;
+  }
+  .eyebrow{
+    display:inline-block;
+    background:var(--sun);
+    color:var(--navy);
+    font-weight:800;
+    font-family:'Baloo 2', sans-serif;
+    padding:4px 16px;
+    border-radius:999px;
+    font-size:13px;
+    letter-spacing:.5px;
+    margin-bottom:10px;
+    transform:rotate(-2deg);
+  }
+  .header h1{
+    font-size:28px;
+    font-weight:800;
+    margin:0 0 4px;
+    color:var(--navy);
+  }
+  .header p{
+    margin:0;
+    font-weight:700;
+    color:#5a6b8c;
+    font-size:14px;
+  }
+
+  .train{
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    margin:18px 0 22px;
+    flex-wrap:wrap;
+  }
+  .train .wagon{
+    background:var(--white);
+    border-radius:14px;
+    width:44px;
+    height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow: 0 4px 0 rgba(43,58,85,0.15);
+    position:relative;
+  }
+  .train .wagon svg{width:26px;height:26px;}
+  .train .wagon .num{
+    position:absolute;
+    top:-9px; left:-6px;
+    background:var(--coral);
+    color:#fff;
+    font-family:'Baloo 2', sans-serif;
+    font-size:10px;
+    font-weight:700;
+    width:16px;height:16px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+  }
+
+  /* ---- Progress dots ---- */
+  .progress{
+    display:flex;
+    gap:5px;
+    justify-content:center;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+  }
+  .dot{
+    width:16px;height:16px;border-radius:50%;
+    background:#ffffffaa;
+    border:2px solid #c9daf0;
+    transition:.2s;
+  }
+  .dot.done-correct{ background:var(--leaf); border-color:var(--leaf); }
+  .dot.done-wrong{ background:var(--coral); border-color:var(--coral); }
+  .dot.current{ border-color:var(--navy); transform:scale(1.25); }
+
+  /* ---- Card ---- */
+  .card{
+    background:var(--white);
+    border-radius:26px;
+    padding:26px 22px 24px;
+    box-shadow: var(--shadow);
+    border:3px solid var(--navy);
+    position:relative;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    top:-30px; right:-30px;
+    width:90px;height:90px;
+    background:var(--sun);
+    border-radius:50%;
+    opacity:.5;
+  }
+  .qnum{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    color:var(--lilac);
+    font-size:14px;
+    margin-bottom:6px;
+  }
+  .qtext{
+    font-size:19px;
+    font-weight:800;
+    font-family:'Baloo 2', sans-serif;
+    line-height:1.4;
+    color:var(--navy);
+    margin:4px 0 18px;
+    position:relative;
+    z-index:1;
+  }
+  .qtext .inline-shape{
+    display:inline-flex;
+    vertical-align:middle;
+    margin:0 3px;
+    background:var(--sky);
+    border-radius:8px;
+    padding:3px 6px;
+  }
+  .qtext .inline-shape svg{width:22px;height:22px;display:block;}
+
+  .options{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    position:relative;
+    z-index:1;
+  }
+  .options.numbers{ grid-template-columns:repeat(4,1fr); }
+
+  .opt{
+    border:3px solid #d9e6f5;
+    background:#f8fbff;
+    border-radius:16px;
+    padding:14px 8px;
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:20px;
+    color:var(--navy);
+    transition:.15s;
+  }
+  .opt svg{width:34px;height:34px;}
+  .opt:hover:not(.locked){ border-color:var(--lilac); transform:translateY(-2px); }
+  .opt.correct{ background:#e6f7ee; border-color:var(--leaf); }
+  .opt.wrong{ background:#ffecec; border-color:var(--coral); }
+  .opt.locked{ cursor:default; opacity:.75;}
+  .opt.locked:hover{ transform:none; }
+
+  .feedback{
+    margin-top:16px;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    min-height:22px;
+    text-align:center;
+  }
+  .feedback.ok{ color:var(--leaf); }
+  .feedback.no{ color:var(--coral); }
+
+  .next-btn{
+    display:block;
+    margin:16px auto 0;
+    background:var(--navy);
+    color:#fff;
+    border:none;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    padding:12px 28px;
+    border-radius:999px;
+    cursor:pointer;
+    box-shadow:0 5px 0 #172234;
+    visibility:hidden;
+  }
+  .next-btn:active{ transform:translateY(3px); box-shadow:0 2px 0 #172234; }
+
+  /* ---- Result screen ---- */
+  .result{
+    text-align:center;
+  }
+  .result .score{
+    font-family:'Baloo 2', sans-serif;
+    font-size:56px;
+    font-weight:800;
+    color:var(--coral);
+    margin:6px 0 0;
+  }
+  .result .score span{ font-size:26px; color:#8095b8; }
+  .result .msg{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:18px;
+    margin:6px 0 22px;
+  }
+  .result .stars{ font-size:34px; margin-bottom:6px; }
+
+  .btn-row{
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top:8px;
+  }
+  .btn{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    padding:12px 22px;
+    border-radius:999px;
+    cursor:pointer;
+    border:none;
+  }
+  .btn.primary{ background:var(--coral); color:#fff; box-shadow:0 5px 0 #c14f4f;}
+  .btn.primary:active{ transform:translateY(3px); box-shadow:0 2px 0 #c14f4f; }
+  .btn.ghost{ background:#fff; color:var(--navy); border:3px solid var(--navy); box-shadow:0 5px 0 rgba(43,58,85,0.25); }
+  .btn.ghost:active{ transform:translateY(3px); box-shadow:0 2px 0 rgba(43,58,85,0.25); }
+
+  .toolbar{
+    display:flex;
+    justify-content:center;
+    margin-top:16px;
+  }
+
+  footer{
+    text-align:center;
+    margin-top:22px;
+    font-size:12px;
+    color:#7c8bab;
+    font-weight:700;
+  }
+
+  @media (max-width:420px){
+    .qtext{font-size:17px;}
+    .options{grid-template-columns:1fr 1fr;}
+    .options.numbers{grid-template-columns:repeat(4,1fr);}
+    .opt{font-size:17px; padding:10px 6px;}
+    .opt svg{width:28px;height:28px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <span class="eyebrow">KELAS 1 · MENENTUKAN POSISI URUTAN</span>
+    <h1>Kereta Bangun Datar</h1>
+    <p>Yuk, temukan urutan bangun datar dari kepala sampai ekor kereta!</p>
+  </div>
+
+  <div class="train" id="train"></div>
+
+  <div class="progress" id="progress"></div>
+
+  <div class="card" id="card">
+    <!-- filled by JS -->
+  </div>
+
+  <div class="toolbar">
+    <button class="btn ghost" id="regenBtn">🔄 Buat 15 Soal Baru</button>
+  </div>
+
+  <footer>Latihan interaktif · Menentukan posisi urutan bangun datar</footer>
+</div>
+
+<script>
+/* ---------------------------------------------------------
+   DATA: urutan bangun datar sesuai papan tulis (1 - 7)
+--------------------------------------------------------- */
+const SEQUENCE = [
+  { name: "persegi",           type: "square" },
+  { name: "lingkaran",         type: "circle" },
+  { name: "segitiga",          type: "triangle" },
+  { name: "jajar genjang",     type: "parallelogram" },
+  { name: "bintang",           type: "star" },
+  { name: "segitiga terbalik", type: "triangle-down" },
+  { name: "persegi panjang",   type: "rectangle" }
+];
+const TOTAL_Q = 15;
+
+/* ---------------------------------------------------------
+   SVG generator untuk tiap bentuk
+--------------------------------------------------------- */
+function shapeSVG(type, color){
+  color = color || "#2B3A55";
+  const shapes = {
+    "square": `<rect x="10" y="10" width="40" height="40" rx="5"/>`,
+    "circle": `<circle cx="30" cy="30" r="22"/>`,
+    "triangle": `<polygon points="30,8 54,52 6,52"/>`,
+    "parallelogram": `<polygon points="20,12 54,12 40,48 6,48"/>`,
+    "star": `<polygon points="30,3 37,22 57,22 41,34 47,53 30,42 13,53 19,34 3,22 23,22"/>`,
+    "triangle-down": `<polygon points="6,10 54,10 30,52"/>`,
+    "rectangle": `<rect x="5" y="16" width="50" height="28" rx="4"/>`
+  };
+  return `<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" fill="${color}">${shapes[type]}</svg>`;
+}
+
+/* ---------------------------------------------------------
+   Render kereta bangun (hero / signature element)
+--------------------------------------------------------- */
+function renderTrain(){
+  const el = document.getElementById("train");
+  el.innerHTML = SEQUENCE.map((s,i)=>`
+    <div class="wagon">
+      <span class="num">${i+1}</span>
+      ${shapeSVG(s.type)}
+    </div>
+  `).join("");
+}
+
+/* ---------------------------------------------------------
+   Pembuat soal
+--------------------------------------------------------- */
+function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = randInt(0,i);
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function sample(arr,n){ return shuffle(arr).slice(0,n); }
+
+function shapeChip(type){
+  return `<span class="inline-shape">${shapeSVG(type)}</span>`;
+}
+
+// Template soal: masing-masing mengembalikan objek soal atau null jika tidak valid
+const templates = [
+  // 1. Bentuk -> posisi ke berapa
+  function(){
+    const idx = randInt(0,6);
+    const shape = SEQUENCE[idx];
+    const correct = idx+1;
+    const distractors = shuffle(SEQUENCE.map((_,i)=>i+1).filter(n=>n!==correct)).slice(0,3);
+    const options = shuffle([correct, ...distractors]).map(n=>({label:String(n), value:n, type:"number"}));
+    return {
+      text: `${shapeChip(shape.type)} adalah urutan ke ...`,
+      optType: "number",
+      options,
+      correct
+    };
+  },
+  // 2. Posisi -> bentuk
+  function(){
+    const idx = randInt(0,6);
+    const correct = SEQUENCE[idx].type;
+    const distractors = shuffle(SEQUENCE.filter((_,i)=>i!==idx)).slice(0,3).map(s=>s.type);
+    const options = shuffle([correct, ...distractors]).map(t=>({label:"", value:t, type:"shape"}));
+    return {
+      text: `Bangun urutan ke-${idx+1} adalah ...`,
+      optType: "shape",
+      options,
+      correct
+    };
+  },
+  // 3. Sebelum bentuk X
+  function(){
+    const idx = randInt(1,6); // butuh idx-1 valid
+    const shape = SEQUENCE[idx];
+    const correct = SEQUENCE[idx-1].type;
+    const distractors = shuffle(SEQUENCE.filter((_,i)=>i!==idx-1)).slice(0,3).map(s=>s.type);
+    const options = shuffle([correct, ...distractors]).map(t=>({label:"", value:t, type:"shape"}));
+    return {
+      text: `Sebelum ${shapeChip(shape.type)} adalah bangun ...`,
+      optType: "shape",
+      options,
+      correct
+    };
+  },
+  // 4. Setelah bentuk X
+  function(){
+    const idx = randInt(0,5); // butuh idx+1 valid
+    const shape = SEQUENCE[idx];
+    const correct = SEQUENCE[idx+1].type;
+    const distractors = shuffle(SEQUENCE.filter((_,i)=>i!==idx+1)).slice(0,3).map(s=>s.type);
+    const options = shuffle([correct, ...distractors]).map(t=>({label:"", value:t, type:"shape"}));
+    return {
+      text: `Setelah ${shapeChip(shape.type)} adalah bangun ...`,
+      optType: "shape",
+      options,
+      correct
+    };
+  },
+  // 5. Di antara dua bentuk
+  function(){
+    const idx = randInt(1,5); // butuh idx-1 dan idx+1 valid
+    const left = SEQUENCE[idx-1];
+    const right = SEQUENCE[idx+1];
+    const correct = SEQUENCE[idx].type;
+    const distractors = shuffle(SEQUENCE.filter((_,i)=>i!==idx)).slice(0,3).map(s=>s.type);
+    const options = shuffle([correct, ...distractors]).map(t=>({label:"", value:t, type:"shape"}));
+    return {
+      text: `Bangun di antara ${shapeChip(left.type)} dan ${shapeChip(right.type)} adalah ...`,
+      optType: "shape",
+      options,
+      correct
+    };
+  },
+  // 6. Urutan pertama
+  function(){
+    const correct = SEQUENCE[0].type;
+    const distractors = shuffle(SEQUENCE.slice(1)).slice(0,3).map(s=>s.type);
+    const options = shuffle([correct, ...distractors]).map(t=>({label:"", value:t, type:"shape"}));
+    return {
+      text: `Bangun yang berada paling depan (urutan pertama) adalah ...`,
+      optType: "shape",
+      options,
+      correct
+    };
+  },
+  // 7. Urutan terakhir
+  function(){
+    const correct = SEQUENCE[SEQUENCE.length-1].type;
+    const distractors = shuffle(SEQUENCE.slice(0,-1)).slice(0,3).map(s=>s.type);
+    const options = shuffle([correct, ...distractors]).map(t=>({label:"", value:t, type:"shape"}));
+    return {
+      text: `Bangun yang berada paling belakang (urutan terakhir) adalah ...`,
+      optType: "shape",
+      options,
+      correct
+    };
+  }
+];
+
+function generateQuestions(n){
+  const qs = [];
+  let guard = 0;
+  const seenTexts = new Set();
+  while(qs.length < n && guard < n*30){
+    guard++;
+    const t = templates[randInt(0,templates.length-1)];
+    const q = t();
+    if(q && !seenTexts.has(q.text)){
+      seenTexts.add(q.text);
+      qs.push(q);
+    }
+  }
+  return qs;
+}
+
+/* ---------------------------------------------------------
+   State & rendering
+--------------------------------------------------------- */
+let questions = [];
+let current = 0;
+let score = 0;
+let answers = []; // "correct" | "wrong" | null
+
+function initQuiz(){
+  questions = generateQuestions(TOTAL_Q);
+  current = 0;
+  score = 0;
+  answers = new Array(TOTAL_Q).fill(null);
+  renderProgress();
+  renderQuestion();
+}
+
+function renderProgress(){
+  const el = document.getElementById("progress");
+  el.innerHTML = questions.map((_,i)=>{
+    let cls = "dot";
+    if(i === current) cls += " current";
+    if(answers[i] === "correct") cls += " done-correct";
+    if(answers[i] === "wrong") cls += " done-wrong";
+    return `<div class="${cls}"></div>`;
+  }).join("");
+}
+
+function renderQuestion(){
+  const card = document.getElementById("card");
+
+  if(current >= questions.length){
+    renderResult();
+    return;
+  }
+
+  const q = questions[current];
+  const optClass = q.optType === "shape" ? "options" : "options numbers";
+
+  card.innerHTML = `
+    <div class="qnum">Soal ${current+1} dari ${questions.length}</div>
+    <div class="qtext">${q.text}</div>
+    <div class="${optClass}" id="optWrap"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="next-btn" id="nextBtn">Soal Berikutnya →</button>
+  `;
+
+  const optWrap = document.getElementById("optWrap");
+  q.options.forEach(opt=>{
+    const btn = document.createElement("button");
+    btn.className = "opt";
+    if(q.optType === "shape"){
+      btn.innerHTML = shapeSVG(opt.value);
+    } else {
+      btn.innerHTML = `<span>${opt.label}</span>`;
+    }
+    btn.addEventListener("click", ()=> selectAnswer(opt.value, q, btn));
+    optWrap.appendChild(btn);
+  });
+
+  renderProgress();
+}
+
+function selectAnswer(value, q, btnEl){
+  const optWrap = document.getElementById("optWrap");
+  if(optWrap.dataset.locked === "1") return;
+  optWrap.dataset.locked = "1";
+
+  const buttons = Array.from(optWrap.children);
+  buttons.forEach(b=> b.classList.add("locked"));
+
+  const isCorrect = value === q.correct;
+  const feedback = document.getElementById("feedback");
+  const nextBtn = document.getElementById("nextBtn");
+
+  buttons.forEach(b=>{
+    // cocokkan tombol dengan bentuk/angka yang benar
+    const matchesCorrect = q.optType === "shape"
+      ? b.innerHTML.includes(shapeSVG(q.correct))
+      : b.textContent.trim() === String(q.correct);
+    if(matchesCorrect) b.classList.add("correct");
+  });
+
+  if(isCorrect){
+    btnEl.classList.add("correct");
+    feedback.textContent = "🎉 Benar sekali! Hebat!";
+    feedback.className = "feedback ok";
+    answers[current] = "correct";
+    score++;
+  } else {
+    btnEl.classList.add("wrong");
+    feedback.textContent = "Belum tepat, coba lihat jawaban yang benar ya!";
+    feedback.className = "feedback no";
+    answers[current] = "wrong";
+  }
+
+  nextBtn.style.visibility = "visible";
+  nextBtn.onclick = ()=>{
+    current++;
+    renderQuestion();
+  };
+
+  renderProgress();
+}
+
+function renderResult(){
+  const card = document.getElementById("card");
+  const pct = Math.round((score/questions.length)*100);
+  let stars = "⭐";
+  let msg = "Ayo semangat berlatih lagi!";
+  if(pct >= 80){ stars = "⭐⭐⭐"; msg = "Luar biasa! Kamu jagoan urutan bangun!"; }
+  else if(pct >= 50){ stars = "⭐⭐"; msg = "Bagus! Sedikit lagi jadi jagoan!"; }
+
+  card.innerHTML = `
+    <div class="result">
+      <div class="stars">${stars}</div>
+      <div class="qnum" style="justify-content:center;">HASIL LATIHAN</div>
+      <div class="score">${score}<span>/${questions.length}</span></div>
+      <div class="msg">${msg}</div>
+      <div class="btn-row">
+        <button class="btn primary" id="retrySame">↺ Ulangi Soal Ini</button>
+        <button class="btn ghost" id="newSet">🔄 Soal Baru</button>
+      </div>
+    </div>
+  `;
+
+  document.getElementById("retrySame").addEventListener("click", ()=>{
+    current = 0;
+    score = 0;
+    answers = new Array(questions.length).fill(null);
+    renderQuestion();
+  });
+  document.getElementById("newSet").addEventListener("click", initQuiz);
+
+  document.getElementById("progress").innerHTML = "";
+}
+
+/* ---------------------------------------------------------
+   Init
+--------------------------------------------------------- */
+document.getElementById("regenBtn").addEventListener("click", initQuiz);
+renderTrain();
+initQuiz();
+</script>
+</body>
+</html>
