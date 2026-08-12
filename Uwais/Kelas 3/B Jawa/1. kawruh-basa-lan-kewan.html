@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="jv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kawruh Basa lan Kewan — Latihan Basa Jawa Kelas 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF3E3;
+    --paper-2:#F3E6CC;
+    --card:#FFFDF8;
+    --ink:#3B2A1A;
+    --ink-soft:#6B5842;
+    --indigo:#2B3A67;
+    --soga:#A9662E;
+    --soga-dark:#7E4A1E;
+    --teal:#2F6E62;
+    --teal-light:#E4EFEA;
+    --gold:#C99A2E;
+    --red:#B34632;
+    --red-light:#F6E4DF;
+    --line:#E4D3AE;
+    --radius:18px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Quicksand',sans-serif;
+    line-height:1.55;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(169,102,46,0.10) 1px, transparent 0);
+    background-size: 22px 22px;
+  }
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px 60px;}
+
+  /* ---------- HEADER ---------- */
+  header.hero{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(135deg,var(--indigo) 0%,#3A4E85 60%,var(--indigo) 100%);
+    color:#F6EFDD;
+    padding:44px 24px 38px;
+    margin-bottom:34px;
+  }
+  header.hero .batik{
+    position:absolute; inset:0; opacity:0.16; pointer-events:none;
+  }
+  .hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:1;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'Quicksand',sans-serif;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;font-size:12.5px;color:var(--gold);
+    background:rgba(255,255,255,0.08);
+    padding:6px 14px;border-radius:999px;border:1px solid rgba(201,154,46,0.5);
+  }
+  h1{
+    font-family:'Fredoka',sans-serif;
+    font-weight:700;
+    font-size:clamp(28px,5vw,42px);
+    margin:16px 0 8px;
+    color:#fff;
+  }
+  .hero p{
+    font-size:16px;color:#DCE1F0;max-width:60ch;margin:0;
+  }
+  .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;}
+  .hero-badge{
+    background:rgba(255,255,255,0.09);
+    border:1px solid rgba(255,255,255,0.18);
+    padding:8px 14px;border-radius:12px;font-size:13.5px;color:#EFE7D3;
+    display:flex;align-items:center;gap:6px;
+  }
+
+  /* ---------- SECTION TITLES ---------- */
+  .section-title{
+    display:flex;align-items:center;gap:12px;margin:8px 0 18px;
+  }
+  .section-title .num{
+    font-family:'Fredoka',sans-serif;font-weight:600;font-size:14px;
+    background:var(--soga);color:#fff;width:32px;height:32px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .section-title h2{
+    font-family:'Fredoka',sans-serif;font-size:22px;margin:0;color:var(--indigo);
+  }
+
+  /* ---------- MATERI CARDS ---------- */
+  .materi-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px 24px;
+    margin-bottom:18px;
+    box-shadow:0 2px 0 var(--line);
+  }
+  .materi-card h3{
+    font-family:'Fredoka',sans-serif;
+    font-size:17px;color:var(--soga-dark);margin:0 0 8px;
+  }
+  .materi-card p{margin:0 0 10px;color:var(--ink);}
+  .materi-card p:last-child{margin-bottom:0;}
+  .materi-card .contoh{
+    background:var(--paper-2);border-left:4px solid var(--gold);
+    padding:10px 14px;border-radius:8px;font-size:14.5px;color:var(--ink-soft);margin-top:10px;
+  }
+
+  .kewan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:12px;}
+  .kewan-chip{
+    background:var(--paper-2);border-radius:12px;padding:12px 14px;border:1px solid var(--line);
+  }
+  .kewan-chip .tag{
+    display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
+    padding:3px 9px;border-radius:999px;margin-bottom:6px;
+  }
+  .tag.iwen{background:#DDEAE0;color:var(--teal);}
+  .tag.ingon{background:#F1E0C7;color:var(--soga-dark);}
+  .tag.alas{background:#E7DCF3;color:#5B3E8A;}
+  .tag.nggremet{background:#F6E0DA;color:var(--red);}
+  .kewan-chip .list{font-size:14px;color:var(--ink);}
+
+  table.data{width:100%;border-collapse:collapse;margin-top:12px;font-size:14.5px;}
+  table.data th,table.data td{
+    text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);
+  }
+  table.data th{
+    font-family:'Fredoka',sans-serif;font-weight:600;color:var(--indigo);
+    font-size:13px;text-transform:uppercase;letter-spacing:.04em;
+  }
+  table.data tr:last-child td{border-bottom:none;}
+  .table-scroll{overflow-x:auto;}
+
+  /* ---------- QUIZ ---------- */
+  .quiz-toolbar{
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+    margin-bottom:20px;
+  }
+  .quiz-toolbar p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+  .btn{
+    font-family:'Fredoka',sans-serif;font-weight:600;font-size:14.5px;
+    border:none;border-radius:12px;padding:12px 20px;cursor:pointer;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{background:var(--soga);color:#fff;box-shadow:0 3px 0 var(--soga-dark);}
+  .btn-primary:hover{box-shadow:0 4px 0 var(--soga-dark);transform:translateY(-1px);}
+  .btn-ghost{background:var(--card);color:var(--indigo);border:1.5px solid var(--line);}
+  .btn-ghost:hover{border-color:var(--soga);}
+
+  .qcard{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px 22px;margin-bottom:16px;
+  }
+  .qcard .qnum{
+    font-family:'Fredoka',sans-serif;font-size:13px;color:var(--gold);font-weight:700;
+    letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;
+  }
+  .qcard .qtext{font-size:16.5px;font-weight:600;color:var(--ink);margin-bottom:14px;}
+  .options{display:flex;flex-direction:column;gap:9px;}
+  .option{
+    display:flex;align-items:center;gap:10px;
+    padding:11px 14px;border:1.5px solid var(--line);border-radius:12px;
+    cursor:pointer;font-size:15px;background:#fff;
+  }
+  .option:hover{border-color:var(--soga);}
+  .option input{accent-color:var(--soga);width:16px;height:16px;flex-shrink:0;}
+  .option.correct{background:var(--teal-light);border-color:var(--teal);color:#1F4A41;font-weight:600;}
+  .option.wrong{background:var(--red-light);border-color:var(--red);color:#7A2E1F;font-weight:600;}
+  .option.disabled{cursor:default;}
+  .feedback-icon{margin-left:auto;font-size:15px;}
+
+  .result-banner{
+    display:none;
+    background:var(--indigo);color:#fff;border-radius:var(--radius);
+    padding:26px 26px;margin:26px 0;text-align:center;
+  }
+  .result-banner.show{display:block;}
+  .result-banner .score{
+    font-family:'Fredoka',sans-serif;font-size:38px;font-weight:700;color:var(--gold);
+  }
+  .result-banner p{margin:6px 0 0;color:#E3E7F2;}
+
+  .actions-bottom{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px;}
+
+  footer{
+    text-align:center;color:var(--ink-soft);font-size:13px;margin-top:36px;padding-top:20px;
+    border-top:1px dashed var(--line);
+  }
+
+  @media (max-width:600px){
+    header.hero{padding:32px 18px 28px;}
+    .materi-card{padding:18px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg class="batik" width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="kawung" width="40" height="40" patternUnits="userSpaceOnUse">
+        <circle cx="10" cy="10" r="8" fill="none" stroke="#F6EFDD" stroke-width="1"/>
+        <circle cx="30" cy="30" r="8" fill="none" stroke="#F6EFDD" stroke-width="1"/>
+      </pattern>
+    </defs>
+    <rect width="400" height="200" fill="url(#kawung)"/>
+  </svg>
+  <div class="hero-inner">
+    <span class="eyebrow">✦ Basa Jawa · Kelas 3</span>
+    <h1>Kawruh Basa lan Kewan</h1>
+    <p>Sinau tembung aran, jinise kewan, jenenge anak kewan, swara lan kendhang kewan, tekan ukara pitakon lan pakon — banjur dicoba lumantar 30 soal interaktif.</p>
+    <div class="hero-badges">
+      <span class="hero-badge">📖 Materi lengkap</span>
+      <span class="hero-badge">📝 30 soal pilihan ganda</span>
+      <span class="hero-badge">🔁 Bisa gawe soal anyar</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ================= MATERI ================= -->
+  <section id="materi">
+    <div class="section-title"><span class="num">1</span><h2>Tembung Aran (Kata Benda)</h2></div>
+    <div class="materi-card">
+      <p><strong>Tembung aran</strong> yaiku jenenge sakabehing apa wae kang dianggep barang, kaya jeneng wong, kewan, tetuwuhan, papan, panganan, lan liya-liyane.</p>
+      <p>Conto: Gunung, dalan, Yogyakarta, sapi, Faith, sate, wit jambu.</p>
+      <div class="contoh">Conto ukara: <em>"Faith maem sate lan timun."</em> — Tembung arane: <strong>Faith, sate, timun</strong>.</div>
+    </div>
+
+    <div class="section-title"><span class="num">2</span><h2>Arane Kewan (Jinis Kewan)</h2></div>
+    <div class="materi-card">
+      <p>Miturut sipat lan panggon uripe, kewan dipérang dadi papat:</p>
+      <div class="kewan-grid">
+        <div class="kewan-chip">
+          <span class="tag iwen">Kewan Iwen</span>
+          <div class="list">Kewan sing duwe swiwi lan sikil loro: pitik, bebek, menthok, banyak.</div>
+        </div>
+        <div class="kewan-chip">
+          <span class="tag ingon">Kewan Ingon</span>
+          <div class="list">Kewan sing lumrah diingu ing omah: kucing, sapi, kebo, wedhus, jaran, iwak. Sapi, kebo, lan wedhus diarani <strong>raja kaya</strong>.</div>
+        </div>
+        <div class="kewan-chip">
+          <span class="tag alas">Kewan Alas</span>
+          <div class="list">Kewan sing uripe ana ing alas: macan, singa, badak, kidang, menjangan.</div>
+        </div>
+        <div class="kewan-chip">
+          <span class="tag nggremet">Kewan Nggremet</span>
+          <div class="list">Kewan sing carane pindah panggon kanthi nggremet: ula, cecak, kombang, tikus.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title"><span class="num">3</span><h2>Jenenge Anak Kewan</h2></div>
+    <div class="materi-card">
+      <div class="table-scroll">
+        <table class="data">
+          <tr><th>Kewan</th><th>Anake</th><th>Kewan</th><th>Anake</th></tr>
+          <tr><td>Bebek</td><td>Meri</td><td>Dara</td><td>Piyik</td></tr>
+          <tr><td>Menthok</td><td>Minthi</td><td>Gajah</td><td>Bledug</td></tr>
+          <tr><td>Pitik</td><td>Kuthuk</td><td>Baya</td><td>Kréte</td></tr>
+          <tr><td>Sapi</td><td>Pedhet</td><td>Asu</td><td>Kirik</td></tr>
+          <tr><td>Wedhus</td><td>Cempe</td><td>Tikus</td><td>Cindhil</td></tr>
+          <tr><td>Jaran</td><td>Belo</td><td>Kodok</td><td>Precil</td></tr>
+          <tr><td>Kucing</td><td>Cemeng</td><td>Celeng</td><td>Genjik</td></tr>
+          <tr><td>Macan</td><td>Gogor</td><td>Babi</td><td>Gembluk</td></tr>
+          <tr><td>Kebo</td><td>Gudel</td><td>Kupu</td><td>Uler / Enthung</td></tr>
+          <tr><td>Tawon</td><td>Gana</td><td></td><td></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-title"><span class="num">4</span><h2>Swara lan Kendhang Kewan</h2></div>
+    <div class="materi-card">
+      <div class="table-scroll">
+        <table class="data">
+          <tr><th>Kewan</th><th>Arane Swara</th><th>Kendhang / Panggonan</th></tr>
+          <tr><td>Wedhus</td><td>Ngembek</td><td>Kandhang</td></tr>
+          <tr><td>Sapi / Kebo</td><td>Ngakak / Mbekur</td><td>Kandhang</td></tr>
+          <tr><td>Jaran</td><td>Mingik</td><td>Kandhang / Stabel</td></tr>
+          <tr><td>Pitik (jago)</td><td>Kluruk</td><td>Pangkringan / Kurungan</td></tr>
+          <tr><td>Manuk</td><td>Mencit</td><td>Sarang</td></tr>
+          <tr><td>Macan</td><td>Ngorok / Mueg</td><td>Guwa</td></tr>
+          <tr><td>Kodok</td><td>Ngorok / Krok-krok</td><td>Kalen / Blumbang</td></tr>
+          <tr><td>Asu</td><td>Gonggong</td><td>Kandhang</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section-title"><span class="num">5</span><h2>Ukara Pitakon lan Pakon</h2></div>
+    <div class="materi-card">
+      <p><strong>Ukara Pitakon</strong>: ukara sing mbutuhake wangsulan, dipungkasi tandha tanya (?).</p>
+      <div class="contoh">Conto: <em>"Paring dhawuh menapa, Bu?"</em></div>
+      <p style="margin-top:14px;"><strong>Ukara Pakon (Prentah)</strong>: ukara sing surasane ngakon utawa mrentah wong liya supaya nindakake pakaryan.</p>
+      <div class="contoh">Conto: <em>"Niken, cah ayu mreneya!"</em></div>
+    </div>
+  </section>
+
+  <!-- ================= QUIZ ================= -->
+  <section id="quiz">
+    <div class="section-title" style="margin-top:36px;"><span class="num">✎</span><h2>Ayo Coba! — 30 Soal Latihan</h2></div>
+    <div class="quiz-toolbar">
+      <p>Wangsulana kabeh soal, banjur pencet <strong>"Cocokna Wangsulan"</strong> ing ngisor.</p>
+      <button class="btn btn-ghost" id="btnRegenerate">🔁 Gawe Soal Anyar</button>
+    </div>
+
+    <form id="quizForm"></form>
+
+    <div class="result-banner" id="resultBanner">
+      <div class="score" id="scoreText">0 / 30</div>
+      <p id="scoreMsg"></p>
+    </div>
+
+    <div class="actions-bottom">
+      <button type="button" class="btn btn-primary" id="btnSubmit">✅ Cocokna Wangsulan</button>
+      <button type="button" class="btn btn-ghost" id="btnRegenerate2">🔁 Gawe Soal Anyar</button>
+    </div>
+  </section>
+
+  <footer>
+    Dijupuk saka ringkesan materi "Kawruh Basa lan Kewan" · Basa Jawa Kelas 3
+  </footer>
+</div>
+
+<script>
+// ============ QUESTION BANK ============
+const BANK = [
+  // --- Tembung Aran ---
+  {q:"Apa tegese \"tembung aran\"?", options:["Jenenge sakabehing barang","Tembung kang nerangake wektu","Tembung pitakon","Tembung kang nuduhake laku"], correct:"Jenenge sakabehing barang"},
+  {q:"Ing ukara \"Faith maem sate lan timun\", pira cacahe tembung aran?", options:["2","3","4","1"], correct:"3"},
+  {q:"Endi conto tembung aran kang nuduhake papan?", options:["Yogyakarta","mangan","becik","mlaku"], correct:"Yogyakarta"},
+  {q:"Endi conto tembung aran kang nuduhake panganan?", options:["sate","mlayu","apik","biru"], correct:"sate"},
+  {q:"\"Gunung, dalan, sapi\" iku conto...", options:["tembung aran","tembung pitakon","tembung pakon","tembung sifat"], correct:"tembung aran"},
+  {q:"Endi antarane iki sing DUDU tembung aran?", options:["mangan","Yogyakarta","sapi","wit jambu"], correct:"mangan"},
+
+  // --- Jinis Kewan ---
+  {q:"Pitik lan bebek kalebu jinis kewan...", options:["iwen","ingon","alas","nggremet"], correct:"iwen"},
+  {q:"Kucing lan sapi lumrahe diingu ing omah, mula kalebu kewan...", options:["ingon","iwen","alas","nggremet"], correct:"ingon"},
+  {q:"Macan lan singa uripe ana ing...", options:["alas","kandhang","blumbang","kalen"], correct:"alas"},
+  {q:"Ula lan cecak pindah panggon kanthi nggremet, mula diarani kewan...", options:["nggremet","iwen","ingon","alas"], correct:"nggremet"},
+  {q:"Sapi, kebo, lan wedhus uga diarani...", options:["raja kaya","kewan alas","kewan nggremet","kewan iwen"], correct:"raja kaya"},
+  {q:"Endi kang kalebu kewan iwen?", options:["bebek","kambing","macan","ula"], correct:"bebek"},
+  {q:"Endi kang kalebu kewan alas?", options:["badak","sapi","pitik","kucing"], correct:"badak"},
+  {q:"Tikus kalebu jinis kewan...", options:["nggremet","iwen","ingon","alas"], correct:"nggremet"},
+  {q:"Menjangan lan kidang kalebu kewan...", options:["alas","iwen","ingon","nggremet"], correct:"alas"},
+  {q:"Menthok lan banyak kalebu jinis kewan...", options:["iwen","alas","nggremet","ingon"], correct:"iwen"},
+
+  // --- Anak Kewan ---
+  {q:"Jenenge anak bebek yaiku...", options:["Meri","Minthi","Kuthuk","Belo"], correct:"Meri"},
+  {q:"Anak menthok diarani...", options:["Minthi","Meri","Pedhet","Cempe"], correct:"Minthi"},
+  {q:"Anak pitik diarani...", options:["Kuthuk","Cemeng","Gudel","Piyik"], correct:"Kuthuk"},
+  {q:"Anak sapi diarani...", options:["Pedhet","Cempe","Belo","Gogor"], correct:"Pedhet"},
+  {q:"Anak wedhus diarani...", options:["Cempe","Pedhet","Kirik","Gudel"], correct:"Cempe"},
+  {q:"Anak jaran diarani...", options:["Belo","Cemeng","Bledug","Kréte"], correct:"Belo"},
+  {q:"Anak kucing diarani...", options:["Cemeng","Belo","Genjik","Gogor"], correct:"Cemeng"},
+  {q:"Anak macan diarani...", options:["Gogor","Cindhil","Precil","Gana"], correct:"Gogor"},
+  {q:"Anak kebo diarani...", options:["Gudel","Pedhet","Kuthuk","Minthi"], correct:"Gudel"},
+  {q:"Anak dara diarani...", options:["Piyik","Meri","Cempe","Gembluk"], correct:"Piyik"},
+  {q:"Anak gajah diarani...", options:["Bledug","Kréte","Kirik","Cindhil"], correct:"Bledug"},
+  {q:"Anak baya diarani...", options:["Kréte","Bledug","Genjik","Gana"], correct:"Kréte"},
+  {q:"Anak asu diarani...", options:["Kirik","Cindhil","Precil","Belo"], correct:"Kirik"},
+  {q:"Anak tikus diarani...", options:["Cindhil","Kirik","Gudel","Cemeng"], correct:"Cindhil"},
+  {q:"Anak kodok diarani...", options:["Precil","Genjik","Gembluk","Gogor"], correct:"Precil"},
+  {q:"Anak celeng diarani...", options:["Genjik","Gembluk","Precil","Piyik"], correct:"Genjik"},
+  {q:"\"Gembluk\" iku jenenge anak...", options:["babi","asu","kodok","tikus"], correct:"babi"},
+  {q:"\"Uler\" utawa \"enthung\" iku sejatine yaiku anak...", options:["kupu","tawon","macan","kucing"], correct:"kupu"},
+  {q:"Anak tawon diarani...", options:["Gana","Gudel","Belo","Cindhil"], correct:"Gana"},
+  {q:"Sapi duwe anak jenenge...", options:["Pedhet","Cempe","Kuthuk","Meri"], correct:"Pedhet"},
+  {q:"Endi pasangan kewan lan anake sing BENER?", options:["Kebo – Gudel","Kebo – Cempe","Kebo – Meri","Kebo – Belo"], correct:"Kebo – Gudel"},
+
+  // --- Swara lan Kendhang Kewan ---
+  {q:"Swarane wedhus diarani...", options:["Ngembek","Mingik","Kluruk","Gonggong"], correct:"Ngembek"},
+  {q:"Swarane sapi utawa kebo diarani...", options:["Ngakak / Mbekur","Ngembek","Mingik","Gonggong"], correct:"Ngakak / Mbekur"},
+  {q:"Swarane jaran diarani...", options:["Mingik","Kluruk","Ngembek","Krok-krok"], correct:"Mingik"},
+  {q:"Swarane pitik jago diarani...", options:["Kluruk","Mencit","Gonggong","Ngembek"], correct:"Kluruk"},
+  {q:"Swarane manuk diarani...", options:["Mencit","Kluruk","Mingik","Ngorok"], correct:"Mencit"},
+  {q:"Swarane macan diarani...", options:["Ngorok / Mueg","Kluruk","Ngembek","Gonggong"], correct:"Ngorok / Mueg"},
+  {q:"Swarane kodok diarani...", options:["Ngorok / Krok-krok","Mingik","Kluruk","Mencit"], correct:"Ngorok / Krok-krok"},
+  {q:"Swarane asu (anjing) diarani...", options:["Gonggong","Ngembek","Kluruk","Mingik"], correct:"Gonggong"},
+  {q:"Panggonane wedhus lan sapi diarani...", options:["Kandhang","Kurungan","Sarang","Guwa"], correct:"Kandhang"},
+  {q:"Panggonane pitik lumrahe diarani...", options:["Kurungan / Pangkringan","Kandhang","Sarang","Kalen"], correct:"Kurungan / Pangkringan"},
+  {q:"Panggonane manuk yaiku...", options:["Sarang","Kandhang","Blumbang","Guwa"], correct:"Sarang"},
+  {q:"Panggonane macan yaiku...", options:["Guwa","Kandhang","Sarang","Kurungan"], correct:"Guwa"},
+  {q:"Panggonane kodok yaiku...", options:["Kalen / Blumbang","Guwa","Sarang","Kandhang"], correct:"Kalen / Blumbang"},
+  {q:"Jaran lumrahe dikandhangake ing...", options:["Stabel / Kandhang","Kurungan","Sarang","Guwa"], correct:"Stabel / Kandhang"},
+
+  // --- Ukara Pitakon lan Pakon ---
+  {q:"Ukara pitakon iku dipungkasi kanthi tandha...", options:["tanda tanya (?)","titik (.)","seru (!)","koma (,)"], correct:"tanda tanya (?)"},
+  {q:"\"Niken, cah ayu mreneya!\" iku kalebu ukara...", options:["pakon","pitakon","aran","crita"], correct:"pakon"},
+  {q:"\"Paring dhawuh menapa, Bu?\" iku kalebu ukara...", options:["pitakon","pakon","aran","panyandra"], correct:"pitakon"},
+  {q:"Ukara pakon surasane...", options:["mrentah wong liya nglakoni pakaryan","takon kabar","nyeritakake lelakon","muji kahanan"], correct:"mrentah wong liya nglakoni pakaryan"},
+  {q:"Endi conto ukara pitakon?", options:["\"Sapa jenengmu?\"","\"Ayo mangan!\"","\"Aku seneng banget.\"","\"Sapi mangan suket.\""], correct:"\"Sapa jenengmu?\""},
+  {q:"Endi conto ukara pakon?", options:["\"Tulisen jenengmu ing kene!\"","\"Sapa sing teka?\"","\"Aku lunga sekolah.\"","\"Iki jenenge Faith.\""], correct:"\"Tulisen jenengmu ing kene!\""},
+  {q:"Ukara pitakon mbutuhake apa saka wong liya?", options:["wangsulan","prentah","pangalembana","panyandra"], correct:"wangsulan"},
+  {q:"Endi ukara sing pas kanggo mrentah kanca supaya lungguh?", options:["\"Lungguha kene!\"","\"Apa kowe wis mangan?\"","\"Aku lagi lungguh.\"","\"Kancaku jenenge Budi.\""], correct:"\"Lungguha kene!\""},
+];
+
+const TOTAL_QUESTIONS = 30;
+let currentSet = [];
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function buildQuestionSet(){
+  const chosen = shuffle(BANK).slice(0, TOTAL_QUESTIONS);
+  return chosen.map(item=>{
+    return {
+      q: item.q,
+      correct: item.correct,
+      options: shuffle(item.options)
+    };
+  });
+}
+
+function renderQuiz(){
+  currentSet = buildQuestionSet();
+  const form = document.getElementById('quizForm');
+  form.innerHTML = '';
+  currentSet.forEach((item, idx)=>{
+    const card = document.createElement('div');
+    card.className = 'qcard';
+    card.dataset.index = idx;
+
+    const numEl = document.createElement('div');
+    numEl.className = 'qnum';
+    numEl.textContent = 'Soal ' + (idx+1) + ' saka ' + TOTAL_QUESTIONS;
+
+    const qtext = document.createElement('div');
+    qtext.className = 'qtext';
+    qtext.textContent = item.q;
+
+    const optWrap = document.createElement('div');
+    optWrap.className = 'options';
+
+    item.options.forEach((opt, oi)=>{
+      const label = document.createElement('label');
+      label.className = 'option';
+      label.innerHTML = `
+        <input type="radio" name="q${idx}" value="${encodeURIComponent(opt)}">
+        <span class="opt-text">${opt}</span>
+        <span class="feedback-icon"></span>
+      `;
+      optWrap.appendChild(label);
+    });
+
+    card.appendChild(numEl);
+    card.appendChild(qtext);
+    card.appendChild(optWrap);
+    form.appendChild(card);
+  });
+
+  document.getElementById('resultBanner').classList.remove('show');
+  // re-enable options in case of previous submit
+  document.querySelectorAll('.option').forEach(o=>o.classList.remove('disabled'));
+  window.scrollTo({top: document.getElementById('quiz').offsetTop - 10, behavior:'smooth'});
+}
+
+function gradeQuiz(){
+  let unanswered = 0;
+  currentSet.forEach((item, idx)=>{
+    const checked = document.querySelector(`input[name="q${idx}"]:checked`);
+    if(!checked) unanswered++;
+  });
+  if(unanswered > 0){
+    alert('Isih ana ' + unanswered + ' soal sing durung diwangsuli. Ayo dijawab kabeh dhisik!');
+    return;
+  }
+
+  let score = 0;
+  currentSet.forEach((item, idx)=>{
+    const radios = document.querySelectorAll(`input[name="q${idx}"]`);
+    const checked = document.querySelector(`input[name="q${idx}"]:checked`);
+    const chosenVal = decodeURIComponent(checked.value);
+    const isCorrect = chosenVal === item.correct;
+    if(isCorrect) score++;
+
+    radios.forEach(r=>{
+      const label = r.closest('.option');
+      const val = decodeURIComponent(r.value);
+      label.classList.add('disabled');
+      r.disabled = true;
+      const icon = label.querySelector('.feedback-icon');
+      if(val === item.correct){
+        label.classList.add('correct');
+        icon.textContent = '✓';
+      } else if(r.checked){
+        label.classList.add('wrong');
+        icon.textContent = '✕';
+      }
+    });
+  });
+
+  const banner = document.getElementById('resultBanner');
+  document.getElementById('scoreText').textContent = score + ' / ' + TOTAL_QUESTIONS;
+  let msg = '';
+  const pct = score / TOTAL_QUESTIONS;
+  if(pct >= 0.9) msg = 'Wah, pinter tenan! Kowe wis nguwasani materi Kawruh Basa lan Kewan. 🎉';
+  else if(pct >= 0.7) msg = 'Apik banget! Sithik maneh mesthi bisa 100%. 👍';
+  else if(pct >= 0.5) msg = 'Wis lumayan! Waca maneh materine ing dhuwur, banjur coba maneh, ya. 📖';
+  else msg = 'Ora apa-apa, ayo diwaca maneh materine banjur coba soal anyar! Kowe mesthi bisa. 💪';
+  document.getElementById('scoreMsg').textContent = msg;
+  banner.classList.add('show');
+  banner.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+document.getElementById('btnSubmit').addEventListener('click', gradeQuiz);
+document.getElementById('btnRegenerate').addEventListener('click', renderQuiz);
+document.getElementById('btnRegenerate2').addEventListener('click', renderQuiz);
+
+renderQuiz();
+</script>
+</body>
+</html>
