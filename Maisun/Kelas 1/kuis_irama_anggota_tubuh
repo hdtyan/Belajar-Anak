@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kuis Interaktif Seni Musik - Bagian B: Irama Anggota Tubuh (Kelas 1 SD)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Fredoka', cursive, sans-serif;
+    }
+    .animate-bounce-short {
+      animation: bounce 0.6s ease infinite alternate;
+    }
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-8px); }
+    }
+  </style>
+</head>
+<body class="bg-sky-50 min-h-screen text-slate-800 p-3 sm:p-6 flex flex-col items-center justify-center">
+
+  <div class="w-full max-w-2xl bg-white rounded-3xl shadow-xl border-4 border-sky-300 p-5 sm:p-8 relative overflow-hidden">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-4 border-b-2 border-sky-100 pb-3">
+      <div>
+        <span class="bg-sky-100 text-sky-800 text-xs sm:text-sm font-bold px-3 py-1 rounded-full uppercase">Seni Musik - Bagian B (Kelas 1 SD)</span>
+        <h1 class="text-xl sm:text-2xl font-bold text-sky-950 mt-1">🥁 Irama Anggota Tubuh 👣</h1>
+      </div>
+      <button onclick="resetAndShuffleQuiz()" class="bg-sky-500 hover:bg-sky-600 text-white text-xs sm:text-sm font-bold px-3 py-2 rounded-2xl shadow transition transform active:scale-95 flex items-center gap-1">
+        🔄 Acak / Soal Baru
+      </button>
+    </div>
+
+    <!-- Tracker & Score -->
+    <div class="flex justify-between items-center text-sm sm:text-base font-bold text-slate-600 mb-4 bg-sky-50 p-2.5 rounded-2xl">
+      <span id="question-tracker">Soal 1 dari 10</span>
+      <span class="text-emerald-600">⭐ Skor: <span id="current-score">0</span></span>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="w-full bg-slate-100 h-3 rounded-full mb-6 overflow-hidden">
+      <div id="progress-bar" class="bg-gradient-to-r from-sky-400 to-indigo-500 h-full w-0 transition-all duration-300 rounded-full"></div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-card">
+      <div class="min-h-[90px] flex items-center bg-sky-50 border-2 border-sky-200 rounded-2xl p-4 mb-5">
+        <h2 id="question-text" class="text-base sm:text-lg font-bold text-slate-800 leading-relaxed">
+          Memuat pertanyaan...
+        </h2>
+      </div>
+
+      <!-- Options (A, B, C) -->
+      <div id="options-container" class="space-y-3 mb-6"></div>
+
+      <!-- Feedback -->
+      <div id="feedback-card" class="hidden p-4 rounded-2xl text-center text-sm sm:text-base font-bold mb-4 transition-all"></div>
+
+      <div class="flex justify-end">
+        <button id="next-btn" onclick="nextQuestion()" class="hidden bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3 rounded-2xl shadow-lg transition transform active:scale-95 text-base sm:text-lg">
+          Lanjut ➡️
+        </button>
+      </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div id="result-card" class="hidden text-center py-6">
+      <div class="text-6xl mb-3 animate-bounce-short" id="result-icon">🎉</div>
+      <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">Hebat Sekali!</h2>
+      <p class="text-slate-600 mb-6 text-sm sm:text-base" id="result-msg">Kamu telah menyelesaikan latihan irama tubuh.</p>
+      
+      <div class="bg-sky-100 p-6 rounded-3xl max-w-sm mx-auto mb-6 border-2 border-sky-300">
+        <p class="text-slate-700 text-base font-semibold">Skor Akhir Kamu:</p>
+        <p class="text-4xl font-extrabold text-sky-600 my-1" id="final-score">100</p>
+        <p class="text-xs text-slate-500" id="final-detail">10 dari 10 soal benar</p>
+      </div>
+
+      <button onclick="resetAndShuffleQuiz()" class="bg-sky-500 hover:bg-sky-600 text-white font-bold px-8 py-3.5 rounded-2xl shadow-lg transition transform active:scale-95 text-lg">
+        🔄 Mainkan Soal Baru Lainnya
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    // Bank 30 Soal Berdasarkan Materi Bagian B (Hal 9-14)
+    const questionBank = [
+      { q: "Bagaimana bunyi detak jantung di dalam tubuh kita?", opts: ["Lup dup lup dup", "Tek tek tek tek", "Buk buk buk"], ans: 0, exp: "Detak jantung di dalam tubuh berbunyi lup dup lup dup." },
+      { q: "Gerakan membuka dan mengepalkan tangan dapat menirukan bunyi ...", opts: ["Langkah kaki", "Detak jantung (lup dup)", "Siulan"], ans: 1, exp: "Gerakan kepal (lup) dan buka telapak tangan (dup) menirukan denyut jantung." },
+      { q: "Bunyi orang yang sedang berjalan santai terdengar ...", opts: ["Tek, tek, tek, tek", "Buk, buk, buk, buk", "Tap-tap-tap-tap"], ans: 0, exp: "Pada buku, bunyi anak berjalan santai berbunyi 'tek, tek, tek, tek'." },
+      { q: "Bunyi anak yang sedang berlari terdengar bersuara ...", opts: ["Tek, tek, tek", "Tap-tap-tap-tap", "Lup dup lup dup"], ans: 1, exp: "Langkah kaki saat berlari berbunyi 'tap-tap-tap-tap'." },
+      { q: "Bunyi anak yang mendarat saat melompat terdengar ...", opts: ["Buk, buk, buk, buk", "Tap-tap-tap", "Tek, tek, tek"], ans: 0, exp: "Saat melompat, kaki yang menjejak lantai berbunyi 'buk, buk, buk, buk'." },
+      { q: "Rangkaian bunyi dari anggota tubuh yang berulang dan teratur dinamakan ...", opts: ["Irama tubuh", "Teriakan tubuh", "Tangisan"], ans: 0, exp: "Irama musik/tubuh adalah rangkaian bunyi yang berulang dan teratur." },
+      { q: "Pada pola irama dua ketukan, ketukan ke-1 (tanda hijau) dilakukan dengan ...", opts: ["Mengentak kaki", "Bertepuk tangan", "Menjentik jari"], ans: 0, exp: "Ketukan 1 pada tabel ditandai dengan gerakan mengentak kaki (DUK!)." },
+      { q: "Pada pola irama dua ketukan, ketukan ke-2 (tanda merah) dilakukan dengan ...", opts: ["Mengentak kaki", "Bertepuk tangan", "Melompat"], ans: 1, exp: "Ketukan 2 dilakukan dengan bertepuk tangan satu kali." },
+      { q: "Pola 'Entak Kaki - Tepuk Tangan' adalah contoh irama ...", opts: ["Dua ketukan", "Tiga ketukan", "Empat ketukan"], ans: 0, exp: "Karena terdiri dari 2 gerakan bergantian, disebut irama dua ketukan." },
+      { q: "Pada irama sederhana tiga ketukan, gerakan ketukan ke-2 dan ke-3 adalah ...", opts: ["Mengentak kaki", "Bertepuk tangan", "Memejamkan mata"], ans: 1, exp: "Ketukan 1 mengentak kaki, ketukan 2 dan 3 bertepuk tangan." },
+      { q: "Pola 'Entak Kaki - Tepuk Tangan - Tepuk Tangan' termasuk irama ...", opts: ["Dua ketukan", "Tiga ketukan", "Empat ketukan"], ans: 1, exp: "Totalnya ada 3 ketukan (1 entakan kaki dan 2 tepukan tangan)." },
+      { q: "Pada irama empat ketukan, berapa kali tangan ditepuk setelah 1 kali entakan kaki?", opts: ["1 kali", "2 kali", "3 kali"], ans: 2, exp: "Ketukan 1 mengentak kaki, lalu ketukan 2, 3, dan 4 (3 kali) bertepuk tangan." },
+      { q: "Lagu anak 'Kunang-Kunang' adalah lagu ciptaan dari ...", opts: ["A.T. Mahmud", "Ibu Sud", "Pak Kasur"], ans: 0, exp: "Lagu Kunang-Kunang diciptakan oleh A.T. Mahmud." },
+      { q: "Lagu 'Kunang-Kunang' pada buku dinyanyikan dengan pola irama ... ketukan.", opts: ["Dua", "Tiga", "Empat"], ans: 1, exp: "Pada halaman 12 disebutkan lagu Kunang-Kunang memiliki irama tiga ketukan." },
+      { q: "Lanjutan lirik lagu: 'Kunang-kunang hendak ke mana, kunang-kunang terbang ke ...'", opts: ["Sana", "Sini", "Awan"], ans: 1, exp: "Lirik lagunya berbunyi: '...kunang-kunang terbang ke sini'." },
+      { q: "Saat bernyanyi lagu 'Burung Kakatua', lirik suku kata 'Bu' diiringi gerakan ...", opts: ["Bertepuk tangan", "Mengentak kaki", "Menjentik jari"], ans: 0, exp: "Pada suku kata 'Bu' diiringi dengan gambar bertepuk tangan." },
+      { q: "Pada lagu 'Burung Kakatua', suku kata 'rung' diiringi dengan gerakan ...", opts: ["Tepuk tangan", "Entak kaki (DUK!)", "Bersiul"], ans: 1, exp: "Pada suku kata 'rung' anak mengentakkan kaki ke lantai." },
+      { q: "Pola irama pada lirik 'Bu - rung - ka - ka - tu - a' dilakukan secara bergantian antara ...", opts: ["Tepuk tangan dan entak kaki", "Bersiul dan tidur", "Lari dan jalan"], ans: 0, exp: "Iramanya bergantian: Tepuk - Entak - Tepuk - Entak - Tepuk - Entak." },
+      { q: "Bunyi 'Tek - dung - tek - dung' pada irama semua kelompok diakhiri bunyi jari berupa ...", opts: ["La la la (jentikan jari)", "Buk buk buk", "Plok plok"], ans: 0, exp: "Tiga jentikan jari di bagian akhir berbunyi 'la la la'." },
+      { q: "Saat melakukan tepukan tangan pada lirik lagu secara bersama-sama, kita melatih sikap ...", opts: ["Keserakahan", "Kerja sama dan kekompakan", "Kemarahan"], ans: 1, exp: "Bermain musik kelompok melatih kolaborasi dan kekompakan." },
+      { q: "Lirik lagu Burung Kakatua yang berbunyi 'hinggap di ...'", opts: ["Jendela", "Pohon", "Pagar"], ans: 0, exp: "Lirik yang benar adalah 'hinggap di jendela'." },
+      { q: "Nenek pada lagu Burung Kakatua sudah tua, giginya tinggal ...", opts: ["Satu", "Dua", "Tiga"], ans: 1, exp: "Lirik lagunya berbunyi: 'giginya tinggal dua'." },
+      { q: "Apa yang dimaksud dengan irama musik?", opts: ["Bunyi berteriak keras", "Rangkaian bunyi yang berulang dan teratur", "Suara berbisik"], ans: 1, exp: "Irama adalah rangkaian bunyi berulang yang teratur." },
+      { q: "Berapa jumlah anggota kelompok bernyanyi pada aktivitas halaman 13?", opts: ["2 kelompok", "3 kelompok", "4 kelompok"], ans: 2, exp: "Di halaman 13, guru membagi siswa menjadi 4 kelompok." },
+      { q: "Gerakan kepalan tangan melambangkan bunyi detak jantung saat berbunyi ...", opts: ["Lup", "Dup", "Tek"], ans: 0, exp: "Mengepal bertuliskan 'lup', sedangkan membuka bertuliskan 'dup'." },
+      { q: "Gerakan tangan terbuka melambangkan bunyi detak jantung saat berbunyi ...", opts: ["Lup", "Dup", "Buk"], ans: 1, exp: "Tangan terbuka bertuliskan bunyi 'dup'." },
+      { q: "Berapa banyak tepukan tangan pada pola irama dua ketukan?", opts: ["1 kali tepukan", "2 kali tepukan", "3 kali tepukan"], ans: 0, exp: "Pola dua ketukan: 1 kali entak kaki + 1 kali tepuk tangan." },
+      { q: "Lagu anak 'Kunang-Kunang' menceritakan kelap-kelip cahaya yang bersinar seperti ...", opts: ["Bulan", "Bintang di malam hari", "Matahari"], ans: 1, exp: "Lirik lagu: '...gemerlap bersinar seperti bintang di malam hari'." },
+      { q: "Sikap kita atas anugerah tubuh sehat yang bisa bermusik adalah bersyukur kepada ...", opts: ["Tuhan Yang Maha Esa", "Teman sebangku", "Diri sendiri saja"], ans: 0, exp: "Kita mengucap terima kasih kepada Tuhan karena tubuh sehat dapat digunakan bermusik." },
+      { q: "Irama detak jantung dan langkah kaki disebut juga dengan istilah ...", opts: ["Irama buatan mesin", "Irama tubuh", "Irama elektronik"], ans: 1, exp: "Semua irama yang dihasilkan dari organ dan gerak tubuh disebut irama tubuh." }
+    ];
+
+    let currentQuestions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let answered = false;
+    const QUESTIONS_PER_QUIZ = 10;
+
+    function shuffleArray(array) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function resetAndShuffleQuiz() {
+      const shuffled = shuffleArray(questionBank);
+      currentQuestions = shuffled.slice(0, QUESTIONS_PER_QUIZ);
+      currentIndex = 0;
+      score = 0;
+      answered = false;
+
+      document.getElementById("current-score").innerText = "0";
+      document.getElementById("quiz-card").classList.remove("hidden");
+      document.getElementById("result-card").classList.add("hidden");
+
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      answered = false;
+      const qData = currentQuestions[currentIndex];
+      
+      document.getElementById("question-tracker").innerText = `Soal ${currentIndex + 1} dari ${currentQuestions.length}`;
+      const progressPercent = ((currentIndex) / currentQuestions.length) * 100;
+      document.getElementById("progress-bar").style.width = `${progressPercent}%`;
+
+      document.getElementById("question-text").innerText = `${currentIndex + 1}. ${qData.q}`;
+      
+      const feedback = document.getElementById("feedback-card");
+      feedback.className = "hidden";
+      feedback.innerText = "";
+
+      document.getElementById("next-btn").classList.add("hidden");
+
+      const optionsContainer = document.getElementById("options-container");
+      optionsContainer.innerHTML = "";
+
+      const optLabels = ["A", "B", "C"];
+      qData.opts.forEach((optText, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "w-full text-left p-3.5 sm:p-4 rounded-2xl border-2 border-slate-200 hover:border-sky-400 hover:bg-sky-50 font-semibold text-slate-700 transition flex items-center gap-3 active:scale-[0.99]";
+        btn.innerHTML = `
+          <span class="w-8 h-8 rounded-xl bg-sky-200 text-sky-900 font-bold flex items-center justify-center flex-shrink-0">${optLabels[idx]}</span>
+          <span class="text-sm sm:text-base">${optText}</span>
+        `;
+        btn.onclick = () => selectAnswer(idx, btn);
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function selectAnswer(selectedIdx, selectedBtn) {
+      if (answered) return;
+      answered = true;
+
+      const qData = currentQuestions[currentIndex];
+      const buttons = document.getElementById("options-container").children;
+      const feedback = document.getElementById("feedback-card");
+
+      for (let btn of buttons) {
+        btn.disabled = true;
+        btn.classList.remove("hover:bg-sky-50", "hover:border-sky-400");
+      }
+
+      if (selectedIdx === qData.ans) {
+        score += 10;
+        document.getElementById("current-score").innerText = score;
+        selectedBtn.classList.remove("border-slate-200");
+        selectedBtn.classList.add("border-emerald-500", "bg-emerald-50", "text-emerald-900");
+        
+        feedback.className = "p-3.5 rounded-2xl bg-emerald-100 text-emerald-800 text-sm sm:text-base font-bold border border-emerald-300 mb-4 block";
+        feedback.innerHTML = `🎉 <b>Benar!</b> ${qData.exp}`;
+      } else {
+        selectedBtn.classList.remove("border-slate-200");
+        selectedBtn.classList.add("border-rose-500", "bg-rose-50", "text-rose-900");
+        
+        buttons[qData.ans].classList.remove("border-slate-200");
+        buttons[qData.ans].classList.add("border-emerald-500", "bg-emerald-50", "text-emerald-900");
+
+        feedback.className = "p-3.5 rounded-2xl bg-rose-100 text-rose-800 text-sm sm:text-base font-bold border border-rose-300 mb-4 block";
+        feedback.innerHTML = `❌ <b>Kurang Tepat!</b> ${qData.exp}`;
+      }
+
+      document.getElementById("next-btn").classList.remove("hidden");
+    }
+
+    function nextQuestion() {
+      currentIndex++;
+      if (currentIndex < currentQuestions.length) {
+        renderQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      document.getElementById("progress-bar").style.width = `100%`;
+      document.getElementById("quiz-card").classList.add("hidden");
+      document.getElementById("result-card").classList.remove("hidden");
+
+      const finalScoreEl = document.getElementById("final-score");
+      const finalDetailEl = document.getElementById("final-detail");
+      const resultMsg = document.getElementById("result-msg");
+      const resultIcon = document.getElementById("result-icon");
+
+      finalScoreEl.innerText = score;
+      finalDetailEl.innerText = `${score / 10} dari ${currentQuestions.length} soal dijawab dengan benar`;
+
+      if (score >= 80) {
+        resultIcon.innerText = "🏆";
+        resultMsg.innerText = "Hebat sekali! Kamu sudah sangat paham tentang irama tubuh!";
+      } else if (score >= 50) {
+        resultIcon.innerText = "👏";
+        resultMsg.innerText = "Bagus! Terus berlatih agar semakin lancar mengikuti ketukan irama!";
+      } else {
+        resultIcon.innerText = "💪";
+        resultMsg.innerText = "Tetap semangat! Coba ulangi kuis untuk mendapatkan nilai 100!";
+      }
+    }
+
+    resetAndShuffleQuiz();
+  </script>
+</body>
+</html>

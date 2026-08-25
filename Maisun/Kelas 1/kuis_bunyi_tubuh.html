@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kuis Interaktif Seni Musik - Bunyi Tubuh (Kelas 1 SD)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Fredoka', cursive, sans-serif;
+    }
+    .animate-bounce-short {
+      animation: bounce 0.6s ease infinite alternate;
+    }
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-8px); }
+    }
+  </style>
+</head>
+<body class="bg-amber-50 min-h-screen text-slate-800 p-3 sm:p-6 flex flex-col items-center justify-center">
+
+  <div class="w-full max-w-2xl bg-white rounded-3xl shadow-xl border-4 border-amber-300 p-5 sm:p-8 relative overflow-hidden">
+    <!-- Header Decor -->
+    <div class="flex justify-between items-center mb-4 border-b-2 border-amber-100 pb-3">
+      <div>
+        <span class="bg-amber-100 text-amber-800 text-xs sm:text-sm font-bold px-3 py-1 rounded-full uppercase">Seni Musik - Kelas 1 SD</span>
+        <h1 class="text-xl sm:text-2xl font-bold text-amber-900 mt-1">🎵 Bunyi & Irama Tubuh 👏</h1>
+      </div>
+      <button onclick="resetAndShuffleQuiz()" class="bg-indigo-500 hover:bg-indigo-600 text-white text-xs sm:text-sm font-bold px-3 py-2 rounded-2xl shadow transition transform active:scale-95 flex items-center gap-1">
+        🔄 Acak / Soal Baru
+      </button>
+    </div>
+
+    <!-- Progress & Score Bar -->
+    <div class="flex justify-between items-center text-sm sm:text-base font-bold text-slate-600 mb-4 bg-amber-50 p-2.5 rounded-2xl">
+      <span id="question-tracker">Soal 1 dari 10</span>
+      <span class="text-emerald-600">⭐ Skor: <span id="current-score">0</span></span>
+    </div>
+
+    <!-- Progress Bar Line -->
+    <div class="w-full bg-slate-100 h-3 rounded-full mb-6 overflow-hidden">
+      <div id="progress-bar" class="bg-gradient-to-r from-amber-400 to-orange-400 h-full w-0 transition-all duration-300 rounded-full"></div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-card">
+      <div class="min-h-[90px] flex items-center bg-orange-50 border-2 border-orange-200 rounded-2xl p-4 mb-5">
+        <h2 id="question-text" class="text-base sm:text-lg font-bold text-orange-950 leading-relaxed">
+          Memuat pertanyaan...
+        </h2>
+      </div>
+
+      <!-- Options (A, B, C) -->
+      <div id="options-container" class="space-y-3 mb-6">
+        <!-- Generated Dynamically -->
+      </div>
+
+      <!-- Feedback Area -->
+      <div id="feedback-card" class="hidden p-4 rounded-2xl text-center text-sm sm:text-base font-bold mb-4 transition-all">
+      </div>
+
+      <div class="flex justify-end">
+        <button id="next-btn" onclick="nextQuestion()" class="hidden bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3 rounded-2xl shadow-lg transition transform active:scale-95 text-base sm:text-lg">
+          Lanjut ➡️
+        </button>
+      </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div id="result-card" class="hidden text-center py-6">
+      <div class="text-6xl mb-3 animate-bounce-short" id="result-icon">🎉</div>
+      <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">Selesai! Hebat Sekali!</h2>
+      <p class="text-slate-600 mb-6 text-sm sm:text-base" id="result-msg">Kamu sudah menyelesaikan kuis seni musik ini.</p>
+      
+      <div class="bg-amber-100 p-6 rounded-3xl max-w-sm mx-auto mb-6 border-2 border-amber-300">
+        <p class="text-slate-700 text-base font-semibold">Skor Akhir Kamu:</p>
+        <p class="text-4xl font-extrabold text-amber-600 my-1" id="final-score">100</p>
+        <p class="text-xs text-slate-500" id="final-detail">10 dari 10 soal benar</p>
+      </div>
+
+      <button onclick="resetAndShuffleQuiz()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-8 py-3.5 rounded-2xl shadow-lg transition transform active:scale-95 text-lg">
+        🔄 Mainkan Soal Baru Lainnya
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    // Bank 30 Soal Lengkap sesuai Buku Pelajaran 1 Kelas 1 SD
+    const questionBank = [
+      { q: "Tubuh manusia dapat dijadikan alat musik yang dinamakan ...", opts: ["Perkusi tubuh", "Gitar tubuh", "Terompet tubuh"], ans: 0, exp: "Bunyi dari tepukan dan hentakan anggota tubuh disebut perkusi tubuh." },
+      { q: "Bunyi tepuk tangan berbunyi ...", opts: ["Duk duk duk", "Plok plok plok", "Srek srek srek"], ans: 1, exp: "Tepukan tangan menghasilkan suara 'plok plok plok'." },
+      { q: "Kaki yang dientakkan ke lantai terdengar berbunyi ...", opts: ["Duk duk duk", "Plak plak plak", "Cetik cetik"], ans: 0, exp: "Hentakan kaki ke lantai berbunyi 'duk duk duk'." },
+      { q: "Menggesek kedua telapak tangan akan menghasilkan bunyi ...", opts: ["Plok plok plok", "Srek srek srek", "Suit suit"], ans: 1, exp: "Gesekan telapak tangan berbunyi 'srek srek srek'." },
+      { q: "Menepuk kedua pipi menghasilkan bunyi ...", opts: ["Plak plak plak", "Duk duk duk", "Srek srek srek"], ans: 0, exp: "Pipi yang ditepuk lembut bersuara 'plak plak plak'." },
+      { q: "Bunyi 'cetik cetik' dihasilkan dari gerakan ...", opts: ["Menghentakkan kaki", "Menjentikkan jari", "Bersiul dengan mulut"], ans: 1, exp: "Jentikan jari menghasilkan suara 'cetik cetik'." },
+      { q: "Mengeluarkan bunyi 'suit suit' dari mulut disebut ...", opts: ["Bernyanyi", "Berbisik", "Bersiul"], ans: 2, exp: "Meniup udara lewat bibir menghasilkan siulan bersuara 'suit suit'." },
+      { q: "Anggota tubuh yang digunakan untuk bertepuk adalah ...", opts: ["Tangan", "Kaki", "Lidah"], ans: 0, exp: "Tepukan dilakukan dengan kedua telapak tangan." },
+      { q: "Anggota tubuh yang dientakkan ke lantai adalah ...", opts: ["Kepala", "Kaki", "Tangan"], ans: 1, exp: "Kaki digunakan untuk mengentak lantai." },
+      { q: "Menggesek telapak tangan dan menepuk pipi adalah bunyi dari ...", opts: ["Hewan", "Tubuh manusia", "Kendaraan"], ans: 1, exp: "Semua gerakan itu berasal dari tubuh manusia." },
+      { q: "Agar menghasilkan irama yang indah, bunyi tubuh harus diatur ...", opts: ["Keras dan kasarnya", "Cepat lambat serta panjang pendeknya", "Banyak dan sedikitnya"], ans: 1, exp: "Irama tercipta dari keteraturan cepat lambat dan panjang pendek bunyi." },
+      { q: "Tepukan tangan yang lambat menghasilkan irama bertempo ...", opts: ["Cepat", "Lambat", "Tinggi"], ans: 1, exp: "Gerakan lambat menghasilkan irama yang lambat." },
+      { q: "Jika kita berlari cepat sambil menghentakkan kaki, bunyinya menjadi ...", opts: ["Cepat", "Lambat", "Sunyi"], ans: 0, exp: "Lari cepat membuat tempo entakan kaki terdengar cepat." },
+      { q: "Tepukan dengan jari rapat dan telapak melengkung bunyinya ...", opts: ["Berbeda dengan telapak datar", "Sama persis seperti siulan", "Hilang sama sekali"], ans: 0, exp: "Bentuk telapak tangan mengubah resonansi suara tepukan." },
+      { q: "Bunyi perkusi tubuh yang dihasilkan dari mulut adalah ...", opts: ["Menjentik", "Bersiul", "Menghentak"], ans: 1, exp: "Bersiul dilakukan dengan mulut." },
+      { q: "Saat bermain tebak bunyi, mata siswa sebaiknya ...", opts: ["Terbuka lebar", "Memejamkan mata", "Melihat teman"], ans: 1, exp: "Memejamkan mata melatih ketajaman pendengaran." },
+      { q: "Saat menebak bunyi perkusi teman, kita menjawab dengan cara ...", opts: ["Berteriak marah", "Menunjuk dengan jari", "Menangis"], ans: 1, exp: "Menunjuk dengan jari secara jujur dan tertib." },
+      { q: "Mengapa bunyi tepuk tangan dan entakan kaki berbeda?", opts: ["Karena anggota tubuhnya berbeda", "Karena warnanya berbeda", "Karena suhunya berbeda"], ans: 0, exp: "Beda bagian tubuh dan cara memukul menghasilkan suara berbeda." },
+      { q: "Bunyi 'duk duk duk' dihasilkan oleh ...", opts: ["Kaki", "Pipi", "Mulut"], ans: 0, exp: "Kaki yang dientakkan berbunyi duk duk duk." },
+      { q: "Menepuk paha dengan telapak tangan termasuk contoh ...", opts: ["Perkusi tubuh", "Alat musik tiup", "Alat musik gesek"], ans: 0, exp: "Memukul bagian tubuh sendiri adalah perkusi tubuh." },
+      { q: "Bunyi jari yang dijentikkan adalah ...", opts: ["Duk duk", "Cetik cetik", "Plok plok"], ans: 1, exp: "Jari dijentikkan menghasilkan cetik cetik." },
+      { q: "Menepuk kedua pipi terdengar bersuara ...", opts: ["Plak plak", "Suit suit", "Srek srek"], ans: 0, exp: "Pipi ditepuk bersuara plak plak." },
+      { q: "Bagian tubuh mana yang TIDAK bisa bertepuk sendiri?", opts: ["Dua telapak tangan", "Hidung", "Dua paha"], ans: 1, exp: "Hidung tidak bisa bertepuk sendiri." },
+      { q: "Tepuk tangan dengan ritme 'plok ... plok ... plok ...' termasuk bunyi ...", opts: ["Beraturan", "Bising rusak", "Kacau"], ans: 0, exp: "Pola tepukan yang rapi membentuk irama yang teratur." },
+      { q: "Bunyi entakan kaki saat lari lebih ... daripada saat jalan santai.", opts: ["Lambat", "Cepat", "Hilang"], ans: 1, exp: "Lari bertempo cepat sehingga entakannya lebih rapat/cepat." },
+      { q: "Menirukan suara gesekan daun dengan tangan dilakukan dengan cara ...", opts: ["Memukul meja", "Menggesek telapak tangan", "Menghentak tumit"], ans: 1, exp: "Telapak tangan digesek menghasilkan desir 'srek srek'." },
+      { q: "Belajar membuat irama tubuh melatih kita untuk lebih ...", opts: ["Peka terhadap bunyi", "Malas bergerak", "Suka berteriak"], ans: 0, exp: "Melatih kepekaan rasa musikal dan pendengaran." },
+      { q: "Tepukan tangan dengan telapak datar dan jari renggang suaranya lebih ...", opts: ["Nyaring", "Berat/redam", "Hilang"], ans: 0, exp: "Telapak tangan datar menghasilkan tepukan yang lebih nyaring." },
+      { q: "Bunyi perkusi tubuh berasal dari tenaga dan gerakan ...", opts: ["Tubuh sendiri", "Baterai listrik", "Mesin motor"], ans: 0, exp: "Bunyi tubuh dibuat secara alami oleh tubuh manusia." },
+      { q: "Irama musik yang indah tersusun dari bunyi yang ...", opts: ["Kacau dan rebutan", "Teratur cepat dan lambatnya", "Selalu sangat bising"], ans: 1, exp: "Irama adalah rangkaian bunyi yang teratur." }
+    ];
+
+    let currentQuestions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let answered = false;
+    const QUESTIONS_PER_QUIZ = 10;
+
+    function shuffleArray(array) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function resetAndShuffleQuiz() {
+      const shuffled = shuffleArray(questionBank);
+      currentQuestions = shuffled.slice(0, QUESTIONS_PER_QUIZ);
+      currentIndex = 0;
+      score = 0;
+      answered = false;
+
+      document.getElementById("current-score").innerText = "0";
+      document.getElementById("quiz-card").classList.remove("hidden");
+      document.getElementById("result-card").classList.add("hidden");
+
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      answered = false;
+      const qData = currentQuestions[currentIndex];
+      
+      document.getElementById("question-tracker").innerText = `Soal ${currentIndex + 1} dari ${currentQuestions.length}`;
+      const progressPercent = ((currentIndex) / currentQuestions.length) * 100;
+      document.getElementById("progress-bar").style.width = `${progressPercent}%`;
+
+      document.getElementById("question-text").innerText = `${currentIndex + 1}. ${qData.q}`;
+      
+      const feedback = document.getElementById("feedback-card");
+      feedback.className = "hidden";
+      feedback.innerText = "";
+
+      document.getElementById("next-btn").classList.add("hidden");
+
+      const optionsContainer = document.getElementById("options-container");
+      optionsContainer.innerHTML = "";
+
+      const optLabels = ["A", "B", "C"];
+      qData.opts.forEach((optText, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "w-full text-left p-3.5 sm:p-4 rounded-2xl border-2 border-slate-200 hover:border-amber-400 hover:bg-amber-50 font-semibold text-slate-700 transition flex items-center gap-3 active:scale-[0.99]";
+        btn.innerHTML = `
+          <span class="w-8 h-8 rounded-xl bg-amber-200 text-amber-900 font-bold flex items-center justify-center flex-shrink-0">${optLabels[idx]}</span>
+          <span class="text-sm sm:text-base">${optText}</span>
+        `;
+        btn.onclick = () => selectAnswer(idx, btn);
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function selectAnswer(selectedIdx, selectedBtn) {
+      if (answered) return;
+      answered = true;
+
+      const qData = currentQuestions[currentIndex];
+      const buttons = document.getElementById("options-container").children;
+      const feedback = document.getElementById("feedback-card");
+
+      for (let btn of buttons) {
+        btn.disabled = true;
+        btn.classList.remove("hover:bg-amber-50", "hover:border-amber-400");
+      }
+
+      if (selectedIdx === qData.ans) {
+        score += 10;
+        document.getElementById("current-score").innerText = score;
+        selectedBtn.classList.remove("border-slate-200");
+        selectedBtn.classList.add("border-emerald-500", "bg-emerald-50", "text-emerald-900");
+        
+        feedback.className = "p-3.5 rounded-2xl bg-emerald-100 text-emerald-800 text-sm sm:text-base font-bold border border-emerald-300 mb-4 block";
+        feedback.innerHTML = `🎉 <b>Benar!</b> ${qData.exp}`;
+      } else {
+        selectedBtn.classList.remove("border-slate-200");
+        selectedBtn.classList.add("border-rose-500", "bg-rose-50", "text-rose-900");
+        
+        buttons[qData.ans].classList.remove("border-slate-200");
+        buttons[qData.ans].classList.add("border-emerald-500", "bg-emerald-50", "text-emerald-900");
+
+        feedback.className = "p-3.5 rounded-2xl bg-rose-100 text-rose-800 text-sm sm:text-base font-bold border border-rose-300 mb-4 block";
+        feedback.innerHTML = `❌ <b>Kurang Tepat!</b> ${qData.exp}`;
+      }
+
+      document.getElementById("next-btn").classList.remove("hidden");
+    }
+
+    function nextQuestion() {
+      currentIndex++;
+      if (currentIndex < currentQuestions.length) {
+        renderQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      document.getElementById("progress-bar").style.width = `100%`;
+      document.getElementById("quiz-card").classList.add("hidden");
+      document.getElementById("result-card").classList.remove("hidden");
+
+      const finalScoreEl = document.getElementById("final-score");
+      const finalDetailEl = document.getElementById("final-detail");
+      const resultMsg = document.getElementById("result-msg");
+      const resultIcon = document.getElementById("result-icon");
+
+      finalScoreEl.innerText = score;
+      finalDetailEl.innerText = `${score / 10} dari ${currentQuestions.length} soal dijawab dengan benar`;
+
+      if (score >= 80) {
+        resultIcon.innerText = "🏆";
+        resultMsg.innerText = "Luar biasa pintar! Kamu sudah sangat paham tentang perkusi tubuh!";
+      } else if (score >= 50) {
+        resultIcon.innerText = "👏";
+        resultMsg.innerText = "Bagus sekali! Terus berlatih agar semakin hebat bermusik!";
+      } else {
+        resultIcon.innerText = "💪";
+        resultMsg.innerText = "Jangan menyerah, coba ulangi lagi untuk mendapat nilai sempurna!";
+      }
+    }
+
+    resetAndShuffleQuiz();
+  </script>
+</body>
+</html>

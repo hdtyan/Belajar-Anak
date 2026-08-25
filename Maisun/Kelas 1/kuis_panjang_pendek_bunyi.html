@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kuis Interaktif Seni Musik - Bagian C: Panjang Pendek Bunyi (Kelas 1 SD)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Fredoka', cursive, sans-serif;
+    }
+    .animate-bounce-short {
+      animation: bounce 0.6s ease infinite alternate;
+    }
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-8px); }
+    }
+  </style>
+</head>
+<body class="bg-emerald-50 min-h-screen text-slate-800 p-3 sm:p-6 flex flex-col items-center justify-center">
+
+  <div class="w-full max-w-2xl bg-white rounded-3xl shadow-xl border-4 border-emerald-300 p-5 sm:p-8 relative overflow-hidden">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-4 border-b-2 border-emerald-100 pb-3">
+      <div>
+        <span class="bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-bold px-3 py-1 rounded-full uppercase">Seni Musik - Bagian C (Kelas 1 SD)</span>
+        <h1 class="text-xl sm:text-2xl font-bold text-emerald-950 mt-1">🎶 Panjang Pendek Bunyi 🦎</h1>
+      </div>
+      <button onclick="resetAndShuffleQuiz()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold px-3 py-2 rounded-2xl shadow transition transform active:scale-95 flex items-center gap-1">
+        🔄 Acak / Soal Baru
+      </button>
+    </div>
+
+    <!-- Tracker & Score -->
+    <div class="flex justify-between items-center text-sm sm:text-base font-bold text-slate-600 mb-4 bg-emerald-50 p-2.5 rounded-2xl">
+      <span id="question-tracker">Soal 1 dari 10</span>
+      <span class="text-emerald-700">⭐ Skor: <span id="current-score">0</span></span>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="w-full bg-slate-100 h-3 rounded-full mb-6 overflow-hidden">
+      <div id="progress-bar" class="bg-gradient-to-r from-emerald-400 to-teal-500 h-full w-0 transition-all duration-300 rounded-full"></div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-card">
+      <div class="min-h-[90px] flex items-center bg-emerald-50/70 border-2 border-emerald-200 rounded-2xl p-4 mb-5">
+        <h2 id="question-text" class="text-base sm:text-lg font-bold text-slate-800 leading-relaxed">
+          Memuat pertanyaan...
+        </h2>
+      </div>
+
+      <!-- Options (A, B, C) -->
+      <div id="options-container" class="space-y-3 mb-6"></div>
+
+      <!-- Feedback -->
+      <div id="feedback-card" class="hidden p-4 rounded-2xl text-center text-sm sm:text-base font-bold mb-4 transition-all"></div>
+
+      <div class="flex justify-end">
+        <button id="next-btn" onclick="nextQuestion()" class="hidden bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-3 rounded-2xl shadow-lg transition transform active:scale-95 text-base sm:text-lg">
+          Lanjut ➡️
+        </button>
+      </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div id="result-card" class="hidden text-center py-6">
+      <div class="text-6xl mb-3 animate-bounce-short" id="result-icon">🎉</div>
+      <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">Hebat Sekali!</h2>
+      <p class="text-slate-600 mb-6 text-sm sm:text-base" id="result-msg">Kamu telah menyelesaikan latihan panjang pendek bunyi.</p>
+      
+      <div class="bg-emerald-100 p-6 rounded-3xl max-w-sm mx-auto mb-6 border-2 border-emerald-300">
+        <p class="text-slate-700 text-base font-semibold">Skor Akhir Kamu:</p>
+        <p class="text-4xl font-extrabold text-emerald-700 my-1" id="final-score">100</p>
+        <p class="text-xs text-slate-500" id="final-detail">10 dari 10 soal benar</p>
+      </div>
+
+      <button onclick="resetAndShuffleQuiz()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-3.5 rounded-2xl shadow-lg transition transform active:scale-95 text-lg">
+        🔄 Mainkan Soal Baru Lainnya
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    // Bank 30 Soal Berdasarkan Materi Bagian C (Halaman 15 - 18)
+    const questionBank = [
+      { q: "Lama waktu suatu bunyi dihasilkan saat bernyanyi disebut ...", opts: ["Panjang pendek bunyi", "Keras lembut bunyi", "Tinggi nada bunyi"], ans: 0, exp: "Panjang pendek bunyi diukur dari lama waktu bunyi itu dihasilkan." },
+      { q: "Bunyi panjang adalah bunyi yang suaranya ...", opts: ["Ditahan lebih lama", "Dihentikan cepat-cepat", "Dihilangkan"], ans: 0, exp: "Bunyi panjang dibunyikan atau ditahan lebih lama." },
+      { q: "Contoh bunyi panjang yang berasal dari suara mulut adalah ...", opts: ["Jentikan jari", "Senandung laaa laaa laaa", "Entakan kaki"], ans: 1, exp: "Senandung 'laaa laaa' adalah contoh bunyi panjang yang ditahan." },
+      { q: "Bunyi pendek adalah bunyi yang terdengar ...", opts: ["Sangat lama", "Cepat dan singkat", "Terus berlanjut"], ans: 1, exp: "Bunyi pendek diucapkan atau dibunyikan dengan cepat." },
+      { q: "Contoh gerakan tubuh yang menghasilkan bunyi pendek cepat adalah ...", opts: ["Menjentikkan jari (tik tik)", "Bersenandung panjang", "Menahan nafas"], ans: 0, exp: "Jentikan jari menghasilkan suara 'tik tik' yang pendek dan cepat." },
+      { q: "Siapakah pencipta lagu anak 'Cecak-Cecak di Dinding'?", opts: ["A.T. Mahmud", "Ibu Sud", "Pak Kasur"], ans: 0, exp: "Lagu Cecak-Cecak di Dinding diciptakan oleh A.T. Mahmud." },
+      { q: "Pada simbol notasi lagu, tanda kotak pendek (■) melambangkan nada yang dinyanyikan ...", opts: ["Panjang", "Pendek", "Berhenti"], ans: 1, exp: "Simbol kotak pendek (■) menandakan bunyi dinyanyikan pendek." },
+      { q: "Pada simbol notasi lagu, tanda garis persegi panjang hijau melambangkan nada yang dinyanyikan ...", opts: ["Panjang", "Pendek", "Cepat"], ans: 0, exp: "Garis persegi panjang melambangkan bunyi yang dinyanyikan panjang." },
+      { q: "Pada baris pertama lagu 'Cecak-cecak di dinding', kata manakah yang dinyanyikan PANJANG?", opts: ["Ce - cak", "Di", "Ding"], ans: 2, exp: "Suku kata 'ding' berada di akhir baris dan dinyanyikan secara panjang." },
+      { q: "Suku kata 'ce', 'cak', 'di', 'din' pada lagu Cecak di Dinding dinyanyikan secara ...", opts: ["Pendek", "Panjang", "Sangat lambat"], ans: 0, exp: "Kata-kata tersebut bertanda kotak pendek (■) sehingga dinyanyikan pendek." },
+      { q: "Pada baris 'Diam-diam merayap', kata manakah yang dinyanyikan panjang?", opts: ["Di - am", "Me - ra", "Yap"], ans: 2, exp: "Suku kata 'yap' di akhir baris bertanda garis panjang sehingga dinyanyikan panjang." },
+      { q: "Pada baris 'Datang seekor nyamuk', suku kata yang dinyanyikan panjang adalah ...", opts: ["Da - tang", "Se - e - kor", "Muk"], ans: 2, exp: "Suku kata 'muk' dinyanyikan panjang." },
+      { q: "Pada baris terakhir lagu Cecak di Dinding, kata yang dinyanyikan panjang di awal baris adalah ...", opts: ["Hap", "La - lu", "Di - tang"], ans: 0, exp: "Kata 'Hap' di awal baris terakhir bertanda garis panjang." },
+      { q: "Selain kata 'Hap', suku kata mana lagi di baris terakhir yang dinyanyikan panjang?", opts: ["La", "Lu", "Kap (di-tang-kap)"], ans: 2, exp: "Suku kata 'kap' di ujung lagu dinyanyikan panjang." },
+      { q: "Pada lirik 'Bu - ruung ka - kaa - tu - aaa', suku kata 'aaa' dinyanyikan secara ...", opts: ["Panjang (ditahan)", "Pendek cepat", "Berbisik"], ans: 0, exp: "Suku kata 'aaa' ditahan suaranya sehingga menjadi bunyi panjang." },
+      { q: "Lagu anak bertema kasih sayang ibu pada halaman 18 menceritakan tentang ...", opts: ["Kasih Ibu", "Burung Kutilang", "Pelangi"], ans: 0, exp: "Lirik pada halaman 18 adalah potongan lagu Kasih Ibu (Hanya memberi, tak harap kembali...)." },
+      { q: "Pada lirik 'Ha - nya mem - be - ri', suku kata yang dinyanyikan panjang adalah ...", opts: ["Ha", "Mem", "Ri"], ans: 2, exp: "Suku kata 'ri' bertanda balok panjang di akhir bait." },
+      { q: "Pada lirik 'Tak ha - rap kem - ba - li', suku kata yang dinyanyikan panjang adalah ...", opts: ["Tak", "Kem", "Li"], ans: 2, exp: "Suku kata 'li' di akhir baris dinyanyikan panjang." },
+      { q: "Pada lirik 'Ba - gai sang sur - ya', suku kata yang bertanda bunyi panjang adalah ...", opts: ["Ba", "Sur", "Ya"], ans: 2, exp: "Suku kata 'ya' bertanda bunyi panjang." },
+      { q: "Pada lirik 'Me - nyi - na - ri du - ni - a', suku kata yang dinyanyikan panjang adalah ...", opts: ["Me", "Du - ni", "A"], ans: 2, exp: "Suku kata terakhir 'a' dinyanyikan panjang." },
+      { q: "Saat bernyanyi, kita harus menyanyi dengan perasaan sesuai dengan ...", opts: ["Warna baju kita", "Isi dan pesan lagu", "Keinginan teman"], ans: 1, exp: "Pesan apresiasi: bernyanyilah dengan perasaan sesuai isi dan pesan lagu." },
+      { q: "Perbedaan utama antara bunyi panjang dan bunyi pendek terletak pada ...", opts: ["Lama waktu bunyinya terdengar", "Tingkat kenyaringannya", "Bagus tidaknya suara"], ans: 0, exp: "Panjang pendek bunyi diukur dari durasi atau lama waktu bunyi itu dihasilkan." },
+      { q: "Jika suku kata diberi simbol kotak pendek (■), cara menyanyikannya adalah ...", opts: ["Ditahan lama", "Singkat/cepat", "Diulang 3 kali"], ans: 1, exp: "Simbol kotak pendek (■) dinyanyikan dengan tempo pendek dan singkat." },
+      { q: "Bila kita membunyikan terompet panjang 'tweeetttt', bunyi tersebut tergolong ...", opts: ["Bunyi panjang", "Bunyi pendek", "Bunyi hilang"], ans: 0, exp: "Suara tiupan yang ditahan lama adalah contoh bunyi panjang." },
+      { q: "Tepukan tangan satu kali 'plok' secara cepat menghasilkan contoh ...", opts: ["Bunyi panjang", "Bunyi pendek", "Irama tanpa ketukan"], ans: 1, exp: "Tepukan singkat satu kali merupakan contoh bunyi pendek." },
+      { q: "Berapa banyak kata yang berbunyi PANJANG pada baris pertama 'Cecak-cecak di dinding'?", opts: ["1 suku kata (ding)", "2 suku kata", "Semua kata"], ans: 0, exp: "Hanya ada 1 suku kata berbunyi panjang di baris pertama, yaitu 'ding'." },
+      { q: "Pada lagu Cecak di Dinding, sebagian besar suku kata dinyanyikan secara ...", opts: ["Pendek", "Panjang", "Sangat lambat"], ans: 0, exp: "Hampir seluruh suku kata bertanda kotak pendek, hanya ujung baris dan kata 'Hap' yang panjang." },
+      { q: "Suku kata 'nyamuk' pada lagu Cecak di Dinding: suku kata 'nya' dinyanyikan pendek, sedangkan 'muk' dinyanyikan ...", opts: ["Pendek", "Panjang", "Diam"], ans: 1, exp: "'nya' dinyanyikan pendek (■) dan 'muk' dinyanyikan panjang (garis panjang)." },
+      { q: "Mengapa kita perlu membedakan bunyi panjang dan pendek saat bernyanyi?", opts: ["Agar irama lagu terdengar indah dan tepat", "Agar cepat selesai", "Agar suara menjadi serak"], ans: 0, exp: "Menyanyikan nada sesuai panjang pendeknya membuat lagu terdengar berirama dan merdu." },
+      { q: "Bunyi panjang dan pendek yang tersusun teratur di dalam musik membentuk ...", opts: ["Irama", "Keributan", "Bisikan"], ans: 0, exp: "Panjang pendek bunyi yang teratur menghasilkan pola irama." }
+    ];
+
+    let currentQuestions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let answered = false;
+    const QUESTIONS_PER_QUIZ = 10;
+
+    function shuffleArray(array) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function resetAndShuffleQuiz() {
+      const shuffled = shuffleArray(questionBank);
+      currentQuestions = shuffled.slice(0, QUESTIONS_PER_QUIZ);
+      currentIndex = 0;
+      score = 0;
+      answered = false;
+
+      document.getElementById("current-score").innerText = "0";
+      document.getElementById("quiz-card").classList.remove("hidden");
+      document.getElementById("result-card").classList.add("hidden");
+
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      answered = false;
+      const qData = currentQuestions[currentIndex];
+      
+      document.getElementById("question-tracker").innerText = `Soal ${currentIndex + 1} dari ${currentQuestions.length}`;
+      const progressPercent = ((currentIndex) / currentQuestions.length) * 100;
+      document.getElementById("progress-bar").style.width = `${progressPercent}%`;
+
+      document.getElementById("question-text").innerText = `${currentIndex + 1}. ${qData.q}`;
+      
+      const feedback = document.getElementById("feedback-card");
+      feedback.className = "hidden";
+      feedback.innerText = "";
+
+      document.getElementById("next-btn").classList.add("hidden");
+
+      const optionsContainer = document.getElementById("options-container");
+      optionsContainer.innerHTML = "";
+
+      const optLabels = ["A", "B", "C"];
+      qData.opts.forEach((optText, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "w-full text-left p-3.5 sm:p-4 rounded-2xl border-2 border-slate-200 hover:border-emerald-400 hover:bg-emerald-50 font-semibold text-slate-700 transition flex items-center gap-3 active:scale-[0.99]";
+        btn.innerHTML = `
+          <span class="w-8 h-8 rounded-xl bg-emerald-200 text-emerald-900 font-bold flex items-center justify-center flex-shrink-0">${optLabels[idx]}</span>
+          <span class="text-sm sm:text-base">${optText}</span>
+        `;
+        btn.onclick = () => selectAnswer(idx, btn);
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function selectAnswer(selectedIdx, selectedBtn) {
+      if (answered) return;
+      answered = true;
+
+      const qData = currentQuestions[currentIndex];
+      const buttons = document.getElementById("options-container").children;
+      const feedback = document.getElementById("feedback-card");
+
+      for (let btn of buttons) {
+        btn.disabled = true;
+        btn.classList.remove("hover:bg-emerald-50", "hover:border-emerald-400");
+      }
+
+      if (selectedIdx === qData.ans) {
+        score += 10;
+        document.getElementById("current-score").innerText = score;
+        selectedBtn.classList.remove("border-slate-200");
+        selectedBtn.classList.add("border-emerald-500", "bg-emerald-50", "text-emerald-900");
+        
+        feedback.className = "p-3.5 rounded-2xl bg-emerald-100 text-emerald-800 text-sm sm:text-base font-bold border border-emerald-300 mb-4 block";
+        feedback.innerHTML = `🎉 <b>Benar!</b> ${qData.exp}`;
+      } else {
+        selectedBtn.classList.remove("border-slate-200");
+        selectedBtn.classList.add("border-rose-500", "bg-rose-50", "text-rose-900");
+        
+        buttons[qData.ans].classList.remove("border-slate-200");
+        buttons[qData.ans].classList.add("border-emerald-500", "bg-emerald-50", "text-emerald-900");
+
+        feedback.className = "p-3.5 rounded-2xl bg-rose-100 text-rose-800 text-sm sm:text-base font-bold border border-rose-300 mb-4 block";
+        feedback.innerHTML = `❌ <b>Kurang Tepat!</b> ${qData.exp}`;
+      }
+
+      document.getElementById("next-btn").classList.remove("hidden");
+    }
+
+    function nextQuestion() {
+      currentIndex++;
+      if (currentIndex < currentQuestions.length) {
+        renderQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      document.getElementById("progress-bar").style.width = `100%`;
+      document.getElementById("quiz-card").classList.add("hidden");
+      document.getElementById("result-card").classList.remove("hidden");
+
+      const finalScoreEl = document.getElementById("final-score");
+      const finalDetailEl = document.getElementById("final-detail");
+      const resultMsg = document.getElementById("result-msg");
+      const resultIcon = document.getElementById("result-icon");
+
+      finalScoreEl.innerText = score;
+      finalDetailEl.innerText = `${score / 10} dari ${currentQuestions.length} soal dijawab dengan benar`;
+
+      if (score >= 80) {
+        resultIcon.innerText = "🏆";
+        resultMsg.innerText = "Luar biasa! Kamu sudah mahir membedakan bunyi panjang dan pendek!";
+      } else if (score >= 50) {
+        resultIcon.innerText = "👏";
+        resultMsg.innerText = "Bagus! Terus berlatih agar semakin peka terhadap tanda nada panjang pendek!";
+      } else {
+        resultIcon.innerText = "💪";
+        resultMsg.innerText = "Tetap semangat! Coba ulangi kuis untuk mendapatkan nilai sempurna!";
+      }
+    }
+
+    resetAndShuffleQuiz();
+  </script>
+</body>
+</html>
