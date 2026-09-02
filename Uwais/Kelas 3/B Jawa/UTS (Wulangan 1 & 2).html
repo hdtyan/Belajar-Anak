@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="jv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soal Basa Jawa - Wulangan 1 & 2 (Kelas 3)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap');
+
+  :root{
+    --paper:#F7F1E1;
+    --paper-deep:#EFE5C9;
+    --ink:#16304C;
+    --ink-soft:#3C5570;
+    --gold:#C1912A;
+    --gold-deep:#8F6A1A;
+    --sogan:#8A4B2A;
+    --good:#2E7D4F;
+    --bad:#B23A2E;
+    --line: rgba(22,48,76,0.14);
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      radial-gradient(circle at 6px 6px, rgba(22,48,76,0.05) 1.4px, transparent 1.5px);
+    background-size: 26px 26px;
+    color:var(--ink);
+    font-family:'Source Sans 3', sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    padding-bottom:60px;
+  }
+
+  header.masthead{
+    background:var(--ink);
+    color:var(--paper);
+    padding:38px 20px 30px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  header.masthead::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: repeating-linear-gradient(45deg, rgba(193,145,42,0.10) 0 2px, transparent 2px 22px),
+                       repeating-linear-gradient(-45deg, rgba(193,145,42,0.10) 0 2px, transparent 2px 22px);
+    pointer-events:none;
+  }
+  header.masthead .kicker{
+    position:relative;
+    font-size:13.5px;
+    letter-spacing:0.02em;
+    color:var(--gold);
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  header.masthead h1{
+    position:relative;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(28px,4.5vw,42px);
+    margin:0 0 8px;
+  }
+  header.masthead p{
+    position:relative;
+    max-width:560px;
+    margin:0 auto;
+    color:rgba(247,241,225,0.82);
+    font-size:15px;
+  }
+
+  main{
+    max-width:760px;
+    margin:0 auto;
+    padding:32px 18px 0;
+  }
+
+  .materi-block{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:26px 26px 22px;
+    margin-bottom:26px;
+    box-shadow:0 1px 0 rgba(22,48,76,0.04);
+    border-left:5px solid var(--gold);
+  }
+  .materi-block h2{
+    font-family:'Fraunces', serif;
+    font-size:22px;
+    font-weight:600;
+    color:var(--sogan);
+    margin:0 0 4px;
+  }
+  .materi-block h3{
+    font-family:'Fraunces', serif;
+    font-size:17px;
+    font-weight:600;
+    color:var(--ink);
+    margin:20px 0 6px;
+  }
+  .materi-block h3:first-of-type{margin-top:14px;}
+  .materi-block p, .materi-block li{
+    color:var(--ink-soft);
+    font-size:15px;
+  }
+  .materi-block ul{margin:6px 0 10px; padding-left:20px;}
+  .materi-block .wacan p{margin:0 0 10px;}
+  .mini-table{
+    width:100%;
+    border-collapse:collapse;
+    margin:10px 0 4px;
+    font-size:14.5px;
+  }
+  .mini-table th, .mini-table td{
+    border:1px solid var(--line);
+    padding:6px 10px;
+    text-align:left;
+  }
+  .mini-table th{
+    background:var(--paper-deep);
+    color:var(--ink);
+    font-weight:600;
+  }
+  .toggle-materi{
+    display:inline-block;
+    margin-top:8px;
+    font-size:13.5px;
+    color:var(--gold-deep);
+    cursor:pointer;
+    font-weight:600;
+    border-bottom:1px dashed var(--gold-deep);
+  }
+
+  .quiz-head{
+    text-align:center;
+    margin:38px 0 20px;
+  }
+  .quiz-head h2{
+    font-family:'Fraunces', serif;
+    font-size:26px;
+    color:var(--ink);
+    margin:0 0 6px;
+  }
+  .quiz-head p{color:var(--ink-soft); font-size:14.5px; margin:0;}
+
+  .toolbar{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin:18px 0 6px;
+  }
+  button.action{
+    font-family:'Source Sans 3', sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    padding:11px 20px;
+    border-radius:5px;
+    border:1.5px solid var(--ink);
+    background:var(--ink);
+    color:var(--paper);
+    cursor:pointer;
+    transition:transform .12s ease, background .15s ease;
+  }
+  button.action.secondary{
+    background:transparent;
+    color:var(--ink);
+  }
+  button.action:hover{transform:translateY(-1px);}
+  button.action:disabled{opacity:.45; cursor:default; transform:none;}
+
+  .score-panel{
+    max-width:420px;
+    margin:20px auto 0;
+    background:#fff;
+    border:1.5px solid var(--gold);
+    border-radius:6px;
+    padding:16px 20px;
+    text-align:center;
+    display:none;
+  }
+  .score-panel.show{display:block;}
+  .score-panel .num{
+    font-family:'Fraunces', serif;
+    font-size:34px;
+    font-weight:700;
+    color:var(--sogan);
+  }
+  .score-panel .label{font-size:13.5px; color:var(--ink-soft);}
+
+  .qcard{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:20px 22px;
+    margin-bottom:14px;
+  }
+  .qcard .qtag{
+    display:inline-block;
+    font-size:11.5px;
+    font-weight:600;
+    color:var(--gold-deep);
+    background:var(--paper-deep);
+    padding:2px 9px;
+    border-radius:20px;
+    margin-bottom:10px;
+  }
+  .qcard .qtext{
+    font-size:16px;
+    font-weight:600;
+    color:var(--ink);
+    margin:0 0 14px;
+  }
+  .qcard .qnum{color:var(--sogan); margin-right:6px;}
+
+  .opt{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:10px 12px;
+    border:1.5px solid var(--line);
+    border-radius:5px;
+    margin-bottom:8px;
+    cursor:pointer;
+    transition:background .12s ease, border-color .12s ease;
+  }
+  .opt:hover{border-color:var(--gold);}
+  .opt .letter{
+    flex:0 0 auto;
+    width:24px; height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-size:12.5px; font-weight:700;
+    color:var(--ink);
+  }
+  .opt .text{font-size:15px; padding-top:2px;}
+
+  .opt.correct{
+    background:rgba(46,125,79,0.10);
+    border-color:var(--good);
+  }
+  .opt.correct .letter{background:var(--good); color:#fff; border-color:var(--good);}
+  .opt.wrong{
+    background:rgba(178,58,46,0.09);
+    border-color:var(--bad);
+  }
+  .opt.wrong .letter{background:var(--bad); color:#fff; border-color:var(--bad);}
+  .opt.disabled{cursor:default;}
+
+  .feedback{
+    margin-top:8px;
+    font-size:13.5px;
+    font-weight:600;
+  }
+  .feedback.good{color:var(--good);}
+  .feedback.bad{color:var(--bad);}
+
+  footer{
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:12.5px;
+    margin-top:40px;
+    padding:0 20px;
+  }
+
+  @media (max-width:480px){
+    .materi-block{padding:20px 18px;}
+    .qcard{padding:16px 16px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="kicker">Basa Jawa &middot; Kelas 3 SD</div>
+  <h1>Wulangan 1 &amp; Wulangan 2</h1>
+  <p>Kegiyatan ing Sekolah, Tembung Aran, Arane Kewan, lan Cangkriman &mdash; sinau karo soal-soal interaktif.</p>
+</header>
+
+<main>
+
+  <!-- ================= MATERI WULANGAN 1 ================= -->
+  <section class="materi-block">
+    <h2>Wulangan 1 &mdash; Kegiyatan ing Sekolah</h2>
+
+    <h3>Wacan: Anisa</h3>
+    <div class="wacan">
+      <p>Anisa saben dina tangi mruput. Sawise sembahyang, banjur tata-tata lan nyapu kamar.</p>
+      <p>Nalika liwat pawon, ibune lagi asah-asah. Wektune isih cukup kanggo mbiyantu ibune. Anisa banjur ngrewangi asah-asah. Rampung kuwi dheweke banjur adus. Sawise adus, Anisa dandan nuli sarapan.</p>
+      <p>Anisa ora lali pamit marang bapak lan ibune nalika arep mangkat sekolah. Anisa ngepit kanthi alon. Tekan sekolahan, kancane piket wis ana sing tandang gawe. Anisa ngrewangi kancane nyapu klas. Atine seneng bisa bebarengan reresik klas.</p>
+      <p>Piket wis rampung. Bel mlebu klas wis muni. Anisa sakancane padha mlebu. Ora watara suwe gurune rawuh. Pelajaran banjur kawiwitan. Bocah-bocah anteng padha nggatekake.</p>
+    </div>
+
+    <h3>Tembung Aran</h3>
+    <p>Tembung aran yaiku jenenge sakabehing apa wae kang dianggep barang. Kang kalebu tembung aran yaiku jeneng wong, kewan, tetuwuhan, papan, panganan, lan liya-liyane.</p>
+    <p>Tuladha: gunung, dalan, Yogyakarta, Amerika, Arjuna, Akbar, sapi, kebo, gethuk, gedhang.</p>
+
+    <h3>Arane Kewan</h3>
+    <ul>
+      <li><strong>Kewan iwen</strong> &mdash; kewan kang duwe swiwi lan sikil loro. Tuladha: pitik, bebek, menthok, banyak.</li>
+      <li><strong>Kewan ingon</strong> &mdash; kewan sing lumrah diingu ing omahe dhewe-dhewe. Tuladha: kucing, sapi, kebo, wedhus, jaran, iwak. Sapi, kebo, lan wedhus diarani <em>raja kaya</em> (kewan ternak).</li>
+      <li><strong>Kewan alas</strong> &mdash; kewan kang uripe ana ing alas. Tuladha: macan, singa, badak, kidang, menjangan.</li>
+      <li><strong>Kewan nggremet</strong> &mdash; kewan kang carane pindah enggon kanthi cara nggremet. Tuladha: ula, cecak, kombang, tikus.</li>
+    </ul>
+
+    <h3>Jenenge Anak Kewan</h3>
+    <table class="mini-table">
+      <tr><th>Kewan</th><th>Anake</th><th>Kewan</th><th>Anake</th></tr>
+      <tr><td>Bebek</td><td>meri</td><td>Jaran</td><td>belo</td></tr>
+      <tr><td>Menthok</td><td>minthi</td><td>Kucing</td><td>cemeng</td></tr>
+      <tr><td>Pitik</td><td>kuthuk</td><td>Macan</td><td>gogor</td></tr>
+      <tr><td>Sapi</td><td>pedhet</td><td>Kebo</td><td>gudel</td></tr>
+      <tr><td>Wedhus</td><td>cempe</td><td>Dara</td><td>piyik</td></tr>
+      <tr><td>Gajah</td><td>bledug</td><td>Baya</td><td>krete</td></tr>
+    </table>
+
+    <h3>Ukara Pitakon lan Pakon</h3>
+    <p><strong>Ukara pitakon</strong> yaiku ukara sing mbutuhake wangsulan. Ukara pitakon dipungkasi kanthi tandha tanya (?). Tuladha: &ldquo;Paring dhawuh menapa, Bu?&rdquo;</p>
+    <p><strong>Ukara pakon</strong> (prentah) yaiku ukara sing surasane ngongkon, mrentah wong liya supaya nindakake kaya isi utawa surasane ukara mau. Tuladha: &ldquo;Niken, cah ayu mreneya!&rdquo;</p>
+  </section>
+
+  <!-- ================= MATERI WULANGAN 2 ================= -->
+  <section class="materi-block">
+    <h2>Wulangan 2 &mdash; Cangkriman</h2>
+
+    <p>Cangkriman yaiku unen-unen kang kudu dibatang utawa dibedhek. Cangkriman iku umume kanggo gegojegan.</p>
+
+    <h3>1. Cangkriman Wancahan</h3>
+    <p>Cangkriman kang awujud cekakan tembung (singkatan kata).</p>
+    <ul>
+      <li>Pakboletus = tapak kebo lelene satus</li>
+      <li>Paklawa = tapak ula dawa</li>
+      <li>Nasgithel = panas legi kenthel</li>
+      <li>Pakpiyut = tapak sapi ciyut</li>
+      <li>Kabaketan = kabare ketan nangka tiba ing suketan</li>
+    </ul>
+
+    <h3>2. Cangkriman Pepindhan</h3>
+    <p>Cangkriman kang ngemu teges irip-irip (pasemon).</p>
+    <ul>
+      <li>Pitik walik saba kebon = nanas</li>
+      <li>Sega sekepel dirubung tinggi = salak</li>
+      <li>Pitik walik saba meja = sulak</li>
+      <li>Anake diidak-idak, simboke dielus-elus = andha</li>
+      <li>Bocah cilik tlusap-tlusup saba kebon = dom</li>
+    </ul>
+
+    <h3>3. Cangkriman Blenderan</h3>
+    <p>Cangkriman kang awujud plesetan.</p>
+    <ul>
+      <li>Wong ketiban duren bakal sugeh pari = pari karepe paringisan amarga kelaran.</li>
+      <li>Tulisane arab, macane saka ngendi? = macan ya saka alas.</li>
+    </ul>
+
+    <h3>Tembang Pocung</h3>
+    <p>Pocung kalebu tembang macapat. Tembang Pocung ana sing isine cangkriman, uga ana sing isine pitutur (nasehat).</p>
+    <p><strong>Paugerane tembang Pocung:</strong> ana 4 gatra (guru gatra), guru wilangan 12, 6, 8, 12 suku kata, lan guru lagu u, a, i, a.</p>
+    <table class="mini-table">
+      <tr><th>Gatra</th><th>Guru Wilangan</th><th>Guru Lagu</th></tr>
+      <tr><td>1</td><td>12 wanda</td><td>u</td></tr>
+      <tr><td>2</td><td>6 wanda</td><td>a</td></tr>
+      <tr><td>3</td><td>8 wanda</td><td>i</td></tr>
+      <tr><td>4</td><td>12 wanda</td><td>a</td></tr>
+    </table>
+    <p>Conto tegese cangkriman ing tembang Pocung: <em>sing disaba si pocung mung turut desa</em> = sepur; <em>lumampah si pocung lembehan grana</em> = gajah; <em>kaya manuk rajawali, wira wiri nggawa barang lan manungsa</em> = montor mabur; <em>pencokanmu lambung kering</em> = klenting.</p>
+  </section>
+
+  <div class="quiz-head">
+    <h2>Ayo Nggarap Soal!</h2>
+    <p>30 soal pilihan ganda &middot; ora nganggo wektu &middot; pilihen jawaban sing bener</p>
+  </div>
+
+  <div class="toolbar">
+    <button class="action" id="checkAllBtn">Cocokake Kabeh Jawaban</button>
+    <button class="action secondary" id="newSetBtn">Gawe Soal Anyar</button>
+  </div>
+
+  <div class="score-panel" id="scorePanel">
+    <div class="num" id="scoreNum">0/30</div>
+    <div class="label">jawaban bener</div>
+  </div>
+
+  <div id="quizList" style="margin-top:24px;"></div>
+
+  <div class="toolbar" style="margin-top:8px;">
+    <button class="action" id="checkAllBtn2">Cocokake Kabeh Jawaban</button>
+    <button class="action secondary" id="newSetBtn2">Gawe Soal Anyar</button>
+  </div>
+
+</main>
+
+<footer>
+  Basa Jawa &middot; Wulangan 1 &amp; 2 &middot; Kelas 3 SD &mdash; file iki bisa disimpen lan dibukak maneh ing browser.
+</footer>
+
+<script>
+// ============ BANK SOAL ============
+const BANK = [
+  // --- Wacan Anisa ---
+  {tag:"Wacan Anisa", q:"Sapa sing saben dina tangi mruput?", opts:["Anisa","Ibune Anisa","Bapake Anisa"], correct:0},
+  {tag:"Wacan Anisa", q:"Apa sing ditindakake Anisa sawise sembahyang?", opts:["Adus banjur sarapan","Tata-tata lan nyapu kamar","Mangkat sekolah"], correct:1},
+  {tag:"Wacan Anisa", q:"Nalika liwat pawon, ibune Anisa lagi apa?", opts:["Nyapu latar","Asah-asah","Adus"], correct:1},
+  {tag:"Wacan Anisa", q:"Sawise ngrewangi ibune asah-asah, Anisa banjur...", opts:["Sarapan","Adus","Mangkat sekolah"], correct:1},
+  {tag:"Wacan Anisa", q:"Sadurunge mangkat sekolah, Anisa ora lali...", opts:["Sarapan maneh","Pamit marang bapak lan ibune","Nyapu kamar maneh"], correct:1},
+  {tag:"Wacan Anisa", q:"Anisa mangkat menyang sekolah kanthi cara...", opts:["Ngepit kanthi alon","Numpak mobil","Mlaku adoh"], correct:0},
+  {tag:"Wacan Anisa", q:"Tekan sekolahan, Anisa ngrewangi kancane...", opts:["Sinau bareng","Nyapu klas","Mangan bareng"], correct:1},
+  {tag:"Wacan Anisa", q:"Piket wis rampung, banjur muni...", opts:["Bel mlebu klas","Bel bali sekolah","Bel istirahat"], correct:0},
+  {tag:"Wacan Anisa", q:"Kepriye pangrasane Anisa nalika bisa bebarengan reresik klas?", opts:["Sedhih","Seneng","Isin"], correct:1},
+  {tag:"Wacan Anisa", q:"Sawise bel mlebu muni lan gurune rawuh, bocah-bocah padha...", opts:["Rame dhewe-dhewe","Anteng nggatekake","Metu klas"], correct:1},
+
+  // --- Tembung Aran ---
+  {tag:"Tembung Aran", q:"Tembung aran yaiku jenenge sakabehing apa wae kang dianggep...", opts:["Pakaryan","Barang","Wilangan"], correct:1},
+  {tag:"Tembung Aran", q:"Ing ngisor iki kang kalebu tembung aran, yaiku...", opts:["sapi, mangan, suket","gedhang, pari, kebo","sate, jaran, mulih"], correct:1},
+  {tag:"Tembung Aran", q:"\"Faith maem sate lan timun.\" Tembung aran ing ukara kasebut yaiku...", opts:["maem, lan","Faith, sate, timun","maem, sate"], correct:1},
+  {tag:"Tembung Aran", q:"\"Wit jambu kuwi ben subur kudu kena srengenge.\" Tembung aran ing ukara kasebut yaiku...", opts:["wit jambu lan srengenge","subur lan kena","kudu lan ben"], correct:0},
+  {tag:"Tembung Aran", q:"Tuladha tembung aran arane wong yaiku...", opts:["mlayu","Arjuna","becik"], correct:1},
+  {tag:"Tembung Aran", q:"Tuladha tembung aran arane panganan yaiku...", opts:["gethuk","dalan","Yogyakarta"], correct:0},
+  {tag:"Tembung Aran", q:"Tembung aran uga bisa awujud jeneng papan, tuladhane...", opts:["Yogyakarta","mangan","seneng"], correct:0},
+
+  // --- Arane Kewan ---
+  {tag:"Arane Kewan", q:"Kewan kang duwe swiwi lan sikil loro diarani kewan...", opts:["ingon","iwen","alas"], correct:1},
+  {tag:"Arane Kewan", q:"Conto kewan iwen yaiku...", opts:["kucing, sapi","pitik, bebek, menthok, banyak","macan, singa"], correct:1},
+  {tag:"Arane Kewan", q:"Kewan sing lumrah diingu ing omahe dhewe-dhewe diarani kewan...", opts:["ingon","alas","nggremet"], correct:0},
+  {tag:"Arane Kewan", q:"Sapi, kebo, lan wedhus diarani...", opts:["kewan alas","raja kaya","kewan nggremet"], correct:1},
+  {tag:"Arane Kewan", q:"Kewan kang uripe ana ing alas diarani kewan...", opts:["alas","iwen","ingon"], correct:0},
+  {tag:"Arane Kewan", q:"Conto kewan alas yaiku...", opts:["kucing, jaran","macan, singa, badak","pitik, bebek"], correct:1},
+  {tag:"Arane Kewan", q:"Kewan kang carane pindah enggon kanthi cara nggremet diarani kewan...", opts:["nggremet","iwen","ingon"], correct:0},
+  {tag:"Arane Kewan", q:"Conto kewan nggremet yaiku...", opts:["sapi, kebo","ula, cecak, tikus","macan, kidang"], correct:1},
+  {tag:"Arane Kewan", q:"Kucing, sapi, kebo, wedhus, jaran, iwak kalebu golongan kewan...", opts:["ingon","alas","iwen"], correct:0},
+  {tag:"Arane Kewan", q:"Kidang lan menjangan kalebu golongan kewan...", opts:["alas","ingon","iwen"], correct:0},
+
+  // --- Jenenge Anak Kewan ---
+  {tag:"Anak Kewan", q:"Anak bebek jenenge...", opts:["kuthuk","meri","minthi"], correct:1},
+  {tag:"Anak Kewan", q:"Anak menthok jenenge...", opts:["minthi","meri","cempe"], correct:0},
+  {tag:"Anak Kewan", q:"Anak pitik jenenge...", opts:["kuthuk","pedhet","belo"], correct:0},
+  {tag:"Anak Kewan", q:"Anak sapi jenenge...", opts:["cempe","pedhet","gudel"], correct:1},
+  {tag:"Anak Kewan", q:"Anak wedhus jenenge...", opts:["cempe","belo","gogor"], correct:0},
+  {tag:"Anak Kewan", q:"Anak jaran jenenge...", opts:["belo","bledug","krete"], correct:0},
+  {tag:"Anak Kewan", q:"Anak kucing jenenge...", opts:["gogor","cemeng","piyik"], correct:1},
+  {tag:"Anak Kewan", q:"Anak macan jenenge...", opts:["gogor","gudel","precil"], correct:0},
+  {tag:"Anak Kewan", q:"Anak kebo jenenge...", opts:["gudel","pedhet","meri"], correct:0},
+  {tag:"Anak Kewan", q:"Anak dara jenenge...", opts:["piyik","meri","belo"], correct:0},
+  {tag:"Anak Kewan", q:"Anak gajah jenenge...", opts:["bledug","krete","piyik"], correct:0},
+  {tag:"Anak Kewan", q:"Anak baya jenenge...", opts:["krete","piyik","precil"], correct:0},
+
+  // --- Ukara Pitakon lan Pakon ---
+  {tag:"Ukara Pitakon lan Pakon", q:"Ukara sing mbutuhake wangsulan lan dipungkasi tandha tanya (?) diarani ukara...", opts:["pakon","pitakon","crita"], correct:1},
+  {tag:"Ukara Pitakon lan Pakon", q:"Ukara kang surasane ngongkon utawa mrentah wong liya diarani ukara...", opts:["pitakon","pakon/prentah","pangajak"], correct:1},
+  {tag:"Ukara Pitakon lan Pakon", q:"\"Niken, cah ayu mreneya!\" iku klebu ukara...", opts:["pitakon","pakon","pujian"], correct:1},
+  {tag:"Ukara Pitakon lan Pakon", q:"\"Paring dhawuh menapa, Bu?\" iku klebu ukara...", opts:["pitakon","pakon","pujian"], correct:0},
+  {tag:"Ukara Pitakon lan Pakon", q:"Tandha kang mungkasi ukara pitakon yaiku...", opts:["titik (.)","tandha tanya (?)","tandha seru (!)"], correct:1},
+
+  // --- Cangkriman umum ---
+  {tag:"Cangkriman", q:"Cangkriman yaiku unen-unen kang kudu...", opts:["diapalake","dibatang utawa dibedhek","ditulis"], correct:1},
+  {tag:"Cangkriman", q:"Cangkriman iku umume kanggo...", opts:["sinau","gegojegan","tangis"], correct:1},
+  {tag:"Cangkriman", q:"Cangkriman kang awujud cekakan tembung (singkatan) diarani cangkriman...", opts:["wancahan","pepindhan","blenderan"], correct:0},
+  {tag:"Cangkriman", q:"Cangkriman kang ngemu teges irip-irip (pasemon) diarani cangkriman...", opts:["wancahan","pepindhan","blenderan"], correct:1},
+  {tag:"Cangkriman", q:"Cangkriman kang awujud plesetan diarani cangkriman...", opts:["wancahan","pepindhan","blenderan"], correct:2},
+  {tag:"Cangkriman", q:"Jinise cangkriman kang diandharake ana...", opts:["2 jinis","3 jinis","4 jinis"], correct:1},
+
+  // --- Cangkriman wancahan ---
+  {tag:"Cangkriman Wancahan", q:"\"Pakboletus\" batangane...", opts:["tapak kebo lelene satus","tapak ula dawa","panas legi kenthel"], correct:0},
+  {tag:"Cangkriman Wancahan", q:"\"Paklawa\" batangane...", opts:["tapak ula dawa","tapak sapi ciyut","tapak kebo amba"], correct:0},
+  {tag:"Cangkriman Wancahan", q:"\"Nasgithel\" batangane...", opts:["panas legi kenthel","tapak ula dawa","tapak kebo amba"], correct:0},
+  {tag:"Cangkriman Wancahan", q:"\"Pakpiyut\" batangane...", opts:["tapak sapi ciyut","tapak kebo amba","tapak ula dawa"], correct:0},
+  {tag:"Cangkriman Wancahan", q:"\"Pakbomba\" batangane...", opts:["tapak kebo amba","tapak ula dawa","tapak sapi ciyut"], correct:0},
+
+  // --- Cangkriman pepindhan ---
+  {tag:"Cangkriman Pepindhan", q:"\"Pitik walik saba kebon\" batangane...", opts:["salak","nanas","sulak"], correct:1},
+  {tag:"Cangkriman Pepindhan", q:"\"Sega sekepel dirubung tinggi\" batangane...", opts:["salak","nanas","sulak"], correct:0},
+  {tag:"Cangkriman Pepindhan", q:"\"Pitik walik saba meja\" batangane...", opts:["sulak","salak","nanas"], correct:0},
+  {tag:"Cangkriman Pepindhan", q:"\"Anake diidak-idak, simboke dielus-elus\" batangane...", opts:["dom","andha","tape"], correct:1},
+  {tag:"Cangkriman Pepindhan", q:"\"Bocah cilik tlusap-tlusup saba kebon\" batangane...", opts:["dom","andha","kates"], correct:0},
+  {tag:"Cangkriman Pepindhan", q:"\"Ngarep ireng, buri ireng, sing tengah methentheng\" batangane...", opts:["wong mikul areng","dom","tape"], correct:0},
+
+  // --- Cangkriman blenderan ---
+  {tag:"Cangkriman Blenderan", q:"\"Wong ketiban duren bakal sugeh pari\" tegese...", opts:["Bakal dadi sugih tenanan","Pari karepe paringisan amarga kelaran","Bakal panen pari"], correct:1},
+  {tag:"Cangkriman Blenderan", q:"\"Tulisane arab, macane saka ngendi?\" batangane...", opts:["Macan ya saka alas","Saka kiwa menyang tengen","Saka ngarep buku"], correct:0},
+
+  // --- Tembang Pocung ---
+  {tag:"Tembang Pocung", q:"Tembang macapat kang isine cangkriman lan pitutur yaiku tembang...", opts:["Pocung","Dhandhanggula","Kinanthi"], correct:0},
+  {tag:"Tembang Pocung", q:"Guru gatra tembang Pocung ana...", opts:["3 gatra","4 gatra","5 gatra"], correct:1},
+  {tag:"Tembang Pocung", q:"Guru wilangan tembang Pocung yaiku...", opts:["12, 6, 8, 12","8, 8, 8, 8","10, 6, 10, 10"], correct:0},
+  {tag:"Tembang Pocung", q:"Guru lagu tembang Pocung yaiku...", opts:["a, i, u, a","u, a, i, a","i, a, u, a"], correct:1},
+  {tag:"Tembang Pocung", q:"\"Sing disaba si pocung mung turut desa\" tegese...", opts:["sepur","gajah","klenting"], correct:0},
+  {tag:"Tembang Pocung", q:"\"Yen lumampah si pocung lembehan grana\" tegese...", opts:["montor mabur","gajah","sepur"], correct:1},
+  {tag:"Tembang Pocung", q:"\"Kaya manuk rajawali, wira wiri nggawa barang lan manungsa\" tegese...", opts:["montor mabur","klenting","gajah"], correct:0},
+  {tag:"Tembang Pocung", q:"\"Pencokanmu lambung kering, prapteng wisma si pocung muntah kuwaya\" tegese...", opts:["klenting","sepur","gajah"], correct:0},
+  {tag:"Tembang Pocung", q:"Guru wilangan gatra kapisan tembang Pocung ana...", opts:["12 wanda","6 wanda","8 wanda"], correct:0},
+  {tag:"Tembang Pocung", q:"Guru wilangan gatra kapindho tembang Pocung ana...", opts:["12 wanda","6 wanda","8 wanda"], correct:1},
+];
+
+// ============ STATE ============
+let currentSet = [];
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function buildSet(){
+  const picked = shuffle(BANK).slice(0, Math.min(30, BANK.length));
+  currentSet = picked.map(item=>{
+    const letters = ["A","B","C"];
+    const order = shuffle([0,1,2]);
+    const opts = order.map(i=>item.opts[i]);
+    const correctIndex = order.indexOf(item.correct);
+    return {tag:item.tag, q:item.q, opts, correctIndex, answered:false};
+  });
+}
+
+function render(){
+  const list = document.getElementById("quizList");
+  list.innerHTML = "";
+  const letters = ["A","B","C"];
+  currentSet.forEach((item, idx)=>{
+    const card = document.createElement("div");
+    card.className = "qcard";
+    card.dataset.idx = idx;
+
+    const tag = document.createElement("span");
+    tag.className = "qtag";
+    tag.textContent = item.tag;
+    card.appendChild(tag);
+
+    const qtext = document.createElement("p");
+    qtext.className = "qtext";
+    qtext.innerHTML = `<span class="qnum">${idx+1}.</span>${item.q}`;
+    card.appendChild(qtext);
+
+    item.opts.forEach((optText, oi)=>{
+      const opt = document.createElement("div");
+      opt.className = "opt";
+      opt.dataset.oi = oi;
+      opt.innerHTML = `<span class="letter">${letters[oi]}</span><span class="text">${optText}</span>`;
+      opt.addEventListener("click", ()=>selectOption(idx, oi));
+      card.appendChild(opt);
+    });
+
+    const fb = document.createElement("div");
+    fb.className = "feedback";
+    fb.style.display = "none";
+    card.appendChild(fb);
+
+    list.appendChild(card);
+  });
+  document.getElementById("scorePanel").classList.remove("show");
+}
+
+function selectOption(qIdx, oIdx){
+  const item = currentSet[qIdx];
+  if(item.answered) return;
+  item.answered = true;
+  item.picked = oIdx;
+
+  const card = document.querySelector(`.qcard[data-idx="${qIdx}"]`);
+  const opts = card.querySelectorAll(".opt");
+  opts.forEach((el, i)=>{
+    el.classList.add("disabled");
+    if(i === item.correctIndex) el.classList.add("correct");
+    else if(i === oIdx) el.classList.add("wrong");
+  });
+
+  const fb = card.querySelector(".feedback");
+  fb.style.display = "block";
+  if(oIdx === item.correctIndex){
+    fb.textContent = "Bener! Apik tenan.";
+    fb.className = "feedback good";
+  } else {
+    const letters=["A","B","C"];
+    fb.textContent = `Durung pas. Wangsulan sing bener: ${letters[item.correctIndex]}. ${item.opts[item.correctIndex]}`;
+    fb.className = "feedback bad";
+  }
+
+  updateScoreIfAllAnswered();
+}
+
+function updateScoreIfAllAnswered(){
+  const allAnswered = currentSet.every(i=>i.answered);
+  if(allAnswered) showScore();
+}
+
+function showScore(){
+  const correct = currentSet.filter(i=>i.picked===i.correctIndex).length;
+  const panel = document.getElementById("scorePanel");
+  document.getElementById("scoreNum").textContent = `${correct}/${currentSet.length}`;
+  panel.classList.add("show");
+  panel.scrollIntoView({behavior:"smooth", block:"center"});
+}
+
+function checkAll(){
+  // reveals correct answers for anything not yet answered, without penalizing already-answered ones
+  currentSet.forEach((item, idx)=>{
+    if(!item.answered){
+      const card = document.querySelector(`.qcard[data-idx="${idx}"]`);
+      const opts = card.querySelectorAll(".opt");
+      opts.forEach((el,i)=>{
+        el.classList.add("disabled");
+        if(i===item.correctIndex) el.classList.add("correct");
+      });
+      const fb = card.querySelector(".feedback");
+      fb.style.display = "block";
+      fb.textContent = "Durung diwangsuli. Wangsulan sing bener wis dituduhake.";
+      fb.className = "feedback bad";
+      item.answered = true;
+      item.picked = -1;
+    }
+  });
+  showScore();
+}
+
+function newSet(){
+  buildSet();
+  render();
+  document.getElementById("quizList").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+document.getElementById("checkAllBtn").addEventListener("click", checkAll);
+document.getElementById("checkAllBtn2").addEventListener("click", checkAll);
+document.getElementById("newSetBtn").addEventListener("click", newSet);
+document.getElementById("newSetBtn2").addEventListener("click", newSet);
+
+buildSet();
+render();
+</script>
+
+</body>
+</html>
