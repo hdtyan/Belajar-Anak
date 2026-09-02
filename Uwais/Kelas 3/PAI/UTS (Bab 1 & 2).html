@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuis PAI Kelas 3 - Surat Pilihan & Asmaul Husna</title>
+<style>
+  :root{
+    --cream:#FBF6EA;
+    --paper:#FFFDF8;
+    --ink:#2B3A2E;
+    --pine:#2F5D46;
+    --pine-dark:#1E4132;
+    --gold:#C89B3C;
+    --gold-light:#F1DFA8;
+    --sky:#4A7A8C;
+    --coral:#D9714E;
+    --line:#E4D9BC;
+    --ok:#2F7A4F;
+    --bad:#B3462C;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', 'Trebuchet MS', sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.55;
+    padding-bottom:60px;
+  }
+  .band{
+    background:
+      repeating-linear-gradient(135deg, var(--pine) 0 14px, var(--pine-dark) 14px 28px);
+    height:10px;
+    width:100%;
+  }
+  header{
+    background:var(--pine);
+    color:var(--cream);
+    padding:34px 20px 40px;
+    text-align:center;
+    position:relative;
+  }
+  header h1{
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size:2rem;
+    margin:0 0 6px;
+    letter-spacing:0.3px;
+  }
+  header p{
+    margin:0;
+    color:var(--gold-light);
+    font-size:1rem;
+  }
+  .ornament{
+    font-size:1.3rem;
+    letter-spacing:6px;
+    color:var(--gold);
+    margin-top:10px;
+  }
+  main{
+    max-width:820px;
+    margin:0 auto;
+    padding:0 20px;
+  }
+  .toolbar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+    margin:-22px auto 30px;
+    max-width:820px;
+    padding:0 20px;
+  }
+  button{
+    font-family:inherit;
+    font-size:0.95rem;
+    border:none;
+    border-radius:8px;
+    padding:12px 20px;
+    cursor:pointer;
+    font-weight:600;
+    transition:transform .12s ease, box-shadow .12s ease;
+    box-shadow:0 3px 0 rgba(0,0,0,0.15);
+  }
+  button:active{ transform:translateY(2px); box-shadow:0 1px 0 rgba(0,0,0,0.15); }
+  #btnCheck{ background:var(--pine); color:#fff; }
+  #btnNew{ background:var(--gold); color:var(--pine-dark); }
+  #btnDownload{ background:var(--sky); color:#fff; }
+  #btnPrint{ background:var(--paper); color:var(--pine-dark); border:2px solid var(--pine); box-shadow:none; }
+
+  section.materi{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-left:6px solid var(--pine);
+    border-radius:6px;
+    padding:20px 24px;
+    margin-bottom:18px;
+  }
+  section.materi h2{
+    color:var(--pine-dark);
+    font-family:Georgia, serif;
+    font-size:1.25rem;
+    margin:0 0 10px;
+  }
+  section.materi h3{
+    color:var(--coral);
+    font-size:1.02rem;
+    margin:16px 0 6px;
+  }
+  section.materi p, section.materi li{
+    font-size:0.98rem;
+    margin:4px 0;
+  }
+  section.materi table{
+    width:100%;
+    border-collapse:collapse;
+    margin:10px 0;
+    font-size:0.95rem;
+  }
+  section.materi td{
+    border:1px solid var(--line);
+    padding:6px 10px;
+    vertical-align:top;
+  }
+  .materi-toggle{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:pointer;
+  }
+  .materi-toggle span.chevron{
+    color:var(--pine);
+    font-size:1.1rem;
+    transition:transform .2s ease;
+  }
+  .materi-body{ display:block; margin-top:8px; }
+  .materi-body.collapsed{ display:none; }
+  .chevron.collapsed{ transform:rotate(-90deg); }
+
+  .divider{
+    text-align:center;
+    color:var(--gold);
+    letter-spacing:8px;
+    margin:34px 0 24px;
+    font-size:1.1rem;
+  }
+
+  .quiz-header{
+    text-align:center;
+    margin-bottom:20px;
+  }
+  .quiz-header h2{
+    font-family:Georgia, serif;
+    color:var(--pine-dark);
+    margin-bottom:4px;
+  }
+  .quiz-header p{ color:#5b5b52; margin:0; font-size:0.92rem; }
+
+  .question{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:16px 18px 18px;
+    margin-bottom:14px;
+  }
+  .question .qnum{
+    display:inline-block;
+    background:var(--pine);
+    color:#fff;
+    font-weight:700;
+    font-size:0.85rem;
+    padding:2px 10px;
+    border-radius:20px;
+    margin-bottom:8px;
+  }
+  .question .topic-tag{
+    font-size:0.75rem;
+    color:var(--sky);
+    font-weight:600;
+    margin-left:8px;
+  }
+  .question p.qtext{
+    font-size:1rem;
+    margin:6px 0 12px;
+    color:var(--ink);
+    font-weight:600;
+  }
+  .option{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:9px 12px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    margin-bottom:8px;
+    cursor:pointer;
+    background:#fff;
+  }
+  .option:hover{ border-color:var(--pine); }
+  .option input{ margin-top:3px; }
+  .option .lab{
+    font-weight:700;
+    color:var(--pine-dark);
+    min-width:18px;
+  }
+  .option.correct{ border-color:var(--ok); background:#EBF6EF; }
+  .option.incorrect{ border-color:var(--bad); background:#FBECE7; }
+
+  .feedback{
+    font-size:0.88rem;
+    margin-top:8px;
+    padding-top:8px;
+    border-top:1px dashed var(--line);
+    display:none;
+  }
+  .feedback.show{ display:block; }
+  .feedback.ok{ color:var(--ok); }
+  .feedback.bad{ color:var(--bad); }
+
+  #scoreBox{
+    position:sticky;
+    bottom:0;
+    background:var(--pine);
+    color:#fff;
+    text-align:center;
+    padding:16px;
+    border-radius:10px 10px 0 0;
+    margin-top:20px;
+    display:none;
+    box-shadow:0 -4px 14px rgba(0,0,0,0.15);
+  }
+  #scoreBox.show{ display:block; }
+  #scoreBox .big{
+    font-size:1.6rem;
+    font-weight:700;
+    color:var(--gold-light);
+  }
+  #scoreBox p{ margin:4px 0 0; font-size:0.9rem; }
+
+  footer{
+    text-align:center;
+    color:#8a8570;
+    font-size:0.8rem;
+    margin-top:30px;
+  }
+
+  @media print{
+    .toolbar, #scoreBox, .materi-toggle .chevron { display:none !important; }
+    .materi-body{ display:block !important; }
+    button{ display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="band"></div>
+<header>
+  <h1>Kuis Pendidikan Agama Islam</h1>
+  <p>Kelas 3 SD &middot; Surat-Surat Pilihan, Asmaul Husna &amp; Shalat Berjama'ah</p>
+  <div class="ornament">✦ ✦ ✦</div>
+</header>
+
+<div class="toolbar">
+  <button id="btnCheck">✅ Periksa Jawaban</button>
+  <button id="btnNew">🔄 Buat Soal Baru</button>
+  <button id="btnDownload">⬇️ Download HTML</button>
+  <button id="btnPrint">🖨️ Cetak / Simpan PDF</button>
+</div>
+
+<main>
+
+  <!-- ================= MATERI ================= -->
+  <section class="materi">
+    <div class="materi-toggle" data-target="m1">
+      <h2>BAB I &middot; A. Surat Al-Qari'ah</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="materi-body" id="m1">
+      <p><strong>Penggolongan surat</strong> berdasarkan tempat turunnya dibagi 2:</p>
+      <ul>
+        <li><strong>Makkiyah</strong>: surat yang diturunkan sebelum Rasulullah hijrah (di Mekkah).</li>
+        <li><strong>Madaniyyah</strong>: surat yang diturunkan setelah Rasulullah hijrah (di Madinah).</li>
+      </ul>
+      <p>Surat <strong>Al-Qari'ah</strong> artinya <em>hari kiamat</em>. Merupakan surat urutan ke-<strong>101</strong>, terdiri dari <strong>11 ayat</strong>, termasuk golongan surat <strong>Makkiyah</strong>.</p>
+      <p>Surat ini menjelaskan tentang peristiwa hari kiamat: manusia digambarkan seperti anai-anai yang bertebaran, dan gunung-gunung seperti bulu yang dihamburkan. Setelah itu semua manusia dibangkitkan kembali untuk mempertanggungjawabkan seluruh perbuatannya (hari pembalasan), dan tidak ada satu perbuatan pun yang luput dari pengadilan Allah swt.</p>
+    </div>
+  </section>
+
+  <section class="materi">
+    <div class="materi-toggle" data-target="m2">
+      <h2>BAB I &middot; B. Surat Al-'Adiyat</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="materi-body" id="m2">
+      <p>Surat <strong>Al-'Adiyat</strong> artinya <em>berlari kencang</em> (menggambarkan kuda perang). Merupakan surat urutan ke-<strong>100</strong>, terdiri dari <strong>11 ayat</strong>, termasuk golongan surat <strong>Makkiyah</strong>.</p>
+      <p>Surat ini menjelaskan tentang ancaman Allah swt kepada manusia yang ingkar terhadap nikmat yang telah diberikan, serta ancaman terhadap orang yang berlebihan dalam mencintai harta bendanya. Semua orang akan mendapat balasan setimpal setelah dibangkitkan dari alam kubur.</p>
+      <p>Allah swt memerintahkan agar kita tidak lupa bersyukur, melarang sifat <strong>bakhil (pelit)</strong>, dan menganjurkan menafkahkan sebagian rezeki untuk membantu dakwah Islam.</p>
+    </div>
+  </section>
+
+  <section class="materi">
+    <div class="materi-toggle" data-target="m3">
+      <h2>BAB I &middot; C. Surat Az-Zalzalah</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="materi-body" id="m3">
+      <p>Surat <strong>Az-Zalzalah</strong> artinya <em>goncangan yang dahsyat</em>. Merupakan surat urutan ke-<strong>99</strong>, terdiri dari <strong>8 ayat</strong>, termasuk golongan surat <strong>Madaniyyah</strong>.</p>
+      <p>Surat ini menjelaskan dahsyatnya hari kiamat: bumi akan bergoncang hebat dan mengeluarkan semua beban-beban berat yang dikandungnya. Manusia akan dibangkitkan dari kuburnya dalam keadaan bermacam-macam sesuai amal perbuatannya.</p>
+      <p>Amal baik atau amal buruk akan dibalas meskipun hanya seberat <strong>dzarrah (biji sawi)</strong> - "Barang siapa mengerjakan kebaikan seberat zarah pun, niscaya ia akan melihat balasannya, dan barang siapa mengerjakan kejahatan seberat zarah pun, ia juga akan melihat balasannya."</p>
+    </div>
+  </section>
+
+  <section class="materi">
+    <div class="materi-toggle" data-target="m4">
+      <h2>BAB I &middot; D. Hukum Bacaan Mad Thobi'i dan Qolqolah</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="materi-body" id="m4">
+      <h3>1. Mad Thobi'i</h3>
+      <p><strong>Mad</strong> artinya panjang, <strong>Thobi'i</strong> artinya biasa. Mad Thobi'i terjadi apabila ada:</p>
+      <ul>
+        <li>Alif (ا) terletak setelah harakat fathah ( ﹷ )</li>
+        <li>Ya' sukun (ي) terletak setelah harakat kasrah ( ﹻ )</li>
+        <li>Wau sukun (و) terletak setelah harakat dhammah ( ﹹ )</li>
+      </ul>
+      <p>Panjang bacaan Mad Thobi'i adalah <strong>2 harokat</strong>.</p>
+      <h3>2. Qolqolah</h3>
+      <p><strong>Qolqolah</strong> secara bahasa artinya <em>memantul</em>. Menurut istilah, qolqolah adalah melafalkan huruf tertentu dengan suara memantul karena huruf tersebut dibaca sukun atau berhenti (waqaf).</p>
+      <p>Huruf qolqolah ada <strong>5</strong> yaitu: <strong>ب (Ba), ج (Ju/Jim), د (Di/Dal), ط (Tho), ق (Qo/Qaf)</strong> - disingkat <em>Ba-Ju-Di-Tho-Qo</em>.</p>
+      <p>Bacaan qolqolah dibagi 2 macam:</p>
+      <ul>
+        <li><strong>Qolqolah Sughra (Kecil)</strong>: pantulan tidak begitu keras, terjadi jika huruf qolqolah berharakat sukun asli dan berada di <em>tengah</em> kalimat.</li>
+        <li><strong>Qolqolah Kubro (Besar)</strong>: pantulan keras dan jelas, terjadi jika huruf qolqolah mati karena waqaf (dihentikan) atau berada di <em>akhir</em> kalimat/ayat.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="materi">
+    <div class="materi-toggle" data-target="m5">
+      <h2>BAB II &middot; Asmaul Husna</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="materi-body" id="m5">
+      <p><strong>Asmaul Husna</strong> artinya nama-nama yang baik bagi Allah. Jumlahnya ada <strong>99 nama</strong> yang tercantum dalam al-Qur'an.</p>
+      <h3>1. Al-Kabir (Maha Besar)</h3>
+      <p>Bermakna kebesaran yang menunjukkan keagungan dan kekuasaan Allah swt, meliputi penciptaan alam semesta dan mengetahui segala sesuatu di langit dan bumi. Meneladani: meyakini kebesaran Allah, tidak sombong (takabbur), menjalankan perintah dan menjauhi larangan-Nya, serta rendah hati kepada Allah dan sesama makhluk.</p>
+      <h3>2. Al-Mushawwir (Yang Membentuk Rupa)</h3>
+      <p>Allah memberikan bentuk dan rupa berbeda kepada semua makhluk-Nya dengan bentuk terbaik. Meneladani: selalu bersyukur, tidak merusak/menyakiti/menghina ciptaan Allah, serta menjaga dan memanfaatkan ciptaan Allah untuk hal yang baik.</p>
+      <h3>3. Al-'Alim (Yang Maha Mengetahui)</h3>
+      <p>Allah mengetahui segala sesuatu baik yang nyata maupun yang ghaib, yang sudah maupun belum diketahui manusia. Meneladani: selalu melakukan kebaikan, menghindari perbuatan dosa, dan rajin belajar serta menuntut ilmu.</p>
+      <h3>4. As-Sami' (Yang Maha Mendengar)</h3>
+      <p>Allah mendengar segala perkataan, baik yang diucapkan maupun yang masih di dalam hati, termasuk setiap permohonan hamba-Nya. Meneladani: berhati-hati dalam berbicara, menggunakan telinga untuk mendengar yang baik, dan selalu berdo'a kepada Allah.</p>
+    </div>
+  </section>
+
+  <section class="materi">
+    <div class="materi-toggle" data-target="m6">
+      <h2>Hadis tentang Keutamaan Shalat Berjama'ah</h2>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="materi-body" id="m6">
+      <p>Kata <strong>berjama'ah</strong> artinya <em>berkumpul</em>. Shalat berjama'ah adalah shalat yang dikerjakan bersama-sama, minimal 2 orang, satu menjadi <strong>imam</strong> dan satunya menjadi <strong>makmum</strong>. Shalat berjama'ah lebih utama daripada shalat sendirian (<em>munfarid</em>).</p>
+      <p>Hadis riwayat Bukhari No. 426 menjelaskan bahwa para Malaikat selalu memberi shalawat (mendoakan) kepada seseorang selama ia masih berada di tempat shalatnya dan belum berhadats.</p>
+      <p>Beberapa keutamaan shalat berjama'ah:</p>
+      <ul>
+        <li>Didoakan oleh para Malaikat</li>
+        <li>Pahala dilipatgandakan (sebesar 27 derajat dibanding shalat sendirian)</li>
+        <li>Dijauhkan dari api neraka</li>
+        <li>Diampuni dosanya dan diangkat derajatnya</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divider">✦ ✦ ✦</div>
+
+  <div class="quiz-header">
+    <h2>Latihan Soal Interaktif</h2>
+    <p>30 soal pilihan ganda (A, B, C). Pilih jawaban lalu tekan tombol "Periksa Jawaban".</p>
+  </div>
+
+  <div id="quizContainer"></div>
+
+  <div id="scoreBox">
+    <div class="big" id="scoreText">0 / 30</div>
+    <p id="scoreMsg"></p>
+  </div>
+
+</main>
+
+<footer>SD Muh Sleman - SD Muh Domban 4 &middot; Dibuat sebagai media belajar interaktif</footer>
+
+<script>
+// ================== BANK SOAL ==================
+// Setiap soal: { topic, q, options:[..3..], correct: index (0-2) }
+const bank = [
+  // --- Makkiyah / Madaniyyah umum ---
+  {topic:"Penggolongan Surat", q:"Berdasarkan tempat turunnya, surat dalam al-Qur'an digolongkan menjadi berapa?", options:["1 golongan","2 golongan","3 golongan"], correct:1},
+  {topic:"Penggolongan Surat", q:"Surat Makkiyah adalah surat yang diturunkan...", options:["sebelum Rasulullah hijrah","setelah Rasulullah hijrah","saat Rasulullah wafat"], correct:0},
+  {topic:"Penggolongan Surat", q:"Surat Madaniyyah adalah surat yang diturunkan setelah Rasulullah hijrah, yaitu di kota...", options:["Mekkah","Madinah","Yerusalem"], correct:1},
+  {topic:"Penggolongan Surat", q:"Surat Makkiyah diturunkan di kota...", options:["Madinah","Mekkah","Baghdad"], correct:1},
+  {topic:"Penggolongan Surat", q:"Peristiwa hijrah Rasulullah menjadi batas penggolongan surat...", options:["Makkiyah dan Madaniyyah","panjang dan pendek","wajib dan sunnah"], correct:0},
+
+  // --- Al-Qari'ah ---
+  {topic:"Surat Al-Qari'ah", q:"Surat Al-Qari'ah artinya...", options:["Hari Kiamat","Berlari Kencang","Goncangan"], correct:0},
+  {topic:"Surat Al-Qari'ah", q:"Surat Al-Qari'ah merupakan surat urutan ke berapa dalam al-Qur'an?", options:["99","100","101"], correct:2},
+  {topic:"Surat Al-Qari'ah", q:"Surat Al-Qari'ah terdiri dari berapa ayat?", options:["8 ayat","11 ayat","14 ayat"], correct:1},
+  {topic:"Surat Al-Qari'ah", q:"Surat Al-Qari'ah termasuk golongan surat...", options:["Makkiyah","Madaniyyah","tidak keduanya"], correct:0},
+  {topic:"Surat Al-Qari'ah", q:"Pada hari kiamat, menurut surat Al-Qari'ah, manusia digambarkan seperti...", options:["burung yang terbang","anai-anai yang bertebaran","air yang mengalir"], correct:1},
+  {topic:"Surat Al-Qari'ah", q:"Pada hari kiamat, gunung-gunung digambarkan seperti...", options:["bulu yang dihamburkan","batu yang kokoh","pasir yang diam"], correct:0},
+  {topic:"Surat Al-Qari'ah", q:"Setelah peristiwa kiamat, manusia akan dibangkitkan untuk...", options:["tidur kembali","mempertanggungjawabkan perbuatannya","bermain-main"], correct:1},
+
+  // --- Al-'Adiyat ---
+  {topic:"Surat Al-'Adiyat", q:"Surat Al-'Adiyat artinya...", options:["Berlari Kencang","Hari Kiamat","Goncangan Dahsyat"], correct:0},
+  {topic:"Surat Al-'Adiyat", q:"Surat Al-'Adiyat merupakan surat urutan yang ke...", options:["99","100","101"], correct:1},
+  {topic:"Surat Al-'Adiyat", q:"Surat Al-'Adiyat terdiri dari berapa ayat?", options:["8 ayat","11 ayat","6 ayat"], correct:1},
+  {topic:"Surat Al-'Adiyat", q:"Surat Al-'Adiyat termasuk golongan surat...", options:["Madaniyyah","Makkiyah","campuran"], correct:1},
+  {topic:"Surat Al-'Adiyat", q:"Surat Al-'Adiyat berisi peringatan agar manusia tidak...", options:["ingkar dan tidak berterima kasih kepada Allah","rajin belajar","suka menolong"], correct:0},
+  {topic:"Surat Al-'Adiyat", q:"Sifat tercela yang dilarang dalam surat Al-'Adiyat karena terlalu mencintai harta disebut...", options:["sabar","bakhil (pelit)","tawadhu"], correct:1},
+  {topic:"Surat Al-'Adiyat", q:"Selain bersyukur, surat Al-'Adiyat menganjurkan kita untuk...", options:["menafkahkan sebagian rezeki untuk dakwah Islam","menyimpan semua harta","melupakan sesama"], correct:0},
+
+  // --- Az-Zalzalah ---
+  {topic:"Surat Az-Zalzalah", q:"Surat Az-Zalzalah artinya...", options:["Goncangan yang Dahsyat","Berlari Kencang","Hari Kiamat"], correct:0},
+  {topic:"Surat Az-Zalzalah", q:"Surat Az-Zalzalah merupakan surat urutan ke...", options:["99","100","101"], correct:0},
+  {topic:"Surat Az-Zalzalah", q:"Surat Az-Zalzalah terdiri dari berapa ayat?", options:["8 ayat","11 ayat","10 ayat"], correct:0},
+  {topic:"Surat Az-Zalzalah", q:"Surat Az-Zalzalah termasuk golongan surat...", options:["Makkiyah","Madaniyyah","tidak keduanya"], correct:1},
+  {topic:"Surat Az-Zalzalah", q:"Amal baik atau buruk akan dibalas oleh Allah meskipun hanya seberat...", options:["gunung","zarah (biji sawi)","lautan"], correct:1},
+  {topic:"Surat Az-Zalzalah", q:"Menurut surat Az-Zalzalah, pada hari kiamat bumi akan...", options:["diam saja","bergoncang dan mengeluarkan beban-bebannya","berubah warna"], correct:1},
+  {topic:"Surat Az-Zalzalah", q:"Manusia keluar dari kubur pada hari kiamat dalam keadaan...", options:["bermacam-macam sesuai amalnya","selalu sama","tidak dibangkitkan"], correct:0},
+
+  // --- Mad Thobi'i & Qolqolah ---
+  {topic:"Mad Thobi'i & Qolqolah", q:"Mad secara bahasa artinya...", options:["Panjang","Pendek","Memantul"], correct:0},
+  {topic:"Mad Thobi'i & Qolqolah", q:"Thobi'i artinya...", options:["Istimewa","Biasa","Wajib"], correct:1},
+  {topic:"Mad Thobi'i & Qolqolah", q:"Panjang bacaan Mad Thobi'i adalah...", options:["1 harokat","2 harokat","4 harokat"], correct:1},
+  {topic:"Mad Thobi'i & Qolqolah", q:"Mad Thobi'i terjadi apabila ada alif yang terletak setelah harakat...", options:["kasrah","dhammah","fathah"], correct:2},
+  {topic:"Mad Thobi'i & Qolqolah", q:"Wau sukun yang terletak setelah harakat dhammah termasuk bacaan...", options:["Qolqolah","Mad Thobi'i","Ghunnah"], correct:1},
+  {topic:"Mad Thobi'i & Qolqolah", q:"Qolqolah secara bahasa artinya...", options:["Memantul","Panjang","Berhenti"], correct:0},
+  {topic:"Mad Thobi'i & Qolqolah", q:"Huruf qolqolah ada berapa jumlahnya?", options:["3 huruf","5 huruf","7 huruf"], correct:1},
+  {topic:"Mad Thobi'i & Qolqolah", q:"Huruf qolqolah biasa disingkat dengan istilah...", options:["Ba-Ju-Di-Tho-Qo","A-I-U-E-O","Alif-Ba-Ta"], correct:0},
+  {topic:"Mad Thobi'i & Qolqolah", q:"Bacaan qolqolah yang tidak begitu keras pantulannya dan berada di tengah kalimat disebut...", options:["Qolqolah Kubro","Qolqolah Sughra","Mad Thobi'i"], correct:1},
+  {topic:"Mad Thobi'i & Qolqolah", q:"Bacaan qolqolah yang keras/jelas pantulannya karena berada di akhir kalimat (waqaf) disebut...", options:["Qolqolah Sughra","Qolqolah Kubro","Mad Wajib"], correct:1},
+  {topic:"Mad Thobi'i & Qolqolah", q:"Qolqolah terjadi karena huruf tersebut dibaca...", options:["panjang","sukun atau waqaf","dengung"], correct:1},
+
+  // --- Asmaul Husna ---
+  {topic:"Asmaul Husna", q:"Asmaul Husna artinya...", options:["Nama-nama yang baik bagi Allah","Kitab suci umat Islam","Perbuatan baik manusia"], correct:0},
+  {topic:"Asmaul Husna", q:"Asmaul Husna berjumlah...", options:["25 nama","99 nama","114 nama"], correct:1},
+  {topic:"Asmaul Husna", q:"Al-Kabir artinya...", options:["Maha Besar","Maha Mendengar","Maha Mengetahui"], correct:0},
+  {topic:"Asmaul Husna", q:"Sikap yang harus dijauhi karena meneladani Al-Kabir adalah...", options:["rendah hati","sombong (takabbur)","suka menolong"], correct:1},
+  {topic:"Asmaul Husna", q:"Al-Mushawwir artinya...", options:["Yang Membentuk Rupa","Yang Maha Melihat","Yang Maha Pengasih"], correct:0},
+  {topic:"Asmaul Husna", q:"Salah satu cara meneladani Al-Mushawwir adalah...", options:["merusak ciptaan Allah","tidak menyakiti makhluk ciptaan Allah","mengabaikan alam"], correct:1},
+  {topic:"Asmaul Husna", q:"Al-'Alim artinya...", options:["Yang Maha Besar","Yang Maha Mengetahui","Yang Maha Mendengar"], correct:1},
+  {topic:"Asmaul Husna", q:"Cara meneladani Al-'Alim yang tepat untuk pelajar adalah...", options:["malas belajar","rajin belajar dan menuntut ilmu","tidak peduli ilmu"], correct:1},
+  {topic:"Asmaul Husna", q:"As-Sami' artinya...", options:["Yang Maha Mendengar","Yang Maha Melihat","Yang Maha Pengampun"], correct:0},
+  {topic:"Asmaul Husna", q:"Karena Allah bersifat As-Sami', kita harus...", options:["berteriak-teriak","berhati-hati dalam berbicara","berbicara sembarangan"], correct:1},
+  {topic:"Asmaul Husna", q:"Allah mengetahui hal yang gaib maupun yang nyata karena Allah bersifat...", options:["Al-Kabir","Al-'Alim","As-Sami'"], correct:1},
+
+  // --- Hadis Shalat Berjama'ah ---
+  {topic:"Shalat Berjama'ah", q:"Kata 'berjama'ah' artinya...", options:["Sendirian","Berkumpul","Berdiam diri"], correct:1},
+  {topic:"Shalat Berjama'ah", q:"Shalat berjama'ah minimal dilakukan oleh...", options:["1 orang","2 orang","5 orang"], correct:1},
+  {topic:"Shalat Berjama'ah", q:"Orang yang memimpin shalat berjama'ah disebut...", options:["Makmum","Muadzin","Imam"], correct:2},
+  {topic:"Shalat Berjama'ah", q:"Orang yang mengikuti imam dalam shalat berjama'ah disebut...", options:["Makmum","Khatib","Imam"], correct:0},
+  {topic:"Shalat Berjama'ah", q:"Shalat sendirian disebut juga shalat...", options:["Munfarid","Jama'ah","Qashar"], correct:0},
+  {topic:"Shalat Berjama'ah", q:"Shalat berjama'ah lebih utama dibandingkan dengan shalat...", options:["berjama'ah lainnya","sendirian (munfarid)","di masjid"], correct:1},
+  {topic:"Shalat Berjama'ah", q:"Menurut hadis riwayat Bukhari, siapa yang mendoakan orang yang menunggu shalat berjama'ah?", options:["Malaikat","Tetangga","Imam"], correct:0},
+  {topic:"Shalat Berjama'ah", q:"Salah satu keutamaan shalat berjama'ah adalah pahalanya...", options:["dikurangi","dilipatgandakan","dihapuskan"], correct:1},
+  {topic:"Shalat Berjama'ah", q:"Malaikat berhenti mendoakan seseorang apabila orang tersebut...", options:["berhadats","berdzikir","bersyukur"], correct:0},
+];
+
+let currentSet = [];
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function buildQuiz(){
+  const chosen = shuffle(bank).slice(0, 30);
+  currentSet = chosen.map(item=>{
+    const optOrder = shuffle([0,1,2]);
+    const options = optOrder.map(i=>item.options[i]);
+    const correctIndex = optOrder.indexOf(item.correct);
+    return {topic:item.topic, q:item.q, options, correctIndex};
+  });
+
+  const container = document.getElementById('quizContainer');
+  container.innerHTML = '';
+  const letters = ['A','B','C'];
+
+  currentSet.forEach((item, idx)=>{
+    const div = document.createElement('div');
+    div.className = 'question';
+    div.dataset.index = idx;
+
+    let optionsHtml = '';
+    item.options.forEach((opt, oi)=>{
+      optionsHtml += `
+        <label class="option" data-oi="${oi}">
+          <input type="radio" name="q${idx}" value="${oi}">
+          <span class="lab">${letters[oi]}.</span>
+          <span>${opt}</span>
+        </label>`;
+    });
+
+    div.innerHTML = `
+      <span class="qnum">Soal ${idx+1}</span><span class="topic-tag">${item.topic}</span>
+      <p class="qtext">${item.q}</p>
+      ${optionsHtml}
+      <div class="feedback" id="fb${idx}"></div>
+    `;
+    container.appendChild(div);
+  });
+
+  document.getElementById('scoreBox').classList.remove('show');
+  document.querySelectorAll('.option').forEach(o=>{
+    o.classList.remove('correct','incorrect');
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function checkAnswers(){
+  let score = 0;
+  currentSet.forEach((item, idx)=>{
+    const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+    const fb = document.getElementById(`fb${idx}`);
+    const optionLabels = document.querySelectorAll(`.question[data-index="${idx}"] .option`);
+    const letters = ['A','B','C'];
+
+    optionLabels.forEach(lab=>lab.classList.remove('correct','incorrect'));
+
+    if(!selected){
+      fb.textContent = `Belum dijawab. Jawaban benar: ${letters[item.correctIndex]}. ${item.options[item.correctIndex]}`;
+      fb.className = 'feedback show bad';
+      optionLabels[item.correctIndex].classList.add('correct');
+      return;
+    }
+    const sel = parseInt(selected.value);
+    if(sel === item.correctIndex){
+      score++;
+      fb.textContent = 'Benar! 👍';
+      fb.className = 'feedback show ok';
+      optionLabels[sel].classList.add('correct');
+    } else {
+      fb.textContent = `Kurang tepat. Jawaban benar: ${letters[item.correctIndex]}. ${item.options[item.correctIndex]}`;
+      fb.className = 'feedback show bad';
+      optionLabels[sel].classList.add('incorrect');
+      optionLabels[item.correctIndex].classList.add('correct');
+    }
+  });
+
+  const scoreBox = document.getElementById('scoreBox');
+  const scoreText = document.getElementById('scoreText');
+  const scoreMsg = document.getElementById('scoreMsg');
+  scoreText.textContent = `${score} / ${currentSet.length}`;
+  let msg = '';
+  const pct = score / currentSet.length;
+  if(pct === 1) msg = 'Sempurna! Mashaa Allah, semua jawaban benar! 🌟';
+  else if(pct >= 0.8) msg = 'Bagus sekali! Sedikit lagi sempurna. 😊';
+  else if(pct >= 0.6) msg = 'Cukup baik, ayo belajar lagi ya! 📖';
+  else msg = 'Ayo baca lagi materinya, kamu pasti bisa! 💪';
+  scoreMsg.textContent = msg;
+  scoreBox.classList.add('show');
+}
+
+function downloadPage(){
+  const html = document.documentElement.outerHTML;
+  const blob = new Blob([html], {type:'text/html'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'kuis_pai_kelas3.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+document.getElementById('btnCheck').addEventListener('click', checkAnswers);
+document.getElementById('btnNew').addEventListener('click', buildQuiz);
+document.getElementById('btnDownload').addEventListener('click', downloadPage);
+document.getElementById('btnPrint').addEventListener('click', ()=>window.print());
+
+document.querySelectorAll('.materi-toggle').forEach(t=>{
+  t.addEventListener('click', ()=>{
+    const target = document.getElementById(t.dataset.target);
+    const chevron = t.querySelector('.chevron');
+    target.classList.toggle('collapsed');
+    chevron.classList.toggle('collapsed');
+  });
+});
+
+buildQuiz();
+</script>
+</body>
+</html>
