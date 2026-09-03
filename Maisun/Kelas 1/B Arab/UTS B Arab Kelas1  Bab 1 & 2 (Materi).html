@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi dan Kuis Huruf Hijaiah Kelas 1</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2e8b57;
+            text-align: center;
+        }
+        .materi-section {
+            background-color: #e6ffe6;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #2e8b57;
+        }
+        .materi-text {
+            font-size: 1.1em;
+        }
+        .hijaiah-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            text-align: center;
+            direction: rtl;
+        }
+        .hijaiah-table th, .hijaiah-table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 25%;
+        }
+        .hijaiah-table td {
+            background-color: #ffd700;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .hijaiah-table td .nama-latin {
+            display: block;
+            font-size: 14px;
+            font-weight: normal;
+            background-color: #b0c4de;
+            margin: -10px -10px -10px -10px;
+            margin-top: 5px;
+            padding: 5px;
+        }
+        .quiz-section {
+            background-color: #fff8dc;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px dashed #daa520;
+        }
+        .question-card {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .question-text {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #444;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            padding: 8px;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+        .options label:hover {
+            background-color: #f0e68c;
+        }
+        .options input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        .btn {
+            display: inline-block;
+            background-color: #2e8b57;
+            color: white;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #246b43;
+        }
+        .btn-secondary {
+            background-color: #daa520;
+        }
+        .btn-secondary:hover {
+            background-color: #b8860b;
+        }
+        .result-container {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e0ffff;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .correct { color: green; font-weight: bold; }
+        .incorrect { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📚 Materi Pelajaran 📚</h1>
+
+    <!-- MATERI 1 -->
+    <div class="materi-section">
+        <h2>BAB I<br>MENGENAL HURUF HIJAIAH</h2>
+        <div class="materi-text">
+            <p>Al-Qur'an merupakan firman Allah, kita harus memahami isi Al-Qur'an. Sebelum memahami Al-Qur'an kita harus bisa membacanya.</p>
+            <p>Agar bisa membaca Al-Qur'an dengan lancar kita harus mempelajari huruf hijaiah. Karena kitab suci umat Islam Al-Qur'an ditulis menggunakan huruf hijaiah. Tanpa mengenal huruf hijaiah kita tidak akan bisa membaca Al-Qur'an dengan benar.</p>
+            <p>Huruf hijaiah adalah jenis huruf yang digunakan dalam penulisan Al-Qur'an. Kata "hijaiah" berasal dari bahasa Arab " الهجائية " yang berarti ejaan.</p>
+            <p>Penulisan huruf hijaiah memiliki cara penulisan dan pembacaan yang berbeda, yakni ditulis dan dibaca dari kanan ke kiri.</p>
+        </div>
+    </div>
+
+    <!-- MATERI 2 -->
+    <div class="materi-section">
+        <h2>Tabel Huruf Hijaiah dan Namanya</h2>
+        <p style="text-align:center;">Agar lebih mudah memahami yuk amati tabel huruf hijaiah di bawah ini.</p>
+        <table class="hijaiah-table">
+            <tr>
+                <td>ث<span class="nama-latin">sa'</span></td>
+                <td>ت<span class="nama-latin">ta'</span></td>
+                <td>ب<span class="nama-latin">ba'</span></td>
+                <td>ا<span class="nama-latin">alif</span></td>
+            </tr>
+            <tr>
+                <td>د<span class="nama-latin">dal</span></td>
+                <td>خ<span class="nama-latin">kha'</span></td>
+                <td>ح<span class="nama-latin">ha'</span></td>
+                <td>ج<span class="nama-latin">jim</span></td>
+            </tr>
+            <tr>
+                <td>س<span class="nama-latin">sin</span></td>
+                <td>ز<span class="nama-latin">zai</span></td>
+                <td>ر<span class="nama-latin">ra'</span></td>
+                <td>ذ<span class="nama-latin">zal</span></td>
+            </tr>
+            <tr>
+                <td>ط<span class="nama-latin">ta</span></td>
+                <td>ض<span class="nama-latin">dad</span></td>
+                <td>ص<span class="nama-latin">sad</span></td>
+                <td>ش<span class="nama-latin">syin</span></td>
+            </tr>
+            <tr>
+                <td>ف<span class="nama-latin">fa'</span></td>
+                <td>غ<span class="nama-latin">gain</span></td>
+                <td>ع<span class="nama-latin">'ain</span></td>
+                <td>ظ<span class="nama-latin">za</span></td>
+            </tr>
+            <tr>
+                <td>م<span class="nama-latin">mim</span></td>
+                <td>ل<span class="nama-latin">lam</span></td>
+                <td>ك<span class="nama-latin">kaf</span></td>
+                <td>ق<span class="nama-latin">qaf</span></td>
+            </tr>
+            <tr>
+                <td>ي<span class="nama-latin">ya</span></td>
+                <td>ء<span class="nama-latin">hamzah</span></td>
+                <td>ه<span class="nama-latin">ha'</span></td>
+                <td>ن<span class="nama-latin">nun</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>و<span class="nama-latin">wau</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <h1>📝 Kuis Interaktif (30 Soal) 📝</h1>
+    
+    <div class="quiz-section">
+        <p>Jawablah soal-soal di bawah ini dengan memilih jawaban A, B, atau C!</p>
+        <div id="quiz-container"></div>
+        
+        <div style="text-align: center;">
+            <button class="btn" onclick="submitQuiz()" id="submit-btn">Kumpulkan Jawaban</button>
+            <button class="btn btn-secondary" onclick="generateQuiz()" id="reload-btn">🔄 Generate Ulang Soal Baru</button>
+        </div>
+
+        <div class="result-container" id="result-container">
+            Nilai Kamu: <span id="score"></span> / 100
+            <br>
+            <span id="score-message" style="font-size: 0.8em; color: #555;"></span>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Bank Soal (Total 43 Soal - Sistem akan mengacak dan mengambil 30)
+    const questionBank = [
+        { q: "Al-Qur'an merupakan firman...", options: ["Nabi Muhammad", "Malaikat Jibril", "Allah"], answer: "Allah" },
+        { q: "Kitab suci umat Islam adalah...", options: ["Al-Qur'an", "Iqra", "Hadis"], answer: "Al-Qur'an" },
+        { q: "Sebelum memahami isi Al-Qur'an kita harus bisa...", options: ["Membacanya", "Menulisnya", "Menggambarnya"], answer: "Membacanya" },
+        { q: "Al-Qur'an ditulis menggunakan huruf...", options: ["Latin", "Hijaiah", "Indonesia"], answer: "Hijaiah" },
+        { q: "Tanpa mengenal huruf hijaiah kita tidak akan bisa...", options: ["Bernyanyi", "Membaca Al-Qur'an", "Menulis Latin"], answer: "Membaca Al-Qur'an" },
+        { q: "Kata 'hijaiah' berasal dari bahasa...", options: ["Indonesia", "Inggris", "Arab"], answer: "Arab" },
+        { q: "Kata 'hijaiah' memiliki arti...", options: ["Tulisan", "Ejaan", "Bacaan"], answer: "Ejaan" },
+        { q: "Membaca huruf hijaiah dimulai dari arah...", options: ["Kiri ke kanan", "Kanan ke kiri", "Atas ke bawah"], answer: "Kanan ke kiri" },
+        { q: "Menulis huruf hijaiah dimulai dari arah...", options: ["Kanan ke kiri", "Kiri ke kanan", "Tengah ke pinggir"], answer: "Kanan ke kiri" },
+        { q: "Huruf hijaiah yang pertama adalah...", options: ["Ba'", "Ta'", "Alif"], answer: "Alif" },
+        { q: "Huruf ا dibaca...", options: ["Alif", "Ba'", "Ta'"], answer: "Alif" },
+        { q: "Huruf ب dibaca...", options: ["Ta'", "Ba'", "Sa'"], answer: "Ba'" },
+        { q: "Huruf ت dibaca...", options: ["Ta'", "Sa'", "Jim"], answer: "Ta'" },
+        { q: "Huruf ث dibaca...", options: ["Jim", "Ha'", "Sa'"], answer: "Sa'" },
+        { q: "Huruf ج dibaca...", options: ["Kha'", "Jim", "Ha'"], answer: "Jim" },
+        { q: "Huruf ح dibaca...", options: ["Jim", "Kha'", "Ha'"], answer: "Ha'" },
+        { q: "Huruf خ dibaca...", options: ["Kha'", "Dal", "Zal"], answer: "Kha'" },
+        { q: "Huruf د dibaca...", options: ["Zal", "Ra'", "Dal"], answer: "Dal" },
+        { q: "Huruf ذ dibaca...", options: ["Dal", "Zal", "Zai"], answer: "Zal" },
+        { q: "Huruf ر dibaca...", options: ["Ra'", "Zai", "Sin"], answer: "Ra'" },
+        { q: "Huruf ز dibaca...", options: ["Zai", "Sin", "Syin"], answer: "Zai" },
+        { q: "Huruf س dibaca...", options: ["Zai", "Sin", "Syin"], answer: "Sin" },
+        { q: "Huruf ش dibaca...", options: ["Sin", "Syin", "Sad"], answer: "Syin" },
+        { q: "Huruf ص dibaca...", options: ["Syin", "Sad", "Dad"], answer: "Sad" },
+        { q: "Huruf ض dibaca...", options: ["Sad", "Dad", "Ta"], answer: "Dad" },
+        { q: "Huruf ط dibaca...", options: ["Ta", "Za", "Dad"], answer: "Ta" },
+        { q: "Huruf ظ dibaca...", options: ["Za", "Ta", "'Ain"], answer: "Za" },
+        { q: "Huruf ع dibaca...", options: ["'Ain", "Gain", "Fa'"], answer: "'Ain" },
+        { q: "Huruf غ dibaca...", options: ["'Ain", "Gain", "Fa'"], answer: "Gain" },
+        { q: "Huruf ف dibaca...", options: ["Gain", "Fa'", "Qaf"], answer: "Fa'" },
+        { q: "Huruf ق dibaca...", options: ["Fa'", "Qaf", "Kaf"], answer: "Qaf" },
+        { q: "Huruf ك dibaca...", options: ["Qaf", "Kaf", "Lam"], answer: "Kaf" },
+        { q: "Huruf ل dibaca...", options: ["Lam", "Mim", "Kaf"], answer: "Lam" },
+        { q: "Huruf م dibaca...", options: ["Lam", "Mim", "Nun"], answer: "Mim" },
+        { q: "Huruf ن dibaca...", options: ["Mim", "Nun", "Wau"], answer: "Nun" },
+        { q: "Huruf و dibaca...", options: ["Wau", "Ha'", "Hamzah"], answer: "Wau" },
+        { q: "Huruf ه dibaca...", options: ["Ha'", "Hamzah", "Ya"], answer: "Ha'" },
+        { q: "Huruf ء dibaca...", options: ["Hamzah", "Ya", "Alif"], answer: "Hamzah" },
+        { q: "Huruf ي dibaca...", options: ["Ya", "Alif", "Ba'"], answer: "Ya" },
+        { q: "Huruf hijaiah yang terakhir adalah...", options: ["Wau", "Ya", "Hamzah"], answer: "Ya" },
+        { q: "Huruf yang bentuknya seperti perahu dengan satu titik di bawah adalah...", options: ["Ba'", "Ta'", "Sa'"], answer: "Ba'" },
+        { q: "Agar bisa membaca Al-Qur'an dengan lancar kita harus...", options: ["Malas belajar", "Mempelajari huruf hijaiah", "Bermain saja"], answer: "Mempelajari huruf hijaiah" },
+        { q: "Huruf 'Jim' jika ditulis dalam bahasa Arab menjadi...", options: ["ح", "خ", "ج"], answer: "ج" }
+    ];
+
+    let currentQuestions = [];
+
+    // Fungsi untuk mengacak array (Fisher-Yates shuffle)
+    function shuffleArray(array) {
+        let currentIndex = array.length, randomIndex;
+        while (currentIndex != 0) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+        }
+        return array;
+    }
+
+    // Fungsi untuk menampilkan kuis
+    function generateQuiz() {
+        const container = document.getElementById('quiz-container');
+        const resultContainer = document.getElementById('result-container');
+        container.innerHTML = '';
+        resultContainer.style.display = 'none';
+        document.getElementById('submit-btn').style.display = 'inline-block';
+        
+        // Ambil 30 soal secara acak dari bank soal
+        let shuffledBank = shuffleArray([...questionBank]);
+        currentQuestions = shuffledBank.slice(0, 30);
+
+        currentQuestions.forEach((qObj, index) => {
+            // Acak pilihan ganda
+            let options = shuffleArray([...qObj.options]);
+            let abc = ['A', 'B', 'C'];
+            
+            let card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `qcard-${index}`;
+            
+            let qText = document.createElement('div');
+            qText.className = 'question-text';
+            qText.innerHTML = `${index + 1}. ${qObj.q}`;
+            card.appendChild(qText);
+
+            let optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
+
+            options.forEach((opt, i) => {
+                let label = document.createElement('label');
+                label.innerHTML = `
+                    <input type="radio" name="q${index}" value="${opt}">
+                    ${abc[i]}. ${opt}
+                `;
+                optionsDiv.appendChild(label);
+            });
+
+            card.appendChild(optionsDiv);
+            
+            // Tempat untuk menampilkan hasil benar/salah per soal
+            let feedback = document.createElement('div');
+            feedback.id = `feedback-${index}`;
+            feedback.style.marginTop = "10px";
+            card.appendChild(feedback);
+
+            container.appendChild(card);
+        });
+    }
+
+    // Fungsi untuk menghitung nilai
+    function submitQuiz() {
+        let correctCount = 0;
+        let answeredAll = true;
+
+        for (let i = 0; i < currentQuestions.length; i++) {
+            let selected = document.querySelector(`input[name="q${i}"]:checked`);
+            let feedback = document.getElementById(`feedback-${i}`);
+            
+            if (!selected) {
+                answeredAll = false;
+                break;
+            }
+
+            if (selected.value === currentQuestions[i].answer) {
+                correctCount++;
+                feedback.innerHTML = '<span class="correct">✔ Benar</span>';
+            } else {
+                feedback.innerHTML = `<span class="incorrect">❌ Salah</span> (Jawaban yang benar: ${currentQuestions[i].answer})`;
+            }
+            
+            // Disable radio buttons after submit
+            let radios = document.querySelectorAll(`input[name="q${i}"]`);
+            radios.forEach(r => r.disabled = true);
+        }
+
+        if (!answeredAll) {
+            alert("Harap jawab semua pertanyaan sebelum mengumpulkan!");
+            return;
+        }
+
+        document.getElementById('submit-btn').style.display = 'none';
+
+        let score = Math.round((correctCount / currentQuestions.length) * 100);
+        document.getElementById('score').innerText = score;
+        
+        let msg = document.getElementById('score-message');
+        if(score >= 80) msg.innerText = "Luar biasa! Kamu sangat paham materi ini.";
+        else if(score >= 60) msg.innerText = "Bagus! Terus tingkatkan belajarmu.";
+        else msg.innerText = "Jangan menyerah! Yuk, baca lagi materinya dan coba lagi.";
+
+        document.getElementById('result-container').style.display = 'block';
+    }
+
+    // Load kuis saat halaman pertama dibuka
+    window.onload = generateQuiz;
+</script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Interaktif Bahasa Arab Kelas 1</title>
+    <style>
+        body { font-family: 'Comic Sans MS', cursive, sans-serif; background-color: #f0f8ff; color: #333; padding: 20px; max-width: 900px; margin: auto; line-height: 1.6; }
+        h1 { text-align: center; color: #0056b3; }
+        h2 { color: #d2691e; border-bottom: 2px dashed #d2691e; padding-bottom: 5px; }
+        .materi { background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        .kuis-container { background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .soal { margin-bottom: 20px; font-size: 1.1em; }
+        .opsi { display: block; margin: 8px 0; background-color: #e6f7ff; padding: 10px; border-radius: 5px; cursor: pointer; border: 1px solid #b3e0ff; }
+        .opsi:hover { background-color: #ccebff; }
+        input[type="radio"] { margin-right: 10px; transform: scale(1.2); }
+        button { display: block; width: 100%; padding: 15px; font-size: 1.2em; background-color: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 20px; }
+        button:hover { background-color: #218838; }
+        #hasil { margin-top: 25px; text-align: center; font-size: 1.5em; font-weight: bold; color: #d9534f; }
+        .keterangan { font-size: 0.9em; color: #666; }
+        .arabic { font-size: 1.5em; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h1>Materi & Kuis Bahasa Arab Kelas 1</h1>
+
+    <!-- Bagian Materi -->
+    <div class="materi">
+        <h2>Bab 1: Anggota Tubuh (أَعْضَاءُ الْجِسْمِ)</h2>
+        <ul>
+            <li><span class="arabic">أَعْضَاءُ الْجِسْمِ</span> (A'dhou l jismi) = Anggota badan</li>
+            <li><span class="arabic">رَأْسٌ</span> (Ro'sun) = Kepala</li>
+            <li><span class="arabic">سِنٌّ</span> (Sinnun) = Gigi</li>
+            <li><span class="arabic">فَمٌ</span> (Famun) = Mulut</li>
+            <li><span class="arabic">شَفَةٌ</span> (Syafatun) = Bibir</li>
+            <li><span class="arabic">لِسَانٌ</span> (Lisanun) = Lidah</li>
+            <li><span class="arabic">رَقَبَةٌ</span> (Roqobatun) = Leher</li>
+            <li><span class="arabic">كَتِفٌ</span> (Katifun) = Pundak/Bahu</li>
+            <li><span class="arabic">صَدْرٌ</span> (Shodrun) = Dada</li>
+            <li><span class="arabic">بَطْنٌ</span> (Bathnun) = Perut</li>
+            <li><span class="arabic">رُكْبَةٌ</span> (Rukbatun) = Lutut</li>
+            <li><span class="arabic">أُصْبُعٌ</span> (Ushbu'un) = Jari tangan</li>
+            <li><span class="arabic">إِبْهَامٌ</span> (Ibhamun) = Jempol tangan</li>
+        </ul>
+
+        <h2>Bab 2: Anggota Keluarga (أُسْرَةٌ)</h2>
+        <ul>
+            <li><span class="arabic">أُسْرَةٌ</span> (Usrotun) = Keluarga</li>
+            <li><span class="arabic">أَبٌ</span> (Abun) = Ayah</li>
+            <li><span class="arabic">أُمٌّ</span> (Ummun) = Ibu</li>
+            <li><span class="arabic">جَدٌّ</span> (Jaddun) = Kakek</li>
+            <li><span class="arabic">جَدَّةٌ</span> (Jaddatun) = Nenek</li>
+            <li><span class="arabic">عَمٌّ</span> ('Ammun) = Paman (Saudara laki-laki dari Ayah)</li>
+            <li><span class="arabic">أَخٌ</span> (Akhun) = Saudara Laki-laki</li>
+            <li><span class="arabic">أُخْتٌ</span> (Ukhtun) = Saudara Perempuan</li>
+            <li><span class="arabic">إِبْنٌ</span> (Ibnun) = Anak Laki-laki</li>
+            <li><span class="arabic">إِبْنَةٌ</span> (Ibnatun) = Anak Perempuan</li>
+        </ul>
+    </div>
+
+    <!-- Bagian Kuis -->
+    <div class="kuis-container">
+        <h2 style="text-align:center; color:#28a745;">Ayo Kerjakan Kuis Bahasa Arab!</h2>
+        <form id="kuisForm">
+            <!-- Soal di-generate via JavaScript agar kodenya rapi -->
+            <div id="daftarSoal"></div>
+            
+            <button type="button" onclick="hitungSkor()" id="btnSubmit">Kumpulkan Jawaban</button>
+            <button type="button" onclick="generateSoal()" id="btnUlang" style="background-color: #ff9800; display: none;">Generate Ulang Soal Baru</button>
+        </form>
+        <div id="hasil"></div>
+    </div>
+
+    <script>
+        const bankSoal = [
+            { q: "Apa arti dari <span class='arabic'>رَأْسٌ</span> (Ro'sun)?", options: ["A. Kaki", "B. Tangan", "C. Kepala"], ans: "c" },
+            { q: "Bahasa Arabnya 'gigi' adalah...", options: ["A. <span class='arabic'>سِنٌّ</span> (Sinnun)", "B. <span class='arabic'>فَمٌ</span> (Famun)", "C. <span class='arabic'>رَأْسٌ</span> (Ro'sun)"], ans: "a" },
+            { q: "Apa arti dari <span class='arabic'>أَعْضَاءُ الْجِسْمِ</span> (A'dhou l jismi)?", options: ["A. Anggota keluarga", "B. Anggota badan", "C. Benda-benda di kelas"], ans: "b" },
+            { q: "Bahasa Arabnya 'perut' adalah...", options: ["A. <span class='arabic'>بَطْنٌ</span> (Bathnun)", "B. <span class='arabic'>صَدْرٌ</span> (Shodrun)", "C. <span class='arabic'>رَقَبَةٌ</span> (Roqobatun)"], ans: "a" },
+            { q: "Apa arti dari <span class='arabic'>إِبْهَامٌ</span> (Ibhamun)?", options: ["A. Jari telunjuk", "B. Jempol", "C. Jari kelingking"], ans: "b" },
+            { q: "Bahasa Arabnya 'pundak' atau 'bahu' adalah...", options: ["A. <span class='arabic'>كَتِفٌ</span> (Katifun)", "B. <span class='arabic'>رُكْبَةٌ</span> (Rukbatun)", "C. <span class='arabic'>بَطْنٌ</span> (Bathnun)"], ans: "a" },
+            { q: "Apa arti dari <span class='arabic'>رَقَبَةٌ</span> (Roqobatun)?", options: ["A. Dada", "B. Leher", "C. Kepala"], ans: "b" },
+            { q: "Apa arti dari <span class='arabic'>شَفَةٌ</span> (Syafatun)?", options: ["A. Bibir", "B. Lidah", "C. Gigi"], ans: "a" },
+            { q: "Apa arti dari <span class='arabic'>بَطْنٌ</span> (Bathnun)?", options: ["A. Dada", "B. Punggung", "C. Perut"], ans: "c" },
+            { q: "Apa arti dari <span class='arabic'>أُسْرَةٌ</span> (Usrotun)?", options: ["A. Kelas", "B. Keluarga", "C. Sekolah"], ans: "b" },
+            { q: "Bahasa Arabnya 'paman' (saudara laki-laki dari ayah) adalah...", options: ["A. <span class='arabic'>عَمٌّ</span> ('Ammun)", "B. <span class='arabic'>أَخٌ</span> (Akhun)", "C. <span class='arabic'>أَبٌ</span> (Abun)"], ans: "a" },
+            { q: "Apa arti dari <span class='arabic'>جَدَّةٌ</span> (Jaddatun)?", options: ["A. Kakek", "B. Nenek", "C. Ibu"], ans: "b" },
+            { q: "Bahasa Arabnya 'anak laki-laki' adalah...", options: ["A. <span class='arabic'>إِبْنَةٌ</span> (Ibnatun)", "B. <span class='arabic'>إِبْنٌ</span> (Ibnun)", "C. <span class='arabic'>أَخٌ</span> (Akhun)"], ans: "b" },
+            { q: "Apa arti dari <span class='arabic'>رُكْبَةٌ</span> (Rukbatun)?", options: ["A. Lutut", "B. Siku", "C. Kaki"], ans: "a" },
+            { q: "Apa arti dari <span class='arabic'>أُخْتٌ</span> (Ukhtun)?", options: ["A. Saudara Laki-laki", "B. Saudara Perempuan", "C. Anak Perempuan"], ans: "b" },
+            { q: "Bahasa Arabnya 'saudara laki-laki' adalah...", options: ["A. <span class='arabic'>أَخٌ</span> (Akhun)", "B. <span class='arabic'>أُخْتٌ</span> (Ukhtun)", "C. <span class='arabic'>عَمٌّ</span> ('Ammun)"], ans: "a" },
+            { q: "Bahasa Arabnya 'mulut' adalah...", options: ["A. <span class='arabic'>لِسَانٌ</span> (Lisanun)", "B. <span class='arabic'>شَفَةٌ</span> (Syafatun)", "C. <span class='arabic'>فَمٌ</span> (Famun)"], ans: "c" },
+            { q: "Bahasa Arabnya 'ayah' adalah...", options: ["A. <span class='arabic'>أَبٌ</span> (Abun)", "B. <span class='arabic'>أُمٌّ</span> (Ummun)", "C. <span class='arabic'>جَدٌّ</span> (Jaddun)"], ans: "a" },
+            { q: "Bahasa Arabnya 'dada' adalah...", options: ["A. <span class='arabic'>صَدْرٌ</span> (Shodrun)", "B. <span class='arabic'>بَطْنٌ</span> (Bathnun)", "C. <span class='arabic'>كَتِفٌ</span> (Katifun)"], ans: "a" },
+            { q: "Bahasa Arabnya 'lidah' adalah...", options: ["A. <span class='arabic'>لِسَانٌ</span> (Lisanun)", "B. <span class='arabic'>شَفَةٌ</span> (Syafatun)", "C. <span class='arabic'>سِنٌّ</span> (Sinnun)"], ans: "a" },
+            { q: "Bahasa Arabnya 'ibu' adalah...", options: ["A. <span class='arabic'>جَدَّةٌ</span> (Jaddatun)", "B. <span class='arabic'>أَبٌ</span> (Abun)", "C. <span class='arabic'>أُمٌّ</span> (Ummun)"], ans: "c" },
+            { q: "Bahasa Arabnya 'kakek' adalah...", options: ["A. <span class='arabic'>جَدٌّ</span> (Jaddun)", "B. <span class='arabic'>عَمٌّ</span> ('Ammun)", "C. <span class='arabic'>أَخٌ</span> (Akhun)"], ans: "a" },
+            { q: "Apa arti dari <span class='arabic'>إِبْنَةٌ</span> (Ibnatun)?", options: ["A. Saudara Perempuan", "B. Anak Perempuan", "C. Nenek"], ans: "b" },
+            { q: "Bahasa Arabnya 'jari' adalah...", options: ["A. <span class='arabic'>أُصْبُعٌ</span> (Ushbu'un)", "B. <span class='arabic'>إِبْهَامٌ</span> (Ibhamun)", "C. <span class='arabic'>رُكْبَةٌ</span> (Rukbatun)"], ans: "a" },
+            { q: "Budi memegang kepalanya yang sakit. Bahasa Arabnya kepala adalah...", options: ["A. <span class='arabic'>رَأْسٌ</span>", "B. <span class='arabic'>فَمٌ</span>", "C. <span class='arabic'>عَيْنٌ</span>"], ans: "a" },
+            { q: "Sita tersenyum dan memperlihatkan giginya. Bahasa Arab gigi adalah...", options: ["A. <span class='arabic'>شَفَةٌ</span>", "B. <span class='arabic'>لِسَانٌ</span>", "C. <span class='arabic'>سِنٌّ</span>"], ans: "c" },
+            { q: "Kakek memiliki janggut putih. Bahasa Arab kakek adalah...", options: ["A. <span class='arabic'>جَدٌّ</span>", "B. <span class='arabic'>أَبٌ</span>", "C. <span class='arabic'>عَمٌّ</span>"], ans: "a" },
+            { q: "Ibu memasak di dapur. Bahasa Arab ibu adalah...", options: ["A. <span class='arabic'>أُخْتٌ</span>", "B. <span class='arabic'>أُمٌّ</span>", "C. <span class='arabic'>جَدَّةٌ</span>"], ans: "b" },
+            { q: "Aku mempunyai seorang adik perempuan. Adik perempuan dalam bahasa Arab adalah...", options: ["A. <span class='arabic'>أَخٌ</span>", "B. <span class='arabic'>إِبْنَةٌ</span>", "C. <span class='arabic'>أُخْتٌ</span>"], ans: "c" },
+            { q: "Ayah dan Ibu adalah orang tua kita. Mereka adalah bagian dari...", options: ["A. <span class='arabic'>أُسْرَةٌ</span> (Keluarga)", "B. <span class='arabic'>مَدْرَسَةٌ</span> (Sekolah)", "C. <span class='arabic'>فَصْلٌ</span> (Kelas)"], ans: "a" },
+            { q: "Ali sakit perut setelah makan pedas. Perut bahasa Arabnya...", options: ["A. <span class='arabic'>صَدْرٌ</span>", "B. <span class='arabic'>بَطْنٌ</span>", "C. <span class='arabic'>رَقَبَةٌ</span>"], ans: "b" },
+            { q: "Paman membawakan oleh-oleh. Paman bahasa Arabnya...", options: ["A. <span class='arabic'>عَمٌّ</span>", "B. <span class='arabic'>أَخٌ</span>", "C. <span class='arabic'>جَدٌّ</span>"], ans: "a" },
+            { q: "Adik tidak sengaja menggigit bibirnya. Bibir bahasa Arabnya...", options: ["A. <span class='arabic'>شَفَةٌ</span>", "B. <span class='arabic'>سِنٌّ</span>", "C. <span class='arabic'>لِسَانٌ</span>"], ans: "a" },
+            { q: "Hasan menggunakan lututnya untuk merangkak. Lutut bahasa Arabnya...", options: ["A. <span class='arabic'>رُكْبَةٌ</span>", "B. <span class='arabic'>كَتِفٌ</span>", "C. <span class='arabic'>رَأْسٌ</span>"], ans: "a" },
+            { q: "Tariq menunjuk sesuatu dengan jarinya. Jari bahasa Arabnya...", options: ["A. <span class='arabic'>أُصْبُعٌ</span>", "B. <span class='arabic'>إِبْهَامٌ</span>", "C. <span class='arabic'>يَدٌ</span>"], ans: "a" }
+        ];
+
+        let soalTerpilih = [];
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function generateSoal() {
+            // Sembunyikan tombol ulang dan hasil, munculkan tombol submit
+            document.getElementById("btnUlang").style.display = "none";
+            document.getElementById("btnSubmit").style.display = "block";
+            document.getElementById("hasil").innerHTML = "";
+            
+            // Acak bank soal dan ambil 30 soal
+            shuffleArray(bankSoal);
+            soalTerpilih = bankSoal.slice(0, 30);
+            
+            const daftarSoalDiv = document.getElementById("daftarSoal");
+            let htmlSoal = "";
+
+            soalTerpilih.forEach((item, index) => {
+                // Acak opsi jawaban
+                let options = [
+                    {text: item.options[0], val: 'a'},
+                    {text: item.options[1], val: 'b'},
+                    {text: item.options[2], val: 'c'}
+                ];
+                
+                // Cari jawaban benar sebelum diacak
+                let correctOpt = options.find(o => o.val === item.ans);
+                
+                shuffleArray(options);
+                
+                // Set value baru berdasarkan hasil acakan agar bisa di-cek nanti
+                let valA = options[0].val;
+                let valB = options[1].val;
+                let valC = options[2].val;
+
+                // Ganti prefix A, B, C agar urut
+                let optAText = options[0].text.replace(/^[A-C]\. /, 'A. ');
+                let optBText = options[1].text.replace(/^[A-C]\. /, 'B. ');
+                let optCText = options[2].text.replace(/^[A-C]\. /, 'C. ');
+
+
+                htmlSoal += `
+                    <div class="soal">
+                        <p><strong>${index + 1}. ${item.q}</strong></p>
+                        <label class="opsi"><input type="radio" name="soal${index}" value="${valA}"> ${optAText}</label>
+                        <label class="opsi"><input type="radio" name="soal${index}" value="${valB}"> ${optBText}</label>
+                        <label class="opsi"><input type="radio" name="soal${index}" value="${valC}"> ${optCText}</label>
+                    </div>
+                `;
+            });
+            
+            daftarSoalDiv.innerHTML = htmlSoal;
+        }
+
+        function hitungSkor() {
+            let skor = 0;
+            let belumDijawab = false;
+
+            soalTerpilih.forEach((item, index) => {
+                const jawaban = document.querySelector(`input[name="soal${index}"]:checked`);
+                if (jawaban) {
+                    if (jawaban.value === item.ans) {
+                        skor++;
+                    }
+                } else {
+                    belumDijawab = true;
+                }
+            });
+
+            if (belumDijawab) {
+                alert("Mohon jawab semua soal terlebih dahulu ya adik-adik!");
+                return;
+            }
+
+            const nilaiAkhir = Math.round((skor / 30) * 100);
+            const hasilDiv = document.getElementById("hasil");
+            
+            hasilDiv.innerHTML = `Hebat! Kamu menjawab benar ${skor} dari 30 soal.<br>Nilai Kamu: ${nilaiAkhir}`;
+            if (nilaiAkhir === 100) {
+                hasilDiv.style.color = "#28a745";
+            } else if (nilaiAkhir >= 70) {
+                hasilDiv.style.color = "#ffc107";
+            } else {
+                hasilDiv.style.color = "#dc3545";
+            }
+
+            // Munculkan tombol generate ulang
+            document.getElementById("btnSubmit").style.display = "none";
+            document.getElementById("btnUlang").style.display = "block";
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        // Jalankan saat pertama kali halaman dimuat
+        window.onload = generateSoal;
+
+    </script>
+</body>
+</html>
