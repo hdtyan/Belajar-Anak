@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuis Aku Pelajar Muhammadiyah - Kelas 3</title>
+<style>
+  :root{
+    --hijau-tua:#0e5a3f;
+    --hijau:#1c7a4f;
+    --hijau-muda:#e4f3ea;
+    --emas:#d1a017;
+    --emas-terang:#f3c94a;
+    --krem:#fbf6ea;
+    --coklat:#5a4632;
+    --merah:#c0392b;
+    --biru:#1d5b8f;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Trebuchet MS', 'Segoe UI', sans-serif;
+    background: var(--krem);
+    color:var(--coklat);
+    line-height:1.55;
+  }
+  .matahari{
+    position:relative;
+    background: radial-gradient(circle at 20% -10%, var(--emas-terang) 0, transparent 55%), linear-gradient(135deg, var(--hijau-tua), var(--hijau));
+    color:#fff;
+    padding:38px 20px 30px;
+    text-align:center;
+    border-bottom:6px solid var(--emas);
+  }
+  .matahari h1{
+    margin:0 0 6px;
+    font-size:1.9rem;
+    letter-spacing:.5px;
+  }
+  .matahari p{
+    margin:0;
+    font-size:1rem;
+    opacity:.9;
+  }
+  .sinar{
+    display:inline-block;
+    width:54px;height:54px;
+    border-radius:50%;
+    background: var(--emas-terang);
+    box-shadow: 0 0 0 6px rgba(255,255,255,.15);
+    margin-bottom:10px;
+    position:relative;
+  }
+  .wrap{
+    max-width:820px;
+    margin:0 auto;
+    padding:22px 16px 60px;
+  }
+  .kartu{
+    background:#fff;
+    border:1px solid #e3d9c2;
+    border-radius:14px;
+    padding:20px 22px;
+    margin-bottom:22px;
+    box-shadow:0 3px 10px rgba(90,70,50,.06);
+  }
+  .kartu h2{
+    color:var(--hijau-tua);
+    border-bottom:3px solid var(--emas-terang);
+    display:inline-block;
+    padding-bottom:4px;
+    margin-top:0;
+    font-size:1.25rem;
+  }
+  .kartu h3{
+    color:var(--hijau);
+    margin-bottom:6px;
+    font-size:1.05rem;
+  }
+  .ringkasan ul{
+    margin:6px 0 14px 20px;
+    padding:0;
+  }
+  .ringkasan li{margin-bottom:4px;}
+  .kotak-istilah{
+    background:var(--hijau-muda);
+    border-left:5px solid var(--hijau);
+    border-radius:8px;
+    padding:10px 14px;
+    margin:10px 0 16px;
+    font-size:.96rem;
+  }
+  .kotak-istilah b{color:var(--hijau-tua);}
+  .toggle-materi{
+    text-align:center;
+    margin-bottom:6px;
+  }
+  .btn{
+    cursor:pointer;
+    border:none;
+    border-radius:30px;
+    padding:11px 22px;
+    font-size:1rem;
+    font-weight:bold;
+    font-family:inherit;
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:active{transform:scale(.96);}
+  .btn-utama{
+    background:var(--emas);
+    color:#3a2c10;
+    box-shadow:0 3px 0 #a37b0e;
+  }
+  .btn-utama:hover{background:var(--emas-terang);}
+  .btn-hijau{
+    background:var(--hijau);
+    color:#fff;
+    box-shadow:0 3px 0 var(--hijau-tua);
+  }
+  .btn-hijau:hover{background:var(--hijau-tua);}
+  .btn-outline{
+    background:#fff;
+    color:var(--hijau-tua);
+    border:2px solid var(--hijau);
+    box-shadow:none;
+  }
+  .aksi-atas{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin:18px 0 8px;
+  }
+  #area-soal{display:none;}
+  .soal-item{
+    background:#fff;
+    border:1px solid #e3d9c2;
+    border-radius:12px;
+    padding:16px 18px;
+    margin-bottom:16px;
+    box-shadow:0 2px 6px rgba(90,70,50,.05);
+  }
+  .soal-nomor{
+    display:inline-block;
+    background:var(--hijau-tua);
+    color:#fff;
+    font-weight:bold;
+    border-radius:8px;
+    padding:2px 10px;
+    margin-right:8px;
+    font-size:.9rem;
+  }
+  .soal-teks{
+    font-weight:bold;
+    color:var(--coklat);
+    margin:6px 0 12px;
+    font-size:1.02rem;
+  }
+  .pilihan{
+    display:block;
+    width:100%;
+    text-align:left;
+    background:var(--krem);
+    border:2px solid #e3d9c2;
+    border-radius:10px;
+    padding:10px 14px;
+    margin-bottom:8px;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:.98rem;
+    color:var(--coklat);
+    transition:background .15s, border-color .15s;
+  }
+  .pilihan:hover{border-color:var(--hijau);}
+  .pilihan .kode{
+    display:inline-block;
+    width:24px;height:24px;
+    line-height:24px;
+    text-align:center;
+    background:var(--hijau);
+    color:#fff;
+    border-radius:50%;
+    font-weight:bold;
+    font-size:.85rem;
+    margin-right:8px;
+  }
+  .pilihan.benar{
+    background:#e4f7e9;
+    border-color:#2e9e52;
+  }
+  .pilihan.benar .kode{background:#2e9e52;}
+  .pilihan.salah{
+    background:#fdeaea;
+    border-color:var(--merah);
+  }
+  .pilihan.salah .kode{background:var(--merah);}
+  .pilihan.terkunci{cursor:default;}
+  .penjelasan{
+    display:none;
+    margin-top:10px;
+    background:var(--hijau-muda);
+    border-left:5px solid var(--emas);
+    border-radius:8px;
+    padding:8px 12px;
+    font-size:.92rem;
+  }
+  .penjelasan b{color:var(--hijau-tua);}
+  #hasil{
+    display:none;
+    text-align:center;
+    padding:26px 20px;
+    border-radius:14px;
+    background:linear-gradient(135deg, var(--hijau-tua), var(--hijau));
+    color:#fff;
+    margin-top:10px;
+  }
+  #hasil .skor{
+    font-size:2.6rem;
+    font-weight:bold;
+    color:var(--emas-terang);
+    margin:6px 0;
+  }
+  #hasil .pesan{font-size:1.05rem; margin-bottom:14px;}
+  .progress-bar{
+    position:sticky;
+    top:0;
+    background:#fff;
+    padding:10px 16px;
+    border-bottom:2px solid var(--emas-terang);
+    z-index:5;
+    display:none;
+  }
+  .progress-luar{
+    background:#e3d9c2;
+    border-radius:20px;
+    height:14px;
+    overflow:hidden;
+  }
+  .progress-dalam{
+    background:var(--hijau);
+    height:100%;
+    width:0%;
+    transition:width .25s;
+  }
+  .progress-teks{
+    text-align:center;
+    font-size:.85rem;
+    margin-top:4px;
+    color:var(--hijau-tua);
+    font-weight:bold;
+  }
+  footer{
+    text-align:center;
+    font-size:.82rem;
+    color:#9b8a6d;
+    padding:14px;
+  }
+  @media (max-width:480px){
+    .matahari h1{font-size:1.4rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="matahari">
+  <div class="sinar"></div>
+  <h1>Kuis Aku Pelajar Muhammadiyah</h1>
+  <p>Materi Kelas 3 &mdash; BAB I &amp; BAB II</p>
+</div>
+
+<div class="progress-bar" id="progress-bar">
+  <div class="progress-luar"><div class="progress-dalam" id="progress-dalam"></div></div>
+  <div class="progress-teks" id="progress-teks">0 dari 30 soal dijawab</div>
+</div>
+
+<div class="wrap">
+
+  <div class="kartu">
+    <div class="toggle-materi">
+      <button class="btn btn-outline" id="btn-toggle-materi">📖 Lihat / Sembunyikan Ringkasan Materi</button>
+    </div>
+    <div id="materi" class="ringkasan" style="display:none;">
+
+      <h2>BAB I — Aku Pelajar Muhammadiyah</h2>
+
+      <h3>A. Aku Bangga Sebagai Pelajar Muhammadiyah</h3>
+      <div class="kotak-istilah">
+        <b>Amar</b> = perintah &nbsp;|&nbsp; <b>Ma'ruf</b> = kebaikan &nbsp;|&nbsp; <b>Nahi</b> = mencegah &nbsp;|&nbsp; <b>Munkar</b> = keburukan
+      </div>
+      <ul>
+        <li>Aku adalah pelajar Muhammadiyah. Aku belajar tentang aqidah, akhlakku menjadi bagus, aku taat beribadah, dan aku belajar berdakwah amar ma'ruf nahi mungkar.</li>
+        <li>Pelajar Muhammadiyah berkomitmen menjadi anak yang berani karena benar, dan selalu berkata jujur walaupun itu pahit, meniru sikap Nabi Muhammad SAW saat berdakwah.</li>
+        <li>Sikap bangga sebagai pelajar Muhammadiyah ditunjukkan dengan 3 hal:
+          <ol>
+            <li><b>Dakwah Islam amar ma'ruf nahi munkar</b> — mengajak kepada kebaikan dan mencegah kejahatan.</li>
+            <li><b>Rajin belajar dan berprestasi</b> — bersikap sebagai orang beriman dan berilmu, semangat belajar agar bertambah ilmu.</li>
+            <li><b>Hormat dan patuh kepada orangtua dan guru</b> — karena orangtua dan guru adalah kunci kesuksesan hidup.</li>
+          </ol>
+        </li>
+      </ul>
+
+      <h3>B. Ciri-ciri Pelajar Muhammadiyah</h3>
+      <ul>
+        <li><b>a. Selalu disiplin dan tepat waktu</b> dalam segala hal, contoh: rajin sholat 5 waktu, berangkat sekolah tepat waktu, tidak menunda-nunda tugas sekolah.</li>
+        <li><b>b. Berani memperjuangkan kebenaran dan kejujuran</b>, contoh: berani membela dan menyerahkan uang yang ditemukan kepada guru, berani menegur teman yang salah dan mengajak sholat.</li>
+        <li><b>c. Aktif dan rajin ikut kegiatan masjid</b>, contoh: TPA, remaja masjid, sholat berjamaah di masjid.</li>
+        <li><b>d. Saling bekerja sama serta membantu teman</b>, tidak membully, menghormati dan menghargai teman.</li>
+      </ul>
+      <p><b>Ciri-ciri rajin belajar dan berprestasi:</b> mendengarkan guru dengan sungguh-sungguh, mengerjakan tugas tepat waktu, belajar di rumah tanpa disuruh (meski tidak ada PR), dan mengamalkan ilmu.</p>
+      <p><b>Ciri-ciri hormat dan patuh kepada orangtua dan guru:</b> mengucap salam dan berjabat tangan saat bertemu, membantu orangtua dengan penuh kasih sayang (menyapu, menyiram tanaman, mencuci piring, belajar dan sholat tanpa disuruh), serta mendengarkan nasehat dengan senang hati.</p>
+
+      <h2>BAB II — Mengenal Pendiri Muhammadiyah</h2>
+
+      <h3>A. Masa Kecil KH Ahmad Dahlan</h3>
+      <ul>
+        <li>K.H. Ahmad Dahlan lahir di Kauman, 1 Agustus 1868 M.</li>
+        <li>Nama kecilnya adalah <b>Muhammad Darwis</b>.</li>
+        <li>Ayahnya bernama K.H. Abu Bakar, seorang pejabat agama Islam (Penghulu Khatib) di Kasultanan Yogyakarta.</li>
+        <li>Ibunya bernama Siti Aminah, dan istrinya bernama Siti Walidah.</li>
+        <li>Kepribadian K.H. Ahmad Dahlan: rajin, jujur, dan suka menolong.</li>
+        <li>Sejak usia 8 tahun, beliau sudah mahir membaca Al-Qur'an dan khatam 30 juz.</li>
+        <li>Beliau menunaikan ibadah haji sebanyak 2 kali, yaitu di usia 15 tahun dan 22 tahun.</li>
+      </ul>
+
+      <h3>B. Masa Remaja KH Ahmad Dahlan</h3>
+      <ul>
+        <li>Di usia 22 tahun, Muhammad Darwis diutus keluarganya pergi haji sambil memperdalam ilmu di Makkah pada tahun 1890.</li>
+        <li>Sepulang dari Makkah, Muhammad Darwis berganti nama menjadi <b>Ahmad Dahlan</b> dan mendapat julukan Kyai karena kemampuan agamanya.</li>
+        <li>Tahun 1903, K.H. Ahmad Dahlan pergi haji untuk kedua kalinya dan bertemu banyak ulama nusantara, di antaranya Kyai Muhammad Khatib (Minangkabau), Kyai Nawawi (Banten), Kyai Mas Abdullah (Surabaya), dan Kyai Faqih Maskumambang (Gresik).</li>
+        <li>Beliau mendirikan pondok untuk murid-muridnya dari berbagai daerah seperti Bantul, Srandakan, Brosot, Kulonprogo, Pekalongan, Batang, Magelang, Solo, dan Semarang.</li>
+        <li>Beliau juga mengajar di sekolah <i>Kweekschool</i> Jetis Yogyakarta, sekolah pamong praja (Osvia/Mosvia) di Magelang, serta mendirikan Madrasah Ibtidaiyah Diniyah Islamiyah.</li>
+        <li>Cara mengajar K.H. Ahmad Dahlan tidak membosankan, menarik perhatian anak-anak, serta senantiasa sabar dan jujur.</li>
+      </ul>
+
+      <h3>Mendirikan Muhammadiyah</h3>
+      <ul>
+        <li>K.H. Ahmad Dahlan menemukan Al-Qur'an surat Al-Imran ayat 104 yang mengajak umat menyeru kebajikan, amar ma'ruf, dan nahi munkar.</li>
+        <li>Pada tanggal <b>8 Dzulhijjah 1330 H</b>, bertepatan dengan <b>18 November 1912 M</b>, di kota Yogyakarta, K.H. Ahmad Dahlan mendeklarasikan berdirinya organisasi bernama <b>Muhammadiyah</b>.</li>
+        <li>Muhammadiyah mengajak umat Islam Indonesia kembali beramal dan beribadah menurut tuntunan Al-Qur'an dan Al-Hadits.</li>
+        <li>K.H. Ahmad Dahlan wafat pada tanggal 23 Februari 1923 M (7 Rajab 1340 H) di usia 54 tahun, dan dimakamkan di Karangkajen, Yogyakarta.</li>
+        <li>Pemerintah Republik Indonesia mengangkat beliau sebagai <b>Pahlawan Nasional</b> melalui Surat Keputusan Presiden No. 657 Tahun 1961.</li>
+        <li>Beliau tidak meninggalkan harta untuk keluarganya, namun meninggalkan warisan terbesar bagi umat Islam yaitu Muhammadiyah.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="text-align:center;">
+    <button class="btn btn-utama" id="btn-mulai">🌻 Mulai / Buat 30 Soal Baru</button>
+  </div>
+
+  <div id="area-soal"></div>
+
+  <div id="hasil">
+    <div>Hasil Kuismu</div>
+    <div class="skor" id="skor-teks">0 / 30</div>
+    <div class="pesan" id="pesan-hasil"></div>
+    <button class="btn btn-utama" id="btn-ulang">🔄 Buat Soal Baru Lagi</button>
+  </div>
+
+  <div style="text-align:center; margin-top:18px;" id="tombol-selesai-wrap">
+    <button class="btn btn-hijau" id="btn-selesai" style="display:none;">✅ Selesai, Lihat Nilai</button>
+  </div>
+
+</div>
+
+<footer>Kuis Interaktif &mdash; Materi Kemuhammadiyahan Kelas 3 &mdash; SD Muh Sleman - SD Muh Domban IV</footer>
+
+<script>
+// ================= BANK SOAL (lebih dari 30 agar bisa acak setiap kali) =================
+const bankSoal = [
+  // ---- BAB I A ----
+  {q:"Apa arti kata 'amar' dalam istilah amar ma'ruf nahi munkar?", opts:["Perintah","Kebaikan","Mencegah"], jawab:0, penjelasan:"Amar artinya perintah atau mengajak."},
+  {q:"Apa arti kata 'ma'ruf'?", opts:["Keburukan","Kebaikan","Mencegah"], jawab:1, penjelasan:"Ma'ruf artinya kebaikan."},
+  {q:"Apa arti kata 'nahi'?", opts:["Mencegah","Kebaikan","Perintah"], jawab:0, penjelasan:"Nahi artinya mencegah."},
+  {q:"Apa arti kata 'munkar'?", opts:["Kebaikan","Keburukan","Perintah"], jawab:1, penjelasan:"Munkar artinya keburukan atau kejahatan."},
+  {q:"Sebagai pelajar Muhammadiyah, kita belajar tentang aqidah dan...", opts:["Akhlak yang bagus","Bermain gadget terus","Malas beribadah"], jawab:0, penjelasan:"Pelajar Muhammadiyah belajar aqidah agar akhlaknya menjadi bagus."},
+  {q:"Pelajar Muhammadiyah berkomitmen menjadi anak yang berani karena...", opts:["Benar","Marah","Ingin dipuji"], jawab:0, penjelasan:"Berani karena benar dan selalu berkata jujur walaupun pahit."},
+  {q:"Sikap berani berkata jujur meski pahit adalah teladan dari...", opts:["Nabi Muhammad SAW","Teman sekelas","Kepala sekolah"], jawab:0, penjelasan:"Sikap ini diteladani dari Nabi Muhammad SAW saat berdakwah."},
+  {q:"Berikut ini yang BUKAN cara menunjukkan sikap bangga sebagai pelajar Muhammadiyah adalah...", opts:["Rajin belajar dan berprestasi","Hormat kepada guru","Malas sholat dan suka membolos"], jawab:2, penjelasan:"Sikap bangga ditunjukkan dengan dakwah amar ma'ruf nahi munkar, rajin belajar, dan hormat kepada orangtua/guru."},
+  {q:"Ada berapa cara menunjukkan sikap bangga sebagai pelajar Muhammadiyah?", opts:["2 cara","3 cara","5 cara"], jawab:1, penjelasan:"Ada 3 cara: dakwah amar ma'ruf nahi munkar, rajin belajar berprestasi, dan hormat patuh orangtua & guru."},
+  {q:"Mengapa orangtua dan guru disebut kunci kesuksesan hidup?", opts:["Karena mereka membimbing dan menasehati kita","Karena mereka kaya","Karena mereka selalu memberi hadiah"], jawab:0, penjelasan:"Orangtua dan guru membimbing kita, maka kita harus mendengarkan dan menjalankan nasehatnya."},
+  // ---- BAB I B - ciri disiplin ----
+  {q:"Ciri pelajar Muhammadiyah yang disiplin adalah...", opts:["Sering terlambat sekolah","Rajin sholat 5 waktu dan tepat waktu ke sekolah","Menunda-nunda tugas"], jawab:1, penjelasan:"Selalu disiplin dan tepat waktu ditunjukkan dengan rajin sholat 5 waktu, berangkat sekolah tepat waktu."},
+  {q:"Jika ada tugas sekolah, sikap pelajar Muhammadiyah yang benar adalah...", opts:["Mengerjakannya tepat waktu, tidak ditunda-tunda","Menunggu sampai lupa","Menyuruh teman mengerjakan"], jawab:0, penjelasan:"Mengerjakan sekolah tidak ditunda-tunda adalah ciri disiplin."},
+  {q:"Sikap berani memperjuangkan kebenaran dan kejujuran ditunjukkan dengan...", opts:["Menyembunyikan uang yang ditemukan","Menyerahkan uang yang ditemukan kepada guru","Mengambil uang temuan untuk diri sendiri"], jawab:1, penjelasan:"Berani jujur berarti menyerahkan uang yang ditemukan kepada guru."},
+  {q:"Jika melihat teman berbuat salah, sikap pelajar Muhammadiyah yang tepat adalah...", opts:["Diam saja","Ikut-ikutan berbuat salah","Berani menegur dan mengajak kebaikan"], jawab:2, penjelasan:"Berani menegur ketika teman melakukan kesalahan dan mengajak teman untuk sholat."},
+  {q:"Contoh sikap aktif dan rajin ikut kegiatan masjid adalah...", opts:["Mengikuti TPA dan sholat berjamaah","Bermain saat adzan berkumandang","Malas ke masjid"], jawab:0, penjelasan:"Aktif ikut TPA, remaja masjid, dan sholat berjamaah di masjid."},
+  {q:"Sikap saling bekerja sama dan membantu teman berarti kita harus...", opts:["Membully teman yang lemah","Menghormati dan menghargai teman","Bersaing agar teman gagal"], jawab:1, penjelasan:"Saling bekerja sama, membantu teman, tidak membully, menghormati dan menghargai teman."},
+  {q:"Manakah sikap yang TIDAK boleh dilakukan pelajar Muhammadiyah?", opts:["Membantu teman kesulitan","Membully teman","Berjabat tangan dengan guru"], jawab:1, penjelasan:"Membully teman bukan ciri pelajar Muhammadiyah; kita harus saling membantu."},
+  // ---- ciri rajin belajar berprestasi ----
+  {q:"Ciri pelajar yang rajin belajar dan berprestasi adalah...", opts:["Belajar hanya saat ujian","Mendengarkan guru dengan sungguh-sungguh","Malas mengerjakan tugas"], jawab:1, penjelasan:"Selalu mendengarkan dan memperhatikan bapak/ibu guru dengan sungguh-sungguh."},
+  {q:"Tugas dari guru sebaiknya dikerjakan...", opts:["Tepat waktu","Ditunda sampai lupa","Dicontek dari teman"], jawab:0, penjelasan:"Selalu mengerjakan tugas dari bapak ibu guru tepat waktu."},
+  {q:"Pelajar yang rajin belajar di rumah dilakukan...", opts:["Hanya saat ada PR","Tanpa disuruh, meski tidak ada PR","Kalau dipaksa orangtua saja"], jawab:1, penjelasan:"Belajar di rumah tanpa disuruh dan tidak hanya saat ada PR."},
+  {q:"Ilmu yang sudah dipelajari sebaiknya...", opts:["Disimpan sendiri","Diamalkan agar bermanfaat","Dilupakan begitu saja"], jawab:1, penjelasan:"Selalu mengamalkan ilmu dan berprestasi."},
+  // ---- ciri hormat patuh ----
+  {q:"Saat bertemu orangtua dan guru, pelajar Muhammadiyah sebaiknya...", opts:["Mengucap salam dan berjabat tangan","Diam saja","Berlari menghindar"], jawab:0, penjelasan:"Mengucapkan salam dan berjabat tangan saat bertemu orangtua dan guru."},
+  {q:"Contoh membantu orangtua di rumah adalah...", opts:["Menyapu dan menyiram tanaman","Bermain gadget seharian","Menyuruh orangtua bekerja lebih banyak"], jawab:0, penjelasan:"Membantu orangtua bisa dengan menyapu, menyiram tanaman, mencuci piring sendiri."},
+  {q:"Jika dinasehati orangtua atau guru, sikap yang benar adalah...", opts:["Membantah dengan marah","Mendengarkan dengan senang hati","Pura-pura tidak dengar"], jawab:1, penjelasan:"Mendengarkan nasehat orangtua dan guru dengan senang hati."},
+  {q:"Belajar dan sholat sebaiknya dilakukan...", opts:["Hanya jika disuruh","Tanpa disuruh","Kalau ada hadiah saja"], jawab:1, penjelasan:"Belajar dan sholat tanpa disuruh menunjukkan sikap hormat dan patuh."},
+  // ---- BAB II A - masa kecil ----
+  {q:"K.H. Ahmad Dahlan lahir di daerah...", opts:["Kauman","Karangkajen","Kotagede"], jawab:0, penjelasan:"K.H. Ahmad Dahlan lahir di Kauman."},
+  {q:"K.H. Ahmad Dahlan lahir pada tanggal...", opts:["1 Agustus 1868 M","17 Agustus 1900 M","10 November 1912 M"], jawab:0, penjelasan:"Beliau lahir di Kauman, 1 Agustus 1868 M."},
+  {q:"Nama kecil K.H. Ahmad Dahlan adalah...", opts:["Muhammad Darwis","Ahmad Dahlan","Abu Bakar"], jawab:0, penjelasan:"Nama kecilnya adalah Muhammad Darwis."},
+  {q:"Ayah K.H. Ahmad Dahlan bernama...", opts:["K.H. Abu Bakar","Kyai Nawawi","Kyai Mas Abdullah"], jawab:0, penjelasan:"Ayahnya bernama K.H. Abu Bakar, Penghulu Khatib di Kasultanan Yogyakarta."},
+  {q:"Ayah K.H. Ahmad Dahlan bergelar Penghulu Khatib di...", opts:["Kasultanan Yogyakarta","Kesultanan Solo","Kadipaten Pakualaman"], jawab:0, penjelasan:"Ayahnya adalah pejabat agama Islam bergelar Penghulu Khatib di Kasultanan Yogyakarta."},
+  {q:"Ibu K.H. Ahmad Dahlan bernama...", opts:["Siti Walidah","Siti Aminah","Siti Fatimah"], jawab:1, penjelasan:"Ibunya bernama Siti Aminah."},
+  {q:"Istri K.H. Ahmad Dahlan bernama...", opts:["Siti Walidah","Siti Aminah","Siti Khadijah"], jawab:0, penjelasan:"Istrinya bernama Siti Walidah."},
+  {q:"Kepribadian K.H. Ahmad Dahlan sejak kecil adalah...", opts:["Pemalas dan sombong","Rajin, jujur, dan suka menolong","Suka berbohong"], jawab:1, penjelasan:"Kepribadian beliau adalah rajin, jujur, dan suka menolong."},
+  {q:"Sejak usia berapa K.H. Ahmad Dahlan sudah mahir membaca Al-Qur'an?", opts:["5 tahun","8 tahun","12 tahun"], jawab:1, penjelasan:"Sejak usia 8 tahun beliau sudah mahir membaca Al-Qur'an dan khatam 30 juz."},
+  {q:"K.H. Ahmad Dahlan khatam Al-Qur'an sebanyak berapa juz?", opts:["10 juz","20 juz","30 juz"], jawab:2, penjelasan:"Beliau khatam Al-Qur'an sebanyak 30 juz."},
+  {q:"K.H. Ahmad Dahlan menunaikan ibadah haji sebanyak berapa kali?", opts:["1 kali","2 kali","3 kali"], jawab:1, penjelasan:"Beliau berhaji 2 kali, yaitu di usia 15 tahun dan 22 tahun."},
+  {q:"K.H. Ahmad Dahlan pertama kali naik haji pada usia...", opts:["15 tahun","22 tahun","30 tahun"], jawab:0, penjelasan:"Haji pertama pada usia 15 tahun, haji kedua pada usia 22 tahun."},
+  // ---- BAB II B - masa remaja ----
+  {q:"Di usia 22 tahun, Muhammad Darwis diutus keluarganya untuk...", opts:["Berdagang ke luar negeri","Pergi haji sambil memperdalam ilmu di Makkah","Bersekolah di Belanda"], jawab:1, penjelasan:"Di usia 22 tahun beliau diutus pergi haji sambil memperdalam ilmu di Makkah pada tahun 1890."},
+  {q:"Muhammad Darwis pergi ke Makkah pada tahun...", opts:["1890","1903","1912"], jawab:0, penjelasan:"Beliau pergi ke Makkah pada tahun 1890."},
+  {q:"Sepulang dari Makkah, Muhammad Darwis berganti nama menjadi...", opts:["Ahmad Dahlan","Abu Bakar","Muhammad Khatib"], jawab:0, penjelasan:"Sepulang dari Makkah, namanya berganti menjadi Ahmad Dahlan."},
+  {q:"Ahmad Dahlan mendapat julukan Kyai karena...", opts:["Kekayaannya","Kemampuan agamanya","Jabatannya di pemerintahan"], jawab:1, penjelasan:"Beliau mendapat julukan Kyai karena kemampuan agamanya."},
+  {q:"Pada tahun berapa K.H. Ahmad Dahlan pergi haji untuk kedua kalinya?", opts:["1890","1903","1923"], jawab:1, penjelasan:"Pada tahun 1903, beliau pergi haji untuk kedua kalinya."},
+  {q:"Ulama dari Minangkabau yang ditemui K.H. Ahmad Dahlan bernama...", opts:["Kyai Muhammad Khatib","Kyai Nawawi","Kyai Faqih Maskumambang"], jawab:0, penjelasan:"Kyai Muhammad Khatib berasal dari Minangkabau."},
+  {q:"Kyai Nawawi yang ditemui K.H. Ahmad Dahlan berasal dari...", opts:["Gresik","Banten","Surabaya"], jawab:1, penjelasan:"Kyai Nawawi berasal dari Banten."},
+  {q:"Kyai Faqih Maskumambang yang ditemui K.H. Ahmad Dahlan berasal dari...", opts:["Gresik","Minangkabau","Banten"], jawab:0, penjelasan:"Kyai Faqih Maskumambang berasal dari Gresik."},
+  {q:"K.H. Ahmad Dahlan mendirikan pondok untuk murid-muridnya yang berasal dari berbagai daerah, salah satunya adalah...", opts:["Magelang","Jakarta","Bandung"], jawab:0, penjelasan:"Murid-muridnya berasal dari Bantul, Srandakan, Brosot, Kulonprogo, Pekalongan, Batang, Magelang, Solo, dan Semarang."},
+  {q:"K.H. Ahmad Dahlan mengajar agama Islam di sekolah umum bernama...", opts:["Kweekschool Jetis Yogyakarta","Sekolah Rakyat","Taman Siswa"], jawab:0, penjelasan:"Beliau mengajar di Kweekschool Jetis Yogyakarta, sekolah untuk anak-anak kalangan menengah pribumi dan Belanda."},
+  {q:"Sekolah pamong praja yang juga menjadi tempat mengajar K.H. Ahmad Dahlan berada di kota...", opts:["Magelang","Solo","Semarang"], jawab:0, penjelasan:"Beliau mengajar di sekolah pamong praja (Osvia/Mosvia) di Magelang."},
+  {q:"Madrasah yang didirikan oleh K.H. Ahmad Dahlan bernama...", opts:["Madrasah Ibtidaiyah Diniyah Islamiyah","Madrasah Aliyah Negeri","Pondok Modern Gontor"], jawab:0, penjelasan:"Beliau mendirikan Madrasah Ibtidaiyah Diniyah Islamiyah."},
+  {q:"Cara mengajar K.H. Ahmad Dahlan kepada anak-anak adalah...", opts:["Membosankan dan galak","Menarik, sabar, dan tidak membosankan","Cepat marah dan tidak sabar"], jawab:1, penjelasan:"Beliau mengajar dengan cara yang tidak membosankan, menarik perhatian, sabar, jujur, dan dapat mengayomi anak didiknya."},
+  // ---- mendirikan Muhammadiyah ----
+  {q:"K.H. Ahmad Dahlan menemukan petunjuk mendirikan Muhammadiyah dari Al-Qur'an surat...", opts:["Al-Imran ayat 104","Al-Baqarah ayat 1","Al-Fatihah ayat 1"], jawab:0, penjelasan:"Beliau menemukan petunjuk pada surat Al-Imran ayat 104."},
+  {q:"Surat Al-Imran ayat 104 mengajak umat untuk...", opts:["Menyeru kebajikan, amar ma'ruf, nahi munkar","Berperang","Meninggalkan ibadah"], jawab:0, penjelasan:"Ayat ini mengajak segolongan umat menyeru kebajikan, amar ma'ruf, dan mencegah munkar."},
+  {q:"Muhammadiyah didirikan bertepatan dengan tanggal...", opts:["18 November 1912 M","1 Agustus 1868 M","23 Februari 1923 M"], jawab:0, penjelasan:"Muhammadiyah didirikan pada 8 Dzulhijjah 1330 H bertepatan 18 November 1912 M."},
+  {q:"Muhammadiyah didirikan di kota...", opts:["Yogyakarta","Jakarta","Surabaya"], jawab:0, penjelasan:"Muhammadiyah dideklarasikan di kota Yogyakarta."},
+  {q:"Tujuan didirikannya Muhammadiyah adalah...", opts:["Mengajak umat Islam kembali beramal dan beribadah sesuai Al-Qur'an dan Al-Hadits","Membangun gedung pemerintahan","Menghapus ajaran Islam"], jawab:0, penjelasan:"Muhammadiyah mengajak umat Islam Indonesia kembali beramal dan beribadah menurut tuntunan Al-Qur'an dan Al-Hadits."},
+  // ---- wafat dan penghargaan ----
+  {q:"K.H. Ahmad Dahlan wafat pada tanggal...", opts:["23 Februari 1923 M","18 November 1912 M","1 Agustus 1868 M"], jawab:0, penjelasan:"Beliau wafat pada 23 Februari 1923 M bertepatan 7 Rajab 1340 H."},
+  {q:"K.H. Ahmad Dahlan wafat di usia...", opts:["54 tahun","65 tahun","40 tahun"], jawab:0, penjelasan:"Beliau wafat di usia 54 tahun."},
+  {q:"K.H. Ahmad Dahlan dimakamkan di...", opts:["Karangkajen, Yogyakarta","Kauman, Yogyakarta","Kotagede, Yogyakarta"], jawab:0, penjelasan:"Beliau dimakamkan di Karangkajen, Yogyakarta."},
+  {q:"K.H. Ahmad Dahlan diangkat sebagai Pahlawan Nasional melalui Surat Keputusan Presiden nomor...", opts:["657 tahun 1961","104 tahun 1912","30 tahun 1923"], jawab:0, penjelasan:"Beliau diangkat menjadi Pahlawan Nasional melalui SK Presiden No. 657 Tahun 1961."},
+  {q:"Warisan terbesar K.H. Ahmad Dahlan untuk umat Islam adalah...", opts:["Harta yang banyak","Organisasi Muhammadiyah","Rumah yang mewah"], jawab:1, penjelasan:"Beliau tidak meninggalkan harta, tetapi meninggalkan warisan terbesar yaitu Muhammadiyah."},
+  {q:"K.H. Ahmad Dahlan dikenal sebagai pribadi yang hidup bahagia dalam...", opts:["Kesederhanaan","Kemewahan","Kesombongan"], jawab:0, penjelasan:"Beliau selalu hidup bahagia dalam kesederhanaan."},
+  {q:"Sepanjang hidupnya, harta K.H. Ahmad Dahlan banyak digunakan untuk...", opts:["Berdakwah menegakkan agama Islam","Membeli rumah mewah","Disimpan untuk dirinya sendiri"], jawab:0, penjelasan:"Seluruh hartanya banyak dihabiskan untuk berdakwah menegakkan agama Islam."},
+];
+
+let soalTerpakai = [];
+let jawabanUser = [];
+
+function acak(array){
+  const a = array.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function buatSoal(){
+  const jumlahSoal = Math.min(30, bankSoal.length);
+  const terpilih = acak(bankSoal).slice(0, jumlahSoal);
+  soalTerpakai = terpilih.map(item=>{
+    const urutan = acak([0,1,2]);
+    const opsiBaru = urutan.map(i=>item.opts[i]);
+    const jawabBaru = urutan.indexOf(item.jawab);
+    return {q:item.q, opts:opsiBaru, jawab:jawabBaru, penjelasan:item.penjelasan};
+  });
+  jawabanUser = new Array(soalTerpakai.length).fill(null);
+  render();
+  document.getElementById('area-soal').style.display = 'block';
+  document.getElementById('hasil').style.display = 'none';
+  document.getElementById('progress-bar').style.display = 'block';
+  document.getElementById('btn-selesai').style.display = 'inline-block';
+  updateProgress();
+  window.scrollTo({top: document.getElementById('area-soal').offsetTop - 60, behavior:'smooth'});
+}
+
+function render(){
+  const kode = ['A','B','C'];
+  const wrap = document.getElementById('area-soal');
+  wrap.innerHTML = '';
+  soalTerpakai.forEach((s, idx)=>{
+    const div = document.createElement('div');
+    div.className = 'soal-item';
+    let pilihanHTML = '';
+    s.opts.forEach((opt, i)=>{
+      pilihanHTML += `<button class="pilihan" data-soal="${idx}" data-pilih="${i}">
+        <span class="kode">${kode[i]}</span>${opt}
+      </button>`;
+    });
+    div.innerHTML = `
+      <div><span class="soal-nomor">Soal ${idx+1}</span></div>
+      <div class="soal-teks">${s.q}</div>
+      ${pilihanHTML}
+      <div class="penjelasan" id="penjelasan-${idx}"></div>
+    `;
+    wrap.appendChild(div);
+  });
+
+  document.querySelectorAll('.pilihan').forEach(btn=>{
+    btn.addEventListener('click', function(){
+      const soalIdx = parseInt(this.dataset.soal);
+      const pilihIdx = parseInt(this.dataset.pilih);
+      if(jawabanUser[soalIdx] !== null) return; // sudah dijawab
+      jawabanUser[soalIdx] = pilihIdx;
+      const semuaPilihan = document.querySelectorAll(`.pilihan[data-soal="${soalIdx}"]`);
+      const jawabanBenar = soalTerpakai[soalIdx].jawab;
+      semuaPilihan.forEach(p=>{
+        p.classList.add('terkunci');
+        const pIdx = parseInt(p.dataset.pilih);
+        if(pIdx === jawabanBenar) p.classList.add('benar');
+        else if(pIdx === pilihIdx) p.classList.add('salah');
+      });
+      const pj = document.getElementById(`penjelasan-${soalIdx}`);
+      const kodeHuruf = ['A','B','C'];
+      pj.style.display = 'block';
+      pj.innerHTML = `<b>Jawaban benar: ${kodeHuruf[jawabanBenar]}. ${soalTerpakai[soalIdx].opts[jawabanBenar]}</b><br>${soalTerpakai[soalIdx].penjelasan}`;
+      updateProgress();
+    });
+  });
+}
+
+function updateProgress(){
+  const dijawab = jawabanUser.filter(j=>j!==null).length;
+  const total = soalTerpakai.length;
+  const persen = total? (dijawab/total*100):0;
+  document.getElementById('progress-dalam').style.width = persen+'%';
+  document.getElementById('progress-teks').textContent = `${dijawab} dari ${total} soal dijawab`;
+}
+
+function tampilkanHasil(){
+  const total = soalTerpakai.length;
+  let benar = 0;
+  soalTerpakai.forEach((s, idx)=>{
+    if(jawabanUser[idx] === s.jawab) benar++;
+  });
+  const nilai100 = Math.round((benar/total)*100);
+  document.getElementById('skor-teks').textContent = `${benar} / ${total}`;
+  let pesan = '';
+  if(nilai100 >= 90) pesan = `Nilai ${nilai100} — Luar biasa! Kamu pelajar Muhammadiyah yang hebat! 🌟`;
+  else if(nilai100 >= 70) pesan = `Nilai ${nilai100} — Bagus sekali, terus belajar ya! 👍`;
+  else if(nilai100 >= 50) pesan = `Nilai ${nilai100} — Sudah cukup baik, ayo baca lagi materinya! 📚`;
+  else pesan = `Nilai ${nilai100} — Yuk baca ringkasan materi lagi lalu coba sekali lagi! 💪`;
+  document.getElementById('pesan-hasil').textContent = pesan;
+  document.getElementById('hasil').style.display = 'block';
+  document.getElementById('hasil').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+document.getElementById('btn-toggle-materi').addEventListener('click', function(){
+  const m = document.getElementById('materi');
+  m.style.display = (m.style.display === 'none' || m.style.display === '') ? 'block' : 'none';
+});
+
+document.getElementById('btn-mulai').addEventListener('click', buatSoal);
+document.getElementById('btn-selesai').addEventListener('click', function(){
+  const belumDijawab = jawabanUser.filter(j=>j===null).length;
+  if(belumDijawab > 0){
+    if(!confirm(`Masih ada ${belumDijawab} soal yang belum dijawab. Tetap lihat nilai?`)) return;
+  }
+  tampilkanHasil();
+});
+document.getElementById('btn-ulang').addEventListener('click', buatSoal);
+</script>
+</body>
+</html>
