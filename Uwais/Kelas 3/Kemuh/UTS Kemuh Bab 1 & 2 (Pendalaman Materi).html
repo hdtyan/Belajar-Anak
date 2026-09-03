@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuis PSTS Kemuhammadiyahan - Kelas 3</title>
+<style>
+  :root{
+    --hijau-tua:#0e5a3f;
+    --hijau:#1c7a4f;
+    --hijau-muda:#e4f3ea;
+    --emas:#d1a017;
+    --emas-terang:#f3c94a;
+    --krem:#fbf6ea;
+    --coklat:#5a4632;
+    --merah:#c0392b;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Trebuchet MS', 'Segoe UI', sans-serif;
+    background: var(--krem);
+    color:var(--coklat);
+    line-height:1.55;
+  }
+  .matahari{
+    position:relative;
+    background: radial-gradient(circle at 20% -10%, var(--emas-terang) 0, transparent 55%), linear-gradient(135deg, var(--hijau-tua), var(--hijau));
+    color:#fff;
+    padding:38px 20px 30px;
+    text-align:center;
+    border-bottom:6px solid var(--emas);
+  }
+  .matahari h1{margin:0 0 6px; font-size:1.8rem; letter-spacing:.5px;}
+  .matahari p{margin:0; font-size:1rem; opacity:.9;}
+  .sinar{
+    display:inline-block; width:54px; height:54px; border-radius:50%;
+    background: var(--emas-terang);
+    box-shadow: 0 0 0 6px rgba(255,255,255,.15);
+    margin-bottom:10px;
+  }
+  .wrap{max-width:820px; margin:0 auto; padding:22px 16px 60px;}
+  .kartu{
+    background:#fff; border:1px solid #e3d9c2; border-radius:14px;
+    padding:20px 22px; margin-bottom:22px; box-shadow:0 3px 10px rgba(90,70,50,.06);
+  }
+  .kartu h2{
+    color:var(--hijau-tua); border-bottom:3px solid var(--emas-terang);
+    display:inline-block; padding-bottom:4px; margin-top:18px; font-size:1.2rem;
+  }
+  .kartu h2:first-child{margin-top:0;}
+  .ringkasan ul{margin:6px 0 14px 20px; padding:0;}
+  .ringkasan li{margin-bottom:4px;}
+  .toggle-materi{text-align:center; margin-bottom:6px;}
+  .btn{
+    cursor:pointer; border:none; border-radius:30px; padding:11px 22px;
+    font-size:1rem; font-weight:bold; font-family:inherit;
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:active{transform:scale(.96);}
+  .btn-utama{background:var(--emas); color:#3a2c10; box-shadow:0 3px 0 #a37b0e;}
+  .btn-utama:hover{background:var(--emas-terang);}
+  .btn-hijau{background:var(--hijau); color:#fff; box-shadow:0 3px 0 var(--hijau-tua);}
+  .btn-hijau:hover{background:var(--hijau-tua);}
+  .btn-outline{background:#fff; color:var(--hijau-tua); border:2px solid var(--hijau); box-shadow:none;}
+  #area-soal{display:none;}
+  .soal-item{
+    background:#fff; border:1px solid #e3d9c2; border-radius:12px;
+    padding:16px 18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(90,70,50,.05);
+  }
+  .soal-nomor{
+    display:inline-block; background:var(--hijau-tua); color:#fff; font-weight:bold;
+    border-radius:8px; padding:2px 10px; margin-right:8px; font-size:.9rem;
+  }
+  .soal-teks{font-weight:bold; color:var(--coklat); margin:6px 0 12px; font-size:1.02rem;}
+  .pilihan{
+    display:block; width:100%; text-align:left; background:var(--krem);
+    border:2px solid #e3d9c2; border-radius:10px; padding:10px 14px; margin-bottom:8px;
+    cursor:pointer; font-family:inherit; font-size:.98rem; color:var(--coklat);
+    transition:background .15s, border-color .15s;
+  }
+  .pilihan:hover{border-color:var(--hijau);}
+  .pilihan .kode{
+    display:inline-block; width:24px; height:24px; line-height:24px; text-align:center;
+    background:var(--hijau); color:#fff; border-radius:50%; font-weight:bold;
+    font-size:.85rem; margin-right:8px;
+  }
+  .pilihan.benar{background:#e4f7e9; border-color:#2e9e52;}
+  .pilihan.benar .kode{background:#2e9e52;}
+  .pilihan.salah{background:#fdeaea; border-color:var(--merah);}
+  .pilihan.salah .kode{background:var(--merah);}
+  .pilihan.terkunci{cursor:default;}
+  .penjelasan{
+    display:none; margin-top:10px; background:var(--hijau-muda); border-left:5px solid var(--emas);
+    border-radius:8px; padding:8px 12px; font-size:.92rem;
+  }
+  .penjelasan b{color:var(--hijau-tua);}
+  #hasil{
+    display:none; text-align:center; padding:26px 20px; border-radius:14px;
+    background:linear-gradient(135deg, var(--hijau-tua), var(--hijau)); color:#fff; margin-top:10px;
+  }
+  #hasil .skor{font-size:2.6rem; font-weight:bold; color:var(--emas-terang); margin:6px 0;}
+  #hasil .pesan{font-size:1.05rem; margin-bottom:14px;}
+  .progress-bar{
+    position:sticky; top:0; background:#fff; padding:10px 16px;
+    border-bottom:2px solid var(--emas-terang); z-index:5; display:none;
+  }
+  .progress-luar{background:#e3d9c2; border-radius:20px; height:14px; overflow:hidden;}
+  .progress-dalam{background:var(--hijau); height:100%; width:0%; transition:width .25s;}
+  .progress-teks{text-align:center; font-size:.85rem; margin-top:4px; color:var(--hijau-tua); font-weight:bold;}
+  footer{text-align:center; font-size:.82rem; color:#9b8a6d; padding:14px;}
+  @media (max-width:480px){.matahari h1{font-size:1.35rem;}}
+</style>
+</head>
+<body>
+
+<div class="matahari">
+  <div class="sinar"></div>
+  <h1>Kuis PSTS Kemuhammadiyahan</h1>
+  <p>Pendalaman Materi &amp; Latihan Soal &mdash; Kelas 3</p>
+</div>
+
+<div class="progress-bar" id="progress-bar">
+  <div class="progress-luar"><div class="progress-dalam" id="progress-dalam"></div></div>
+  <div class="progress-teks" id="progress-teks">0 dari 30 soal dijawab</div>
+</div>
+
+<div class="wrap">
+
+  <div class="kartu">
+    <div class="toggle-materi">
+      <button class="btn btn-outline" id="btn-toggle-materi">📖 Lihat / Sembunyikan Ringkasan Materi</button>
+    </div>
+    <div id="materi" class="ringkasan" style="display:none;">
+
+      <h2>1. Amar Ma'ruf Nahi Munkar</h2>
+      <ul>
+        <li>Dakwah yang mengajak pada kebaikan dan mencegah keburukan disebut <b>amar ma'ruf nahi munkar</b>.</li>
+        <li><b>Amar ma'ruf</b> artinya mengajak/menyeru kepada kebaikan.</li>
+        <li><b>Nahi munkar</b> artinya mencegah kemungkaran/keburukan.</li>
+        <li>Perintah amar ma'ruf nahi munkar tercantum dalam Al-Qur'an surah <b>Ali-Imran ayat 104</b>.</li>
+        <li>Contoh amar ma'ruf: mengajak teman sholat Jum'at berjamaah di masjid.</li>
+        <li>Contoh nahi munkar: menasehati orang yang akan membuang sampah di sungai.</li>
+      </ul>
+
+      <h2>2. Riwayat K.H. Ahmad Dahlan</h2>
+      <ul>
+        <li>Pendiri organisasi Muhammadiyah, K.H. Ahmad Dahlan, memiliki latar belakang sebagai seorang <b>ulama</b>.</li>
+        <li>Nama kecil K.H. Ahmad Dahlan adalah <b>Muhammad Darwis</b>.</li>
+        <li>Ayahnya, K.H. Abu Bakar, menjabat sebagai <b>pejabat agama Islam</b> di Kasultanan Yogyakarta dengan gelar <b>Penghulu Khatib</b>.</li>
+        <li>Sejak usia <b>8 tahun</b>, K.H. Ahmad Dahlan sudah mahir membaca Al-Qur'an dan khatam 30 juz.</li>
+        <li>Beliau memperdalam ilmu agama Islam di kota <b>Makkah</b>.</li>
+        <li>Sekolah yang didirikan khusus untuk anak-anak pribumi kalangan menengah dan anak-anak keturunan Belanda bernama <b>Kweekschool</b>.</li>
+        <li>K.H. Ahmad Dahlan dimakamkan di <b>Karangkajen, Yogyakarta</b>.</li>
+        <li>Organisasi Muhammadiyah diresmikan pada tanggal <b>18 November 1912</b>.</li>
+        <li>Berdasarkan Keputusan Presiden Tahun 1961, K.H. Ahmad Dahlan mendapatkan gelar sebagai <b>Pahlawan Nasional</b>.</li>
+        <li>Sifat-sifat K.H. Ahmad Dahlan: <b>disiplin, rajin, jujur, suka menolong, dan pantang menyerah</b>.</li>
+        <li>Tokoh ulama nusantara yang menjadi guru K.H. Ahmad Dahlan: <b>Kyai Nawawi, Kyai Muhammad Khatib, Kyai Mas Abdullah, dan Kyai Faqih Maskumambang</b>.</li>
+      </ul>
+
+      <h2>3. Ciri-ciri Pelajar Muhammadiyah</h2>
+      <ul>
+        <li>Selalu disiplin dan tepat waktu.</li>
+        <li>Berani memperjuangkan kebenaran.</li>
+        <li>Aktif dalam kegiatan yang diadakan di masjid lingkungan rumah.</li>
+        <li>Saling bekerja sama dan membantu teman dalam hal kebaikan.</li>
+      </ul>
+
+      <h2>4. Menghormati Orang Tua dan Guru</h2>
+      <p><b>Cara menghormati orang tua:</b></p>
+      <ul>
+        <li>Berbicara dengan bahasa yang sopan dan santun.</li>
+        <li>Mendengarkan nasihat kedua orang tua.</li>
+        <li>Tidak menyela pembicaraan orang tua.</li>
+        <li>Bersikap rendah hati terhadap mereka.</li>
+        <li>Membantu pekerjaan orang tua.</li>
+        <li>Tidak membuat orang tua kecewa karena perilaku kita.</li>
+        <li>Mendo'akan kesehatan dan kebaikan untuk orang tua.</li>
+      </ul>
+      <p><b>Cara menghormati guru:</b></p>
+      <ul>
+        <li>Berbicara dengan bahasa yang sopan dan santun.</li>
+        <li>Mendengarkan penjelasan guru.</li>
+        <li>Masuk kelas dengan mengucap salam.</li>
+        <li>Tidak membuat guru kecewa atas perilaku kita.</li>
+        <li>Tidak menghina guru.</li>
+        <li>Mengucap salam dan berjabat tangan saat berpapasan dengan guru.</li>
+      </ul>
+
+      <h2>5. Adab dan Sikap Sehari-hari</h2>
+      <ul>
+        <li>Saat terlambat masuk kelas, sebaiknya mengucap <b>salam</b> dan meminta maaf kepada guru.</li>
+        <li>Jika ada teman yang ingin mengambil barang tanpa izin, sikap kita adalah <b>menegur</b>.</li>
+        <li>Jika berbuat salah (misalnya berbohong), sebaiknya <b>mengaku bersalah dan berjanji tidak akan mengulanginya lagi</b>.</li>
+        <li>Jika mendengar teman meraih juara pertama, sikap kita adalah <b>merasa bangga dan termotivasi untuk ikut berprestasi</b>, bukan iri hati.</li>
+      </ul>
+
+    </div>
+  </div>
+
+  <div style="text-align:center;">
+    <button class="btn btn-utama" id="btn-mulai">🌻 Mulai / Buat 30 Soal Baru</button>
+  </div>
+
+  <div id="area-soal"></div>
+
+  <div id="hasil">
+    <div>Hasil Kuismu</div>
+    <div class="skor" id="skor-teks">0 / 30</div>
+    <div class="pesan" id="pesan-hasil"></div>
+    <button class="btn btn-utama" id="btn-ulang">🔄 Buat Soal Baru Lagi</button>
+  </div>
+
+  <div style="text-align:center; margin-top:18px;">
+    <button class="btn btn-hijau" id="btn-selesai" style="display:none;">✅ Selesai, Lihat Nilai</button>
+  </div>
+
+</div>
+
+<footer>Kuis Interaktif &mdash; Pendalaman PSTS Kemuhammadiyahan &mdash; Kelas 3</footer>
+
+<script>
+// ================= BANK SOAL (lebih dari 30 agar bisa acak setiap kali) =================
+const bankSoal = [
+  // ---- Amar ma'ruf nahi munkar ----
+  {q:"Dakwah yang mengajak pada kebaikan dan mencegah keburukan disebut...", opts:["Amar ma'ruf nahi munkar","Sholat berjamaah","Zakat fitrah"], jawab:0, penjelasan:"Dakwah mengajak kebaikan dan mencegah keburukan disebut amar ma'ruf nahi munkar."},
+  {q:"Amar ma'ruf artinya...", opts:["Mencegah keburukan","Mengajak/menyeru kepada kebaikan","Melarang ibadah"], jawab:1, penjelasan:"Amar ma'ruf artinya mengajak atau menyeru kepada kebaikan."},
+  {q:"Nahi munkar artinya...", opts:["Mengajak kebaikan","Menambah ilmu","Mencegah kemungkaran/keburukan"], jawab:2, penjelasan:"Nahi munkar artinya mencegah kemungkaran atau keburukan."},
+  {q:"Perintah amar ma'ruf nahi munkar tercantum dalam Al-Qur'an surah...", opts:["Ali-Imran ayat 104","Al-Baqarah ayat 1","Al-Fatihah ayat 1"], jawab:0, penjelasan:"Perintah tersebut tercantum dalam surah Ali-Imran ayat 104."},
+  {q:"Perhatikan pernyataan berikut: (1) Mencuci dan menyetrika baju sendiri, (2) Menasehati orang yang akan membuang sampah di sungai, (3) Rajin menabung untuk masa depan. Perbuatan yang termasuk nahi munkar ditunjukkan nomor...", opts:["Nomor 1","Nomor 2","Nomor 3"], jawab:1, penjelasan:"Menasehati orang yang akan membuang sampah di sungai adalah contoh mencegah keburukan (nahi munkar)."},
+  {q:"Perhatikan tokoh berikut: Dion selalu mengajak teman-temannya sholat Jum'at berjamaah di masjid. Sikap Dion termasuk contoh...", opts:["Amar ma'ruf","Nahi munkar","Sikap malas"], jawab:0, penjelasan:"Mengajak teman berbuat baik (sholat berjamaah) termasuk amar ma'ruf."},
+  {q:"Mengajak teman untuk rajin belajar termasuk contoh sikap...", opts:["Amar ma'ruf","Nahi munkar","Munkar"], jawab:0, penjelasan:"Mengajak pada kebaikan termasuk amar ma'ruf."},
+  {q:"Menegur teman yang membuang sampah sembarangan termasuk contoh sikap...", opts:["Nahi munkar","Amar ma'ruf","Acuh tak acuh"], jawab:0, penjelasan:"Mencegah perbuatan buruk termasuk nahi munkar."},
+  // ---- Riwayat KH Ahmad Dahlan ----
+  {q:"Pendiri organisasi Muhammadiyah memiliki latar belakang sebagai seorang...", opts:["Pedagang","Ulama","Petani"], jawab:1, penjelasan:"K.H. Ahmad Dahlan memiliki latar belakang sebagai seorang ulama."},
+  {q:"Nama kecil K.H. Ahmad Dahlan adalah...", opts:["Muhammad Darwis","Ahmad Dahlan","Abu Bakar"], jawab:0, penjelasan:"Nama kecil beliau adalah Muhammad Darwis."},
+  {q:"K.H. Abu Bakar, ayah dari K.H. Ahmad Dahlan, di Kasultanan Yogyakarta menjabat sebagai...", opts:["Bupati","Pejabat agama Islam","Camat"], jawab:1, penjelasan:"Ayahnya menjabat sebagai pejabat agama Islam di Kasultanan Yogyakarta."},
+  {q:"Gelar Ayah dari K.H. Ahmad Dahlan di Kasultanan Yogyakarta adalah...", opts:["Penghulu Khatib","Sultan","Adipati"], jawab:0, penjelasan:"Gelar ayahnya adalah Penghulu Khatib."},
+  {q:"K.H. Ahmad Dahlan sudah mahir membaca Al-Qur'an dan khatam 30 juz pada usia... tahun.", opts:["5 tahun","8 tahun","12 tahun"], jawab:1, penjelasan:"Beliau mahir membaca Al-Qur'an dan khatam 30 juz pada usia 8 tahun."},
+  {q:"K.H. Ahmad Dahlan memperdalam ilmu agama Islam di kota...", opts:["Madinah","Kairo","Makkah"], jawab:2, penjelasan:"Beliau memperdalam ilmu agama Islam di kota Makkah."},
+  {q:"Sekolah yang didirikan khusus untuk anak-anak pribumi kalangan menengah dan anak-anak keturunan Belanda adalah...", opts:["Kweekschool","Madrasah Diniyah","Pondok Pesantren"], jawab:0, penjelasan:"Sekolah tersebut bernama Kweekschool."},
+  {q:"Organisasi Muhammadiyah diresmikan pada tanggal...", opts:["1 Agustus 1868","18 November 1912","23 Februari 1923"], jawab:1, penjelasan:"Muhammadiyah diresmikan pada tanggal 18 November 1912."},
+  {q:"K.H. Ahmad Dahlan dimakamkan di...", opts:["Kauman, Yogyakarta","Kotagede, Yogyakarta","Karangkajen, Yogyakarta"], jawab:2, penjelasan:"Beliau dimakamkan di Karangkajen, Yogyakarta."},
+  {q:"Berdasarkan Keputusan Presiden Tahun 1961, K.H. Ahmad Dahlan mendapatkan gelar sebagai...", opts:["Menteri Agama","Pahlawan Nasional","Presiden RI"], jawab:1, penjelasan:"Beliau mendapatkan gelar Pahlawan Nasional berdasarkan Keputusan Presiden Tahun 1961."},
+  {q:"Berikut ini termasuk sifat yang dimiliki K.H. Ahmad Dahlan, KECUALI...", opts:["Rajin dan jujur","Suka menolong","Pemalas dan sombong"], jawab:2, penjelasan:"Sifat K.H. Ahmad Dahlan adalah disiplin, rajin, jujur, suka menolong, dan pantang menyerah — bukan pemalas dan sombong."},
+  {q:"Berikut ini termasuk sifat K.H. Ahmad Dahlan, KECUALI...", opts:["Pantang menyerah","Suka berbohong","Disiplin"], jawab:1, penjelasan:"K.H. Ahmad Dahlan dikenal jujur, bukan suka berbohong."},
+  {q:"Berikut ini adalah tokoh ulama nusantara yang menjadi guru K.H. Ahmad Dahlan, KECUALI...", opts:["Kyai Nawawi","Kyai Mas Abdullah","Wali Songo"], jawab:2, penjelasan:"Guru K.H. Ahmad Dahlan antara lain Kyai Nawawi, Kyai Muhammad Khatib, Kyai Mas Abdullah, dan Kyai Faqih Maskumambang."},
+  {q:"Berikut ini adalah tokoh ulama nusantara yang menjadi guru K.H. Ahmad Dahlan, KECUALI...", opts:["Kyai Faqih Maskumambang","Kyai Muhammad Khatib","Sunan Kalijaga"], jawab:2, penjelasan:"Sunan Kalijaga bukan termasuk daftar guru K.H. Ahmad Dahlan yang disebutkan."},
+  // ---- Ciri pelajar Muhammadiyah ----
+  {q:"Berikut ini termasuk ciri-ciri pelajar Muhammadiyah, KECUALI...", opts:["Disiplin dan tepat waktu","Berani memperjuangkan kebenaran","Suka menunda-nunda pekerjaan"], jawab:2, penjelasan:"Ciri pelajar Muhammadiyah adalah disiplin dan tepat waktu, bukan suka menunda pekerjaan."},
+  {q:"Ciri pelajar Muhammadiyah dalam kegiatan masjid adalah...", opts:["Aktif dalam kegiatan masjid di lingkungan rumah","Malas ke masjid","Hanya datang saat hari raya"], jawab:0, penjelasan:"Pelajar Muhammadiyah aktif dalam kegiatan yang diadakan di masjid lingkungan rumah."},
+  {q:"Sikap saling bekerja sama dan membantu teman dilakukan dalam hal...", opts:["Kebaikan","Keburukan","Kecurangan saat ujian"], jawab:0, penjelasan:"Pelajar Muhammadiyah saling bekerja sama dan membantu teman dalam hal kebaikan."},
+  // ---- Menghormati orang tua ----
+  {q:"Berikut ini termasuk cara menghormati orang tua, KECUALI...", opts:["Berbicara dengan sopan dan santun","Menyela pembicaraan orang tua","Mendengarkan nasihat orang tua"], jawab:1, penjelasan:"Menghormati orang tua berarti tidak menyela pembicaraan mereka."},
+  {q:"Cara menghormati orang tua yang tepat adalah...", opts:["Membantu pekerjaan orang tua","Membantah nasihat orang tua","Bersikap sombong kepada orang tua"], jawab:0, penjelasan:"Salah satu cara menghormati orang tua adalah membantu pekerjaan mereka."},
+  {q:"Kita sebaiknya mendo'akan orang tua agar...", opts:["Selalu sehat dan diberi kebaikan","Cepat marah","Sering sedih"], jawab:0, penjelasan:"Kita mendo'akan kesehatan dan kebaikan untuk orang tua."},
+  {q:"Sikap rendah hati terhadap orang tua ditunjukkan dengan...", opts:["Tidak sombong dan menghargai mereka","Merasa lebih pintar dari orang tua","Menganggap orang tua tidak penting"], jawab:0, penjelasan:"Bersikap rendah hati terhadap orang tua adalah salah satu cara menghormati mereka."},
+  // ---- Menghormati guru ----
+  {q:"Berikut ini termasuk cara menghormati guru, KECUALI...", opts:["Mendengarkan penjelasan guru","Menghina guru","Mengucap salam saat masuk kelas"], jawab:1, penjelasan:"Menghormati guru berarti tidak menghina guru."},
+  {q:"Saat masuk kelas, sebaiknya kita...", opts:["Langsung duduk tanpa salam","Mengucap salam","Berteriak memanggil guru"], jawab:1, penjelasan:"Masuk kelas dengan mengucap salam adalah cara menghormati guru."},
+  {q:"Saat berpapasan dengan guru, sikap yang tepat adalah...", opts:["Mengucap salam dan berjabat tangan","Berlari menghindar","Diam saja pura-pura tidak lihat"], jawab:0, penjelasan:"Mengucap salam dan berjabat tangan saat berpapasan dengan guru menunjukkan sikap hormat."},
+  // ---- Adab dan sikap sehari-hari ----
+  {q:"Kalimat yang diucapkan saat terlambat masuk kelas adalah...", opts:["Salam dan minta maaf kepada guru","Diam dan langsung duduk","Menyalahkan teman"], jawab:0, penjelasan:"Saat terlambat, sebaiknya mengucap salam dan meminta maaf kepada guru."},
+  {q:"Tindakan yang kita lakukan saat ada teman yang ingin mengambil barang tanpa izin adalah...", opts:["Diam saja","Menegur","Ikut mengambil barang"], jawab:1, penjelasan:"Kita sebaiknya menegur teman yang ingin mengambil barang tanpa izin."},
+  {q:"Arum meminta izin ke kamar mandi, tetapi pak guru menemukan dia sedang jajan di kantin. Sikap yang harus ditunjukkan Arum adalah...", opts:["Mengaku bersalah dan berjanji tidak mengulanginya","Berbohong lagi kepada guru","Marah kepada guru"], jawab:0, penjelasan:"Sikap yang benar adalah mengaku bersalah dan berjanji tidak akan mengulangi perbuatannya."},
+  {q:"Sikap yang ditunjukkan saat mendengar teman mendapatkan juara pertama adalah...", opts:["Iri dan sedih","Merasa bangga dan termotivasi untuk berprestasi","Acuh tak acuh"], jawab:1, penjelasan:"Sikap yang tepat adalah merasa bangga dan termotivasi untuk ikut berprestasi."},
+  {q:"Jika kita berbuat salah, sikap yang paling baik adalah...", opts:["Menyalahkan orang lain","Mengaku dan meminta maaf","Berpura-pura tidak tahu"], jawab:1, penjelasan:"Sikap yang baik adalah mengaku bersalah dan meminta maaf."},
+  {q:"Jika melihat teman kesulitan membawa barang, sikap kita sebaiknya...", opts:["Membantu membawakannya","Menertawakannya","Membiarkannya saja"], jawab:0, penjelasan:"Saling membantu teman termasuk sikap terpuji sebagai pelajar Muhammadiyah."},
+];
+
+let soalTerpakai = [];
+let jawabanUser = [];
+
+function acak(array){
+  const a = array.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function buatSoal(){
+  const jumlahSoal = Math.min(30, bankSoal.length);
+  const terpilih = acak(bankSoal).slice(0, jumlahSoal);
+  soalTerpakai = terpilih.map(item=>{
+    const urutan = acak([0,1,2]);
+    const opsiBaru = urutan.map(i=>item.opts[i]);
+    const jawabBaru = urutan.indexOf(item.jawab);
+    return {q:item.q, opts:opsiBaru, jawab:jawabBaru, penjelasan:item.penjelasan};
+  });
+  jawabanUser = new Array(soalTerpakai.length).fill(null);
+  render();
+  document.getElementById('area-soal').style.display = 'block';
+  document.getElementById('hasil').style.display = 'none';
+  document.getElementById('progress-bar').style.display = 'block';
+  document.getElementById('btn-selesai').style.display = 'inline-block';
+  updateProgress();
+  window.scrollTo({top: document.getElementById('area-soal').offsetTop - 60, behavior:'smooth'});
+}
+
+function render(){
+  const kode = ['A','B','C'];
+  const wrap = document.getElementById('area-soal');
+  wrap.innerHTML = '';
+  soalTerpakai.forEach((s, idx)=>{
+    const div = document.createElement('div');
+    div.className = 'soal-item';
+    let pilihanHTML = '';
+    s.opts.forEach((opt, i)=>{
+      pilihanHTML += `<button class="pilihan" data-soal="${idx}" data-pilih="${i}">
+        <span class="kode">${kode[i]}</span>${opt}
+      </button>`;
+    });
+    div.innerHTML = `
+      <div><span class="soal-nomor">Soal ${idx+1}</span></div>
+      <div class="soal-teks">${s.q}</div>
+      ${pilihanHTML}
+      <div class="penjelasan" id="penjelasan-${idx}"></div>
+    `;
+    wrap.appendChild(div);
+  });
+
+  document.querySelectorAll('.pilihan').forEach(btn=>{
+    btn.addEventListener('click', function(){
+      const soalIdx = parseInt(this.dataset.soal);
+      const pilihIdx = parseInt(this.dataset.pilih);
+      if(jawabanUser[soalIdx] !== null) return;
+      jawabanUser[soalIdx] = pilihIdx;
+      const semuaPilihan = document.querySelectorAll(`.pilihan[data-soal="${soalIdx}"]`);
+      const jawabanBenar = soalTerpakai[soalIdx].jawab;
+      semuaPilihan.forEach(p=>{
+        p.classList.add('terkunci');
+        const pIdx = parseInt(p.dataset.pilih);
+        if(pIdx === jawabanBenar) p.classList.add('benar');
+        else if(pIdx === pilihIdx) p.classList.add('salah');
+      });
+      const pj = document.getElementById(`penjelasan-${soalIdx}`);
+      const kodeHuruf = ['A','B','C'];
+      pj.style.display = 'block';
+      pj.innerHTML = `<b>Jawaban benar: ${kodeHuruf[jawabanBenar]}. ${soalTerpakai[soalIdx].opts[jawabanBenar]}</b><br>${soalTerpakai[soalIdx].penjelasan}`;
+      updateProgress();
+    });
+  });
+}
+
+function updateProgress(){
+  const dijawab = jawabanUser.filter(j=>j!==null).length;
+  const total = soalTerpakai.length;
+  const persen = total? (dijawab/total*100):0;
+  document.getElementById('progress-dalam').style.width = persen+'%';
+  document.getElementById('progress-teks').textContent = `${dijawab} dari ${total} soal dijawab`;
+}
+
+function tampilkanHasil(){
+  const total = soalTerpakai.length;
+  let benar = 0;
+  soalTerpakai.forEach((s, idx)=>{
+    if(jawabanUser[idx] === s.jawab) benar++;
+  });
+  const nilai100 = Math.round((benar/total)*100);
+  document.getElementById('skor-teks').textContent = `${benar} / ${total}`;
+  let pesan = '';
+  if(nilai100 >= 90) pesan = `Nilai ${nilai100} — Luar biasa! Kamu pelajar Muhammadiyah yang hebat! 🌟`;
+  else if(nilai100 >= 70) pesan = `Nilai ${nilai100} — Bagus sekali, terus belajar ya! 👍`;
+  else if(nilai100 >= 50) pesan = `Nilai ${nilai100} — Sudah cukup baik, ayo baca lagi materinya! 📚`;
+  else pesan = `Nilai ${nilai100} — Yuk baca ringkasan materi lagi lalu coba sekali lagi! 💪`;
+  document.getElementById('pesan-hasil').textContent = pesan;
+  document.getElementById('hasil').style.display = 'block';
+  document.getElementById('hasil').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+document.getElementById('btn-toggle-materi').addEventListener('click', function(){
+  const m = document.getElementById('materi');
+  m.style.display = (m.style.display === 'none' || m.style.display === '') ? 'block' : 'none';
+});
+
+document.getElementById('btn-mulai').addEventListener('click', buatSoal);
+document.getElementById('btn-selesai').addEventListener('click', function(){
+  const belumDijawab = jawabanUser.filter(j=>j===null).length;
+  if(belumDijawab > 0){
+    if(!confirm(`Masih ada ${belumDijawab} soal yang belum dijawab. Tetap lihat nilai?`)) return;
+  }
+  tampilkanHasil();
+});
+document.getElementById('btn-ulang').addEventListener('click', buatSoal);
+</script>
+</body>
+</html>
