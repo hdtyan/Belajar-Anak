@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Interaktif Kemuhammadiyahan Kelas 1</title>
+    <style>
+        body { font-family: 'Comic Sans MS', cursive, sans-serif; background-color: #f0f8ff; color: #333; padding: 20px; max-width: 900px; margin: auto; line-height: 1.6; }
+        h1 { text-align: center; color: #0056b3; }
+        h2 { color: #d2691e; border-bottom: 2px dashed #d2691e; padding-bottom: 5px; }
+        .materi { background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        .kuis-container { background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .soal { margin-bottom: 20px; font-size: 1.1em; }
+        .opsi { display: block; margin: 8px 0; background-color: #e6f7ff; padding: 10px; border-radius: 5px; cursor: pointer; border: 1px solid #b3e0ff; }
+        .opsi:hover { background-color: #ccebff; }
+        input[type="radio"] { margin-right: 10px; transform: scale(1.2); }
+        button { display: block; width: 100%; padding: 15px; font-size: 1.2em; background-color: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 20px; }
+        button:hover { background-color: #218838; }
+        #hasil { margin-top: 25px; text-align: center; font-size: 1.5em; font-weight: bold; color: #d9534f; }
+        .keterangan { font-size: 0.9em; color: #666; }
+    </style>
+</head>
+<body>
+
+    <h1>Materi & Kuis Kemuhammadiyahan Kelas 1</h1>
+
+    <!-- Bagian Materi -->
+    <div class="materi">
+        <h2>1. Amar Ma'ruf dan Nahi Munkar</h2>
+        <ul>
+            <li>Amar ma'ruf artinya mengajak atau menyeru kepada kebaikan[cite: 1].</li>
+            <li>Nahi munkar artinya mencegah kemungkaran atau keburukan[cite: 1].</li>
+            <li>Perintah untuk mengajak kebaikan dan mencegah keburukan ada di dalam surah Ali-Imran ayat 104[cite: 1].</li>
+        </ul>
+
+        <h2>2. Mengenal KH. Ahmad Dahlan</h2>
+        <ul>
+            <li>Pendiri organisasi Muhammadiyah adalah seorang ulama[cite: 1].</li>
+            <li>Nama kecil KH. Ahmad Dahlan adalah Muhammad Darwis[cite: 1].</li>
+            <li>Ayah beliau, KH. Abu Bakar, menjabat sebagai Pejabat agama Islam atau Penghulu Khatib di Kasultanan Yogyakarta[cite: 1].</li>
+            <li>KH. Ahmad Dahlan sudah pintar membaca Al-Qur'an dan khatam (selesai) 30 juz pada usia 8 tahun[cite: 1].</li>
+            <li>Beliau memperdalam ilmu agama Islam di kota Makkah[cite: 1].</li>
+            <li>Organisasi Muhammadiyah diresmikan pada tanggal 18 November 1912[cite: 1].</li>
+            <li>Karena jasanya, KH. Ahmad Dahlan mendapat gelar Pahlawan Nasional[cite: 1].</li>
+            <li>Beliau memiliki sifat disiplin, rajin, jujur, suka menolong, dan pantang menyerah[cite: 1].</li>
+            <li>Beliau dimakamkan di Karangkajen, Yogyakarta[cite: 1].</li>
+            <li>Guru KH. Ahmad Dahlan antara lain Kyai Nawawi dan Kyai Muhammad Khatib[cite: 1].</li>
+        </ul>
+
+        <h2>3. Akhlak Anak Muslim</h2>
+        <ul>
+            <li>Jika kita terlambat masuk kelas, kita harus mengucapkan salam[cite: 1].</li>
+            <li>Jika melihat teman ingin mengambil barang tanpa izin (mencuri), kita harus menegurnya[cite: 1].</li>
+            <li>Jika berbuat salah, kita harus mengaku bersalah dan berjanji tidak mengulanginya lagi[cite: 1].</li>
+            <li>Cara menghormati orang tua adalah dengan berbicara sopan, mendengarkan nasihat, dan mendoakan kesehatannya[cite: 1].</li>
+            <li>Cara menghormati guru adalah dengan mengucapkan salam, berjabat tangan, dan mendengarkan penjelasannya di kelas[cite: 1].</li>
+        </ul>
+    </div>
+
+    <!-- Bagian Kuis -->
+    <div class="kuis-container">
+        <h2 style="text-align:center; color:#28a745;">Ayo Kerjakan Soal di Bawah Ini!</h2>
+        <form id="kuisForm">
+            <!-- Soal di-generate via JavaScript agar kodenya rapi -->
+            <div id="daftarSoal"></div>
+            <button type="button" onclick="hitungSkor()">Kumpulkan Jawaban</button>
+        </form>
+        <div id="hasil"></div>
+    </div>
+
+    <script>
+        const soalKuis = [
+            {
+                q: "1. Mengajak teman berbuat baik disebut...[cite: 1]",
+                a: "A. Amar ma'ruf",
+                b: "B. Nahi munkar",
+                c: "C. Menangis",
+                ans: "a"
+            },
+            {
+                q: "2. Mencegah teman berbuat buruk disebut...[cite: 1]",
+                a: "A. Amar ma'ruf",
+                b: "B. Nahi munkar",
+                c: "C. Bermain",
+                ans: "b"
+            },
+            {
+                q: "3. Jika ada teman membuang sampah sembarangan, kita harus...[cite: 1]",
+                a: "A. Ikut membuang sampah",
+                b: "B. Menegurnya",
+                c: "C. Bertepuk tangan",
+                ans: "b"
+            },
+            {
+                q: "4. Perintah mengajak kebaikan ada di dalam surah...[cite: 1]",
+                a: "A. Al-Fatihah",
+                b: "B. An-Nas",
+                c: "C. Ali-Imran ayat 104",
+                ans: "c"
+            },
+            {
+                q: "5. Nama kecil KH. Ahmad Dahlan adalah...[cite: 1]",
+                a: "A. Muhammad Darwis",
+                b: "B. Muhammad Ali",
+                c: "C. Muhammad Hasan",
+                ans: "a"
+            },
+            {
+                q: "6. Pendiri organisasi Muhammadiyah adalah seorang...[cite: 1]",
+                a: "A. Ulama",
+                b: "B. Polisi",
+                c: "C. Dokter",
+                ans: "a"
+            },
+            {
+                q: "7. KH. Ahmad Dahlan sudah khatam Al-Qur'an sejak usia...[cite: 1]",
+                a: "A. 5 tahun",
+                b: "B. 8 tahun",
+                c: "C. 12 tahun",
+                ans: "b"
+            },
+            {
+                q: "8. Ayah KH. Ahmad Dahlan menjabat sebagai Pejabat agama yang bergelar...[cite: 1]",
+                a: "A. Pahlawan",
+                b: "B. Jenderal",
+                c: "C. Penghulu Khatib",
+                ans: "c"
+            },
+            {
+                q: "9. KH. Ahmad Dahlan belajar agama Islam di kota...[cite: 1]",
+                a: "A. Makkah",
+                b: "B. Jakarta",
+                c: "C. Yogyakarta",
+                ans: "a"
+            },
+            {
+                q: "10. Organisasi Muhammadiyah didirikan pada tanggal 18 November tahun...[cite: 1]",
+                a: "A. 1912",
+                b: "B. 1945",
+                c: "C. 2000",
+                ans: "a"
+            },
+            {
+                q: "11. KH. Ahmad Dahlan mendapatkan gelar dari pemerintah sebagai...[cite: 1]",
+                a: "A. Guru Sekolah",
+                b: "B. Pahlawan Nasional",
+                c: "C. Pejabat",
+                ans: "b"
+            },
+            {
+                q: "12. Makam KH. Ahmad Dahlan ada di daerah...[cite: 1]",
+                a: "A. Karangkajen",
+                b: "B. Makkah",
+                c: "C. Jakarta",
+                ans: "a"
+            },
+            {
+                q: "13. Sifat KH. Ahmad Dahlan yang harus kita tiru adalah...[cite: 1]",
+                a: "A. Pemalas",
+                b: "B. Jujur dan rajin",
+                c: "C. Suka marah",
+                ans: "b"
+            },
+            {
+                q: "14. Salah satu guru dari KH. Ahmad Dahlan adalah Kyai...[cite: 1]",
+                a: "A. Nawawi",
+                b: "B. Ahmad",
+                c: "C. Darwis",
+                ans: "a"
+            },
+            {
+                q: "15. Jika terlambat masuk ke dalam kelas, kita harus...[cite: 1]",
+                a: "A. Langsung duduk",
+                b: "B. Mengucapkan salam",
+                c: "C. Berlari kencang",
+                ans: "b"
+            },
+            {
+                q: "16. Jika ada teman yang mendapat juara satu, sikap kita sebaiknya...[cite: 1]",
+                a: "A. Marah",
+                b: "B. Menangis",
+                c: "C. Merasa bangga/senang",
+                ans: "c"
+            },
+            {
+                q: "17. Jika kita ketahuan bersalah, kita harus...[cite: 1]",
+                a: "A. Lari sembunyi",
+                b: "B. Mengaku bersalah dan minta maaf",
+                c: "C. Menyalahkan teman",
+                ans: "b"
+            },
+            {
+                q: "18. Kepada orang tua, kita harus berbicara dengan nada yang...[cite: 1]",
+                a: "A. Keras",
+                b: "B. Sopan dan santun",
+                c: "C. Membentak",
+                ans: "b"
+            },
+            {
+                q: "19. Saat berpapasan dengan guru di jalan, kita harus mengucapkan...[cite: 1]",
+                a: "A. Diam saja",
+                b: "B. Salam",
+                c: "C. Selamat tinggal",
+                ans: "b"
+            },
+            {
+                q: "20. Saat bapak atau ibu guru sedang menjelaskan pelajaran, kita harus...[cite: 1]",
+                a: "A. Mendengarkan",
+                b: "B. Tidur",
+                c: "C. Bermain",
+                ans: "a"
+            },
+            {
+                q: "21. Anak yang baik selalu rajin ... orang tua di rumah.[cite: 1]",
+                a: "A. Membantu",
+                b: "B. Memarahi",
+                c: "C. Mengganggu",
+                ans: "a"
+            },
+            {
+                q: "22. Ciri anak Muhammadiyah adalah berani membela...[cite: 1]",
+                a: "A. Kebenaran",
+                b: "B. Kebohongan",
+                c: "C. Kesalahan",
+                ans: "a"
+            },
+            {
+                q: "23. Anak Muhammadiyah selalu ... dalam melakukan kegiatan.[cite: 1]",
+                a: "A. Terlambat",
+                b: "B. Disiplin",
+                c: "C. Malas",
+                ans: "b"
+            },
+            {
+                q: "24. Agar orang tua sehat dan panjang umur, kita harus rajin...[cite: 1]",
+                a: "A. Mendoakan",
+                b: "B. Meminta uang",
+                c: "C. Jajan",
+                ans: "a"
+            },
+            {
+                q: "25. Jika disuruh ibu menyapu rumah, kita harus...[cite: 1]",
+                a: "A. Menolak",
+                b: "B. Melaksanakannya",
+                c: "C. Pura-pura tidur",
+                ans: "b"
+            },
+            {
+                q: "26. Saat teman jatuh dan terluka, perbuatan amar ma'ruf kita adalah...[cite: 1]",
+                a: "A. Menertawakan",
+                b: "B. Meninggalkan",
+                c: "C. Menolong",
+                ans: "c"
+            },
+            {
+                q: "27. Mencuci baju sendiri adalah contoh anak yang...[cite: 1]",
+                a: "A. Mandiri",
+                b: "B. Malas",
+                c: "C. Nakal",
+                ans: "a"
+            },
+            {
+                q: "28. Anak yang baik tidak akan pernah ... kepada orang tuanya.[cite: 1]",
+                a: "A. Berbohong",
+                b: "B. Membantu",
+                c: "C. Menyayangi",
+                ans: "a"
+            },
+            {
+                q: "29. Di sekolah, kita harus saling bekerja sama dalam hal...[cite: 1]",
+                a: "A. Mencuri",
+                b: "B. Kebaikan",
+                c: "C. Berkelahi",
+                ans: "b"
+            },
+            {
+                q: "30. Berbakti kepada guru membuat ilmu kita menjadi...[cite: 1]",
+                a: "A. Hilang",
+                b: "B. Bermanfaat/Berkah",
+                c: "C. Lupa",
+                ans: "b"
+            }
+        ];
+
+        const daftarSoalDiv = document.getElementById("daftarSoal");
+        let htmlSoal = "";
+
+        soalKuis.forEach((item, index) => {
+            htmlSoal += `
+                <div class="soal">
+                    <p><strong>${item.q}</strong></p>
+                    <label class="opsi"><input type="radio" name="soal${index}" value="a"> ${item.a}</label>
+                    <label class="opsi"><input type="radio" name="soal${index}" value="b"> ${item.b}</label>
+                    <label class="opsi"><input type="radio" name="soal${index}" value="c"> ${item.c}</label>
+                </div>
+            `;
+        });
+        
+        daftarSoalDiv.innerHTML = htmlSoal;
+
+        function hitungSkor() {
+            let skor = 0;
+            let belumDijawab = false;
+
+            soalKuis.forEach((item, index) => {
+                const jawaban = document.querySelector(`input[name="soal${index}"]:checked`);
+                if (jawaban) {
+                    if (jawaban.value === item.ans) {
+                        skor++;
+                    }
+                } else {
+                    belumDijawab = true;
+                }
+            });
+
+            const nilaiAkhir = Math.round((skor / 30) * 100);
+            const hasilDiv = document.getElementById("hasil");
+            
+            if (belumDijawab) {
+                alert("Mohon jawab semua soal terlebih dahulu ya!");
+            } else {
+                hasilDiv.innerHTML = `Selamat! Kamu menjawab benar ${skor} dari 30 soal.<br>Nilai Kamu: ${nilaiAkhir}`;
+                if (nilaiAkhir === 100) {
+                    hasilDiv.style.color = "#28a745";
+                } else if (nilaiAkhir >= 70) {
+                    hasilDiv.style.color = "#ffc107";
+                } else {
+                    hasilDiv.style.color = "#dc3545";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

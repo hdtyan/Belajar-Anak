@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi dan Kuis Kemuhammadiyahan Kelas 1</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4faeb;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2e8b57;
+            text-align: center;
+        }
+        .materi-section {
+            background-color: #e6ffe6;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 5px solid #2e8b57;
+        }
+        .materi-title {
+            background-color: #2e8b57;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 0;
+            font-size: 1.2em;
+            text-align: left;
+        }
+        .materi-text {
+            font-size: 1.1em;
+        }
+        ul {
+            margin-top: 5px;
+        }
+        .quiz-section {
+            background-color: #fff8dc;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px dashed #daa520;
+            margin-top: 40px;
+        }
+        .question-card {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .question-text {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #444;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            padding: 8px;
+            border-radius: 5px;
+            transition: background 0.2s;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+        }
+        .options label:hover {
+            background-color: #f0e68c;
+        }
+        .options input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        .btn {
+            display: inline-block;
+            background-color: #2e8b57;
+            color: white;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #246b43;
+        }
+        .btn-secondary {
+            background-color: #daa520;
+        }
+        .btn-secondary:hover {
+            background-color: #b8860b;
+        }
+        .result-container {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e0ffff;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .correct { color: green; font-weight: bold; }
+        .incorrect { color: red; font-weight: bold; }
+        .ayat {
+            font-size: 1.5em;
+            text-align: right;
+            direction: rtl;
+            font-family: serif;
+            margin: 10px 0;
+            color: #1a5233;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📚 Materi Pelajaran Kelas 1 📚</h1>
+
+    <!-- BAB I -->
+    <h2 style="margin-top:30px; border-bottom: 2px solid #2e8b57; padding-bottom: 10px;">BAB I <br>MENJALANKAN AJARAN AGAMA ISLAM MENURUT PAHAM MUHAMMADIYAH</h2>
+
+    <div class="materi-section">
+        <h3 class="materi-title">a. Pendahuluan</h3>
+        <div class="materi-text">
+            <p>Agama Islam adalah agama yang dibawa oleh Nabi Muhammad SAW. Nabi Muhammad adalah utusan Allah SWT. Dengan agama inilah Allah menutup agama-agama sebelumnya.</p>
+            <p>Allah telah menyempurnakan agama Islam ini bagi hamba-hamba-Nya dan meridhai Islam sebagai agama yang harus kita peluk. Sesuai dengan firman Allah dalam Surat Al-Maidah ayat 3:</p>
+            <div class="ayat">... اَلْيَوْمَ اَكْمَلْتُ لَكُمْ دِيْنَكُمْ وَاَتْمَمْتُ عَلَيْكُمْ نِعْمَتِيْ وَرَضِيْتُ لَكُمُ الْاِسْلَامَ دِيْنًا ...</div>
+            <p><em>Artinya: "Pada hari ini telah Aku sempurnakan agamamu untukmu, telah Aku cukupkan nikmat-Ku bagimu, dan telah Aku ridhai Islam sebagai agamamu."</em></p>
+        </div>
+    </div>
+
+    <div class="materi-section">
+        <h3 class="materi-title">b. Beriman Kepada Allah SWT</h3>
+        <div class="materi-text">
+            <p>Sebagai umat Islam kita harus senantiasa beriman kepada Allah SWT. <b>Iman artinya percaya</b>. Kita harus yakin adanya Allah sebagai Tuhan seluruh alam serta meyakini bahwa Allah Maha Kekal Abadi.</p>
+            <p>Tanda-tanda orang yang beriman kepada Allah contohnya adalah:</p>
+            <ul>
+                <li>Melaksanakan salat lima waktu atau salat fardu</li>
+                <li>Puasa pada bulan Ramadan</li>
+                <li>Membaca Al-Qur'an, dan lain sebagainya.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="materi-section">
+        <h3 class="materi-title">c. Hormat Terhadap Orang Tua</h3>
+        <div class="materi-text">
+            <p>Orang tua adalah orang yang telah mengasuh dan mendidik kita. Islam mengajarkan umatnya untuk hormat dan patuh pada orang tua, karena itu adalah akhlak mulia.</p>
+            <p>Orang tua kita di rumah adalah ayah dan ibu. Ayah bekerja keras mencukupi keluarga, ibu mengasuh dan melahirkan kita.</p>
+            <p>Orang tua kita di sekolah adalah bapak dan ibu guru yang mendidik kita dari tidak tahu menjadi tahu.</p>
+            <p><b>Contoh perilaku menghormati orang tua:</b></p>
+            <ul>
+                <li>Tidak membentak dan tidak berkata kasar</li>
+                <li>Mendengarkan nasehat kedua orang tua</li>
+                <li>Membantu pekerjaan kedua orang tua</li>
+                <li>Mendoakan orang tua agar sehat, panjang umur, dan dimudahkan rezekinya</li>
+                <li>Meminta ijin jika akan keluar rumah</li>
+                <li>Merawat orang tua jika sakit.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="materi-section">
+        <h3 class="materi-title">d. Sayang Terhadap Teman</h3>
+        <div class="materi-text">
+            <p>Teman adalah orang yang umurnya hampir sama dengan kita. Teman bisa didapat di dekat rumah (tetangga), sekolah, atau masjid.</p>
+            <p>Agar pertemanan kita selalu baik, yang sebaiknya kita lakukan adalah:</p>
+            <ul>
+                <li>Tidak egois (tidak ingin menang sendiri)</li>
+                <li>Tidak mudah marah</li>
+                <li>Memiliki sifat jujur</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- BAB II -->
+    <h2 style="margin-top:40px; border-bottom: 2px solid #2e8b57; padding-bottom: 10px;">BAB II <br>PENDIRI MUHAMMADIYAH</h2>
+
+    <div class="materi-section">
+        <h3 class="materi-title">a. Masa Kecil Kyai Haji Ahmad Dahlan</h3>
+        <div class="materi-text">
+            <p>Muhammadiyah didirikan oleh <b>Kyai Haji Ahmad Dahlan</b>. Nama kecilnya adalah <b>Muhammad Darwis</b>. Beliau lahir di kampung Kauman Yogyakarta, pada tanggal 1 Agustus 1868.</p>
+            <p>Nama ayahnya adalah Kyai Haji Abu Bakar (seorang ulama dan khatib di masjid besar Kasultanan Yogyakarta). Ibunya bernama Siti Aminah. Istri K.H. Ahmad Dahlan bernama Siti Walidah.</p>
+            <p>Sejak kecil beliau rajin, jujur, pandai, ulet, dan suka menolong. Pada usia 8 tahun, Muhammad Darwis sudah mahir membaca Al Qur'an dan hafal 30 juz.</p>
+        </div>
+    </div>
+
+    <div class="materi-section">
+        <h3 class="materi-title">b. Belajar ke Kota Makkah</h3>
+        <div class="materi-text">
+            <p>Pada usia remaja, beliau memperdalam agama, belajar fiqh ke Kyai Haji Muhammad Saleh dan ilmu nahwu ke Kyai Haji Muchsin.</p>
+            <p>Pada usia 15 tahun (tahun 1883), Muhammad Darwis berangkat ke Makkah menunaikan ibadah haji dan menetap 5 tahun untuk memperdalam ilmu agama.</p>
+            <p>Pada usia 22 tahun (tahun 1890), beliau kembali pergi haji. Sepulang dari Makkah, Muhammad Darwis berganti nama menjadi <b>Ahmad Dahlan</b>.</p>
+            <p>Ahmad Dahlan sering menggantikan ayahnya mengajar agama. Beliau mendapat julukan <b>Kyai</b> karena kemampuan agamanya yang tinggi.</p>
+        </div>
+    </div>
+
+    <div class="materi-section">
+        <h3 class="materi-title">c. Mendirikan Muhammadiyah</h3>
+        <div class="materi-text">
+            <p>Sepulang dari Makkah, K.H. Ahmad Dahlan mendirikan pondok (asrama) untuk murid-murid dari berbagai daerah. Beliau juga mengajar di sekolah umum seperti Kweekschool dan OSVIA.</p>
+            <p>K.H. Ahmad Dahlan menemukan petunjuk di <b>Al-Qur'an Surat Al-Imran ayat 104</b> yang mengajarkan manusia untuk beramar ma'ruf nahi mungkar.</p>
+            <ul>
+                <li><b>Amar ma'ruf</b> artinya mengajak kebaikan.</li>
+                <li><b>Nahi mungkar</b> artinya mencegah kejahatan.</li>
+            </ul>
+            <p>Ayat inilah yang memantapkan hatinya untuk mendirikan <b>Muhammadiyah</b> pada tanggal <b>8 Dzulhijjah 1330 H</b> atau <b>18 November 1912 M</b> di Yogyakarta.</p>
+            <p>Tujuannya adalah mengajak umat Islam Indonesia kembali berpedoman pada Al-Qur'an dan Al-Hadits.</p>
+        </div>
+    </div>
+
+    <!-- KUIS SECTION -->
+    <h1 style="margin-top: 50px;">📝 Kuis Interaktif (30 Soal) 📝</h1>
+    
+    <div class="quiz-section">
+        <p style="text-align: center; font-size: 1.1em; font-weight: bold; color: #555;">Jawablah soal-soal di bawah ini dengan memilih huruf A, B, atau C!</p>
+        <div id="quiz-container"></div>
+        
+        <div style="text-align: center;">
+            <button class="btn" onclick="submitQuiz()" id="submit-btn">Kumpulkan Jawaban</button>
+            <button class="btn btn-secondary" onclick="generateQuiz()" id="reload-btn">🔄 Generate Ulang Soal Baru</button>
+        </div>
+
+        <div class="result-container" id="result-container">
+            Nilai Kamu: <span id="score"></span> / 100
+            <br>
+            <span id="score-message" style="font-size: 0.8em; color: #555;"></span>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Bank Soal (Total 45 Soal)
+    const questionBank = [
+        { q: "Agama Islam dibawa oleh nabi...", options: ["Adam a.s.", "Ibrahim a.s.", "Muhammad SAW"], answer: "Muhammad SAW" },
+        { q: "Agama penutup dan penyempurna yang diturunkan Allah adalah...", options: ["Islam", "Kristen", "Hindu"], answer: "Islam" },
+        { q: "Surat dalam Al-Qur'an yang menjelaskan agama Islam telah disempurnakan adalah...", options: ["Al-Fatihah", "Al-Maidah ayat 3", "Al-Ikhlas"], answer: "Al-Maidah ayat 3" },
+        { q: "Arti kata iman adalah...", options: ["Bohong", "Percaya", "Ragu"], answer: "Percaya" },
+        { q: "Kita harus yakin bahwa Allah adalah Tuhan seluruh...", options: ["Sekolah", "Alam", "Kota"], answer: "Alam" },
+        { q: "Salah satu tanda orang beriman adalah melaksanakan...", options: ["Main game seharian", "Salat lima waktu", "Tidur sampai sore"], answer: "Salat lima waktu" },
+        { q: "Puasa wajib bagi umat Islam dilaksanakan pada bulan...", options: ["Syawal", "Muharram", "Ramadan"], answer: "Ramadan" },
+        { q: "Kitab suci umat Islam yang harus sering kita baca adalah...", options: ["Buku cerita", "Al-Qur'an", "Majalah dinding"], answer: "Al-Qur'an" },
+        { q: "Orang yang telah mengasuh dan mendidik kita di rumah adalah...", options: ["Guru", "Orang tua", "Teman"], answer: "Orang tua" },
+        { q: "Sikap kita kepada orang tua di rumah harus...", options: ["Hormat dan patuh", "Selalu melawan", "Suka membentak"], answer: "Hormat dan patuh" },
+        { q: "Ayah bekerja keras setiap hari untuk mencukupi kebutuhan...", options: ["Tetangga", "Keluarga", "Dirinya sendiri"], answer: "Keluarga" },
+        { q: "Orang tua kita saat berada di sekolah adalah...", options: ["Bapak dan ibu guru", "Penjaga sekolah", "Teman sekelas"], answer: "Bapak dan ibu guru" },
+        { q: "Guru mendidik kita di sekolah agar dari tidak tahu menjadi...", options: ["Lupa", "Tahu dan pintar", "Tidur"], answer: "Tahu dan pintar" },
+        { q: "Contoh sikap menghormati orang tua di rumah adalah...", options: ["Membentak ibu", "Berkata kasar pada ayah", "Mendengarkan nasehatnya"], answer: "Mendengarkan nasehatnya" },
+        { q: "Jika akan pergi keluar rumah untuk bermain, kita sebaiknya...", options: ["Diam saja", "Meminta ijin orang tua", "Langsung lari"], answer: "Meminta ijin orang tua" },
+        { q: "Teman adalah orang yang umurnya...", options: ["Sangat tua", "Sangat muda seperti bayi", "Hampir sama dengan kita"], answer: "Hampir sama dengan kita" },
+        { q: "Agar pertemanan selalu baik, kita tidak boleh memiliki sifat...", options: ["Pemaaf", "Egois (menang sendiri)", "Jujur"], answer: "Egois (menang sendiri)" },
+        { q: "Sifat yang sangat disukai oleh teman adalah...", options: ["Suka bohong", "Jujur", "Pemarah"], answer: "Jujur" },
+        { q: "Organisasi Muhammadiyah didirikan oleh...", options: ["K.H. Hasyim Asyari", "K.H. Ahmad Dahlan", "Pangeran Diponegoro"], answer: "K.H. Ahmad Dahlan" },
+        { q: "Nama kecil dari K.H. Ahmad Dahlan adalah...", options: ["Muhammad Darwis", "Muhammad Hatta", "Muhammad Saleh"], answer: "Muhammad Darwis" },
+        { q: "K.H. Ahmad Dahlan lahir di kampung...", options: ["Kotagede", "Kauman Yogyakarta", "Sleman"], answer: "Kauman Yogyakarta" },
+        { q: "Ayah K.H. Ahmad Dahlan bernama...", options: ["K.H. Abu Bakar", "K.H. Muchsin", "K.H. Ibrahim"], answer: "K.H. Abu Bakar" },
+        { q: "Ibu K.H. Ahmad Dahlan bernama...", options: ["Siti Walidah", "Siti Aminah", "Siti Khadijah"], answer: "Siti Aminah" },
+        { q: "Istri dari K.H. Ahmad Dahlan bernama...", options: ["Siti Aminah", "Siti Aisyah", "Siti Walidah"], answer: "Siti Walidah" },
+        { q: "Pada usia 8 tahun, Muhammad Darwis sudah mahir membaca...", options: ["Koran", "Al-Qur'an", "Buku pelajaran"], answer: "Al-Qur'an" },
+        { q: "Sejak kecil K.H. Ahmad Dahlan memiliki sifat...", options: ["Pemalas", "Jujur dan suka menolong", "Suka marah"], answer: "Jujur dan suka menolong" },
+        { q: "K.H. Ahmad Dahlan belajar ilmu agama hingga ke kota...", options: ["Makkah", "Jakarta", "Malaysia"], answer: "Makkah" },
+        { q: "Saat usia 15 tahun, Muhammad Darwis berangkat ke Makkah untuk...", options: ["Berdagang", "Ibadah Haji dan belajar agama", "Bermain"], answer: "Ibadah Haji dan belajar agama" },
+        { q: "Setelah pulang dari Makkah, Muhammad Darwis berganti nama menjadi...", options: ["Muhammad Hatta", "Ahmad Dahlan", "Abu Bakar"], answer: "Ahmad Dahlan" },
+        { q: "K.H. Ahmad Dahlan sering menggantikan ayahnya untuk mengajar...", options: ["Matematika", "Agama Islam", "Olahraga"], answer: "Agama Islam" },
+        { q: "Sebutan 'Kyai' diberikan kepada Ahmad Dahlan karena...", options: ["Kekayaannya", "Kemampuan agamanya", "Pakaiannya yang bagus"], answer: "Kemampuan agamanya" },
+        { q: "Selain mendirikan pondok, K.H. Ahmad Dahlan juga diminta mengajar agama di sekolah umum bernama...", options: ["Kweekschool", "Taman Kanak-kanak", "Universitas"], answer: "Kweekschool" },
+        { q: "Ayat Al-Qur'an yang memantapkan hati K.H. Ahmad Dahlan mendirikan Muhammadiyah adalah...", options: ["Al-Ikhlas", "Al-Fatihah", "Ali Imran ayat 104"], answer: "Ali Imran ayat 104" },
+        { q: "Arti dari Amar Ma'ruf adalah...", options: ["Mengajak kebaikan", "Mencegah kejahatan", "Berbuat dosa"], answer: "Mengajak kebaikan" },
+        { q: "Arti dari Nahi Mungkar adalah...", options: ["Berbuat baik", "Mencegah kejahatan", "Mengajak teman bermain"], answer: "Mencegah kejahatan" },
+        { q: "Muhammadiyah didirikan di kota...", options: ["Jakarta", "Surakarta", "Yogyakarta"], answer: "Yogyakarta" },
+        { q: "Organisasi Muhammadiyah didirikan pada tanggal...", options: ["17 Agustus 1945", "18 November 1912", "1 Januari 2000"], answer: "18 November 1912" },
+        { q: "Tujuan berdirinya Muhammadiyah adalah mengajak umat Islam berpedoman pada...", options: ["Al-Qur'an dan Al-Hadits", "Majalah cerita", "Buku dongeng"], answer: "Al-Qur'an dan Al-Hadits" },
+        { q: "Sikap K.H. Ahmad Dahlan yang ulet dan pandai patut kita...", options: ["Jauhi", "Contoh", "Biarkan"], answer: "Contoh" },
+        { q: "Membantu pekerjaan orang tua di rumah adalah perbuatan yang...", options: ["Buruk", "Baik (Terpuji)", "Dilarang"], answer: "Baik (Terpuji)" },
+        { q: "Saat orang tua sedang sakit, yang harus kita lakukan adalah...", options: ["Memarahinya", "Merawatnya", "Meninggalkannya bermain"], answer: "Merawatnya" },
+        { q: "Mendoakan orang tua adalah tugas...", options: ["Seorang anak", "Orang lewat", "Tetangga jauh"], answer: "Seorang anak" },
+        { q: "Terhadap teman kita tidak boleh...", options: ["Sayang", "Mudah marah", "Saling menolong"], answer: "Mudah marah" },
+        { q: "Bapak Abu Bakar, ayah dari KH Ahmad Dahlan bekerja sebagai...", options: ["Pedagang pasar", "Khatib di masjid", "Petani di sawah"], answer: "Khatib di masjid" },
+        { q: "Di rumah, ibu sangat berjasa kepada kita karena telah...", options: ["Mengasuh dan melahirkan kita", "Membiarkan kita main", "Meninggalkan kita di rumah"], answer: "Mengasuh dan melahirkan kita" }
+    ];
+
+    let currentQuestions = [];
+
+    // Fungsi untuk mengacak array (Fisher-Yates shuffle)
+    function shuffleArray(array) {
+        let currentIndex = array.length, randomIndex;
+        while (currentIndex != 0) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+        }
+        return array;
+    }
+
+    // Fungsi untuk menampilkan kuis
+    function generateQuiz() {
+        const container = document.getElementById('quiz-container');
+        const resultContainer = document.getElementById('result-container');
+        container.innerHTML = '';
+        resultContainer.style.display = 'none';
+        document.getElementById('submit-btn').style.display = 'inline-block';
+        
+        // Ambil 30 soal secara acak dari bank soal
+        let shuffledBank = shuffleArray([...questionBank]);
+        currentQuestions = shuffledBank.slice(0, 30);
+
+        currentQuestions.forEach((qObj, index) => {
+            // Acak pilihan ganda
+            let options = shuffleArray([...qObj.options]);
+            let abc = ['A', 'B', 'C'];
+            
+            let card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `qcard-${index}`;
+            
+            let qText = document.createElement('div');
+            qText.className = 'question-text';
+            qText.innerHTML = `${index + 1}. ${qObj.q}`;
+            card.appendChild(qText);
+
+            let optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
+
+            options.forEach((opt, i) => {
+                let label = document.createElement('label');
+                label.innerHTML = `
+                    <input type="radio" name="q${index}" value="${opt}">
+                    <b>${abc[i]}.</b> ${opt}
+                `;
+                optionsDiv.appendChild(label);
+            });
+
+            card.appendChild(optionsDiv);
+            
+            // Tempat untuk menampilkan hasil benar/salah per soal
+            let feedback = document.createElement('div');
+            feedback.id = `feedback-${index}`;
+            feedback.style.marginTop = "10px";
+            card.appendChild(feedback);
+
+            container.appendChild(card);
+        });
+    }
+
+    // Fungsi untuk menghitung nilai
+    function submitQuiz() {
+        let correctCount = 0;
+        let answeredAll = true;
+
+        for (let i = 0; i < currentQuestions.length; i++) {
+            let selected = document.querySelector(`input[name="q${i}"]:checked`);
+            let feedback = document.getElementById(`feedback-${i}`);
+            
+            if (!selected) {
+                answeredAll = false;
+                break;
+            }
+
+            if (selected.value === currentQuestions[i].answer) {
+                correctCount++;
+                feedback.innerHTML = '<span class="correct">✔ Benar</span>';
+            } else {
+                feedback.innerHTML = `<span class="incorrect">❌ Salah</span> (Jawaban yang benar: ${currentQuestions[i].answer})`;
+            }
+            
+            // Disable radio buttons after submit
+            let radios = document.querySelectorAll(`input[name="q${i}"]`);
+            radios.forEach(r => r.disabled = true);
+        }
+
+        if (!answeredAll) {
+            alert("Halo! Pastikan kamu sudah menjawab SEMUA soal sebelum dikumpulkan ya!");
+            return;
+        }
+
+        document.getElementById('submit-btn').style.display = 'none';
+
+        let score = Math.round((correctCount / currentQuestions.length) * 100);
+        document.getElementById('score').innerText = score;
+        
+        let msg = document.getElementById('score-message');
+        if(score >= 80) msg.innerText = "Luar biasa! Kamu sangat pintar dan paham materi ini.";
+        else if(score >= 60) msg.innerText = "Bagus! Terus tingkatkan belajarmu ya.";
+        else msg.innerText = "Jangan menyerah! Yuk, baca lagi materinya dan coba lagi.";
+
+        document.getElementById('result-container').style.display = 'block';
+    }
+
+    // Load kuis saat halaman pertama dibuka
+    window.onload = generateQuiz;
+</script>
+</body>
+</html>
