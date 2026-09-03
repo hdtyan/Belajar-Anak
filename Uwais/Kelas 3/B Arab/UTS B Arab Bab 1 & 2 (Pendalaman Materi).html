@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuis PSTS Bahasa Arab - Kelas 3</title>
+<style>
+  :root{
+    --hijau-tua:#0e5a3f;
+    --hijau:#1c7a4f;
+    --hijau-muda:#e4f3ea;
+    --emas:#d1a017;
+    --emas-terang:#f3c94a;
+    --krem:#fbf6ea;
+    --coklat:#5a4632;
+    --merah:#c0392b;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Trebuchet MS', 'Segoe UI', sans-serif;
+    background: var(--krem);
+    color:var(--coklat);
+    line-height:1.55;
+  }
+  .matahari{
+    position:relative;
+    background: radial-gradient(circle at 20% -10%, var(--emas-terang) 0, transparent 55%), linear-gradient(135deg, var(--hijau-tua), var(--hijau));
+    color:#fff;
+    padding:38px 20px 30px;
+    text-align:center;
+    border-bottom:6px solid var(--emas);
+  }
+  .matahari h1{margin:0 0 6px; font-size:1.7rem; letter-spacing:.5px;}
+  .matahari .arab{font-size:1.6rem; margin-bottom:4px;}
+  .matahari p{margin:0; font-size:1rem; opacity:.9;}
+  .sinar{
+    display:inline-block; width:54px; height:54px; border-radius:50%;
+    background: var(--emas-terang);
+    box-shadow: 0 0 0 6px rgba(255,255,255,.15);
+    margin-bottom:10px;
+  }
+  .wrap{max-width:820px; margin:0 auto; padding:22px 16px 60px;}
+  .kartu{
+    background:#fff; border:1px solid #e3d9c2; border-radius:14px;
+    padding:20px 22px; margin-bottom:22px; box-shadow:0 3px 10px rgba(90,70,50,.06);
+  }
+  .kartu h2{
+    color:var(--hijau-tua); border-bottom:3px solid var(--emas-terang);
+    display:inline-block; padding-bottom:4px; margin-top:18px; font-size:1.2rem;
+  }
+  .kartu h2:first-child{margin-top:0;}
+  .toggle-materi{text-align:center; margin-bottom:6px;}
+  .grid-kosakata{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:10px;
+    margin:14px 0 18px;
+  }
+  @media (max-width:600px){.grid-kosakata{grid-template-columns:repeat(2, 1fr);}}
+  .kk{
+    background:var(--krem);
+    border:2px solid #e3d9c2;
+    border-radius:12px;
+    padding:10px 8px;
+    text-align:center;
+  }
+  .kk .arab-kata{font-size:1.5rem; color:var(--hijau-tua); margin-bottom:2px;}
+  .kk .latin{font-size:.85rem; font-style:italic; color:var(--coklat);}
+  .kk .arti{font-weight:bold; font-size:.95rem; margin-top:2px;}
+  .catatan{
+    background:var(--hijau-muda);
+    border-left:5px solid var(--hijau);
+    border-radius:8px;
+    padding:10px 14px;
+    margin:10px 0 16px;
+    font-size:.95rem;
+  }
+  .btn{
+    cursor:pointer; border:none; border-radius:30px; padding:11px 22px;
+    font-size:1rem; font-weight:bold; font-family:inherit;
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:active{transform:scale(.96);}
+  .btn-utama{background:var(--emas); color:#3a2c10; box-shadow:0 3px 0 #a37b0e;}
+  .btn-utama:hover{background:var(--emas-terang);}
+  .btn-hijau{background:var(--hijau); color:#fff; box-shadow:0 3px 0 var(--hijau-tua);}
+  .btn-hijau:hover{background:var(--hijau-tua);}
+  .btn-outline{background:#fff; color:var(--hijau-tua); border:2px solid var(--hijau); box-shadow:none;}
+  #area-soal{display:none;}
+  .soal-item{
+    background:#fff; border:1px solid #e3d9c2; border-radius:12px;
+    padding:16px 18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(90,70,50,.05);
+  }
+  .soal-nomor{
+    display:inline-block; background:var(--hijau-tua); color:#fff; font-weight:bold;
+    border-radius:8px; padding:2px 10px; margin-right:8px; font-size:.9rem;
+  }
+  .soal-teks{font-weight:bold; color:var(--coklat); margin:6px 0 12px; font-size:1.02rem;}
+  .pilihan{
+    display:block; width:100%; text-align:left; background:var(--krem);
+    border:2px solid #e3d9c2; border-radius:10px; padding:10px 14px; margin-bottom:8px;
+    cursor:pointer; font-family:inherit; font-size:.98rem; color:var(--coklat);
+    transition:background .15s, border-color .15s;
+  }
+  .pilihan:hover{border-color:var(--hijau);}
+  .pilihan .kode{
+    display:inline-block; width:24px; height:24px; line-height:24px; text-align:center;
+    background:var(--hijau); color:#fff; border-radius:50%; font-weight:bold;
+    font-size:.85rem; margin-right:8px;
+  }
+  .pilihan .isi-arab{font-size:1.2rem;}
+  .pilihan.benar{background:#e4f7e9; border-color:#2e9e52;}
+  .pilihan.benar .kode{background:#2e9e52;}
+  .pilihan.salah{background:#fdeaea; border-color:var(--merah);}
+  .pilihan.salah .kode{background:var(--merah);}
+  .pilihan.terkunci{cursor:default;}
+  .penjelasan{
+    display:none; margin-top:10px; background:var(--hijau-muda); border-left:5px solid var(--emas);
+    border-radius:8px; padding:8px 12px; font-size:.92rem;
+  }
+  .penjelasan b{color:var(--hijau-tua);}
+  #hasil{
+    display:none; text-align:center; padding:26px 20px; border-radius:14px;
+    background:linear-gradient(135deg, var(--hijau-tua), var(--hijau)); color:#fff; margin-top:10px;
+  }
+  #hasil .skor{font-size:2.6rem; font-weight:bold; color:var(--emas-terang); margin:6px 0;}
+  #hasil .pesan{font-size:1.05rem; margin-bottom:14px;}
+  .progress-bar{
+    position:sticky; top:0; background:#fff; padding:10px 16px;
+    border-bottom:2px solid var(--emas-terang); z-index:5; display:none;
+  }
+  .progress-luar{background:#e3d9c2; border-radius:20px; height:14px; overflow:hidden;}
+  .progress-dalam{background:var(--hijau); height:100%; width:0%; transition:width .25s;}
+  .progress-teks{text-align:center; font-size:.85rem; margin-top:4px; color:var(--hijau-tua); font-weight:bold;}
+  footer{text-align:center; font-size:.82rem; color:#9b8a6d; padding:14px;}
+  @media (max-width:480px){.matahari h1{font-size:1.3rem;}}
+</style>
+</head>
+<body>
+
+<div class="matahari">
+  <div class="sinar"></div>
+  <div class="arab">اَلْعُضْوُ وَالْأُسْرَةُ</div>
+  <h1>Kuis PSTS Bahasa Arab</h1>
+  <p>Pendalaman Materi &amp; Latihan Soal &mdash; Kelas 3</p>
+</div>
+
+<div class="progress-bar" id="progress-bar">
+  <div class="progress-luar"><div class="progress-dalam" id="progress-dalam"></div></div>
+  <div class="progress-teks" id="progress-teks">0 dari 30 soal dijawab</div>
+</div>
+
+<div class="wrap">
+
+  <div class="kartu">
+    <div class="toggle-materi">
+      <button class="btn btn-outline" id="btn-toggle-materi">📖 Lihat / Sembunyikan Kosakata</button>
+    </div>
+    <div id="materi" style="display:none;">
+
+      <h2>1. Anggota Badan (أَعْضَاءُ الْجِسْمِ)</h2>
+      <div class="catatan">أَعْضَاءُ الْجِسْمِ artinya <b>anggota badan</b>.</div>
+      <div class="grid-kosakata">
+        <div class="kk"><div class="arab-kata">رَأْسٌ</div><div class="latin">Ro'sun</div><div class="arti">Kepala</div></div>
+        <div class="kk"><div class="arab-kata">سِنٌّ</div><div class="latin">Sinnun</div><div class="arti">Gigi</div></div>
+        <div class="kk"><div class="arab-kata">لِسَانٌ</div><div class="latin">Lisaanun</div><div class="arti">Lidah</div></div>
+        <div class="kk"><div class="arab-kata">فَمٌ</div><div class="latin">Fammun</div><div class="arti">Mulut</div></div>
+        <div class="kk"><div class="arab-kata">شَفَةٌ</div><div class="latin">Syafatun</div><div class="arti">Bibir</div></div>
+        <div class="kk"><div class="arab-kata">رَقَبَةٌ</div><div class="latin">Roqobatun</div><div class="arti">Leher</div></div>
+        <div class="kk"><div class="arab-kata">صَدْرٌ</div><div class="latin">Shodrun</div><div class="arti">Dada</div></div>
+        <div class="kk"><div class="arab-kata">بَطْنٌ</div><div class="latin">Bathnun</div><div class="arti">Perut</div></div>
+        <div class="kk"><div class="arab-kata">أُصْبُعٌ</div><div class="latin">Ushbu'un</div><div class="arti">Jari</div></div>
+        <div class="kk"><div class="arab-kata">إِبْهَامٌ</div><div class="latin">Ibhaamun</div><div class="arti">Jempol</div></div>
+        <div class="kk"><div class="arab-kata">كَتِفٌ</div><div class="latin">Katifun</div><div class="arti">Bahu/Pundak</div></div>
+        <div class="kk"><div class="arab-kata">رُكْبَةٌ</div><div class="latin">Rukbatun</div><div class="arti">Lutut</div></div>
+      </div>
+
+      <h2>2. Keluarga (أُسْرَةٌ)</h2>
+      <div class="catatan">أُسْرَةٌ artinya <b>keluarga</b>.</div>
+      <div class="grid-kosakata">
+        <div class="kk"><div class="arab-kata">أَبٌ</div><div class="latin">Abun</div><div class="arti">Ayah</div></div>
+        <div class="kk"><div class="arab-kata">أُمٌّ</div><div class="latin">Ummun</div><div class="arti">Ibu</div></div>
+        <div class="kk"><div class="arab-kata">جَدٌّ</div><div class="latin">Jaddun</div><div class="arti">Kakek</div></div>
+        <div class="kk"><div class="arab-kata">جَدَّةٌ</div><div class="latin">Jaddatun</div><div class="arti">Nenek</div></div>
+        <div class="kk"><div class="arab-kata">عَمٌّ</div><div class="latin">'Ammun</div><div class="arti">Paman (adik/kakak laki-laki ayah)</div></div>
+        <div class="kk"><div class="arab-kata">عَمَّةٌ</div><div class="latin">'Ammatun</div><div class="arti">Bibi</div></div>
+        <div class="kk"><div class="arab-kata">أَخٌ</div><div class="latin">Akhun</div><div class="arti">Saudara laki-laki</div></div>
+        <div class="kk"><div class="arab-kata">أُخْتٌ</div><div class="latin">Ukhtun</div><div class="arti">Saudara perempuan</div></div>
+        <div class="kk"><div class="arab-kata">اِبْنٌ</div><div class="latin">Ibnun</div><div class="arti">Anak laki-laki</div></div>
+        <div class="kk"><div class="arab-kata">اِبْنَةٌ</div><div class="latin">Ibnatun</div><div class="arti">Anak perempuan</div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="text-align:center;">
+    <button class="btn btn-utama" id="btn-mulai">🌻 Mulai / Buat 30 Soal Baru</button>
+  </div>
+
+  <div id="area-soal"></div>
+
+  <div id="hasil">
+    <div>Hasil Kuismu</div>
+    <div class="skor" id="skor-teks">0 / 30</div>
+    <div class="pesan" id="pesan-hasil"></div>
+    <button class="btn btn-utama" id="btn-ulang">🔄 Buat Soal Baru Lagi</button>
+  </div>
+
+  <div style="text-align:center; margin-top:18px;">
+    <button class="btn btn-hijau" id="btn-selesai" style="display:none;">✅ Selesai, Lihat Nilai</button>
+  </div>
+
+</div>
+
+<footer>Kuis Interaktif &mdash; Pendalaman PSTS Bahasa Arab &mdash; Kelas 3</footer>
+
+<script>
+// ================= BANK SOAL (lebih dari 30 agar bisa acak setiap kali) =================
+const bankSoal = [
+  // ---- Arti kosa kata anggota badan ----
+  {q:"رَأْسٌ artinya...", opts:["Kepala","Leher","Perut"], jawab:0, penjelasan:"رَأْسٌ (Ro'sun) artinya kepala."},
+  {q:"سِنٌّ artinya...", opts:["Lidah","Gigi","Bibir"], jawab:1, penjelasan:"سِنٌّ (Sinnun) artinya gigi."},
+  {q:"لِسَانٌ artinya...", opts:["Lidah","Mulut","Dada"], jawab:0, penjelasan:"لِسَانٌ (Lisaanun) artinya lidah."},
+  {q:"فَمٌ artinya...", opts:["Bibir","Mulut","Perut"], jawab:1, penjelasan:"فَمٌ (Fammun) artinya mulut."},
+  {q:"شَفَةٌ artinya...", opts:["Bibir","Jari","Kepala"], jawab:0, penjelasan:"شَفَةٌ (Syafatun) artinya bibir."},
+  {q:"رَقَبَةٌ artinya...", opts:["Dada","Leher","Perut"], jawab:1, penjelasan:"رَقَبَةٌ (Roqobatun) artinya leher."},
+  {q:"صَدْرٌ artinya...", opts:["Perut","Leher","Dada"], jawab:2, penjelasan:"صَدْرٌ (Shodrun) artinya dada."},
+  {q:"بَطْنٌ artinya...", opts:["Perut","Jempol","Lutut"], jawab:0, penjelasan:"بَطْنٌ (Bathnun) artinya perut."},
+  {q:"إِبْهَامٌ artinya...", opts:["Jari","Jempol","Bahu"], jawab:1, penjelasan:"إِبْهَامٌ (Ibhaamun) artinya jempol."},
+  {q:"أَعْضَاءُ الْجِسْمِ artinya...", opts:["Anggota badan","Anggota keluarga","Warna-warna"], jawab:0, penjelasan:"أَعْضَاءُ الْجِسْمِ artinya anggota badan."},
+  {q:"Roqobatun artinya...", opts:["Leher","Dada","Perut"], jawab:0, penjelasan:"Roqobatun (رَقَبَةٌ) artinya leher."},
+  {q:"رُكْبَةٌ artinya...", opts:["Bahu","Lutut","Jempol"], jawab:1, penjelasan:"رُكْبَةٌ (Rukbatun) artinya lutut."},
+  // ---- Bahasa Arab dari kata Indonesia (anggota badan) ----
+  {q:"Bahasa Arabnya 'gigi' adalah...", opts:["سِنٌّ","لِسَانٌ","رَأْسٌ"], jawab:0, penjelasan:"'Gigi' dalam Bahasa Arab adalah سِنٌّ (Sinnun)."},
+  {q:"Bahasa Arabnya 'perut' adalah...", opts:["صَدْرٌ","بَطْنٌ","رَقَبَةٌ"], jawab:1, penjelasan:"'Perut' dalam Bahasa Arab adalah بَطْنٌ (Bathnun)."},
+  {q:"Bahasa Arabnya 'mulut' adalah...", opts:["فَمٌ","شَفَةٌ","سِنٌّ"], jawab:0, penjelasan:"'Mulut' dalam Bahasa Arab adalah فَمٌ (Fammun)."},
+  {q:"Bahasa Arabnya 'anggota badan yang dipegang untuk mencium tangan disebut jempol' adalah...", opts:["إِبْهَامٌ","رُكْبَةٌ","كَتِفٌ"], jawab:0, penjelasan:"'Jempol' dalam Bahasa Arab adalah إِبْهَامٌ (Ibhaamun)."},
+  {q:"Bahasa Arabnya anggota badan 'bahu/pundak' adalah...", opts:["كَتِفٌ","رُكْبَةٌ","صَدْرٌ"], jawab:0, penjelasan:"'Bahu/pundak' dalam Bahasa Arab adalah كَتِفٌ (Katifun)."},
+  {q:"Bahasa Arabnya 'lutut' adalah...", opts:["رُكْبَةٌ","كَتِفٌ","إِبْهَامٌ"], jawab:0, penjelasan:"'Lutut' dalam Bahasa Arab adalah رُكْبَةٌ (Rukbatun)."},
+  {q:"Bahasa Arabnya 'lidah' yang ditulis dengan lengkap harakatnya adalah...", opts:["لِسَانٌ","لسان (tanpa harakat)","سِنٌّ"], jawab:0, penjelasan:"'Lidah' ditulis lengkap dengan harakat menjadi لِسَانٌ (Lisaanun)."},
+  {q:"Bahasa Arabnya 'bahu/pundak' yang ditulis dengan lengkap harakatnya adalah...", opts:["كَتِفٌ","كتف (tanpa harakat)","رَقَبَةٌ"], jawab:0, penjelasan:"'Bahu/pundak' ditulis lengkap dengan harakat menjadi كَتِفٌ (Katifun)."},
+  {q:"Anggota badan yang digunakan untuk mengunyah makanan disebut...", opts:["سِنٌّ (gigi)","إِبْهَامٌ (jempol)","رُكْبَةٌ (lutut)"], jawab:0, penjelasan:"Gigi (سِنٌّ) digunakan untuk mengunyah makanan."},
+  {q:"Anggota badan yang menghubungkan kepala dengan dada disebut...", opts:["رَقَبَةٌ (leher)","بَطْنٌ (perut)","كَتِفٌ (bahu)"], jawab:0, penjelasan:"Leher (رَقَبَةٌ) menghubungkan kepala dengan dada."},
+  // ---- Arti kosa kata keluarga ----
+  {q:"أُسْرَةٌ artinya...", opts:["Keluarga","Sekolah","Anggota badan"], jawab:0, penjelasan:"أُسْرَةٌ artinya keluarga."},
+  {q:"جَدَّةٌ artinya...", opts:["Kakek","Nenek","Bibi"], jawab:1, penjelasan:"جَدَّةٌ (Jaddatun) artinya nenek."},
+  {q:"أُخْتٌ artinya...", opts:["Saudara laki-laki","Anak perempuan","Saudara perempuan"], jawab:2, penjelasan:"أُخْتٌ (Ukhtun) artinya saudara perempuan."},
+  {q:"إِبْنٌ artinya...", opts:["Anak laki-laki","Anak perempuan","Saudara laki-laki"], jawab:0, penjelasan:"إِبْنٌ (Ibnun) artinya anak laki-laki."},
+  {q:"إِبْنَةٌ artinya...", opts:["Anak laki-laki","Anak perempuan","Saudara perempuan"], jawab:1, penjelasan:"إِبْنَةٌ (Ibnatun) artinya anak perempuan."},
+  // ---- Bahasa Arab dari kata Indonesia (keluarga) ----
+  {q:"Bahasa Arabnya 'adik laki-laki dari ayah (paman)' adalah...", opts:["عَمٌّ","أَخٌ","جَدٌّ"], jawab:0, penjelasan:"'Adik laki-laki dari ayah' disebut paman, dalam Bahasa Arab عَمٌّ ('Ammun)."},
+  {q:"Bahasa Arabnya 'anak laki-laki' adalah...", opts:["إِبْنٌ","إِبْنَةٌ","أَخٌ"], jawab:0, penjelasan:"'Anak laki-laki' dalam Bahasa Arab adalah إِبْنٌ (Ibnun)."},
+  {q:"Bahasa Arabnya 'saudara laki-laki' adalah...", opts:["أَخٌ","إِبْنٌ","عَمٌّ"], jawab:0, penjelasan:"'Saudara laki-laki' dalam Bahasa Arab adalah أَخٌ (Akhun)."},
+  {q:"Bahasa Arabnya 'Ayah' adalah...", opts:["أَبٌ","أُمٌّ","جَدٌّ"], jawab:0, penjelasan:"'Ayah' dalam Bahasa Arab adalah أَبٌ (Abun)."},
+  {q:"Bahasa Arabnya 'Ibu' adalah...", opts:["أُمٌّ","جَدَّةٌ","عَمَّةٌ"], jawab:0, penjelasan:"'Ibu' dalam Bahasa Arab adalah أُمٌّ (Ummun)."},
+  {q:"Bahasa Arabnya 'Kakek' adalah...", opts:["جَدٌّ","عَمٌّ","أَخٌ"], jawab:0, penjelasan:"'Kakek' dalam Bahasa Arab adalah جَدٌّ (Jaddun)."},
+  {q:"Bahasa Arabnya 'saudara perempuan' yang ditulis dengan harakat lengkap adalah...", opts:["أُخْتٌ","اخت (tanpa harakat)","عَمَّةٌ"], jawab:0, penjelasan:"'Saudara perempuan' ditulis lengkap dengan harakat menjadi أُخْتٌ (Ukhtun)."},
+  {q:"Bahasa Arabnya 'jari' adalah...", opts:["أُصْبُعٌ","إِبْهَامٌ","كَتِفٌ"], jawab:0, penjelasan:"'Jari' dalam Bahasa Arab adalah أُصْبُعٌ (Ushbu'un)."},
+  {q:"Bahasa Arabnya 'Nenek' adalah...", opts:["جَدَّةٌ","أُمٌّ","عَمَّةٌ"], jawab:0, penjelasan:"'Nenek' dalam Bahasa Arab adalah جَدَّةٌ (Jaddatun)."},
+  {q:"Bahasa Arabnya 'Bibi' adalah...", opts:["عَمَّةٌ","أُخْتٌ","جَدَّةٌ"], jawab:0, penjelasan:"'Bibi' dalam Bahasa Arab adalah عَمَّةٌ ('Ammatun)."},
+  // ---- Variasi tambahan ----
+  {q:"Kata جَدٌّ dan جَدَّةٌ termasuk kosa kata dalam bab...", opts:["أُسْرَةٌ (Keluarga)","أَعْضَاءُ الْجِسْمِ (Anggota badan)","أَلْوَانٌ (Warna)"], jawab:0, penjelasan:"جَدٌّ (kakek) dan جَدَّةٌ (nenek) termasuk kosa kata keluarga."},
+  {q:"Kata كَتِفٌ dan رُكْبَةٌ termasuk kosa kata dalam bab...", opts:["أَعْضَاءُ الْجِسْمِ (Anggota badan)","أُسْرَةٌ (Keluarga)","أَيَّامٌ (Hari-hari)"], jawab:0, penjelasan:"كَتِفٌ (bahu) dan رُكْبَةٌ (lutut) termasuk kosa kata anggota badan."},
+  {q:"Orang tua laki-laki dari ayah atau ibu kita disebut...", opts:["جَدٌّ (Kakek)","عَمٌّ (Paman)","أَخٌ (Saudara laki-laki)"], jawab:0, penjelasan:"Orang tua laki-laki dari ayah/ibu disebut kakek (جَدٌّ)."},
+  {q:"Anak perempuan dari ayah dan ibu kita disebut...", opts:["إِبْنَةٌ (Anak perempuan)","أُخْتٌ (Saudara perempuan)","عَمَّةٌ (Bibi)"], jawab:0, penjelasan:"Anak perempuan dari ayah dan ibu disebut إِبْنَةٌ (Ibnatun)."},
+];
+
+let soalTerpakai = [];
+let jawabanUser = [];
+
+function acak(array){
+  const a = array.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function buatSoal(){
+  const jumlahSoal = Math.min(30, bankSoal.length);
+  const terpilih = acak(bankSoal).slice(0, jumlahSoal);
+  soalTerpakai = terpilih.map(item=>{
+    const urutan = acak([0,1,2]);
+    const opsiBaru = urutan.map(i=>item.opts[i]);
+    const jawabBaru = urutan.indexOf(item.jawab);
+    return {q:item.q, opts:opsiBaru, jawab:jawabBaru, penjelasan:item.penjelasan};
+  });
+  jawabanUser = new Array(soalTerpakai.length).fill(null);
+  render();
+  document.getElementById('area-soal').style.display = 'block';
+  document.getElementById('hasil').style.display = 'none';
+  document.getElementById('progress-bar').style.display = 'block';
+  document.getElementById('btn-selesai').style.display = 'inline-block';
+  updateProgress();
+  window.scrollTo({top: document.getElementById('area-soal').offsetTop - 60, behavior:'smooth'});
+}
+
+function render(){
+  const kode = ['A','B','C'];
+  const wrap = document.getElementById('area-soal');
+  wrap.innerHTML = '';
+  soalTerpakai.forEach((s, idx)=>{
+    const div = document.createElement('div');
+    div.className = 'soal-item';
+    let pilihanHTML = '';
+    s.opts.forEach((opt, i)=>{
+      pilihanHTML += `<button class="pilihan" data-soal="${idx}" data-pilih="${i}">
+        <span class="kode">${kode[i]}</span><span class="isi-arab">${opt}</span>
+      </button>`;
+    });
+    div.innerHTML = `
+      <div><span class="soal-nomor">Soal ${idx+1}</span></div>
+      <div class="soal-teks">${s.q}</div>
+      ${pilihanHTML}
+      <div class="penjelasan" id="penjelasan-${idx}"></div>
+    `;
+    wrap.appendChild(div);
+  });
+
+  document.querySelectorAll('.pilihan').forEach(btn=>{
+    btn.addEventListener('click', function(){
+      const soalIdx = parseInt(this.dataset.soal);
+      const pilihIdx = parseInt(this.dataset.pilih);
+      if(jawabanUser[soalIdx] !== null) return;
+      jawabanUser[soalIdx] = pilihIdx;
+      const semuaPilihan = document.querySelectorAll(`.pilihan[data-soal="${soalIdx}"]`);
+      const jawabanBenar = soalTerpakai[soalIdx].jawab;
+      semuaPilihan.forEach(p=>{
+        p.classList.add('terkunci');
+        const pIdx = parseInt(p.dataset.pilih);
+        if(pIdx === jawabanBenar) p.classList.add('benar');
+        else if(pIdx === pilihIdx) p.classList.add('salah');
+      });
+      const pj = document.getElementById(`penjelasan-${soalIdx}`);
+      const kodeHuruf = ['A','B','C'];
+      pj.style.display = 'block';
+      pj.innerHTML = `<b>Jawaban benar: ${kodeHuruf[jawabanBenar]}. ${soalTerpakai[soalIdx].opts[jawabanBenar]}</b><br>${soalTerpakai[soalIdx].penjelasan}`;
+      updateProgress();
+    });
+  });
+}
+
+function updateProgress(){
+  const dijawab = jawabanUser.filter(j=>j!==null).length;
+  const total = soalTerpakai.length;
+  const persen = total? (dijawab/total*100):0;
+  document.getElementById('progress-dalam').style.width = persen+'%';
+  document.getElementById('progress-teks').textContent = `${dijawab} dari ${total} soal dijawab`;
+}
+
+function tampilkanHasil(){
+  const total = soalTerpakai.length;
+  let benar = 0;
+  soalTerpakai.forEach((s, idx)=>{
+    if(jawabanUser[idx] === s.jawab) benar++;
+  });
+  const nilai100 = Math.round((benar/total)*100);
+  document.getElementById('skor-teks').textContent = `${benar} / ${total}`;
+  let pesan = '';
+  if(nilai100 >= 90) pesan = `Nilai ${nilai100} — Luar biasa, kosakatamu bagus sekali! 🌟`;
+  else if(nilai100 >= 70) pesan = `Nilai ${nilai100} — Bagus, terus berlatih ya! 👍`;
+  else if(nilai100 >= 50) pesan = `Nilai ${nilai100} — Sudah cukup baik, ayo hafalkan lagi kosakatanya! 📚`;
+  else pesan = `Nilai ${nilai100} — Yuk lihat lagi kosakatanya lalu coba sekali lagi! 💪`;
+  document.getElementById('pesan-hasil').textContent = pesan;
+  document.getElementById('hasil').style.display = 'block';
+  document.getElementById('hasil').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+document.getElementById('btn-toggle-materi').addEventListener('click', function(){
+  const m = document.getElementById('materi');
+  m.style.display = (m.style.display === 'none' || m.style.display === '') ? 'block' : 'none';
+});
+
+document.getElementById('btn-mulai').addEventListener('click', buatSoal);
+document.getElementById('btn-selesai').addEventListener('click', function(){
+  const belumDijawab = jawabanUser.filter(j=>j===null).length;
+  if(belumDijawab > 0){
+    if(!confirm(`Masih ada ${belumDijawab} soal yang belum dijawab. Tetap lihat nilai?`)) return;
+  }
+  tampilkanHasil();
+});
+document.getElementById('btn-ulang').addEventListener('click', buatSoal);
+</script>
+</body>
+</html>
