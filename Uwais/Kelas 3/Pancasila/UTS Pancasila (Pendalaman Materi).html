@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Latihan PSTS Pancasila Kelas 3 - Keberagaman Identitas</title>
+<style>
+  :root{
+    --merah:#e63946;
+    --kuning:#ffb703;
+    --hijau:#2a9d8f;
+    --biru:#457b9d;
+    --ungu:#8d5fbc;
+    --bg:#fef6e4;
+    --dark:#1d3557;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family: Verdana, "Trebuchet MS", Tahoma, sans-serif;
+    background: linear-gradient(180deg,#fef6e4 0%, #f0f7ff 100%);
+    margin:0;
+    padding:0;
+    color:var(--dark);
+  }
+  header{
+    background: linear-gradient(120deg, var(--merah), var(--kuning));
+    color:white;
+    padding:24px 16px;
+    text-align:center;
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
+  }
+  header h1{
+    margin:0 0 6px 0;
+    font-size:1.6em;
+  }
+  header p{
+    margin:0;
+    font-size:0.95em;
+    opacity:0.95;
+  }
+  .container{
+    max-width:820px;
+    margin:0 auto;
+    padding:16px;
+  }
+  .card{
+    background:white;
+    border-radius:16px;
+    padding:18px 20px;
+    margin-bottom:18px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.08);
+    border:3px solid transparent;
+  }
+  .materi-card{
+    border-left:8px solid var(--hijau);
+  }
+  .materi-card h2{
+    color:var(--hijau);
+    margin-top:0;
+    font-size:1.15em;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .materi-card table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+    font-size:0.92em;
+  }
+  .materi-card th, .materi-card td{
+    border:1px solid #ddd;
+    padding:6px 8px;
+    text-align:left;
+  }
+  .materi-card th{
+    background:#e9f5f3;
+    color:var(--dark);
+  }
+  .materi-card ul{
+    margin:8px 0;
+    padding-left:22px;
+  }
+  .toggle-materi{
+    background:var(--biru);
+    color:white;
+    border:none;
+    border-radius:20px;
+    padding:8px 18px;
+    font-size:0.95em;
+    cursor:pointer;
+    margin:10px 0;
+    display:block;
+    width:fit-content;
+  }
+  .materi-body{
+    display:none;
+  }
+  .materi-body.show{
+    display:block;
+  }
+  #progressWrap{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:var(--bg);
+    padding:10px 16px 6px 16px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
+  }
+  #progressBarOuter{
+    background:#e0e0e0;
+    border-radius:20px;
+    height:18px;
+    overflow:hidden;
+    max-width:820px;
+    margin:0 auto;
+  }
+  #progressBarInner{
+    background:linear-gradient(90deg, var(--hijau), var(--biru));
+    height:100%;
+    width:0%;
+    transition:width 0.3s ease;
+    border-radius:20px;
+  }
+  #progressLabel{
+    text-align:center;
+    font-size:0.85em;
+    margin-top:4px;
+    color:var(--dark);
+    max-width:820px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .quiz-header{
+    text-align:center;
+    margin:20px 0 10px 0;
+  }
+  .quiz-header h2{
+    color:var(--merah);
+    margin-bottom:4px;
+  }
+  .btn-row{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:14px 0;
+  }
+  .btn{
+    border:none;
+    border-radius:24px;
+    padding:10px 20px;
+    font-size:0.95em;
+    font-weight:bold;
+    cursor:pointer;
+    color:white;
+    box-shadow:0 3px 6px rgba(0,0,0,0.15);
+    transition:transform 0.1s;
+  }
+  .btn:active{ transform:scale(0.96); }
+  .btn-acak{ background:var(--ungu); }
+  .btn-periksa{ background:var(--hijau); }
+  .btn-unduh{ background:var(--biru); }
+  .btn-reset{ background:#999; }
+  .question-card{
+    border-left:8px solid var(--biru);
+  }
+  .question-card.correct{
+    border-left-color:#2a9d8f;
+    background:#f2fbf9;
+  }
+  .question-card.incorrect{
+    border-left-color:#e63946;
+    background:#fff2f2;
+  }
+  .q-number{
+    display:inline-block;
+    background:var(--kuning);
+    color:var(--dark);
+    border-radius:50%;
+    width:28px;
+    height:28px;
+    line-height:28px;
+    text-align:center;
+    font-weight:bold;
+    margin-right:8px;
+  }
+  .q-text{
+    font-weight:bold;
+    margin-bottom:10px;
+    font-size:1.02em;
+  }
+  .option-label{
+    display:block;
+    background:#f7f7f7;
+    border:2px solid #eee;
+    border-radius:10px;
+    padding:9px 12px;
+    margin-bottom:8px;
+    cursor:pointer;
+    transition:background 0.15s, border-color 0.15s;
+  }
+  .option-label:hover{
+    background:#eef7ff;
+    border-color:var(--biru);
+  }
+  .option-label input{
+    margin-right:8px;
+  }
+  .option-label.chosen-correct{
+    background:#d8f3ea;
+    border-color:var(--hijau);
+    font-weight:bold;
+  }
+  .option-label.chosen-incorrect{
+    background:#fbdada;
+    border-color:var(--merah);
+    font-weight:bold;
+  }
+  .option-label.reveal-correct{
+    background:#d8f3ea;
+    border-color:var(--hijau);
+  }
+  .feedback{
+    margin-top:8px;
+    font-size:0.9em;
+    font-style:italic;
+  }
+  #scoreBox{
+    text-align:center;
+    padding:20px;
+    border-radius:16px;
+    font-size:1.2em;
+    font-weight:bold;
+    display:none;
+    margin-bottom:18px;
+  }
+  #scoreBox.show{ display:block; }
+  footer{
+    text-align:center;
+    padding:20px;
+    font-size:0.85em;
+    color:#888;
+  }
+  @media print{
+    .btn-row, .toggle-materi, #progressWrap, .btn{ display:none !important; }
+    .materi-body{ display:block !important; }
+    body{ background:white; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🇮🇩 Pendalaman Materi &amp; Latihan Soal PSTS</h1>
+  <p>Pancasila Kelas 3 — Semester Gasal — Tema: Keberagaman Identitas</p>
+</header>
+
+<div id="progressWrap">
+  <div id="progressBarOuter"><div id="progressBarInner"></div></div>
+  <div id="progressLabel">Terjawab: 0 / 30 soal</div>
+</div>
+
+<div class="container">
+
+  <!-- ================= MATERI ================= -->
+  <div class="card materi-card">
+    <h2>📘 1. Identitas Diri dan Identitas Sosial</h2>
+    <button class="toggle-materi" onclick="toggleMateri(this)">Tampilkan Materi</button>
+    <div class="materi-body">
+      <p><b>Identitas diri</b> adalah ciri-ciri atau karakteristik unik yang membedakan seseorang dari orang lain, misalnya nama, warna kulit, bentuk wajah, dan tinggi badan.</p>
+      <p><b>Identitas sosial</b> adalah identitas yang dimiliki seseorang karena menjadi bagian dari suatu kelompok masyarakat, contohnya <b>agama, suku bangsa, bahasa, dan budaya</b>.</p>
+      <p><b>Bahasa Indonesia</b> adalah bahasa persatuan yang sebaiknya digunakan ketika berteman dengan orang dari suku/daerah yang berbeda, agar semua bisa saling memahami.</p>
+    </div>
+  </div>
+
+  <div class="card materi-card">
+    <h2>🗺️ 2. Keberagaman Suku Bangsa Berdasarkan Pulau</h2>
+    <button class="toggle-materi" onclick="toggleMateri(this)">Tampilkan Materi</button>
+    <div class="materi-body">
+      <table>
+        <tr><th>Pulau</th><th>Contoh Suku Bangsa</th></tr>
+        <tr><td>Sumatra</td><td>Batak, Melayu, Nias (Sumut), Minangkabau &amp; Mentawai (Sumbar), Melayu &amp; Komering (Sumsel)</td></tr>
+        <tr><td>Jawa</td><td>Madura, Tengger, Jawa, Osing (Jatim), Sunda (Jabar)</td></tr>
+        <tr><td>Kalimantan</td><td>Dayak (Kalbar), Bukeyat &amp; Maanyan (Kalteng), Dayak &amp; Kutai (Kaltim)</td></tr>
+        <tr><td>Papua</td><td>Biak (Papua), Asmat (Papua Selatan)</td></tr>
+        <tr><td>Nusa Tenggara</td><td>Sumba, Flores, Rote (NTT), Sasak &amp; Sumbawa (NTB)</td></tr>
+      </table>
+      <p style="margin-top:10px;">Suku <b>Osing</b> adalah sub-etnis Jawa dengan bahasa dan budaya khas di Kabupaten Banyuwangi, Provinsi <b>Jawa Timur</b>.</p>
+      <table>
+        <tr><th>Provinsi</th><th>Suku Bangsa</th></tr>
+        <tr><td>Nangroe Aceh Darussalam</td><td>Gayo, Alas</td></tr>
+        <tr><td>Maluku</td><td>Buru, Ambon</td></tr>
+        <tr><td>Kalimantan Barat</td><td>Dayak</td></tr>
+        <tr><td>Sulawesi Selatan</td><td>Bugis, Toraja</td></tr>
+        <tr><td>Papua</td><td>Biak</td></tr>
+        <tr><td>Sumatera Utara</td><td>Batak, Melayu, Nias</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card materi-card">
+    <h2>🤝 3. Semboyan Bhinneka Tunggal Ika</h2>
+    <button class="toggle-materi" onclick="toggleMateri(this)">Tampilkan Materi</button>
+    <div class="materi-body">
+      <p>Semboyan bangsa Indonesia adalah <b>Bhinneka Tunggal Ika</b>, yang artinya <b>"berbeda-beda tetapi tetap satu jua"</b>. Semboyan ini mengingatkan kita bahwa walaupun berbeda suku, agama, dan budaya, bangsa Indonesia tetap satu kesatuan.</p>
+    </div>
+  </div>
+
+  <div class="card materi-card">
+    <h2>🏠 4. Keberagaman Budaya Daerah (Rumah Adat, Tarian, Pakaian, Makanan)</h2>
+    <button class="toggle-materi" onclick="toggleMateri(this)">Tampilkan Materi</button>
+    <div class="materi-body">
+      <table>
+        <tr><th>Provinsi</th><th>Rumah Adat</th><th>Tarian Adat</th></tr>
+        <tr><td>Sulawesi Selatan</td><td>Tongkonan</td><td>Pakarena</td></tr>
+        <tr><td>Daerah Istimewa Yogyakarta</td><td>Joglo</td><td>Bedhaya</td></tr>
+        <tr><td>Nusa Tenggara Timur</td><td>Musalaki</td><td>Caci</td></tr>
+        <tr><td>Sumatera Barat (Minangkabau)</td><td>Rumah Gadang (atap seperti tanduk kerbau)</td><td>-</td></tr>
+        <tr><td>Papua</td><td>Honai</td><td>-</td></tr>
+        <tr><td>Nangroe Aceh Darussalam</td><td>-</td><td>Saman</td></tr>
+        <tr><td>Sulawesi Utara</td><td>-</td><td>Lagu daerah: O Ina Ni Keke</td></tr>
+      </table>
+      <table>
+        <tr><th>Provinsi</th><th>Pakaian Adat</th></tr>
+        <tr><td>Sumatera Barat</td><td>Bundo Kanduang</td></tr>
+        <tr><td>Daerah Istimewa Yogyakarta</td><td>Lurik</td></tr>
+        <tr><td>Papua</td><td>Koteka</td></tr>
+        <tr><td>Bali</td><td>Payas Alit</td></tr>
+        <tr><td>Kalimantan Timur</td><td>Kustin</td></tr>
+      </table>
+      <p style="margin-top:10px;"><b>Papeda</b> adalah makanan khas Provinsi Papua yang terbuat dari sagu, bertekstur kenyal, biasa disajikan dengan ikan kuah kuning.</p>
+    </div>
+  </div>
+
+  <div class="card materi-card">
+    <h2>💛 5. Cara Menghargai Keberagaman Identitas</h2>
+    <button class="toggle-materi" onclick="toggleMateri(this)">Tampilkan Materi</button>
+    <div class="materi-body">
+      <p>Empat cara menghargai keberagaman identitas orang lain:</p>
+      <ul>
+        <li>Menciptakan kedamaian</li>
+        <li>Menghindari perselisihan</li>
+        <li>Mewujudkan persatuan dan kesatuan bangsa</li>
+        <li>Saling menghargai dan menghormati</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ================= QUIZ ================= -->
+  <div class="quiz-header">
+    <h2>✏️ Latihan Soal (30 Soal Pilihan Ganda)</h2>
+    <p>Pilih jawaban A, B, atau C untuk setiap soal, lalu tekan <b>Periksa Jawaban</b>.</p>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-acak" onclick="generateQuiz()">🔀 Acak Soal Baru</button>
+    <button class="btn btn-periksa" onclick="checkAnswers()">✅ Periksa Jawaban</button>
+    <button class="btn btn-reset" onclick="resetAnswers()">↺ Ulangi</button>
+    <button class="btn btn-unduh" onclick="window.print()">⬇️ Unduh sebagai PDF</button>
+  </div>
+
+  <div id="scoreBox"></div>
+
+  <div id="quizContainer"></div>
+
+  <div class="btn-row">
+    <button class="btn btn-periksa" onclick="checkAnswers()">✅ Periksa Jawaban</button>
+    <button class="btn btn-acak" onclick="generateQuiz()">🔀 Acak Soal Baru</button>
+  </div>
+
+</div>
+
+<footer>
+  Dibuat untuk latihan mandiri persiapan PSTS — Pancasila Kelas 3, Semester Gasal.
+</footer>
+
+<script>
+// ---------- BANK SOAL ----------
+const bank = [
+{q:"Ciri-ciri atau karakteristik unik yang membedakan seseorang dari orang lain disebut ....",o:["Identitas sosial","Identitas diri","Identitas negara"],c:1},
+{q:"Berikut ini yang termasuk contoh identitas sosial adalah ....",o:["Warna favorit dan hobi","Agama, suku bangsa, bahasa, dan budaya","Tinggi badan dan berat badan"],c:1},
+{q:"Ciri fisik seperti warna kulit, tinggi badan, dan bentuk wajah termasuk bagian dari ....",o:["Identitas diri","Identitas sosial","Identitas negara"],c:0},
+{q:"Kia anak baru di sekolah berasal dari Maluku dan terbiasa memakai bahasa daerahnya. Di sekolah ia berteman dengan Lala. Sebaiknya bahasa yang digunakan Kia dan Lala adalah ....",o:["Bahasa daerah Kia","Bahasa daerah Lala","Bahasa Indonesia"],c:2},
+{q:"Bahasa persatuan yang digunakan agar semua suku bangsa di Indonesia dapat saling memahami adalah ....",o:["Bahasa daerah","Bahasa Indonesia","Bahasa asing"],c:1},
+{q:"Suku Batak, Minangkabau, dan Melayu berasal dari pulau ....",o:["Jawa","Sumatra","Kalimantan"],c:1},
+{q:"Suku Madura, Tengger, Jawa, dan Sunda berasal dari pulau ....",o:["Jawa","Papua","Sumatra"],c:0},
+{q:"Suku Dayak dan Kutai berasal dari pulau ....",o:["Kalimantan","Jawa","Nusa Tenggara"],c:0},
+{q:"Suku Biak dan Asmat berasal dari pulau ....",o:["Sumatra","Papua","Jawa"],c:1},
+{q:"Suku Sumba, Flores, Rote, Sasak, dan Sumbawa berasal dari kepulauan ....",o:["Nusa Tenggara","Maluku","Sulawesi"],c:0},
+{q:"Suku Osing merupakan sub-etnis Jawa dengan bahasa dan budaya khas di Kabupaten Banyuwangi, Provinsi ....",o:["Jawa Tengah","Jawa Timur","Jawa Barat"],c:1},
+{q:"Semboyan bangsa Indonesia yaitu ....",o:["Garuda Pancasila","Bhinneka Tunggal Ika","Merah Putih"],c:1},
+{q:"Bhinneka Tunggal Ika artinya ....",o:["Bersatu kita teguh","Berbeda-beda tetapi tetap satu jua","Satu nusa satu bangsa"],c:1},
+{q:"Lagu \"O Ina Ni Keke\" berasal dari provinsi ....",o:["Sulawesi Utara","Sulawesi Selatan","Maluku"],c:0},
+{q:"Rumah adat khas suku Minangkabau yang atapnya melengkung runcing seperti tanduk kerbau disebut ....",o:["Rumah Joglo","Rumah Gadang","Rumah Honai"],c:1},
+{q:"Tari Saman berasal dari Provinsi ....",o:["Sumatera Barat","Nangroe Aceh Darussalam","Sumatera Utara"],c:1},
+{q:"Rumah adat khas masyarakat Papua adalah ....",o:["Honai","Tongkonan","Joglo"],c:0},
+{q:"Makanan khas Papua yang terbuat dari sagu, bertekstur kenyal, dan biasa ditambahkan ikan kuah kuning adalah ....",o:["Papeda","Rendang","Gudeg"],c:0},
+{q:"Berikut ini termasuk cara menghargai keberagaman identitas orang lain, KECUALI ....",o:["Menciptakan kedamaian","Menghindari perselisihan","Mengejek suku dan budaya orang lain"],c:2},
+{q:"Salah satu cara menghargai keberagaman identitas orang lain adalah ....",o:["Saling menghargai dan menghormati","Memaksakan budaya sendiri kepada orang lain","Membeda-bedakan teman karena sukunya"],c:0},
+{q:"Rumah adat Tongkonan berasal dari provinsi ....",o:["Sulawesi Selatan","Sulawesi Utara","Nusa Tenggara Timur"],c:0},
+{q:"Tari Pakarena berasal dari provinsi ....",o:["Nusa Tenggara Timur","Sulawesi Selatan","Daerah Istimewa Yogyakarta"],c:1},
+{q:"Rumah adat Joglo berasal dari provinsi ....",o:["Daerah Istimewa Yogyakarta","Sulawesi Selatan","Nusa Tenggara Timur"],c:0},
+{q:"Tari Bedhaya berasal dari provinsi ....",o:["Sulawesi Selatan","Daerah Istimewa Yogyakarta","Nusa Tenggara Timur"],c:1},
+{q:"Rumah adat Musalaki berasal dari provinsi ....",o:["Nusa Tenggara Timur","Sulawesi Selatan","Daerah Istimewa Yogyakarta"],c:0},
+{q:"Tari Caci berasal dari provinsi ....",o:["Daerah Istimewa Yogyakarta","Sulawesi Selatan","Nusa Tenggara Timur"],c:2},
+{q:"Suku bangsa dari provinsi Nangroe Aceh Darussalam adalah ....",o:["Gayo dan Alas","Batak dan Nias","Bugis dan Toraja"],c:0},
+{q:"Suku bangsa dari provinsi Maluku adalah ....",o:["Dayak","Buru dan Ambon","Sasak"],c:1},
+{q:"Suku bangsa dari provinsi Kalimantan Barat adalah ....",o:["Dayak","Bugis","Batak"],c:0},
+{q:"Suku bangsa dari provinsi Sulawesi Selatan adalah ....",o:["Bugis dan Toraja","Gayo dan Alas","Sasak dan Sumbawa"],c:0},
+{q:"Suku bangsa dari provinsi Papua, contohnya ....",o:["Biak","Dayak","Toraja"],c:0},
+{q:"Suku bangsa dari provinsi Sumatera Utara adalah ....",o:["Batak, Melayu, Nias","Bugis, Toraja","Sasak, Sumbawa"],c:0},
+{q:"Pakaian adat Bundo Kanduang berasal dari provinsi ....",o:["Sumatera Barat","Bali","Papua"],c:0},
+{q:"Pakaian adat Lurik berasal dari provinsi ....",o:["Daerah Istimewa Yogyakarta","Sumatera Barat","Kalimantan Timur"],c:0},
+{q:"Pakaian adat Koteka berasal dari provinsi ....",o:["Papua","Bali","Sumatera Barat"],c:0},
+{q:"Pakaian adat Payas Alit berasal dari provinsi ....",o:["Bali","Papua","Kalimantan Timur"],c:0},
+{q:"Pakaian adat Kustin berasal dari provinsi ....",o:["Kalimantan Timur","Bali","Sumatera Barat"],c:0},
+{q:"Contoh identitas sosial yang berkaitan dengan kepercayaan adalah ....",o:["Agama","Warna kulit","Tinggi badan"],c:0},
+{q:"Sikap yang mendukung terciptanya persatuan meskipun berbeda suku bangsa disebut sikap ....",o:["Menghargai keberagaman","Individualisme","Fanatisme suku"],c:0},
+{q:"Manfaat menghargai keberagaman identitas antara lain ....",o:["Terciptanya kedamaian dan persatuan","Munculnya perselisihan antarsuku","Terpecahnya bangsa Indonesia"],c:0},
+{q:"Suku Sasak dan Sumbawa berasal dari provinsi ....",o:["Nusa Tenggara Barat","Nusa Tenggara Timur","Bali"],c:0},
+{q:"Rumah adat dan tarian adat dari Sulawesi Selatan secara berurutan adalah ....",o:["Tongkonan dan Pakarena","Joglo dan Bedhaya","Musalaki dan Caci"],c:0},
+{q:"Rumah adat dan tarian adat dari Daerah Istimewa Yogyakarta secara berurutan adalah ....",o:["Tongkonan dan Pakarena","Joglo dan Bedhaya","Musalaki dan Caci"],c:1},
+{q:"Rumah adat dan tarian adat dari Nusa Tenggara Timur secara berurutan adalah ....",o:["Tongkonan dan Pakarena","Joglo dan Bedhaya","Musalaki dan Caci"],c:2},
+{q:"Sikap menghormati teman yang berbeda suku, agama, atau budaya disebut sikap ....",o:["Toleransi","Egois","Sombong"],c:0},
+{q:"Contoh sikap TIDAK menghargai keberagaman adalah ....",o:["Mengejek bahasa daerah teman","Mengucapkan selamat hari raya kepada teman berbeda agama","Mau berteman dengan siapa saja"],c:0}
+];
+
+let currentQuiz = [];
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function generateQuiz(){
+  const shuffledBank = shuffle(bank);
+  const picked = shuffledBank.slice(0,30);
+  currentQuiz = picked.map(item=>{
+    const optionIndices = shuffle([0,1,2]);
+    const options = optionIndices.map(i=>item.o[i]);
+    const correctIndex = optionIndices.indexOf(item.c);
+    return {q:item.q, options:options, correct:correctIndex};
+  });
+  renderQuiz();
+  document.getElementById('scoreBox').classList.remove('show');
+  updateProgress();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function renderQuiz(){
+  const container = document.getElementById('quizContainer');
+  container.innerHTML = '';
+  currentQuiz.forEach((item, idx)=>{
+    const div = document.createElement('div');
+    div.className = 'card question-card';
+    div.id = 'q'+idx;
+    const letters = ['A','B','C'];
+    let optionsHtml = '';
+    item.options.forEach((opt, oi)=>{
+      optionsHtml += `
+        <label class="option-label" id="q${idx}o${oi}">
+          <input type="radio" name="q${idx}" value="${oi}" onchange="updateProgress()">
+          ${letters[oi]}. ${opt}
+        </label>`;
+    });
+    div.innerHTML = `
+      <div class="q-text"><span class="q-number">${idx+1}</span>${item.q}</div>
+      ${optionsHtml}
+      <div class="feedback" id="fb${idx}"></div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function updateProgress(){
+  let answered = 0;
+  currentQuiz.forEach((item, idx)=>{
+    const chosen = document.querySelector(`input[name="q${idx}"]:checked`);
+    if(chosen) answered++;
+  });
+  const pct = Math.round((answered/currentQuiz.length)*100);
+  document.getElementById('progressBarInner').style.width = pct+'%';
+  document.getElementById('progressLabel').textContent = `Terjawab: ${answered} / ${currentQuiz.length} soal`;
+}
+
+function checkAnswers(){
+  let score = 0;
+  currentQuiz.forEach((item, idx)=>{
+    const chosen = document.querySelector(`input[name="q${idx}"]:checked`);
+    const qCard = document.getElementById('q'+idx);
+    const fb = document.getElementById('fb'+idx);
+    // reset option classes
+    item.options.forEach((opt, oi)=>{
+      const lbl = document.getElementById(`q${idx}o${oi}`);
+      lbl.classList.remove('chosen-correct','chosen-incorrect','reveal-correct');
+    });
+    if(chosen){
+      const chosenIdx = parseInt(chosen.value);
+      if(chosenIdx === item.correct){
+        score++;
+        qCard.classList.add('correct');
+        qCard.classList.remove('incorrect');
+        document.getElementById(`q${idx}o${chosenIdx}`).classList.add('chosen-correct');
+        fb.textContent = '✅ Benar!';
+        fb.style.color = '#2a9d8f';
+      } else {
+        qCard.classList.add('incorrect');
+        qCard.classList.remove('correct');
+        document.getElementById(`q${idx}o${chosenIdx}`).classList.add('chosen-incorrect');
+        document.getElementById(`q${idx}o${item.correct}`).classList.add('reveal-correct');
+        fb.textContent = '❌ Kurang tepat. Jawaban yang benar: '+String.fromCharCode(65+item.correct)+'. '+item.options[item.correct];
+        fb.style.color = '#e63946';
+      }
+    } else {
+      qCard.classList.remove('correct','incorrect');
+      document.getElementById(`q${idx}o${item.correct}`).classList.add('reveal-correct');
+      fb.textContent = '⚠️ Belum dijawab. Jawaban yang benar: '+String.fromCharCode(65+item.correct)+'. '+item.options[item.correct];
+      fb.style.color = '#e09f3e';
+    }
+  });
+  const scoreBox = document.getElementById('scoreBox');
+  const nilai = Math.round((score/currentQuiz.length)*100);
+  let pesan = '';
+  if(nilai>=90) pesan='Luar biasa! 🌟';
+  else if(nilai>=75) pesan='Bagus sekali! 👍';
+  else if(nilai>=60) pesan='Cukup baik, terus belajar! 💪';
+  else pesan='Ayo belajar lagi ya! 📚';
+  scoreBox.style.background = nilai>=60 ? '#d8f3ea' : '#fbdada';
+  scoreBox.style.color = nilai>=60 ? '#1d3557' : '#9d1c24';
+  scoreBox.innerHTML = `Skor kamu: ${score} / ${currentQuiz.length} (${nilai}) <br>${pesan}`;
+  scoreBox.classList.add('show');
+  updateProgress();
+  scoreBox.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function resetAnswers(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.question-card').forEach(c=>{
+    c.classList.remove('correct','incorrect');
+  });
+  document.querySelectorAll('.option-label').forEach(l=>{
+    l.classList.remove('chosen-correct','chosen-incorrect','reveal-correct');
+  });
+  document.querySelectorAll('.feedback').forEach(f=>f.textContent='');
+  document.getElementById('scoreBox').classList.remove('show');
+  updateProgress();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function toggleMateri(btn){
+  const body = btn.nextElementSibling;
+  body.classList.toggle('show');
+  btn.textContent = body.classList.contains('show') ? 'Sembunyikan Materi' : 'Tampilkan Materi';
+}
+
+// init
+generateQuiz();
+</script>
+
+</body>
+</html>
