@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Latihan PSTS Bahasa Indonesia Kelas 3</title>
+<style>
+  :root{
+    --merah:#e63946;
+    --kuning:#ffb703;
+    --hijau:#2a9d8f;
+    --biru:#457b9d;
+    --ungu:#8d5fbc;
+    --bg:#fef6e4;
+    --dark:#1d3557;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family: Verdana, "Trebuchet MS", Tahoma, sans-serif;
+    background: linear-gradient(180deg,#fef6e4 0%, #f0f7ff 100%);
+    margin:0;
+    padding:0;
+    color:var(--dark);
+  }
+  header{
+    background: linear-gradient(120deg, var(--biru), var(--ungu));
+    color:white;
+    padding:24px 16px;
+    text-align:center;
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
+  }
+  header h1{
+    margin:0 0 6px 0;
+    font-size:1.6em;
+  }
+  header p{
+    margin:0;
+    font-size:0.95em;
+    opacity:0.95;
+  }
+  .container{
+    max-width:820px;
+    margin:0 auto;
+    padding:16px;
+  }
+  .card{
+    background:white;
+    border-radius:16px;
+    padding:18px 20px;
+    margin-bottom:18px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.08);
+    border:3px solid transparent;
+  }
+  .materi-card{
+    border-left:8px solid var(--hijau);
+  }
+  .materi-card h2{
+    color:var(--hijau);
+    margin-top:0;
+    font-size:1.15em;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .materi-card table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+    font-size:0.92em;
+  }
+  .materi-card th, .materi-card td{
+    border:1px solid #ddd;
+    padding:6px 8px;
+    text-align:left;
+  }
+  .materi-card th{
+    background:#e9f5f3;
+    color:var(--dark);
+  }
+  .materi-card ul, .materi-card ol{
+    margin:8px 0;
+    padding-left:22px;
+  }
+  .toggle-materi{
+    background:var(--biru);
+    color:white;
+    border:none;
+    border-radius:20px;
+    padding:8px 18px;
+    font-size:0.95em;
+    cursor:pointer;
+    margin:10px 0;
+    display:block;
+    width:fit-content;
+  }
+  .materi-body{
+    display:none;
+  }
+  .materi-body.show{
+    display:block;
+  }
+  #progressWrap{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:var(--bg);
+    padding:10px 16px 6px 16px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
+  }
+  #progressBarOuter{
+    background:#e0e0e0;
+    border-radius:20px;
+    height:18px;
+    overflow:hidden;
+    max-width:820px;
+    margin:0 auto;
+  }
+  #progressBarInner{
+    background:linear-gradient(90deg, var(--hijau), var(--biru));
+    height:100%;
+    width:0%;
+    transition:width 0.3s ease;
+    border-radius:20px;
+  }
+  #progressLabel{
+    text-align:center;
+    font-size:0.85em;
+    margin-top:4px;
+    color:var(--dark);
+    max-width:820px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .quiz-header{
+    text-align:center;
+    margin:20px 0 10px 0;
+  }
+  .quiz-header h2{
+    color:var(--merah);
+    margin-bottom:4px;
+  }
+  .btn-row{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:14px 0;
+  }
+  .btn{
+    border:none;
+    border-radius:24px;
+    padding:10px 20px;
+    font-size:0.95em;
+    font-weight:bold;
+    cursor:pointer;
+    color:white;
+    box-shadow:0 3px 6px rgba(0,0,0,0.15);
+    transition:transform 0.1s;
+  }
+  .btn:active{ transform:scale(0.96); }
+  .btn-acak{ background:var(--ungu); }
+  .btn-periksa{ background:var(--hijau); }
+  .btn-unduh{ background:var(--biru); }
+  .btn-reset{ background:#999; }
+  .question-card{
+    border-left:8px solid var(--biru);
+  }
+  .question-card.correct{
+    border-left-color:#2a9d8f;
+    background:#f2fbf9;
+  }
+  .question-card.incorrect{
+    border-left-color:#e63946;
+    background:#fff2f2;
+  }
+  .q-number{
+    display:inline-block;
+    background:var(--kuning);
+    color:var(--dark);
+    border-radius:50%;
+    width:28px;
+    height:28px;
+    line-height:28px;
+    text-align:center;
+    font-weight:bold;
+    margin-right:8px;
+  }
+  .q-text{
+    font-weight:bold;
+    margin-bottom:10px;
+    font-size:1.02em;
+  }
+  .q-context{
+    font-weight:normal;
+    font-style:italic;
+    background:#f7f7f7;
+    border-radius:8px;
+    padding:8px 10px;
+    margin-bottom:8px;
+    font-size:0.95em;
+  }
+  .option-label{
+    display:block;
+    background:#f7f7f7;
+    border:2px solid #eee;
+    border-radius:10px;
+    padding:9px 12px;
+    margin-bottom:8px;
+    cursor:pointer;
+    transition:background 0.15s, border-color 0.15s;
+  }
+  .option-label:hover{
+    background:#eef7ff;
+    border-color:var(--biru);
+  }
+  .option-label input{
+    margin-right:8px;
+  }
+  .option-label.chosen-correct{
+    background:#d8f3ea;
+    border-color:var(--hijau);
+    font-weight:bold;
+  }
+  .option-label.chosen-incorrect{
+    background:#fbdada;
+    border-color:var(--merah);
+    font-weight:bold;
+  }
+  .option-label.reveal-correct{
+    background:#d8f3ea;
+    border-color:var(--hijau);
+  }
+  .feedback{
+    margin-top:8px;
+    font-size:0.9em;
+    font-style:italic;
+  }
+  #scoreBox{
+    text-align:center;
+    padding:20px;
+    border-radius:16px;
+    font-size:1.2em;
+    font-weight:bold;
+    display:none;
+    margin-bottom:18px;
+  }
+  #scoreBox.show{ display:block; }
+  footer{
+    text-align:center;
+    padding:20px;
+    font-size:0.85em;
+    color:#888;
+  }
+  @media print{
+    .btn-row, .toggle-materi, #progressWrap, .btn{ display:none !important; }
+    .materi-body{ display:block !important; }
+    body{ background:white; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📚 Pendalaman Materi &amp; Latihan Soal PSTS</h1>
+  <p>Bahasa Indonesia Kelas 3 — Semester Gasal</p>
+</header>
+
+<div id="progressWrap">
+  <div id="progressBarOuter"><div id="progressBarInner"></div></div>
+  <div id="progressLabel">Terjawab: 0 / 30 soal</div>
+</div>
+
+<div class="container">
+
+  <!-- ================= MATERI ================= -->
+  <div class="card materi-card">
+    <h2>🔎 1. Kalimat Fakta dan Kalimat Fiksi</h2>
+    <button class="toggle-materi" onclick="toggleMateri(this)">Tampilkan Materi</button>
+    <div class="materi-body">
+      <p><b>Kalimat fakta</b> adalah kalimat yang isinya berupa peristiwa atau keadaan yang benar-benar terjadi dan bisa dibuktikan kebenarannya. Contoh: "Singa makan daging", "Ikan bernafas menggunakan insangnya", "Katak merupakan hewan yang memiliki tulang belakang".</p>
+      <p><b>Kalimat fiksi</b> adalah kalimat yang isinya berupa khayalan atau tidak benar-benar terjadi, atau berisi informasi yang keliru. Contoh: "Kambing berkembang biak dengan cara bertelur" (kambing sebenarnya beranak, bukan bertelur).</p>
+    </div>
+  </div>
+
+  <div class="card materi-card">
+    <h2>🌟 2. Jenis-Jenis Cerita</h2>
+    <button class="toggle-materi" onclick="toggleMateri(this)">Tampilkan Materi</button>
+    <div class="materi-body">
+      <table>
+        <tr><th>Jenis Cerita</th><th>Ciri-ciri</th><th>Contoh</th></tr>
+        <tr><td>Legenda</td><td>Cerita tentang asal-usul suatu tempat/benda</td><td>Roro Jonggrang &amp; Candi Prambanan</td></tr>
+        <tr><td>Fabel</td><td>Cerita yang tokohnya hewan, bertingkah seperti manusia</td><td>Sang Raja Kera, Semut dan Belalang, Gagak dan Kendi</td></tr>
+      </table>
+      <p style="margin-top:10px;">Cerita dapat dikelompokkan berdasarkan <b>tokohnya</b> (misalnya hewan → fabel) atau berdasarkan <b>isinya</b> (misalnya asal-usul tempat → legenda).</p>
+    </div>
+  </div>
+
+  <div class="card materi-card">
+    <h2>😊 3. Kata Santun</h2>
+    <button class="toggle-materi" onclick="toggleMateri(this)">Tampilkan Materi</button>
+    <div class="materi-body">
+      <p>Kata santun digunakan untuk menjaga sopan santun dalam berbicara, misalnya:</p>
+      <ul>
+        <li><b>Maaf</b> — digunakan saat meminta maaf atau tidak bermaksud menyinggung perasaan orang lain.</li>
+        <li><b>Tolong</b> — digunakan saat meminta bantuan orang lain.</li>
+        <li><b>Terima kasih</b> — digunakan untuk mengucapkan rasa syukur atas bantuan orang lain.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card materi-card">
+    <h2>✍️ 4. Ejaan dan Tanda Baca</h2>
+    <button class="toggle-materi" onclick="toggleMateri(this)">Tampilkan Materi</button>
+    <div class="materi-body">
+      <p><b>Huruf kapital</b> digunakan di awal kalimat serta pada nama orang, nama kota, dan nama tempat. Contoh: "Paman baru saja pulang dari Surabaya."</p>
+      <p><b>Tanda titik (.)</b> digunakan di akhir kalimat berita.</p>
+      <p><b>Tanda tanya (?)</b> digunakan di akhir kalimat tanya. Contoh: "Mengapa kita harus berbakti pada orang tua?"</p>
+      <p><b>Tanda seru (!)</b> digunakan di akhir kalimat perintah atau seruan. Contoh: "Buanglah sampah pada tempatnya!"</p>
+      <p><b>Tanda koma (,)</b> digunakan untuk memisahkan dua bagian kalimat, misalnya sebelum kata "sedangkan" atau "melainkan". Contoh: "Rara senang menyanyi, sedangkan Tara senang bermain musik." dan "Yang suka main catur bukan Atan, melainkan Almer."</p>
+    </div>
+  </div>
+
+  <div class="card materi-card">
+    <h2>🔁 5. Sinonim dan Antonim</h2>
+    <button class="toggle-materi" onclick="toggleMateri(this)">Tampilkan Materi</button>
+    <div class="materi-body">
+      <p><b>Sinonim</b> adalah kata yang memiliki arti sama atau mirip.</p>
+      <table>
+        <tr><th>Kata</th><th>Sinonim</th></tr>
+        <tr><td>Merawat</td><td>Memelihara</td></tr>
+        <tr><td>Gersang</td><td>Tandus</td></tr>
+        <tr><td>Teliti</td><td>Cermat</td></tr>
+        <tr><td>Congkak</td><td>Sombong</td></tr>
+      </table>
+      <p style="margin-top:10px;"><b>Antonim</b> adalah kata yang memiliki arti berlawanan.</p>
+      <table>
+        <tr><th>Kata</th><th>Antonim</th></tr>
+        <tr><td>Dermawan</td><td>Pelit / kikir</td></tr>
+        <tr><td>Gersang</td><td>Subur</td></tr>
+        <tr><td>Cermat</td><td>Ceroboh</td></tr>
+        <tr><td>Dusta</td><td>Jujur</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card materi-card">
+    <h2>🔗 6. Kata Hubung (Konjungsi)</h2>
+    <button class="toggle-materi" onclick="toggleMateri(this)">Tampilkan Materi</button>
+    <div class="materi-body">
+      <ul>
+        <li><b>Ketika</b> — menyatakan waktu. Contoh: "Ketika turun hujan, adik sedang tertidur."</li>
+        <li><b>Sedangkan</b> — menyatakan pertentangan/perbedaan dua hal. Contoh: "Ayah suka memancing, sedangkan ibu suka nonton sinetron."</li>
+        <li><b>Walaupun</b> — menyatakan perlawanan/meski begitu. Contoh: "Mulyono tetap berangkat sekolah walaupun sedang sakit."</li>
+        <li><b>Melainkan</b> — digunakan setelah kata "bukan" untuk menyatakan pilihan yang benar. Contoh: "Yang bermain musik bukan Ava, melainkan Kesia."</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card materi-card">
+    <h2>🎭 7. Unsur Cerita: Tokoh dan Amanat</h2>
+    <button class="toggle-materi" onclick="toggleMateri(this)">Tampilkan Materi</button>
+    <div class="materi-body">
+      <p><b>Tokoh</b> adalah pelaku yang ada dalam sebuah cerita.</p>
+      <p><b>Amanat</b> adalah pesan moral atau nasihat yang terkandung dalam sebuah cerita.</p>
+      <p>Contoh cerita <i>Semut dan Belalang</i>: tokohnya adalah Semut dan Belalang. Amanatnya adalah pentingnya bekerja keras dan mempersiapkan masa depan, serta mau menolong orang lain yang membutuhkan.</p>
+      <p><b>Puisi</b> adalah karya sastra yang mengungkapkan perasaan dan pikiran penulis dengan bahasa yang indah dan bermakna.</p>
+    </div>
+  </div>
+
+  <!-- ================= QUIZ ================= -->
+  <div class="quiz-header">
+    <h2>✏️ Latihan Soal (30 Soal Pilihan Ganda)</h2>
+    <p>Pilih jawaban A, B, atau C untuk setiap soal, lalu tekan <b>Periksa Jawaban</b>.</p>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-acak" onclick="generateQuiz()">🔀 Acak Soal Baru</button>
+    <button class="btn btn-periksa" onclick="checkAnswers()">✅ Periksa Jawaban</button>
+    <button class="btn btn-reset" onclick="resetAnswers()">↺ Ulangi</button>
+    <button class="btn btn-unduh" onclick="window.print()">⬇️ Unduh sebagai PDF</button>
+  </div>
+
+  <div id="scoreBox"></div>
+
+  <div id="quizContainer"></div>
+
+  <div class="btn-row">
+    <button class="btn btn-periksa" onclick="checkAnswers()">✅ Periksa Jawaban</button>
+    <button class="btn btn-acak" onclick="generateQuiz()">🔀 Acak Soal Baru</button>
+  </div>
+
+</div>
+
+<footer>
+  Dibuat untuk latihan mandiri persiapan PSTS — Bahasa Indonesia Kelas 3, Semester Gasal.
+</footer>
+
+<script>
+// ---------- BANK SOAL ----------
+const bank = [
+{ctx:"", q:"\"Singa makan daging\" adalah contoh kalimat ....",o:["Fakta","Fiksi","Puisi"],c:0},
+{ctx:"", q:"Kalimat \"Katak merupakan hewan yang memiliki tulang belakang\" termasuk kalimat ....",o:["Fakta","Fiksi","Puisi"],c:0},
+{ctx:"Perhatikan kalimat-kalimat berikut!\na. Burung merpati membawa kabar baik\nb. Ikan bernafas menggunakan insangnya\nc. Kambing berkembang biak dengan cara bertelur\nd. Katak merupakan hewan yang memiliki tulang belakang", q:"Kalimat di atas yang merupakan FAKTA adalah ....",o:["Kalimat a dan c","Kalimat b dan d","Kalimat a dan d"],c:1},
+{ctx:"", q:"Kalimat yang isinya berupa peristiwa yang benar-benar terjadi disebut kalimat ....",o:["Fiksi","Fakta","Puisi"],c:1},
+{ctx:"", q:"Apakah yang dimaksud dengan kalimat fiksi?",o:["Kalimat yang berisi peristiwa nyata","Kalimat yang isinya khayalan atau tidak benar-benar terjadi","Kalimat yang menggunakan huruf kapital"],c:1},
+{ctx:"... Budi, aku tidak bermaksud menyinggung perasaanmu.", q:"Kata santun untuk melengkapi kalimat di atas adalah ....",o:["Maaf","Tolong","Terima kasih"],c:0},
+{ctx:"Roro Jonggrang menolak lamaran Bandung Bondowoso dan meminta dibangunkan seribu candi dalam semalam. Ia menipu Bandung Bondowoso sehingga pembangunan candi gagal. Bandung Bondowoso pun mengutuk Roro Jonggrang menjadi arca ke-1000 di Candi Prambanan.", q:"Penggalan cerita di atas termasuk cerita ....",o:["Fabel","Legenda","Puisi"],c:1},
+{ctx:"", q:"Cerita tentang terjadinya suatu tempat disebut ....",o:["Fabel","Legenda","Mitos"],c:1},
+{ctx:"Sang Raja Kera melompat ke seberang sungai, mencari akar yang menjulai ke pohon kayu untuk dijadikan jembatan bagi rakyatnya. Karena akarnya kurang panjang, ia mengikat kakinya sendiri dan bergantung pada batang kayu.", q:"Berdasarkan tokohnya, cerita di atas termasuk jenis ....",o:["Fabel","Legenda","Mite"],c:0},
+{ctx:"Seekor gagak cerdas yang kehausan menemukan kendi berisi sedikit air. Ia menjatuhkan kerikil ke dalam kendi hingga permukaan air naik dan ia bisa minum.", q:"Berdasarkan pelakunya, dongeng tersebut termasuk jenis ....",o:["Legenda","Fabel","Mite"],c:1},
+{ctx:"Semut bekerja keras mengumpulkan makanan untuk musim dingin, sedangkan belalang hanya bersenang-senang. Ketika musim dingin tiba, belalang kelaparan dan akhirnya ditolong oleh semut.", q:"Cerita tentang Semut dan Belalang di atas termasuk jenis cerita ....",o:["Fabel","Legenda","Mite"],c:0},
+{ctx:"", q:"Cerita yang tokohnya berupa hewan dan bertingkah laku seperti manusia disebut ....",o:["Fabel","Legenda","Puisi"],c:0},
+{ctx:"paman baru saja pulang dari surabaya.", q:"Perbaikan kalimat yang benar (penggunaan huruf kapital) adalah ....",o:["paman baru saja pulang dari Surabaya.","Paman baru saja pulang dari Surabaya.","Paman baru saja pulang dari surabaya."],c:1},
+{ctx:"", q:"Huruf kapital digunakan untuk menuliskan ....",o:["Nama orang dan nama kota","Kata penghubung","Kata ganti \"aku\""],c:0},
+{ctx:"Buanglah sampah pada tempatnya(...)", q:"Tanda baca yang tepat untuk kalimat di atas adalah ....",o:["Titik (.)","Tanya (?)","Seru (!)"],c:2},
+{ctx:"mengapa kita harus berbakti pada orang tua", q:"Perbaikan kalimat tersebut dengan tanda baca dan huruf kapital yang tepat adalah ....",o:["Mengapa kita harus berbakti pada orang tua?","mengapa kita harus berbakti pada orang tua.","Mengapa kita harus berbakti pada orang tua!"],c:0},
+{ctx:"Kamu sedang membaca buku apa(....)", q:"Tanda baca yang tepat untuk melengkapi kalimat di atas adalah ....",o:["Seru (!)","Tanya (?)","Titik (.)"],c:1},
+{ctx:"Rara senang menyanyi (...) sedangkan Tara senang bermain musik.", q:"Tanda baca yang tepat untuk melengkapi kalimat di atas adalah ....",o:["Koma (,)","Titik (.)","Tanya (?)"],c:0},
+{ctx:"Yang suka main catur bukan Atan melainkan Almer.", q:"Penulisan yang benar untuk kalimat di atas adalah ....",o:["Yang suka main catur bukan Atan, melainkan Almer.","Yang suka main catur bukan Atan melainkan Almer.","Yang suka main catur, bukan Atan melainkan, Almer."],c:0},
+{ctx:"1. Jangan berenang di laut.\n2. Bu, tolong ambilkan bajuku di lemari?\n3. Farah dan teman-temannya bermain petak umpet.", q:"Kalimat di atas yang menggunakan tanda baca dengan tepat adalah kalimat ke- ....",o:["1","2","3"],c:2},
+{ctx:"", q:"Sinonim kata \"merawat\" adalah ....",o:["Membuang","Memelihara","Merusak"],c:1},
+{ctx:"", q:"Sinonim kata \"gersang\" adalah ....",o:["Subur","Tandus","Basah"],c:1},
+{ctx:"", q:"Sinonim kata \"teliti\" adalah ....",o:["Ceroboh","Cermat","Malas"],c:1},
+{ctx:"", q:"Sinonim kata \"congkak\" adalah ....",o:["Sombong","Rendah hati","Ramah"],c:0},
+{ctx:"", q:"Antonim kata \"dermawan\" adalah ....",o:["Baik hati","Pelit/kikir","Ramah"],c:1},
+{ctx:"", q:"Antonim kata \"gersang\" adalah ....",o:["Subur","Tandus","Kering"],c:0},
+{ctx:"", q:"Antonim kata \"cermat\" adalah ....",o:["Teliti","Ceroboh","Rapi"],c:1},
+{ctx:"", q:"Antonim kata \"dusta\" adalah ....",o:["Bohong","Jujur","Curang"],c:1},
+{ctx:"", q:"Kata yang memiliki arti sama atau mirip disebut ....",o:["Antonim","Sinonim","Homonim"],c:1},
+{ctx:"", q:"Kata yang memiliki arti berlawanan disebut ....",o:["Sinonim","Antonim","Homonim"],c:1},
+{ctx:"", q:"Kata hubung yang tepat untuk kalimat \"... turun hujan, adik sedang tertidur.\" adalah ....",o:["Ketika","Melainkan","Walaupun"],c:0},
+{ctx:"Ayah suka memancing, ... ibu suka menonton sinetron.", q:"Kata hubung yang tepat untuk melengkapi kalimat di atas adalah ....",o:["Ketika","Sedangkan","Melainkan"],c:1},
+{ctx:"", q:"Kata hubung \"walaupun\" digunakan untuk menyatakan ....",o:["Waktu","Perlawanan / meski begitu","Pilihan"],c:1},
+{ctx:"", q:"Kata hubung \"melainkan\" biasanya digunakan setelah kata ....",o:["Iya","Bukan","Dan"],c:1},
+{ctx:"", q:"Contoh kalimat yang menggunakan kata hubung \"ketika\" dengan tepat adalah ....",o:["Ketika turun hujan, adik sedang tertidur.","Adik tertidur melainkan hujan turun.","Adik sedang tertidur sedangkan hujan."],c:0},
+{ctx:"", q:"Dalam sebuah cerita, tokoh adalah ....",o:["Pesan moral cerita","Pelaku yang ada dalam cerita","Judul cerita"],c:1},
+{ctx:"", q:"Pesan moral atau nasihat yang terkandung dalam sebuah cerita disebut ....",o:["Tema","Amanat","Alur"],c:1},
+{ctx:"Semut bekerja keras mengumpulkan makanan untuk musim dingin, sedangkan belalang hanya bersenang-senang dan tidak mempersiapkan apa pun. Ketika musim dingin tiba, belalang kelaparan dan akhirnya ditolong oleh semut.", q:"Amanat dari cerita di atas adalah ....",o:["Boleh bermalas-malasan asal senang","Bekerja keras dan mempersiapkan masa depan","Tidak perlu menolong orang lain"],c:1},
+{ctx:"Semut bekerja keras mengumpulkan makanan untuk musim dingin, sedangkan belalang hanya bersenang-senang. Ketika musim dingin tiba, belalang kelaparan dan akhirnya ditolong oleh semut.", q:"Tokoh dalam cerita di atas adalah ....",o:["Semut dan Gajah","Semut dan Belalang","Gagak dan Belalang"],c:1},
+{ctx:"", q:"Puisi biasanya digunakan untuk mengungkapkan ....",o:["Data dan fakta","Perasaan dan pikiran penulis","Instruksi/perintah"],c:1},
+{ctx:"", q:"Bacaan yang berisi ungkapan perasaan dengan bahasa yang indah dan bermakna disebut ....",o:["Puisi","Laporan","Surat"],c:0},
+{ctx:"", q:"Cerita rakyat yang menceritakan asal-usul suatu tempat, seperti Candi Prambanan, termasuk jenis ....",o:["Fabel","Legenda","Sage"],c:1},
+{ctx:"", q:"Cerita yang tokoh utamanya berupa hewan yang bisa berbicara dan bertingkah seperti manusia disebut ....",o:["Legenda","Fabel","Mite"],c:1},
+{ctx:"", q:"Kata santun yang tepat diucapkan saat meminta bantuan orang lain adalah ....",o:["Tolong","Diam","Cepat"],c:0},
+{ctx:"", q:"Kalimat \"Ikan bernafas menggunakan insangnya\" termasuk kalimat ....",o:["Fakta","Fiksi","Puisi"],c:0}
+];
+
+let currentQuiz = [];
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function generateQuiz(){
+  const shuffledBank = shuffle(bank);
+  const picked = shuffledBank.slice(0,30);
+  currentQuiz = picked.map(item=>{
+    const optionIndices = shuffle([0,1,2]);
+    const options = optionIndices.map(i=>item.o[i]);
+    const correctIndex = optionIndices.indexOf(item.c);
+    return {ctx:item.ctx, q:item.q, options:options, correct:correctIndex};
+  });
+  renderQuiz();
+  document.getElementById('scoreBox').classList.remove('show');
+  updateProgress();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function renderQuiz(){
+  const container = document.getElementById('quizContainer');
+  container.innerHTML = '';
+  currentQuiz.forEach((item, idx)=>{
+    const div = document.createElement('div');
+    div.className = 'card question-card';
+    div.id = 'q'+idx;
+    const letters = ['A','B','C'];
+    let optionsHtml = '';
+    item.options.forEach((opt, oi)=>{
+      optionsHtml += `
+        <label class="option-label" id="q${idx}o${oi}">
+          <input type="radio" name="q${idx}" value="${oi}" onchange="updateProgress()">
+          ${letters[oi]}. ${opt}
+        </label>`;
+    });
+    const ctxHtml = item.ctx ? `<div class="q-context">${item.ctx.replace(/\n/g,'<br>')}</div>` : '';
+    div.innerHTML = `
+      <div class="q-text"><span class="q-number">${idx+1}</span>${item.q}</div>
+      ${ctxHtml}
+      ${optionsHtml}
+      <div class="feedback" id="fb${idx}"></div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function updateProgress(){
+  let answered = 0;
+  currentQuiz.forEach((item, idx)=>{
+    const chosen = document.querySelector(`input[name="q${idx}"]:checked`);
+    if(chosen) answered++;
+  });
+  const pct = Math.round((answered/currentQuiz.length)*100);
+  document.getElementById('progressBarInner').style.width = pct+'%';
+  document.getElementById('progressLabel').textContent = `Terjawab: ${answered} / ${currentQuiz.length} soal`;
+}
+
+function checkAnswers(){
+  let score = 0;
+  currentQuiz.forEach((item, idx)=>{
+    const chosen = document.querySelector(`input[name="q${idx}"]:checked`);
+    const qCard = document.getElementById('q'+idx);
+    const fb = document.getElementById('fb'+idx);
+    item.options.forEach((opt, oi)=>{
+      const lbl = document.getElementById(`q${idx}o${oi}`);
+      lbl.classList.remove('chosen-correct','chosen-incorrect','reveal-correct');
+    });
+    if(chosen){
+      const chosenIdx = parseInt(chosen.value);
+      if(chosenIdx === item.correct){
+        score++;
+        qCard.classList.add('correct');
+        qCard.classList.remove('incorrect');
+        document.getElementById(`q${idx}o${chosenIdx}`).classList.add('chosen-correct');
+        fb.textContent = '✅ Benar!';
+        fb.style.color = '#2a9d8f';
+      } else {
+        qCard.classList.add('incorrect');
+        qCard.classList.remove('correct');
+        document.getElementById(`q${idx}o${chosenIdx}`).classList.add('chosen-incorrect');
+        document.getElementById(`q${idx}o${item.correct}`).classList.add('reveal-correct');
+        fb.textContent = '❌ Kurang tepat. Jawaban yang benar: '+String.fromCharCode(65+item.correct)+'. '+item.options[item.correct];
+        fb.style.color = '#e63946';
+      }
+    } else {
+      qCard.classList.remove('correct','incorrect');
+      document.getElementById(`q${idx}o${item.correct}`).classList.add('reveal-correct');
+      fb.textContent = '⚠️ Belum dijawab. Jawaban yang benar: '+String.fromCharCode(65+item.correct)+'. '+item.options[item.correct];
+      fb.style.color = '#e09f3e';
+    }
+  });
+  const scoreBox = document.getElementById('scoreBox');
+  const nilai = Math.round((score/currentQuiz.length)*100);
+  let pesan = '';
+  if(nilai>=90) pesan='Luar biasa! 🌟';
+  else if(nilai>=75) pesan='Bagus sekali! 👍';
+  else if(nilai>=60) pesan='Cukup baik, terus belajar! 💪';
+  else pesan='Ayo belajar lagi ya! 📚';
+  scoreBox.style.background = nilai>=60 ? '#d8f3ea' : '#fbdada';
+  scoreBox.style.color = nilai>=60 ? '#1d3557' : '#9d1c24';
+  scoreBox.innerHTML = `Skor kamu: ${score} / ${currentQuiz.length} (${nilai}) <br>${pesan}`;
+  scoreBox.classList.add('show');
+  updateProgress();
+  scoreBox.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function resetAnswers(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.question-card').forEach(c=>{
+    c.classList.remove('correct','incorrect');
+  });
+  document.querySelectorAll('.option-label').forEach(l=>{
+    l.classList.remove('chosen-correct','chosen-incorrect','reveal-correct');
+  });
+  document.querySelectorAll('.feedback').forEach(f=>f.textContent='');
+  document.getElementById('scoreBox').classList.remove('show');
+  updateProgress();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function toggleMateri(btn){
+  const body = btn.nextElementSibling;
+  body.classList.toggle('show');
+  btn.textContent = body.classList.contains('show') ? 'Sembunyikan Materi' : 'Tampilkan Materi';
+}
+
+// init
+generateQuiz();
+</script>
+
+</body>
+</html>
