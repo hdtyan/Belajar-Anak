@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Belajar Pendidikan Pancasila - Kelas 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2B2D42;
+    --paper:#FFFBF5;
+    --card:#FFFFFF;
+    --t1:#FF6B4A; --t1-soft:#FFE6DF;
+    --t2:#1FAFA4; --t2-soft:#DBF6F3;
+    --t3:#3D8BD9; --t3-soft:#DEEBFA;
+    --t4:#7C5CD9; --t4-soft:#E9E1FA;
+    --t5:#E0982A; --t5-soft:#FBEBD2;
+    --t6:#3FA56A; --t6-soft:#DEF3E7;
+    --good:#2E9E5B;
+    --bad:#E4573D;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Nunito',sans-serif;
+    line-height:1.6;
+    padding-bottom:80px;
+  }
+  h1,h2,h3,.brand{font-family:'Baloo 2',sans-serif;}
+  .wrap{max-width:740px;margin:0 auto;padding:0 20px;}
+
+  /* HERO */
+  .hero{
+    background:linear-gradient(135deg,#FF6B4A 0%, #E0982A 100%);
+    color:#fff;
+    padding:52px 20px 64px;
+    text-align:left;
+    border-radius:0 0 32px 32px;
+  }
+  .hero .wrap{max-width:740px;}
+  .hero .kicker{
+    font-size:15px;
+    font-weight:700;
+    opacity:.92;
+  }
+  .hero h1{
+    font-size:34px;
+    margin:8px 0 10px;
+    font-weight:800;
+    line-height:1.15;
+  }
+  .hero p{
+    font-size:16px;
+    max-width:480px;
+    margin:0;
+    opacity:.95;
+  }
+
+  /* NAV PILLS */
+  .section-label{
+    margin:44px 0 18px;
+  }
+  .section-label h2{
+    font-size:24px;
+    margin:0;
+  }
+  .section-label p{
+    margin:6px 0 0;
+    color:#555;
+    font-size:15px;
+  }
+
+  /* MATERI CARDS */
+  .materi-card{
+    background:var(--card);
+    border-radius:20px;
+    padding:22px 24px;
+    margin-bottom:16px;
+    border-left:8px solid var(--accent, #ccc);
+    box-shadow:0 2px 10px rgba(43,45,66,.05);
+  }
+  .materi-card .badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:30px;height:30px;
+    border-radius:50%;
+    background:var(--soft,#eee);
+    color:var(--accent,#333);
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:14px;
+    margin-right:10px;
+  }
+  .materi-card .title-row{
+    display:flex;
+    align-items:center;
+    margin-bottom:8px;
+  }
+  .materi-card h3{
+    font-size:19px;
+    margin:0;
+    color:var(--accent,#222);
+  }
+  .materi-card p{
+    margin:0;
+    font-size:15.5px;
+    color:#3a3a3a;
+  }
+
+  /* QUIZ INTRO / CONTROLS */
+  .quiz-toolbar{
+    background:var(--card);
+    border-radius:18px;
+    padding:18px 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    box-shadow:0 2px 10px rgba(43,45,66,.05);
+    margin-bottom:22px;
+    position:sticky;
+    top:12px;
+    z-index:5;
+  }
+  .quiz-toolbar .status{
+    font-size:14.5px;
+    color:#555;
+  }
+  .quiz-toolbar .status b{color:var(--ink);}
+  .btn{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:15px;
+    border:none;
+    border-radius:14px;
+    padding:12px 20px;
+    cursor:pointer;
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{background:var(--ink);color:#fff;}
+  .btn-primary:hover{box-shadow:0 4px 14px rgba(43,45,66,.25);}
+  .btn-outline{background:#fff;color:var(--ink);border:2px solid var(--ink);}
+  .btn-outline:hover{background:#f2f2f2;}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;}
+
+  /* QUESTION CARDS */
+  .qcard{
+    background:var(--card);
+    border-radius:18px;
+    padding:20px 22px;
+    margin-bottom:14px;
+    border:2px solid transparent;
+    box-shadow:0 2px 10px rgba(43,45,66,.05);
+  }
+  .qcard.correct{border-color:var(--good);}
+  .qcard.wrong{border-color:var(--bad);}
+  .qnum-row{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+  }
+  .qnum{
+    flex:0 0 auto;
+    width:30px;height:30px;
+    border-radius:50%;
+    background:var(--soft,#eee);
+    color:var(--accent,#333);
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:14px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .qtext{
+    font-size:16px;
+    font-weight:700;
+    margin:0 0 12px;
+    color:var(--ink);
+  }
+  .topic-tag{
+    display:inline-block;
+    font-size:11.5px;
+    font-weight:700;
+    color:var(--accent,#333);
+    background:var(--soft,#eee);
+    border-radius:8px;
+    padding:2px 8px;
+    margin-bottom:8px;
+  }
+  .options{display:flex;flex-direction:column;gap:8px;}
+  .option{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    border:2px solid #E7E4DC;
+    border-radius:12px;
+    padding:10px 14px;
+    cursor:pointer;
+    font-size:15px;
+    transition:border-color .12s ease, background .12s ease;
+  }
+  .option:hover{border-color:#c9c4b8;}
+  .option input{accent-color:var(--ink);width:17px;height:17px;}
+  .option.picked{border-color:var(--ink);background:#F6F4EE;}
+  .option.mark-correct{border-color:var(--good);background:#EAF7EF;}
+  .option.mark-wrong{border-color:var(--bad);background:#FCEAE6;}
+  .option .letter{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    width:22px;
+  }
+  .feedback-line{
+    margin-top:10px;
+    font-size:14px;
+    font-weight:700;
+  }
+  .feedback-line.good{color:var(--good);}
+  .feedback-line.bad{color:var(--bad);}
+
+  /* SCORE BANNER */
+  .score-banner{
+    display:none;
+    background:var(--ink);
+    color:#fff;
+    border-radius:18px;
+    padding:22px 24px;
+    margin-bottom:20px;
+    text-align:center;
+  }
+  .score-banner.show{display:block;}
+  .score-banner .num{
+    font-family:'Baloo 2',sans-serif;
+    font-size:40px;
+    font-weight:800;
+    margin:4px 0;
+  }
+  .score-banner .msg{font-size:15px;opacity:.9;}
+
+  footer{
+    text-align:center;
+    color:#8a8a8a;
+    font-size:13px;
+    margin-top:40px;
+  }
+
+  @media (max-width:520px){
+    .hero h1{font-size:27px;}
+    .quiz-toolbar{position:static;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="kicker">Pendidikan Pancasila &middot; Kelas 1 &middot; Semester 1</div>
+    <h1>Pendalaman Materi &amp; Latihan Soal</h1>
+    <p>Rangkuman materi dan 30 soal latihan pilihan ganda untuk membantu adik-adik mengulang pelajaran sebelum penilaian.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="section-label">
+    <h2>Rangkuman Materi</h2>
+    <p>Bacalah ringkasan setiap materi berikut sebelum mengerjakan soal di bawahnya.</p>
+  </div>
+
+  <div id="materiContainer"></div>
+
+  <div class="section-label">
+    <h2>Ayo Berlatih Soal</h2>
+    <p>Kerjakan 30 soal berikut dengan memilih jawaban A, B, atau C. Tidak ada batas waktu, kerjakan santai saja.</p>
+  </div>
+
+  <div class="quiz-toolbar">
+    <div class="status" id="statusText">Soal siap dikerjakan &middot; <b>0</b> dari <b>30</b> terjawab</div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="checkBtn">Cek Jawaban</button>
+      <button class="btn btn-outline" id="regenBtn">Buat Soal Baru</button>
+    </div>
+  </div>
+
+  <div class="score-banner" id="scoreBanner">
+    <div class="msg">Skor kamu</div>
+    <div class="num" id="scoreNum">0 / 30</div>
+    <div class="msg" id="scoreMsg"></div>
+  </div>
+
+  <div id="quizContainer"></div>
+
+  <footer>Dibuat untuk pendalaman materi Pendidikan Pancasila Kelas 1</footer>
+</div>
+
+<script>
+/* ================= DATA MATERI ================= */
+const materiData = [
+  {
+    id:'t1', order:1, color:'var(--t1)', soft:'var(--t1-soft)',
+    title:'Berkenalan dengan Teman Baru',
+    content:'Setiap hari kita bertemu teman di sekolah. Saat berkenalan, kita bersikap sopan dan tersenyum ramah, lalu menyebutkan nama kita supaya teman baru mengenal kita. Sikap sopan membuat kita mudah disukai dan mempunyai banyak teman.'
+  },
+  {
+    id:'t2', order:2, color:'var(--t2)', soft:'var(--t2-soft)',
+    title:'Mengenal Perbedaan pada Diri Teman',
+    content:'Setiap orang memiliki ciri fisik, sifat, dan kegemaran yang berbeda-beda. Ada yang berbadan gemuk, ada yang kurus; ada yang periang, ada yang pendiam; ada yang suka sepak bola, ada yang suka melukis. Meskipun berbeda, kita tetap harus saling menghargai dan rukun.'
+  },
+  {
+    id:'t3', order:3, color:'var(--t3)', soft:'var(--t3-soft)',
+    title:'Menjaga Kebersihan Diri',
+    content:'Tubuh yang bersih membuat kita sehat dan nyaman. Cara menjaga kebersihan tubuh antara lain mandi dua kali sehari, gosok gigi, dan keramas atau mencuci rambut. Kebersihan tubuh penting supaya kita terhindar dari penyakit.'
+  },
+  {
+    id:'t4', order:4, color:'var(--t4)', soft:'var(--t4-soft)',
+    title:'Kegiatan Mandiri dan Kegiatan Dibantu Orang Tua',
+    content:'Ada kegiatan yang bisa kita lakukan sendiri, ada juga yang masih membutuhkan bantuan orang tua. Contoh kegiatan mandiri adalah makan, memakai baju, dan memakai sepatu sendiri. Contoh kegiatan yang masih dibantu orang tua adalah memotong rambut dan membersihkan telinga.'
+  },
+  {
+    id:'t5', order:5, color:'var(--t5)', soft:'var(--t5-soft)',
+    title:'Permainan Tradisional: Engklek dan Gobak Sodor',
+    content:'Dalam permainan engklek, kita menggunakan gaco (pecahan genting atau batu pipih) dan harus melompat dengan satu kaki tanpa menginjak garis. Dalam permainan gobak sodor, kelompok penjaga bertugas menghalangi kelompok penyerang agar tidak masuk ke dalam kotak. Permainan tradisional sebaiknya dimainkan bersama teman-teman.'
+  },
+  {
+    id:'t6', order:6, color:'var(--t6)', soft:'var(--t6-soft)',
+    title:'Mematuhi Aturan di Sekolah',
+    content:'Di sekolah kita mempunyai aturan yang harus dipatuhi, misalnya bermain hanya boleh saat waktu istirahat. Patuh pada aturan bermanfaat untuk melatih kejujuran, melatih kedisiplinan, dan menciptakan kerukunan antarteman.'
+  }
+];
+
+/* ================= BANK SOAL ================= */
+// answer = teks jawaban benar (persis salah satu isi options)
+const questionBank = [
+  // t1 - Berkenalan
+  {topic:'t1', q:'Sikap yang baik saat berkenalan dengan teman baru adalah bersikap …', options:['sopan','sombong','cuek'], answer:'sopan'},
+  {topic:'t1', q:'Saat berkenalan, hal yang perlu kita sebutkan adalah …', options:['warna baju','nama','alamat rumah'], answer:'nama'},
+  {topic:'t1', q:'Terhadap semua teman, kita seharusnya bersikap …', options:['galak','cuek','ramah'], answer:'ramah'},
+  {topic:'t1', q:'Saat ada teman baru datang ke sekolah, sebaiknya kita …', options:['menyapa dengan ramah','mengabaikannya','menjauhinya'], answer:'menyapa dengan ramah'},
+  {topic:'t1', q:'Berkenalan dengan teman baru sebaiknya sambil …', options:['cemberut','tersenyum','berteriak'], answer:'tersenyum'},
+  {topic:'t1', q:'Berbicara dengan teman sebaiknya menggunakan kata-kata yang …', options:['sopan','kasar','keras'], answer:'sopan'},
+  {topic:'t1', q:'Jika ada teman yang mengejek nama kita, sebaiknya kita …', options:['membalas dengan mengejek','memberi tahu guru dengan baik','memukulnya'], answer:'memberi tahu guru dengan baik'},
+
+  // t2 - Perbedaan
+  {topic:'t2', q:'Budi berbadan gemuk, Ali berbadan kurus. Mereka memiliki perbedaan …', options:['ciri fisik','nama','hobi'], answer:'ciri fisik'},
+  {topic:'t2', q:'Dedi anak yang penyabar, Dodo anak yang pemarah. Mereka memiliki perbedaan …', options:['ciri fisik','sifat','hobi'], answer:'sifat'},
+  {topic:'t2', q:'Fathan gemar sepak bola, Rifki gemar melukis. Mereka memiliki perbedaan …', options:['sifat','ciri fisik','kegemaran/hobi'], answer:'kegemaran/hobi'},
+  {topic:'t2', q:'Viona anak yang periang, Nahda anak yang pendiam. Mereka memiliki perbedaan …', options:['sifat','hobi','ciri fisik'], answer:'sifat'},
+  {topic:'t2', q:'Warna kulit, tinggi badan, dan bentuk rambut termasuk contoh perbedaan …', options:['sifat','ciri fisik','kegemaran'], answer:'ciri fisik'},
+  {topic:'t2', q:'Meskipun teman kita berbeda ciri fisik, sifat, dan hobi, sikap kita sebaiknya …', options:['saling menghargai','saling mengejek','bermusuhan'], answer:'saling menghargai'},
+  {topic:'t2', q:'Contoh perbedaan sifat antara dua orang teman adalah …', options:['satu suka menggambar, satu suka menyanyi','satu penyabar, satu pemarah','satu tinggi, satu pendek'], answer:'satu penyabar, satu pemarah'},
+
+  // t3 - Kebersihan
+  {topic:'t3', q:'Cara menjaga kebersihan tubuh antara lain …', options:['mandi','bermain pasir lalu tidak mencuci tangan','jarang mandi'], answer:'mandi'},
+  {topic:'t3', q:'Selain mandi, cara menjaga kebersihan gigi adalah …', options:['makan permen','gosok gigi','tidak sikat gigi'], answer:'gosok gigi'},
+  {topic:'t3', q:'Mencuci rambut disebut juga …', options:['mandi','gosok gigi','keramas'], answer:'keramas'},
+  {topic:'t3', q:'Sebaiknya kita mandi … kali sehari', options:['dua','tidak perlu mandi','seminggu sekali'], answer:'dua'},
+  {topic:'t3', q:'Kebersihan tubuh penting supaya kita terhindar dari …', options:['penyakit','teman baru','hujan'], answer:'penyakit'},
+  {topic:'t3', q:'Sebelum makan, sebaiknya kita …', options:['mencuci tangan','bermain dulu','tidur dulu'], answer:'mencuci tangan'},
+  {topic:'t3', q:'Tubuh yang bersih membuat kita merasa …', options:['sehat dan nyaman','gatal','lemas'], answer:'sehat dan nyaman'},
+
+  // t4 - Mandiri
+  {topic:'t4', q:'Contoh kegiatan yang membutuhkan bantuan orang tua adalah …', options:['makan','memotong rambut','memakai sepatu'], answer:'memotong rambut'},
+  {topic:'t4', q:'Selain memotong rambut, kegiatan yang membutuhkan bantuan orang tua adalah …', options:['membersihkan telinga','mandi sendiri','memakai baju sendiri'], answer:'membersihkan telinga'},
+  {topic:'t4', q:'Contoh kegiatan yang bisa dilakukan secara mandiri adalah …', options:['memotong rambut','membersihkan telinga','makan'], answer:'makan'},
+  {topic:'t4', q:'Selain makan, contoh kegiatan mandiri lainnya adalah …', options:['memakai sepatu sendiri','minta disuapi','minta digendong'], answer:'memakai sepatu sendiri'},
+  {topic:'t4', q:'Memakai pakaian sendiri termasuk kegiatan …', options:['dibantu orang tua','mandiri','bersama teman'], answer:'mandiri'},
+  {topic:'t4', q:'Anak yang mandiri artinya anak yang …', options:['bisa melakukan sesuatu sendiri','selalu minta bantuan','malas berusaha'], answer:'bisa melakukan sesuatu sendiri'},
+  {topic:'t4', q:'Kegiatan mandi sendiri termasuk contoh kegiatan …', options:['mandiri','dibantu orang tua','bersama guru'], answer:'mandiri'},
+
+  // t5 - Permainan
+  {topic:'t5', q:'Gaco merupakan alat yang digunakan untuk bermain …', options:['engklek','gobak sodor','petak umpet'], answer:'engklek'},
+  {topic:'t5', q:'Pecahan genting atau batu pipih yang digunakan untuk bermain engklek disebut …', options:['kelereng','gaco','congklak'], answer:'gaco'},
+  {topic:'t5', q:'Dalam permainan engklek, pemain harus melompat dengan …', options:['dua kaki','satu kaki','berlari'], answer:'satu kaki'},
+  {topic:'t5', q:'Aturan dalam bermain engklek adalah pemain tidak boleh menginjak …', options:['gaco','teman','garis'], answer:'garis'},
+  {topic:'t5', q:'Kelompok penjaga menghalangi penyerang masuk ke dalam kotak, merupakan aturan permainan …', options:['engklek','gobak sodor','petak umpet'], answer:'gobak sodor'},
+  {topic:'t5', q:'Permainan tradisional sebaiknya dimainkan bersama …', options:['teman-teman','sendirian','tanpa aturan'], answer:'teman-teman'},
+  {topic:'t5', q:'Engklek dan gobak sodor adalah contoh …', options:['permainan tradisional','pelajaran di kelas','kegiatan mandiri'], answer:'permainan tradisional'},
+
+  // t6 - Aturan
+  {topic:'t6', q:'Manfaat patuh pada aturan antara lain melatih …', options:['kesombongan','kejujuran','kemalasan'], answer:'kejujuran'},
+  {topic:'t6', q:'Selain melatih kejujuran, patuh pada aturan juga melatih …', options:['kecurangan','keributan','kedisiplinan'], answer:'kedisiplinan'},
+  {topic:'t6', q:'Mematuhi aturan juga dapat menciptakan …', options:['kerukunan','pertengkaran','permusuhan'], answer:'kerukunan'},
+  {topic:'t6', q:'Anak-anak biasanya bermain di sekolah saat …', options:['jam pelajaran','istirahat','upacara'], answer:'istirahat'},
+  {topic:'t6', q:'Jika aturan tidak dipatuhi, yang akan terjadi adalah …', options:['suasana menjadi tidak tertib','semua senang','semua nyaman'], answer:'suasana menjadi tidak tertib'},
+  {topic:'t6', q:'Aturan dibuat supaya kehidupan bersama menjadi lebih …', options:['kacau','tertib','bebas tanpa batas'], answer:'tertib'},
+  {topic:'t6', q:'Contoh aturan yang baik di sekolah adalah …', options:['datang tepat waktu','mengganggu teman','membuang sampah sembarangan'], answer:'datang tepat waktu'}
+];
+
+const topicMeta = Object.fromEntries(materiData.map(m => [m.id, m]));
+const TOTAL_QUESTIONS = 30;
+let currentQuiz = [];
+
+/* ================= RENDER MATERI ================= */
+function renderMateri(){
+  const c = document.getElementById('materiContainer');
+  c.innerHTML = materiData.map(m => `
+    <div class="materi-card" style="--accent:${m.color};--soft:${m.soft}">
+      <div class="title-row">
+        <span class="badge">${m.order}</span>
+        <h3>${m.title}</h3>
+      </div>
+      <p>${m.content}</p>
+    </div>
+  `).join('');
+}
+
+/* ================= HELPERS ================= */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function buildQuiz(){
+  const pool = shuffle(questionBank);
+  const picked = pool.slice(0, Math.min(TOTAL_QUESTIONS, pool.length));
+  currentQuiz = picked.map(item => {
+    const shuffledOptions = shuffle(item.options);
+    return {
+      topic: item.topic,
+      q: item.q,
+      options: shuffledOptions,
+      answer: item.answer
+    };
+  });
+}
+
+/* ================= RENDER QUIZ ================= */
+function renderQuiz(){
+  const c = document.getElementById('quizContainer');
+  const letters = ['A','B','C'];
+  c.innerHTML = currentQuiz.map((item, idx) => {
+    const meta = topicMeta[item.topic];
+    const optsHtml = item.options.map((opt, oi) => `
+      <label class="option" data-qidx="${idx}" data-oidx="${oi}">
+        <input type="radio" name="q${idx}" value="${oi}">
+        <span class="letter">${letters[oi]}.</span>
+        <span class="opt-text">${opt}</span>
+      </label>
+    `).join('');
+    return `
+      <div class="qcard" id="qcard-${idx}" style="--accent:${meta.color};--soft:${meta.soft}">
+        <div class="qnum-row" style="flex-direction:column;">
+          <span class="topic-tag">${meta.title}</span>
+          <div style="display:flex;gap:12px;">
+            <span class="qnum">${idx+1}</span>
+            <p class="qtext">${item.q}</p>
+          </div>
+        </div>
+        <div class="options">${optsHtml}</div>
+        <div class="feedback-line" id="fb-${idx}"></div>
+      </div>
+    `;
+  }).join('');
+
+  attachOptionListeners();
+  updateStatus();
+  document.getElementById('scoreBanner').classList.remove('show');
+}
+
+function attachOptionListeners(){
+  document.querySelectorAll('.option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const qidx = opt.dataset.qidx;
+      document.querySelectorAll(`.option[data-qidx="${qidx}"]`).forEach(o => o.classList.remove('picked'));
+      opt.classList.add('picked');
+      updateStatus();
+    });
+  });
+}
+
+function updateStatus(){
+  const answered = new Set();
+  document.querySelectorAll('input[type=radio]:checked').forEach(r => answered.add(r.name));
+  document.getElementById('statusText').innerHTML =
+    `Soal siap dikerjakan &middot; <b>${answered.size}</b> dari <b>${currentQuiz.length}</b> terjawab`;
+}
+
+/* ================= CEK JAWABAN ================= */
+function checkAnswers(){
+  let score = 0;
+  currentQuiz.forEach((item, idx) => {
+    const checked = document.querySelector(`input[name="q${idx}"]:checked`);
+    const card = document.getElementById(`qcard-${idx}`);
+    const fb = document.getElementById(`fb-${idx}`);
+    const options = document.querySelectorAll(`.option[data-qidx="${idx}"]`);
+
+    options.forEach(o => o.classList.remove('mark-correct','mark-wrong'));
+
+    const correctOptionIndex = item.options.indexOf(item.answer);
+    const correctOptionEl = document.querySelector(`.option[data-qidx="${idx}"][data-oidx="${correctOptionIndex}"]`);
+
+    if(!checked){
+      card.classList.remove('correct');
+      card.classList.add('wrong');
+      correctOptionEl.classList.add('mark-correct');
+      fb.textContent = `Belum dijawab. Jawaban yang benar: ${item.answer}`;
+      fb.className = 'feedback-line bad';
+      return;
+    }
+
+    const chosenIdx = Number(checked.value);
+    const isCorrect = item.options[chosenIdx] === item.answer;
+
+    if(isCorrect){
+      score++;
+      card.classList.add('correct');
+      card.classList.remove('wrong');
+      correctOptionEl.classList.add('mark-correct');
+      fb.textContent = 'Benar!';
+      fb.className = 'feedback-line good';
+    } else {
+      card.classList.add('wrong');
+      card.classList.remove('correct');
+      correctOptionEl.classList.add('mark-correct');
+      const chosenEl = document.querySelector(`.option[data-qidx="${idx}"][data-oidx="${chosenIdx}"]`);
+      chosenEl.classList.add('mark-wrong');
+      fb.textContent = `Kurang tepat. Jawaban yang benar: ${item.answer}`;
+      fb.className = 'feedback-line bad';
+    }
+  });
+
+  const banner = document.getElementById('scoreBanner');
+  banner.classList.add('show');
+  document.getElementById('scoreNum').textContent = `${score} / ${currentQuiz.length}`;
+  let msg = '';
+  const pct = score / currentQuiz.length;
+  if(pct === 1) msg = 'Luar biasa! Semua jawaban benar.';
+  else if(pct >= 0.8) msg = 'Bagus sekali, hampir sempurna!';
+  else if(pct >= 0.6) msg = 'Kerja bagus, terus berlatih ya!';
+  else msg = 'Ayo pelajari lagi materinya, lalu coba lagi!';
+  document.getElementById('scoreMsg').textContent = msg;
+  banner.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+/* ================= EVENTS ================= */
+document.getElementById('checkBtn').addEventListener('click', checkAnswers);
+document.getElementById('regenBtn').addEventListener('click', () => {
+  buildQuiz();
+  renderQuiz();
+  window.scrollTo({top: document.querySelector('.quiz-toolbar').offsetTop - 20, behavior:'smooth'});
+});
+
+/* ================= INIT ================= */
+renderMateri();
+buildQuiz();
+renderQuiz();
+</script>
+</body>
+</html>
