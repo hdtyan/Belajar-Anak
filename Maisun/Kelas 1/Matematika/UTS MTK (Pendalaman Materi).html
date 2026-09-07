@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuis Interaktif Matematika - Kelas 1 Semester Gasal</title>
+<style>
+  :root{
+    --pink:#ff6b9d;
+    --purple:#8b5cf6;
+    --blue:#3b82f6;
+    --green:#22c55e;
+    --yellow:#fbbf24;
+    --orange:#fb923c;
+    --red:#ef4444;
+    --bg:#fef9f5;
+    --card:#ffffff;
+    --dark:#334155;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Comic Sans MS','Trebuchet MS',Arial,sans-serif;
+    background:linear-gradient(135deg,#fef3e2,#e0f2fe 60%,#fce7f3);
+    color:var(--dark);
+    padding-bottom:60px;
+  }
+  header{
+    background:linear-gradient(120deg,var(--pink),var(--purple));
+    color:white;
+    text-align:center;
+    padding:32px 16px 40px;
+    border-bottom-left-radius:40px;
+    border-bottom-right-radius:40px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.15);
+  }
+  header h1{margin:0 0 8px;font-size:2rem;}
+  header p{margin:0;font-size:1.1rem;opacity:0.95;}
+  .container{max-width:900px;margin:0 auto;padding:0 16px;}
+  .section-title{
+    text-align:center;
+    font-size:1.7rem;
+    margin:40px 0 20px;
+    color:var(--purple);
+  }
+  .materi-card{
+    background:var(--card);
+    border-radius:20px;
+    padding:20px 24px;
+    margin-bottom:18px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.08);
+    border-left:10px solid var(--blue);
+  }
+  .materi-card h3{
+    margin-top:0;
+    color:var(--blue);
+    font-size:1.25rem;
+  }
+  .materi-card:nth-child(odd){border-left-color:var(--pink);}
+  .materi-card:nth-child(odd) h3{color:var(--pink);}
+  .materi-card .contoh{
+    background:#f8fafc;
+    border-radius:12px;
+    padding:10px 14px;
+    margin-top:10px;
+    font-size:1rem;
+  }
+  .emoji-row{font-size:1.6rem;letter-spacing:4px;margin:6px 0;}
+  .toolbar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    justify-content:center;
+    margin:20px 0 10px;
+  }
+  button{
+    font-family:inherit;
+    border:none;
+    cursor:pointer;
+    border-radius:30px;
+    padding:12px 22px;
+    font-size:1rem;
+    font-weight:bold;
+    color:white;
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
+    transition:transform 0.15s;
+  }
+  button:hover{transform:translateY(-2px);}
+  #btnGenerate{background:linear-gradient(120deg,var(--orange),var(--yellow));}
+  #btnSubmit{background:linear-gradient(120deg,var(--green),#16a34a);}
+  #btnReset{background:linear-gradient(120deg,#94a3b8,#64748b);}
+  #btnDownload{background:linear-gradient(120deg,var(--purple),var(--blue));}
+  .question-card{
+    background:var(--card);
+    border-radius:18px;
+    padding:18px 22px;
+    margin-bottom:16px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    border:2px solid transparent;
+  }
+  .question-card.correct{border-color:var(--green);background:#f0fdf4;}
+  .question-card.wrong{border-color:var(--red);background:#fef2f2;}
+  .qnum{
+    display:inline-block;
+    background:var(--purple);
+    color:white;
+    width:30px;height:30px;
+    border-radius:50%;
+    text-align:center;
+    line-height:30px;
+    margin-right:10px;
+    font-weight:bold;
+    font-size:0.95rem;
+  }
+  .qtext{font-size:1.15rem;font-weight:bold;display:inline;}
+  .qvisual{font-size:1.8rem;margin:10px 0;letter-spacing:6px;}
+  .options{margin-top:12px;display:grid;gap:8px;}
+  .option-label{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#f1f5f9;
+    padding:10px 14px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:1.05rem;
+    transition:background 0.15s;
+  }
+  .option-label:hover{background:#e2e8f0;}
+  .option-label input{transform:scale(1.3);}
+  .option-letter{
+    font-weight:bold;
+    color:var(--purple);
+    background:white;
+    border-radius:8px;
+    padding:2px 9px;
+  }
+  .feedback{margin-top:10px;font-weight:bold;font-size:0.98rem;}
+  .feedback.ok{color:var(--green);}
+  .feedback.no{color:var(--red);}
+  .explain{font-size:0.92rem;color:#64748b;margin-top:4px;}
+  #scoreBox{
+    text-align:center;
+    font-size:1.4rem;
+    font-weight:bold;
+    margin:20px 0;
+    padding:18px;
+    border-radius:18px;
+    background:linear-gradient(120deg,#fde68a,#fca5a5);
+    display:none;
+  }
+  footer{
+    text-align:center;
+    margin-top:40px;
+    color:#94a3b8;
+    font-size:0.9rem;
+  }
+  .materi-label{
+    display:inline-block;
+    background:#ede9fe;
+    color:var(--purple);
+    border-radius:10px;
+    padding:2px 10px;
+    font-size:0.8rem;
+    margin-bottom:6px;
+    font-weight:bold;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎈 Kuis Interaktif Matematika 🎈</h1>
+  <p>Pendalaman Materi PSTS - Kelas 1 Semester Gasal</p>
+</header>
+
+<div class="container">
+
+  <h2 class="section-title">📘 Ringkasan Materi</h2>
+  <div id="materiWrap"></div>
+
+  <h2 class="section-title">✏️ Latihan Soal (30 Soal)</h2>
+  <p style="text-align:center;color:#64748b;">Pilih salah satu jawaban A, B, atau C untuk setiap soal, lalu tekan tombol <b>Periksa Jawaban</b> di bawah.</p>
+
+  <div class="toolbar">
+    <button id="btnGenerate">🔄 Buat Soal Baru</button>
+    <button id="btnSubmit">✅ Periksa Jawaban</button>
+    <button id="btnReset">🧹 Ulangi Kuis</button>
+    <button id="btnDownload">⬇️ Download Halaman Ini</button>
+  </div>
+
+  <div id="scoreBox"></div>
+
+  <div id="quizWrap"></div>
+
+  <div class="toolbar">
+    <button id="btnGenerate2">🔄 Buat Soal Baru</button>
+    <button id="btnSubmit2">✅ Periksa Jawaban</button>
+  </div>
+
+  <footer>Dibuat otomatis dari materi Pendalaman PSTS Matematika Kelas 1 • Selamat belajar! 🌟</footer>
+</div>
+
+<script>
+/* ================= DATA MATERI ================= */
+const materiList = [
+  {
+    judul: "1. Lambang Bilangan",
+    isi: "Lambang bilangan adalah angka yang kita tulis untuk mewakili suatu jumlah. Misalnya bilangan 'delapan' ditulis dengan lambang <b>8</b>.",
+    contoh: "Contoh: delapan → 8, lima → 5, sepuluh → 10"
+  },
+  {
+    judul: "2. Menghitung Jumlah Benda",
+    isi: "Kita bisa menghitung banyak benda dengan cara menghitung satu per satu dari gambar yang ada.",
+    contoh: "🍩🍩🍩🍩🍩🍩 → ada 6 donat"
+  },
+  {
+    judul: "3. Nama Bilangan",
+    isi: "Setiap angka memiliki nama bilangan. Kita harus bisa membaca angka menjadi kata-kata.",
+    contoh: "Contoh: 9 → sembilan, 6 → enam, 7 → tujuh"
+  },
+  {
+    judul: "4. Membandingkan Bilangan",
+    isi: "Untuk membandingkan dua bilangan, kita gunakan kata <b>lebih dari</b>, <b>kurang dari</b>, atau <b>sama dengan</b>. Bilangan yang lebih besar disebut bilangan terbesar, dan yang lebih kecil disebut bilangan terkecil.",
+    contoh: "Contoh: 7 kurang dari 8, 10 lebih dari 6, 4 sama dengan 4"
+  },
+  {
+    judul: "5. Urutan Bilangan",
+    isi: "Bilangan dapat diurutkan dari yang terkecil ke terbesar, atau sebaliknya. Kita juga perlu tahu bilangan <b>sebelum</b> dan <b>sesudah</b> suatu bilangan.",
+    contoh: "Contoh: 2, 3, 4, ..., 6, 7, 8 → bilangan yang hilang adalah 5. Sebelum 5 adalah 4, sesudah 5 adalah 6."
+  },
+  {
+    judul: "6. Membandingkan Banyak Benda",
+    isi: "Kita bisa membandingkan dua kumpulan benda menggunakan kata <b>lebih banyak dari</b>, <b>lebih sedikit dari</b>, atau <b>sama banyak</b>.",
+    contoh: "🍎🍎🍎🍎 (4) dibanding 🍎🍎 (2) → lebih banyak dari"
+  },
+  {
+    judul: "7. Urutan / Posisi Benda (Bilangan Urutan)",
+    isi: "Posisi benda dalam suatu baris disebut bilangan urutan (ordinal), seperti pertama, kedua, ketiga, keempat, kelima, dan seterusnya, dihitung dari depan.",
+    contoh: "🚗(1) 📚(2) ✏️(3) 🎒(4) 👟(5) → pensil (✏️) berada di urutan ketiga"
+  },
+  {
+    judul: "8. Penjumlahan",
+    isi: "Penjumlahan adalah menggabungkan dua kumpulan benda atau dua bilangan menjadi satu jumlah total. Bisa dihitung dengan gambar maupun angka.",
+    contoh: "Contoh: 4 + 4 = 8. Ahnaf punya 6 lego, Aufar punya 4 lego, jumlahnya 6 + 4 = 10"
+  }
+];
+
+const materiWrap = document.getElementById('materiWrap');
+materiList.forEach(m=>{
+  const div = document.createElement('div');
+  div.className = 'materi-card';
+  div.innerHTML = `<h3>${m.judul}</h3><p>${m.isi}</p><div class="contoh">${m.contoh}</div>`;
+  materiWrap.appendChild(div);
+});
+
+/* ================= UTIL ================= */
+function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+function pick(arr){ return arr[randInt(0,arr.length-1)]; }
+
+const angkaKeKata = ["nol","satu","dua","tiga","empat","lima","enam","tujuh","delapan","sembilan","sepuluh"];
+const ordinal = ["pertama","kedua","ketiga","keempat","kelima","keenam","ketujuh"];
+const objekEmoji = ["🍩","🍪","🍬","🍭","🍫","⭐","🍎","🚗","🎈","🐟","🦋","🌸"];
+const bendaUrutan = [
+  {nama:"mobil",emoji:"🚗"},{nama:"buku",emoji:"📚"},{nama:"pensil",emoji:"✏️"},
+  {nama:"tas",emoji:"🎒"},{nama:"sepatu",emoji:"👟"},{nama:"topi",emoji:"🧢"},{nama:"bola",emoji:"⚽"}
+];
+
+/* Buat 3 opsi acak dari 1 jawaban benar + angka acak lain (khusus jawaban angka) */
+function opsiAngka(benar,min,max){
+  const set = new Set([benar]);
+  while(set.size<3){
+    let n = randInt(min,max);
+    set.add(n);
+  }
+  return shuffle(Array.from(set)).map(String);
+}
+
+/* ================= GENERATOR SOAL PER MATERI ================= */
+
+// 1. Lambang bilangan
+function genLambangBilangan(){
+  const n = randInt(1,10);
+  const opsi = opsiAngka(n,1,10);
+  return {
+    materi:"Lambang Bilangan",
+    teks:`Lambang bilangan "${angkaKeKata[n]}" adalah ….`,
+    visual:"",
+    opsi,
+    jawaban:String(n),
+    penjelasan:`Lambang bilangan "${angkaKeKata[n]}" ditulis dengan angka ${n}.`
+  };
+}
+
+// 2. Menghitung jumlah benda
+function genHitungBenda(){
+  const jumlah = randInt(3,10);
+  const emoji = pick(objekEmoji);
+  const visual = (emoji+" ").repeat(jumlah).trim();
+  const opsi = opsiAngka(jumlah,1,10);
+  return {
+    materi:"Menghitung Jumlah Benda",
+    teks:"Perhatikan gambar berikut. Jumlah benda di atas ada ….",
+    visual,
+    opsi,
+    jawaban:String(jumlah),
+    penjelasan:`Jika dihitung satu per satu, jumlah gambar tersebut ada ${jumlah}.`
+  };
+}
+
+// 3. Nama bilangan
+function genNamaBilangan(){
+  const n = randInt(1,10);
+  const benar = angkaKeKata[n];
+  const salahSet = new Set([benar]);
+  while(salahSet.size<3){
+    salahSet.add(angkaKeKata[randInt(1,10)]);
+  }
+  return {
+    materi:"Nama Bilangan",
+    teks:`Nama bilangan ${n} adalah ….`,
+    visual:"",
+    opsi:shuffle(Array.from(salahSet)),
+    jawaban:benar,
+    penjelasan:`Bilangan ${n} dibaca "${benar}".`
+  };
+}
+
+// 4. Membandingkan bilangan (lebih dari/kurang dari/sama dengan) & terbesar
+function genBandingkanBilangan(){
+  const mode = pick(["banding","terbesar"]);
+  if(mode==="banding"){
+    let a = randInt(1,10), b = randInt(1,10);
+    if(Math.random()<0.25) b=a; // kadang sama
+    let jawaban = a>b?"lebih dari":(a<b?"kurang dari":"sama dengan");
+    return {
+      materi:"Membandingkan Bilangan",
+      teks:`${a} …. ${b}`,
+      visual:"",
+      opsi:shuffle(["lebih dari","kurang dari","sama dengan"]),
+      jawaban,
+      penjelasan:`${a} dibandingkan ${b} adalah "${jawaban}".`
+    };
+  } else {
+    let nums = shuffle([randInt(1,10),randInt(1,10),randInt(1,10)]);
+    while(new Set(nums).size<3){ nums = shuffle([randInt(1,10),randInt(1,10),randInt(1,10)]); }
+    const terbesar = Math.max(...nums);
+    return {
+      materi:"Membandingkan Bilangan",
+      teks:`Perhatikan bilangan berikut: ${nums.join(", ")}. Bilangan yang terbesar adalah ….`,
+      visual:"",
+      opsi:nums.map(String),
+      jawaban:String(terbesar),
+      penjelasan:`Bilangan terbesar dari ${nums.join(", ")} adalah ${terbesar}.`
+    };
+  }
+}
+
+// 5. Urutan bilangan (angka hilang / sebelum-sesudah)
+function genUrutanBilangan(){
+  const mode = pick(["hilang","sebelum","sesudah"]);
+  if(mode==="hilang"){
+    const start = randInt(1,4);
+    const seq = [];
+    for(let i=0;i<6;i++) seq.push(start+i);
+    const hideIndex = randInt(1,4);
+    const jawaban = seq[hideIndex];
+    const tampil = seq.map((v,i)=> i===hideIndex? "…." : v).join(", ");
+    return {
+      materi:"Urutan Bilangan",
+      teks:`${tampil}. Bilangan yang tepat untuk melengkapi urutan tersebut adalah ….`,
+      visual:"",
+      opsi:opsiAngka(jawaban,1,10),
+      jawaban:String(jawaban),
+      penjelasan:`Urutan bilangan tersebut adalah ${seq.join(", ")}, jadi yang hilang adalah ${jawaban}.`
+    };
+  } else if(mode==="sebelum"){
+    const n = randInt(2,10);
+    return {
+      materi:"Urutan Bilangan",
+      teks:`Bilangan sebelum ${n} adalah ….`,
+      visual:"",
+      opsi:opsiAngka(n-1,1,10),
+      jawaban:String(n-1),
+      penjelasan:`Bilangan sebelum ${n} adalah ${n-1}.`
+    };
+  } else {
+    const n = randInt(1,9);
+    return {
+      materi:"Urutan Bilangan",
+      teks:`Bilangan sesudah ${n} adalah ….`,
+      visual:"",
+      opsi:opsiAngka(n+1,1,10),
+      jawaban:String(n+1),
+      penjelasan:`Bilangan sesudah ${n} adalah ${n+1}.`
+    };
+  }
+}
+
+// 6. Membandingkan banyak benda
+function genBandingkanBenda(){
+  let a = randInt(2,8), b = randInt(2,8);
+  if(Math.random()<0.25) b=a;
+  const e1 = pick(objekEmoji);
+  let e2 = pick(objekEmoji);
+  while(e2===e1){ e2 = pick(objekEmoji); }
+  const visual = (e1+" ").repeat(a).trim() + "&nbsp;&nbsp;&nbsp;dibandingkan&nbsp;&nbsp;&nbsp;" + (e2+" ").repeat(b).trim();
+  const jawaban = a>b?"lebih banyak dari":(a<b?"lebih sedikit dari":"sama banyak");
+  return {
+    materi:"Membandingkan Banyak Benda",
+    teks:"Perhatikan gambar berikut. Kelompok pertama dibandingkan kelompok kedua adalah ….",
+    visual,
+    opsi:shuffle(["lebih banyak dari","lebih sedikit dari","sama banyak"]),
+    jawaban,
+    penjelasan:`Kelompok pertama ada ${a}, kelompok kedua ada ${b}, jadi kelompok pertama "${jawaban}" kelompok kedua.`
+  };
+}
+
+// 7. Urutan / posisi benda (ordinal)
+function genPosisiBenda(){
+  const susunan = shuffle(bendaUrutan).slice(0,5);
+  const visual = susunan.map(b=>b.emoji).join("  ");
+  const idx = randInt(0,4);
+  const target = susunan[idx];
+  const jawabanBenar = ordinal[idx];
+  const opsiSet = new Set([jawabanBenar]);
+  while(opsiSet.size<3){ opsiSet.add(pick(ordinal.slice(0,5))); }
+  return {
+    materi:"Urutan / Posisi Benda",
+    teks:`Perhatikan urutan benda berikut (dihitung dari depan/kiri). ${target.nama.charAt(0).toUpperCase()+target.nama.slice(1)} (${target.emoji}) berada pada urutan ….`,
+    visual,
+    opsi:shuffle(Array.from(opsiSet)),
+    jawaban:jawabanBenar,
+    penjelasan:`Dihitung dari depan, ${target.nama} berada pada urutan ${jawabanBenar} (posisi ke-${idx+1}).`
+  };
+}
+
+// 8. Penjumlahan
+function genPenjumlahan(){
+  const mode = pick(["angka","cerita"]);
+  if(mode==="angka"){
+    const a = randInt(0,7), b = randInt(0,7);
+    const jawaban = a+b;
+    return {
+      materi:"Penjumlahan",
+      teks:`${a} + ${b} = ….`,
+      visual:"",
+      opsi:opsiAngka(jawaban,0,10),
+      jawaban:String(jawaban),
+      penjelasan:`${a} + ${b} = ${jawaban}.`
+    };
+  } else {
+    const nama = pick(["Ahnaf","Rasya","Kenzo","Dhifa","Aufar","Kenzie"]);
+    const barang = pick(["mainan lego","permen","pensil","kelereng","buku"]);
+    const a = randInt(2,6), b = randInt(1,5);
+    const jawaban = a+b;
+    return {
+      materi:"Penjumlahan",
+      teks:`${nama} mula-mula memiliki ${a} ${barang}, lalu mendapat ${b} ${barang} lagi. Jumlah ${barang} ${nama} sekarang ada …. + …. = ….`,
+      visual:"",
+      opsi:opsiAngka(jawaban,0,15),
+      jawaban:String(jawaban),
+      penjelasan:`${a} + ${b} = ${jawaban}, jadi jumlah ${barang} ${nama} sekarang ada ${jawaban}.`
+    };
+  }
+}
+
+/* Daftar generator sesuai jumlah soal per materi (total 30) */
+const generatorPlan = [
+  ...Array(3).fill(genLambangBilangan),
+  ...Array(4).fill(genHitungBenda),
+  ...Array(4).fill(genNamaBilangan),
+  ...Array(4).fill(genBandingkanBilangan),
+  ...Array(4).fill(genUrutanBilangan),
+  ...Array(3).fill(genBandingkanBenda),
+  ...Array(4).fill(genPosisiBenda),
+  ...Array(4).fill(genPenjumlahan),
+];
+
+let soalData = [];
+
+function buatSoalBaru(){
+  soalData = generatorPlan.map(fn=>fn());
+  renderSoal();
+  document.getElementById('scoreBox').style.display='none';
+}
+
+function renderSoal(){
+  const wrap = document.getElementById('quizWrap');
+  wrap.innerHTML='';
+  const huruf = ["A","B","C"];
+  soalData.forEach((s,i)=>{
+    const card = document.createElement('div');
+    card.className='question-card';
+    card.id = 'q'+i;
+    let visualHtml = s.visual ? `<div class="qvisual">${s.visual}</div>` : '';
+    let optionsHtml = s.opsi.map((op,j)=>{
+      return `<label class="option-label">
+        <input type="radio" name="q${i}" value="${op.replace(/"/g,'&quot;')}">
+        <span class="option-letter">${huruf[j]}</span> ${op}
+      </label>`;
+    }).join('');
+    card.innerHTML = `
+      <div><span class="qnum">${i+1}</span><span class="materi-label">${s.materi}</span></div>
+      <p class="qtext">${s.teks}</p>
+      ${visualHtml}
+      <div class="options">${optionsHtml}</div>
+      <div class="feedback" id="fb${i}"></div>
+    `;
+    wrap.appendChild(card);
+  });
+}
+
+function periksaJawaban(){
+  let benar = 0;
+  soalData.forEach((s,i)=>{
+    const chosen = document.querySelector(`input[name="q${i}"]:checked`);
+    const card = document.getElementById('q'+i);
+    const fb = document.getElementById('fb'+i);
+    card.classList.remove('correct','wrong');
+    if(!chosen){
+      fb.className='feedback no';
+      fb.innerHTML = 'Belum dijawab.';
+      card.classList.add('wrong');
+      return;
+    }
+    if(chosen.value === s.jawaban){
+      benar++;
+      card.classList.add('correct');
+      fb.className='feedback ok';
+      fb.innerHTML = '✅ Benar! ' + s.penjelasan;
+    } else {
+      card.classList.add('wrong');
+      fb.className='feedback no';
+      fb.innerHTML = `❌ Kurang tepat. Jawaban yang benar: <b>${s.jawaban}</b>. ${s.penjelasan}`;
+    }
+  });
+  const scoreBox = document.getElementById('scoreBox');
+  scoreBox.style.display='block';
+  scoreBox.innerHTML = `🎉 Skor kamu: ${benar} / ${soalData.length} (${Math.round(benar/soalData.length*100)}%) 🎉`;
+  scoreBox.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function ulangiKuis(){
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.question-card').forEach(c=>c.classList.remove('correct','wrong'));
+  document.querySelectorAll('.feedback').forEach(f=>f.innerHTML='');
+  document.getElementById('scoreBox').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function downloadHalaman(){
+  const html = "<!DOCTYPE html>\n"+document.documentElement.outerHTML;
+  const blob = new Blob([html], {type:'text/html'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'kuis_matematika_kelas1.html';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+document.getElementById('btnGenerate').addEventListener('click', buatSoalBaru);
+document.getElementById('btnGenerate2').addEventListener('click', buatSoalBaru);
+document.getElementById('btnSubmit').addEventListener('click', periksaJawaban);
+document.getElementById('btnSubmit2').addEventListener('click', periksaJawaban);
+document.getElementById('btnReset').addEventListener('click', ulangiKuis);
+document.getElementById('btnDownload').addEventListener('click', downloadHalaman);
+
+/* Inisialisasi pertama kali */
+buatSoalBaru();
+</script>
+</body>
+</html>
