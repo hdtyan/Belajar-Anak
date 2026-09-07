@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuis Interaktif Matematika Kelas 3 - Bilangan Cacah</title>
+<style>
+  :root{
+    --hijau:#2e7d32; --hijau-muda:#e8f5e9; --oranye:#ef6c00; --oranye-muda:#fff3e0;
+    --biru:#1565c0; --biru-muda:#e3f2fd; --abu:#616161; --merah:#c62828; --merah-muda:#ffebee;
+    --kartu:#ffffff; --bg:#f4f6f8; --teks:#212121; --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:'Segoe UI', Verdana, Arial, sans-serif; background:var(--bg); color:var(--teks);
+    padding-bottom:60px;
+  }
+  header.top{
+    background:linear-gradient(135deg,#1565c0,#26a69a);
+    color:#fff; padding:28px 20px 34px; text-align:center;
+    border-bottom-left-radius:30px; border-bottom-right-radius:30px;
+    box-shadow:0 4px 14px rgba(0,0,0,0.15);
+  }
+  header.top h1{margin:0 0 6px; font-size:1.6em;}
+  header.top p{margin:0; opacity:0.95; font-size:0.98em;}
+  .container{max-width:820px; margin:-16px auto 0; padding:0 16px;}
+  .card{
+    background:var(--kartu); border-radius:var(--radius); padding:20px 22px; margin:18px 0;
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
+  }
+  h2.section-title{
+    font-size:1.25em; margin:26px 0 14px; padding-left:12px; border-left:6px solid var(--biru);
+    color:var(--biru);
+  }
+  .materi-item{
+    border:1px solid #e0e0e0; border-radius:12px; margin-bottom:12px; overflow:hidden;
+  }
+  .materi-head{
+    background:var(--biru-muda); padding:14px 18px; cursor:pointer; display:flex;
+    justify-content:space-between; align-items:center; font-weight:600; color:var(--biru);
+  }
+  .materi-head .arrow{transition:transform 0.25s;}
+  .materi-item.open .materi-head .arrow{transform:rotate(180deg);}
+  .materi-body{
+    max-height:0; overflow:hidden; transition:max-height 0.3s ease; background:#fbfbfb;
+  }
+  .materi-item.open .materi-body{max-height:1400px;}
+  .materi-body-inner{padding:16px 18px; line-height:1.65; font-size:0.97em;}
+  .materi-body-inner .contoh{
+    background:var(--hijau-muda); border-left:4px solid var(--hijau); padding:10px 14px;
+    border-radius:8px; margin:10px 0; font-size:0.95em;
+  }
+  .materi-body-inner pre{
+    background:#263238; color:#eceff1; padding:10px 14px; border-radius:8px; overflow-x:auto;
+    font-size:0.9em;
+  }
+  .blocks-visual{display:flex; gap:14px; align-items:flex-end; flex-wrap:wrap; margin:12px 0;}
+  .flat{
+    display:grid; grid-template-columns:repeat(10,7px); grid-template-rows:repeat(10,7px); gap:1px;
+    background:#1b5e20; padding:2px; border-radius:3px;
+  }
+  .flat div{background:#66bb6a;}
+  .rod{
+    display:grid; grid-template-rows:repeat(10,7px); gap:1px; background:#e65100; padding:2px; border-radius:3px;
+  }
+  .rod div{background:#ffb74d; width:16px;}
+  .unit{width:14px; height:14px; background:#90a4ae; border:1px solid #546e7a; border-radius:2px;}
+  .units-wrap{display:flex; flex-wrap:wrap; gap:3px; max-width:70px;}
+  .blocks-group{display:flex; flex-direction:column; align-items:center; gap:4px;}
+  .blocks-group span{font-size:0.75em; color:var(--abu);}
+  .qnum{
+    display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px;
+    background:var(--biru); color:#fff; border-radius:50%; font-weight:700; font-size:0.85em; margin-right:8px;
+  }
+  .question-block{
+    border:1px solid #e0e0e0; border-radius:12px; padding:16px 18px; margin-bottom:16px; background:#fff;
+  }
+  .question-block .tag{
+    display:inline-block; font-size:0.72em; background:var(--oranye-muda); color:var(--oranye);
+    padding:2px 10px; border-radius:20px; margin-bottom:8px; font-weight:600;
+  }
+  .prompt{font-size:1.02em; margin:6px 0 12px; line-height:1.55;}
+  .options label{
+    display:flex; align-items:center; gap:10px; padding:10px 12px; border:1px solid #dcdcdc;
+    border-radius:10px; margin-bottom:8px; cursor:pointer; transition:background 0.15s, border-color 0.15s;
+  }
+  .options label:hover{background:#f1f8ff;}
+  .options input{transform:scale(1.15);}
+  .options label.correct{background:var(--hijau-muda); border-color:var(--hijau);}
+  .options label.wrong{background:var(--merah-muda); border-color:var(--merah);}
+  .explanation{
+    display:none; margin-top:10px; padding:10px 14px; background:#f5f5f5; border-left:4px solid var(--biru);
+    border-radius:8px; font-size:0.92em; white-space:pre-line;
+  }
+  .btn-row{
+    display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:24px 0;
+  }
+  button.action{
+    border:none; padding:14px 26px; font-size:1em; border-radius:30px; cursor:pointer; font-weight:700;
+    box-shadow:0 3px 8px rgba(0,0,0,0.15); transition:transform 0.12s;
+  }
+  button.action:active{transform:scale(0.97);}
+  #btnCheck{background:var(--hijau); color:#fff;}
+  #btnRegenerate{background:var(--oranye); color:#fff;}
+  #btnReset{background:#78909c; color:#fff;}
+  #scoreBox{
+    text-align:center; font-size:1.15em; font-weight:700; margin:18px 0; padding:16px;
+    border-radius:12px; background:var(--biru-muda); color:var(--biru); display:none;
+  }
+  .footer-note{text-align:center; color:var(--abu); font-size:0.85em; margin-top:30px;}
+  .progress-note{text-align:center; font-size:0.85em; color:var(--abu); margin-bottom:6px;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <h1>📐 Kuis Interaktif Matematika Kelas 3</h1>
+  <p>Materi Bilangan Cacah sampai 999 &mdash; Penjumlahan, Pengurangan, dan Nilai Tempat</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <p>Halo, adik-adik! 👋 Sebelum mengerjakan soal, yuk baca dulu ringkasan materinya di bawah ini.
+    Setelah paham, kerjakan 30 soal pilihan ganda di bagian bawah halaman. Kamu juga bisa menekan tombol
+    <b>"Buat Soal Baru"</b> untuk mencoba soal-soal baru dengan angka yang berbeda-beda. Selamat belajar! 😊</p>
+  </div>
+
+  <h2 class="section-title">📘 Ringkasan Materi</h2>
+  <div id="materiWrap"></div>
+
+  <h2 class="section-title">✏️ Soal Latihan (30 Soal)</h2>
+  <div class="progress-note">Pilih salah satu jawaban A, B, atau C pada setiap soal. Tidak ada batas waktu — kerjakan dengan santai.</div>
+  <div id="quizWrap"></div>
+
+  <div id="scoreBox"></div>
+
+  <div class="btn-row">
+    <button class="action" id="btnCheck">✅ Periksa Jawaban</button>
+    <button class="action" id="btnRegenerate">🔄 Buat Soal Baru</button>
+    <button class="action" id="btnReset">🧹 Ulangi dari Awal</button>
+  </div>
+
+  <p class="footer-note">Dibuat berdasarkan materi Penilaian Matematika Kelas 3 Semester Ganjil. File ini dapat digunakan tanpa koneksi internet setelah diunduh.</p>
+</div>
+
+<script>
+/* ============ UTIL ============ */
+function randInt(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
+function shuffle(arr){
+  const a=arr.slice();
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+function buildMCQ(correctValue, distractorPool, formatFn){
+  formatFn = formatFn || (v=>String(v));
+  let vals=[correctValue];
+  for(const d of distractorPool){
+    if(vals.length>=3) break;
+    if(!vals.includes(d)) vals.push(d);
+  }
+  let guard=0;
+  while(vals.length<3 && guard<80){
+    const fb = correctValue + (randInt(0,1)?1:-1)*randInt(1,20);
+    if(!vals.includes(fb) && fb>=0) vals.push(fb);
+    guard++;
+  }
+  const order = shuffle([0,1,2]);
+  const letters=['A','B','C'];
+  const options={}; let correctLetter='';
+  order.forEach((origIdx,pos)=>{
+    const v=vals[origIdx];
+    options[letters[pos]]=formatFn(v);
+    if(v===correctValue) correctLetter=letters[pos];
+  });
+  return {options, correctLetter};
+}
+function renderBlocksHTML(h,t,o){
+  let html = '<div class="blocks-visual">';
+  if(h>0){
+    html += '<div class="blocks-group">';
+    for(let i=0;i<h;i++){
+      html += '<div class="flat">' + '<div></div>'.repeat(100) + '</div>';
+    }
+    html += `<span>${h} ratusan</span></div>`;
+  }
+  if(t>0){
+    html += '<div class="blocks-group"><div style="display:flex; gap:4px;">';
+    for(let i=0;i<t;i++){
+      html += '<div class="rod">' + '<div></div>'.repeat(10) + '</div>';
+    }
+    html += `</div><span>${t} puluhan</span></div>`;
+  }
+  if(o>0){
+    html += '<div class="blocks-group"><div class="units-wrap">';
+    for(let i=0;i<o;i++){ html += '<div class="unit"></div>'; }
+    html += `</div><span>${o} satuan</span></div>`;
+  }
+  html += '</div>';
+  return html;
+}
+
+/* ============ GENERATORS ============ */
+function digitPlaceValue(){
+  const n = randInt(100,999);
+  const ratusan = Math.floor(n/100), puluhan = Math.floor(n/10)%10, satuan = n%10;
+  const places=[{name:'ratusan',digit:ratusan,mult:100},{name:'puluhan',digit:puluhan,mult:10},{name:'satuan',digit:satuan,mult:1}];
+  const chosen = places[randInt(0,2)];
+  const correct = chosen.digit*chosen.mult;
+  const distractors=[chosen.digit, ratusan*100, puluhan*10, satuan].filter(x=>x!==correct);
+  const {options, correctLetter} = buildMCQ(correct, distractors);
+  return {materi:'Nilai Tempat Bilangan',
+    prompt:`Pada bilangan <b>${n}</b>, angka <b>${chosen.digit}</b> menempati tempat ${chosen.name}. Berapakah nilai angka tersebut?`,
+    options, correctLetter,
+    explanation:`Angka ${chosen.digit} menempati tempat ${chosen.name} pada bilangan ${n}, sehingga nilainya = ${chosen.digit} x ${chosen.mult} = ${correct}.`};
+}
+function blockQuestion(){
+  const h=randInt(1,4), t=randInt(0,6), o=randInt(1,9);
+  const value=h*100+t*10+o;
+  const swapped=h*100+o*10+t;
+  const distractors=[swapped, value+10, value-10, value+1].filter(x=>x!==value && x>0);
+  const {options, correctLetter}=buildMCQ(value, distractors);
+  return {materi:'Blok Nilai Tempat',
+    prompt:'Perhatikan blok bilangan berikut!'+renderBlocksHTML(h,t,o)+'<br>Lambang bilangan yang tepat untuk blok di atas adalah...',
+    options, correctLetter,
+    explanation:`Blok terdiri dari ${h} ratusan, ${t} puluhan, dan ${o} satuan, sehingga lambang bilangannya = ${h*100} + ${t*10} + ${o} = ${value}.`};
+}
+function compareNumbers(){
+  let a=randInt(100,999), b=randInt(100,999);
+  while(a===b) b=randInt(100,999);
+  const symbol=a>b?'>':'<';
+  const opts=shuffle(['<','>','=']);
+  const letters=['A','B','C']; const options={}; let correctLetter='';
+  opts.forEach((s,i)=>{options[letters[i]]=s; if(s===symbol) correctLetter=letters[i];});
+  return {materi:'Membandingkan Bilangan',
+    prompt:`${a} ... ${b}<br>Tanda perbandingan yang tepat untuk melengkapi titik-titik di atas adalah...`,
+    options, correctLetter,
+    explanation:`${a} ${symbol} ${b}, karena ${a} ${symbol==='>'?'lebih besar':'lebih kecil'} daripada ${b}.`};
+}
+function additionLong(){
+  const aT=randInt(1,8), aO=randInt(1,9), bT=randInt(1,8), bO=randInt(1,9);
+  const a=aT*10+aO, b=bT*10+bO, sum=a+b;
+  const distractors=[sum+10,sum-10,sum+1,sum-1].filter(x=>x!==sum);
+  const {options, correctLetter}=buildMCQ(sum, distractors);
+  return {materi:'Penjumlahan Bersusun Panjang',
+    prompt:`Hasil dari penjumlahan bersusun panjang berikut adalah...<br><pre>${a} = ${aT*10} + ${aO}\n${b} = ${bT*10} + ${bO}  +\n      = ......</pre>`,
+    options, correctLetter,
+    explanation:`${a} = ${aT*10} + ${aO}\n${b} = ${bT*10} + ${bO} +\nHasil = ${(aT+bT)*10} + ${aO+bO} = ${sum}`};
+}
+function subtractionLong(){
+  const a=randInt(41,99);
+  const b=randInt(10,a-11);
+  const result=a-b;
+  const distractors=[result+10,result-10,result+1,result-1].filter(x=>x!==result && x>=0);
+  const {options, correctLetter}=buildMCQ(result, distractors);
+  return {materi:'Pengurangan Bersusun Panjang',
+    prompt:`Hasil dari pengurangan bersusun panjang berikut adalah...<br><pre>${a} = ${Math.floor(a/10)*10} + ${a%10}\n${b} = ${Math.floor(b/10)*10} + ${b%10}  -\n      = ......</pre>`,
+    options, correctLetter,
+    explanation:`${a} dikurangi ${b} secara bersusun panjang menghasilkan ${result}.`};
+}
+const assocCommBank=[
+  {prompt:'Sifat yang menyatakan bahwa pertukaran urutan bilangan pada penjumlahan tidak mengubah hasilnya disebut sifat...', opts:['Komutatif','Asosiatif','Distributif'], correct:0},
+  {prompt:'Sifat yang menyatakan bahwa pengelompokan bilangan pada penjumlahan tidak mengubah hasilnya disebut sifat...', opts:['Distributif','Asosiatif','Komutatif'], correct:1},
+  {prompt:'Contoh (3 + 4) + 5 = 3 + (4 + 5) menunjukkan sifat...', opts:['Asosiatif','Komutatif','Distributif'], correct:0},
+  {prompt:'Contoh 6 + 8 = 8 + 6 menunjukkan sifat...', opts:['Distributif','Komutatif','Asosiatif'], correct:1},
+  {prompt:'Pada penjumlahan (12 + 8) + 5 = 12 + (8 + 5), bilangan boleh dikelompokkan secara berbeda tanpa mengubah hasil. Ini adalah sifat...', opts:['Komutatif','Asosiatif','Distributif'], correct:1},
+];
+function assocComm(){
+  const item=assocCommBank[randInt(0,assocCommBank.length-1)];
+  const opts=item.opts.map((t,i)=>({t,correct:i===item.correct}));
+  const shuffled=shuffle(opts);
+  const letters=['A','B','C']; const options={}; let correctLetter='';
+  shuffled.forEach((o,i)=>{options[letters[i]]=o.t; if(o.correct) correctLetter=letters[i];});
+  return {materi:'Sifat Asosiatif dan Komutatif', prompt:item.prompt, options, correctLetter,
+    explanation:`Jawaban yang tepat adalah "${item.opts[item.correct]}".`};
+}
+const names=['Raffa','Naufal','Abi','Arga','Satria','Dinda','Rian','Kayla','Fajar','Citra'];
+function pickName(exclude){
+  let n=names[randInt(0,names.length-1)];
+  while(exclude.includes(n)) n=names[randInt(0,names.length-1)];
+  return n;
+}
+function wordProblem(){
+  const type=randInt(0,2);
+  const n1=randInt(10,60);
+  if(type===0){
+    const n2=randInt(5,40), n3=randInt(5,40);
+    const p1=pickName([]); const p2=pickName([p1]); const p3=pickName([p1,p2]);
+    const item=['pensil','kelereng','buku tulis','permen'][randInt(0,3)];
+    const total=n1+n2+n3;
+    const distractors=[total+10,total-10,n1+n2,n2+n3];
+    const {options,correctLetter}=buildMCQ(total,distractors);
+    return {materi:'Soal Cerita',
+      prompt:`${p1} memiliki ${n1} ${item}, ${p2} memiliki ${n2} ${item}, dan ${p3} memiliki ${n3} ${item}. Berapa jumlah ${item} mereka bertiga?`,
+      options, correctLetter, explanation:`${n1} + ${n2} + ${n3} = ${total}`};
+  } else if(type===1){
+    const p1=pickName([]); const p2=pickName([p1]);
+    const more=randInt(5,30);
+    const item=['telur','kelapa','mangga','apel','jeruk'][randInt(0,4)];
+    const p2total=n1+more;
+    const distractors=[n1-more, more, n1+n1, p2total+10];
+    const {options,correctLetter}=buildMCQ(p2total,distractors);
+    return {materi:'Soal Cerita',
+      prompt:`${p1} mengumpulkan ${n1} ${item}. Sementara ${p2} mengumpulkan ${item} ${more} lebih banyak daripada ${p1}. Berapa banyak ${item} yang dikumpulkan ${p2}?`,
+      options, correctLetter, explanation:`${n1} + ${more} = ${p2total}`};
+  } else {
+    const total=randInt(60,99);
+    const sold=randInt(20,total-15);
+    const remaining=total-sold;
+    const seller=pickName([]);
+    const itemA=['kue pukis','roti','mainan','buku','pensil'][randInt(0,4)];
+    const itemB=['donat','coklat','penghapus','penggaris','krayon'][randInt(0,4)];
+    const distractors=[remaining+10,remaining-10,sold];
+    const {options,correctLetter}=buildMCQ(remaining,distractors);
+    return {materi:'Soal Cerita',
+      prompt:`${seller} menjual ${total} ${itemA} dan ${itemB} di pasar. Dari jumlah tersebut, ${itemA} yang terjual ada ${sold}. Ada berapa ${itemB} yang terjual?`,
+      options, correctLetter, explanation:`${total} - ${sold} = ${remaining}`};
+  }
+}
+
+/* ============ SOAL SET (30 soal, mencakup semua materi) ============ */
+const GENERATOR_PLAN=[
+  ...Array(6).fill(digitPlaceValue),
+  ...Array(4).fill(blockQuestion),
+  ...Array(4).fill(compareNumbers),
+  ...Array(4).fill(additionLong),
+  ...Array(4).fill(subtractionLong),
+  ...Array(3).fill(assocComm),
+  ...Array(5).fill(wordProblem),
+];
+
+let currentQuestions=[];
+
+function generateQuestionSet(){
+  const list = GENERATOR_PLAN.map(fn=>fn());
+  return shuffle(list);
+}
+
+function renderQuiz(){
+  currentQuestions = generateQuestionSet();
+  const wrap=document.getElementById('quizWrap');
+  wrap.innerHTML='';
+  currentQuestions.forEach((q,idx)=>{
+    const div=document.createElement('div');
+    div.className='question-block';
+    div.dataset.index=idx;
+    let optHtml='';
+    ['A','B','C'].forEach(letter=>{
+      optHtml += `<label>
+        <input type="radio" name="q${idx}" value="${letter}">
+        <span><b>${letter}.</b> ${q.options[letter]}</span>
+      </label>`;
+    });
+    div.innerHTML = `
+      <span class="tag">${q.materi}</span>
+      <div class="prompt"><span class="qnum">${idx+1}</span>${q.prompt}</div>
+      <div class="options">${optHtml}</div>
+      <div class="explanation" id="exp${idx}">💡 ${q.explanation}</div>
+    `;
+    wrap.appendChild(div);
+  });
+  document.getElementById('scoreBox').style.display='none';
+}
+
+function checkAnswers(){
+  let score=0;
+  currentQuestions.forEach((q,idx)=>{
+    const selected=document.querySelector(`input[name="q${idx}"]:checked`);
+    const labels=document.querySelectorAll(`.question-block[data-index="${idx}"] .options label`);
+    labels.forEach(lb=>{
+      lb.classList.remove('correct','wrong');
+      const val=lb.querySelector('input').value;
+      if(val===q.correctLetter) lb.classList.add('correct');
+      else if(selected && val===selected.value) lb.classList.add('wrong');
+    });
+    document.getElementById(`exp${idx}`).style.display='block';
+    if(selected && selected.value===q.correctLetter) score++;
+  });
+  const total=currentQuestions.length;
+  const nilai=Math.round((score/total)*100);
+  const box=document.getElementById('scoreBox');
+  box.style.display='block';
+  box.innerHTML = `Skor kamu: ${score} / ${total} benar &nbsp;(Nilai: ${nilai}) ${score===total?'🎉 Sempurna!':(score/total>=0.7?'👍 Bagus!':'💪 Ayo belajar lagi!')}`;
+  box.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function resetQuiz(){
+  renderQuiz();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ============ MATERI (RINGKASAN) ============ */
+const materiData=[
+  {
+    judul:'1. Nilai Tempat Bilangan (Ratusan, Puluhan, Satuan)',
+    isi:`
+      <p>Setiap angka dalam sebuah bilangan memiliki <b>nilai tempat</b>, yaitu ratusan, puluhan, dan satuan.
+      Nilai suatu angka ditentukan oleh angka itu sendiri dikalikan dengan nilai tempatnya.</p>
+      <div class="contoh">
+        Contoh: Pada bilangan <b>746</b>:<br>
+        Angka 7 menempati <b>ratusan</b>, nilainya = 7 x 100 = 700<br>
+        Angka 4 menempati <b>puluhan</b>, nilainya = 4 x 10 = 40<br>
+        Angka 6 menempati <b>satuan</b>, nilainya = 6 x 1 = 6
+      </div>
+      <p>Bilangan juga dapat digambarkan dengan <b>blok satuan</b>: blok besar (10x10) mewakili ratusan,
+      balok panjang mewakili puluhan, dan kubus kecil mewakili satuan.</p>
+      ${renderBlocksHTML(3,3,5)}
+      <div class="contoh">3 ratusan + 3 puluhan + 5 satuan = 300 + 30 + 5 = <b>335</b></div>
+    `
+  },
+  {
+    judul:'2. Membaca Nilai Tempat pada Beberapa Bilangan',
+    isi:`
+      <p>Kita bisa membandingkan nilai tempat dari beberapa bilangan sekaligus, misalnya untuk melihat
+      angka satuan atau puluhan mana yang lebih besar.</p>
+      <div class="contoh">
+        Contoh: Buku = 836, Lampu = 295, Kaca pembesar = 543<br>
+        Nilai puluhan pada 295 adalah 9 x 10 = <b>90</b><br>
+        Angka satuan pada 295 adalah 5, dan pada 543 adalah 3 (keduanya kurang dari 6)<br>
+        Selisih antara 836 dan 295 adalah 836 &minus; 295 = <b>541</b>
+      </div>
+    `
+  },
+  {
+    judul:'3. Membandingkan Bilangan ( &lt; , &gt; , = )',
+    isi:`
+      <p>Untuk membandingkan dua bilangan, kita bandingkan angka pada tempat tertinggi (ratusan) terlebih dahulu.
+      Jika sama, lanjutkan ke puluhan, lalu satuan.</p>
+      <ul>
+        <li><b>&gt;</b> artinya "lebih dari"</li>
+        <li><b>&lt;</b> artinya "kurang dari"</li>
+        <li><b>=</b> artinya "sama dengan"</li>
+      </ul>
+      <div class="contoh">Contoh: 543 ... 295 &rarr; karena 543 lebih besar, maka 543 <b>&gt;</b> 295</div>
+    `
+  },
+  {
+    judul:'4. Penjumlahan Bersusun Panjang',
+    isi:`
+      <p>Cara bersusun panjang menjumlahkan bilangan dengan cara menguraikan bilangan menjadi puluhan dan satuan,
+      lalu menjumlahkan bagian-bagian yang sejenis.</p>
+      <div class="contoh"><pre>48 = 40 + 8
+42 = 40 + 2  +
+    = 80 + 10
+    = 90</pre></div>
+      <p>Contoh lain: 15 + 8 + 24 = 47 (untuk tiga bilangan, jumlahkan berurutan).</p>
+    `
+  },
+  {
+    judul:'5. Pengurangan Bersusun Panjang',
+    isi:`
+      <p>Pada pengurangan bersusun panjang, bilangan diuraikan menjadi puluhan dan satuan. Jika satuan yang
+      dikurangi lebih kecil, kita bisa "meminjam" dari puluhan.</p>
+      <div class="contoh"><pre>95 = 90 + 5  &rarr;  80 + 15
+27 = 20 + 7  -      20 + 7   -
+                   = 60 + 8
+                   = 68</pre></div>
+    `
+  },
+  {
+    judul:'6. Sifat Asosiatif dan Komutatif',
+    isi:`
+      <p><b>Sifat komutatif</b> artinya <i>pertukaran</i>: urutan bilangan boleh ditukar tanpa mengubah hasil
+      penjumlahan. Contoh: 6 + 8 = 8 + 6.</p>
+      <p><b>Sifat asosiatif</b> artinya <i>pengelompokan</i>: cara mengelompokkan bilangan boleh berbeda tanpa
+      mengubah hasil. Contoh: (3 + 4) + 5 = 3 + (4 + 5).</p>
+    `
+  },
+  {
+    judul:'7. Menyelesaikan Soal Cerita',
+    isi:`
+      <p>Untuk menyelesaikan soal cerita, gunakan langkah: <b>Diketahui</b> (data pada soal),
+      <b>Ditanya</b> (apa yang dicari), dan <b>Jawab</b> (cara dan hasil perhitungan).</p>
+      <div class="contoh">
+        Contoh: Bu Septi menjual 80 kue pukis dan donat. Kue pukis yang terjual ada 45. Ada berapa donat yang terjual?<br>
+        <b>Diketahui:</b> total 80, kue pukis 45<br>
+        <b>Ditanya:</b> jumlah donat terjual<br>
+        <b>Jawab:</b> 80 &minus; 45 = <b>35</b> donat
+      </div>
+    `
+  }
+];
+
+function renderMateri(){
+  const wrap=document.getElementById('materiWrap');
+  materiData.forEach((m,i)=>{
+    const item=document.createElement('div');
+    item.className='materi-item';
+    item.innerHTML=`
+      <div class="materi-head" onclick="this.parentElement.classList.toggle('open')">
+        <span>${m.judul}</span><span class="arrow">▼</span>
+      </div>
+      <div class="materi-body"><div class="materi-body-inner">${m.isi}</div></div>
+    `;
+    wrap.appendChild(item);
+  });
+  // buka materi pertama secara default
+  if(wrap.firstElementChild) wrap.firstElementChild.classList.add('open');
+}
+
+/* ============ INIT ============ */
+document.getElementById('btnCheck').addEventListener('click', checkAnswers);
+document.getElementById('btnRegenerate').addEventListener('click', resetQuiz);
+document.getElementById('btnReset').addEventListener('click', resetQuiz);
+
+renderMateri();
+renderQuiz();
+</script>
+</body>
+</html>
