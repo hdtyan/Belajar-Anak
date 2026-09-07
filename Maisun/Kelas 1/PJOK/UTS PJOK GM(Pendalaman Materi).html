@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi & Kuis Interaktif PJOK Kelas 1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+            background-color: #f0fdf4;
+        }
+        .radio-custom:checked + div {
+            background-color: #bef264;
+            border-color: #65a30d;
+        }
+        .correct-answer {
+            background-color: #86efac !important;
+            border-color: #22c55e !important;
+        }
+        .wrong-answer {
+            background-color: #fca5a5 !important;
+            border-color: #ef4444 !important;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="max-w-4xl mx-auto p-4 md:p-8">
+        
+        <!-- Header -->
+        <header class="text-center bg-green-500 text-white rounded-3xl p-6 mb-8 shadow-lg border-4 border-green-600">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">Belajar & Bermain PJOK Kelas 1 🎉</h1>
+            <p class="text-lg">Baca materinya dan kerjakan kuisnya!</p>
+        </header>
+
+        <!-- Materi Section -->
+        <section class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-4 border-yellow-400 mb-8">
+            <h2 class="text-2xl font-bold text-center text-yellow-600 mb-6 border-b-4 border-yellow-200 pb-2">📚 MATERI PEMBELAJARAN</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 p-4 rounded-xl border-2 border-blue-200">
+                    <h3 class="font-bold text-blue-700 text-lg mb-2">1. Pemanasan & Pendinginan</h3>
+                    <ul class="list-disc ml-5 space-y-1">
+                        <li><b>Pemanasan</b> dilakukan <u>sebelum</u> olahraga agar tidak cedera.</li>
+                        <li><b>Pendinginan</b> dilakukan <u>setelah</u> olahraga.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-orange-50 p-4 rounded-xl border-2 border-orange-200">
+                    <h3 class="font-bold text-orange-700 text-lg mb-2">2. Gerak Lokomotor (Berpindah Tempat)</h3>
+                    <ul class="list-disc ml-5 space-y-1">
+                        <li>Gerak lokomotor adalah gerak yang <b>berpindah tempat</b>.</li>
+                        <li>Contohnya: berlari, berjalan, melompat, dan meloncat.</li>
+                        <li><b>Berlari</b> adalah melangkahkan kaki secara cepat.</li>
+                        <li>Pandangan mata saat berjalan atau berlari ke depan lurus.</li>
+                        <li>Berjalan berpasangan dilakukan oleh 2 anak.</li>
+                        <li>Untuk meraih benda di atas, gerak lari dilakukan sambil melompat.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-pink-50 p-4 rounded-xl border-2 border-pink-200">
+                    <h3 class="font-bold text-pink-700 text-lg mb-2">3. Gerak Non-Lokomotor (Tidak Berpindah)</h3>
+                    <ul class="list-disc ml-5 space-y-1">
+                        <li>Gerak non-lokomotor adalah gerak yang <b>tidak berpindah tempat</b>.</li>
+                        <li>Contohnya: memutar, mengayun, menekuk.</li>
+                        <li>Menirukan pesawat terbang termasuk gerak keseimbangan.</li>
+                        <li>Saat membelah kayu, kita melakukan gerakan mengayun.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-purple-50 p-4 rounded-xl border-2 border-purple-200">
+                    <h3 class="font-bold text-purple-700 text-lg mb-2">4. Posisi Tubuh</h3>
+                    <ul class="list-disc ml-5 space-y-1">
+                        <li>Posisi awal mengayun lengan adalah berdiri tegak/lurus.</li>
+                        <li>Saat memutar badan, kedua tangan berada di samping badan.</li>
+                        <li>Gerakan melompat/meloncat menguatkan otot kaki/paha.</li>
+                        <li>Memutar lengan melatih kekuatan otot lengan/bahu.</li>
+                        <li>Saat membungkuk, kedua tangan memegang ujung kaki.</li>
+                        <li>Duduk selonjor, kedua kaki lurus ke depan.</li>
+                        <li>Duduk bersila, kedua tangan memegang lutut.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-4 border-blue-400">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6 border-b-4 border-blue-200 pb-4 gap-4">
+                <h2 class="text-2xl font-bold text-blue-600">📝 Kuis Interaktif (30 Soal)</h2>
+                <button onclick="generateQuiz()" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-xl shadow border-b-4 border-purple-700 transition active:border-b-0 active:translate-y-1">
+                    🔄 Buat Soal Baru
+                </button>
+            </div>
+
+            <div id="quiz-container" class="space-y-6">
+                <!-- Soal akan di-generate di sini -->
+            </div>
+
+            <div class="mt-8 text-center hidden" id="result-section">
+                <div class="text-3xl font-bold mb-4">Nilai Kamu: <span id="score-display" class="text-green-600">0</span> / 100</div>
+                <p id="score-message" class="text-xl mb-4"></p>
+                <button onclick="generateQuiz()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-xl shadow-lg border-b-4 border-blue-700 transition active:border-b-0 active:translate-y-1 text-lg">
+                    Coba Lagi 🚀
+                </button>
+            </div>
+
+            <div class="mt-8 text-center" id="submit-section">
+                <button onclick="checkAnswers()" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-xl shadow-lg border-b-4 border-green-700 transition active:border-b-0 active:translate-y-1 text-lg w-full md:w-auto">
+                    Kumpulkan Jawaban ✅
+                </button>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Bank Soal (40 Soal untuk diacak menjadi 30)
+        const bankSoal = [
+            { q: "Gerak tubuh sebelum olahraga dinamakan gerakan...", options: ["Pemanasan", "Pendinginan", "Tidur"], ans: 0 },
+            { q: "Gerak tubuh setelah olahraga dinamakan gerakan...", options: ["Pemanasan", "Pendinginan", "Istirahat"], ans: 1 },
+            { q: "Gerakan yang dilakukan dengan perpindahan tempat dinamakan gerak...", options: ["Lokomotor", "Non lokomotor", "Cepat"], ans: 0 },
+            { q: "Gerakan yang dilakukan tidak berpindah tempat dinamakan gerak...", options: ["Lokomotor", "Non lokomotor", "Berlari"], ans: 1 },
+            { q: "Pandangan mata saat melakukan berlari ke depan ke arah...", options: ["Bawah", "Samping", "Depan lurus"], ans: 2 },
+            { q: "Posisi kedua tangan saat melakukan gerakan memutar badan berada di...", options: ["Samping badan", "Atas kepala", "Depan dada"], ans: 0 },
+            { q: "Gerakan melompat dan meloncat dapat menguatkan otot...", options: ["Tangan", "Kaki / paha", "Leher"], ans: 1 },
+            { q: "Posisi awal tubuh saat gerakan mengayun lengan adalah...", options: ["Berdiri tegak", "Jongkok", "Duduk"], ans: 0 },
+            { q: "Gerakan memutar, mengayun dan menekuk termasuk gerak...", options: ["Lokomotor", "Non lokomotor", "Berpindah"], ans: 1 },
+            { q: "Gerakan berjalan berpasangan dilakukan oleh...", options: ["1 anak", "2 anak", "3 anak"], ans: 1 },
+            { q: "Gerakan melangkahkan kaki secara cepat disebut...", options: ["Berjalan", "Melompat", "Berlari"], ans: 2 },
+            { q: "Gerakan mengayun lengan ke samping kanan dan kiri sampai rata-rata dengan...", options: ["Bahu / pundak", "Kepala", "Perut"], ans: 0 },
+            { q: "Gerakan menirukan pesawat terbang termasuk gerak...", options: ["Kekuatan", "Keseimbangan", "Kecepatan"], ans: 1 },
+            { q: "Saat gerakan berjalan mundur pandangan mata tetap ke arah...", options: ["Depan", "Belakang", "Bawah"], ans: 0 },
+            { q: "Saat gerakan membungkuk posisi kedua tangan memegang...", options: ["Pinggang", "Kepala", "Ujung kaki"], ans: 2 },
+            { q: "Saat duduk selonjor, kedua kaki lurus ke...", options: ["Depan", "Atas", "Samping"], ans: 0 },
+            { q: "Untuk meraih benda di atas, gerak lari dilakukan sambil...", options: ["Merangkak", "Melompat", "Berguling"], ans: 1 },
+            { q: "Gerakan memutar lengan melatih kekuatan otot...", options: ["Kaki", "Perut", "Lengan / bahu"], ans: 2 },
+            { q: "Saat duduk bersila posisi kedua tangan memegang...", options: ["Lutut", "Sepatu", "Telinga"], ans: 0 },
+            { q: "Gerakan saat membelah kayu terjadi gerakan...", options: ["Berlari", "Mengayun", "Meloncat"], ans: 1 },
+            // Tambahan Soal Mirip (Pengembangan Materi)
+            { q: "Olahraga membuat tubuh kita menjadi...", options: ["Sakit", "Lemah", "Sehat"], ans: 2 },
+            { q: "Contoh gerakan lokomotor adalah...", options: ["Berjalan", "Memutar kepala", "Membungkuk"], ans: 0 },
+            { q: "Pakaian yang baik untuk berolahraga terbuat dari bahan yang menyerap...", options: ["Keringat", "Air hujan", "Debu"], ans: 0 },
+            { q: "Berjalan dengan menggunakan ujung kaki disebut berjalan...", options: ["Cepat", "Jinjit", "Mundur"], ans: 1 },
+            { q: "Meloncat ke atas dilakukan dengan tumpuan...", options: ["Satu kaki", "Dua kaki", "Tangan"], ans: 1 },
+            { q: "Menggelengkan kepala ke kanan dan ke kiri melatih otot...", options: ["Leher", "Kaki", "Lengan"], ans: 0 },
+            { q: "Sikap berdiri siap, kedua tangan berada di...", options: ["Samping badan", "Atas kepala", "Belakang badan"], ans: 0 },
+            { q: "Sebelum melakukan senam, kita harus...", options: ["Pemanasan", "Makan banyak", "Minum es"], ans: 0 },
+            { q: "Berlari kencang dapat melatih...", options: ["Keseimbangan", "Kecepatan", "Kelenturan"], ans: 1 },
+            { q: "Menekuk lutut bertujuan untuk melatih kekuatan...", options: ["Kaki", "Leher", "Jari tangan"], ans: 0 },
+            { q: "Saat sikap pesawat terbang, kedua tangan di...", options: ["Rentangkan", "Lipat", "Pegang kaki"], ans: 0 },
+            { q: "Hewan yang bergerak dengan cara melompat adalah...", options: ["Burung", "Katak", "Ikan"], ans: 1 },
+            { q: "Bermain sepak bola biasanya dilakukan di...", options: ["Kamar", "Ruang tamu", "Lapangan"], ans: 2 },
+            { q: "Saat berjalan maju, kaki dilangkahkan ke...", options: ["Depan", "Belakang", "Samping"], ans: 0 },
+            { q: "Berjalan di atas garis lurus melatih...", options: ["Kecepatan", "Keseimbangan", "Kekuatan"], ans: 1 },
+            { q: "Alat yang ditendang saat bermain sepak bola adalah...", options: ["Bola", "Kayu", "Batu"], ans: 0 },
+            { q: "Agar tubuh tidak kaku saat berolahraga, kita butuh...", options: ["Pemanasan", "Berteriak", "Duduk diam"], ans: 0 },
+            { q: "Membungkukkan badan melatih...", options: ["Kelenturan punggung", "Otot leher", "Kecepatan kaki"], ans: 0 },
+            { q: "Gerakan menendang bola menggunakan...", options: ["Tangan", "Kepala", "Kaki"], ans: 2 },
+            { q: "Olahraga sebaiknya dilakukan secara...", options: ["Teratur / Rutin", "Jarang", "Setahun sekali"], ans: 0 }
+        ];
+
+        let currentQuestions = [];
+
+        // Fungsi mengacak array
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        function generateQuiz() {
+            // Sembunyikan hasil, tampilkan tombol kumpul
+            document.getElementById('result-section').classList.add('hidden');
+            document.getElementById('submit-section').classList.remove('hidden');
+            
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = ''; // Bersihkan kontainer
+            
+            // Acak bank soal dan ambil 30 soal
+            let shuffledBank = shuffle([...bankSoal]);
+            currentQuestions = shuffledBank.slice(0, 30);
+
+            const letters = ['A', 'B', 'C'];
+
+            currentQuestions.forEach((qObj, index) => {
+                // Acak opsi jawaban agar A, B, C tidak selalu sama dengan aslinya
+                let optionsWithIndex = qObj.options.map((opt, i) => ({ text: opt, originalIndex: i }));
+                shuffle(optionsWithIndex);
+
+                // Cari jawaban benar di opsi yang baru
+                let newCorrectIndex = optionsWithIndex.findIndex(o => o.originalIndex === qObj.ans);
+                qObj.currentCorrectIndex = newCorrectIndex;
+
+                let questionHTML = `
+                    <div class="p-4 bg-gray-50 rounded-2xl border-2 border-gray-200 question-block" id="qblock-${index}">
+                        <p class="font-bold text-lg mb-3">${index + 1}. ${qObj.q}</p>
+                        <div class="grid gap-2">
+                `;
+
+                optionsWithIndex.forEach((optObj, optIndex) => {
+                    questionHTML += `
+                        <label class="cursor-pointer relative">
+                            <input type="radio" name="q${index}" value="${optIndex}" class="peer sr-only radio-custom">
+                            <div class="p-3 rounded-xl border-2 border-gray-300 bg-white transition hover:bg-gray-100 peer-checked:bg-lime-200 peer-checked:border-lime-500 opt-box-${index}-${optIndex}">
+                                <span class="font-bold mr-2 text-blue-600">${letters[optIndex]}.</span> ${optObj.text}
+                            </div>
+                        </label>
+                    `;
+                });
+
+                questionHTML += `</div></div>`;
+                container.innerHTML += questionHTML;
+            });
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            let answeredAll = true;
+
+            currentQuestions.forEach((qObj, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                
+                if (!selected) {
+                    answeredAll = false;
+                } else {
+                    const selectedVal = parseInt(selected.value);
+                    const correctVal = qObj.currentCorrectIndex;
+
+                    // Reset styling if re-checking
+                    const allBoxes = document.querySelectorAll(`[class*="opt-box-${index}-"]`);
+                    allBoxes.forEach(box => {
+                        box.classList.remove('correct-answer', 'wrong-answer');
+                    });
+
+                    // Highlight Correct
+                    const correctBox = document.querySelector(`.opt-box-${index}-${correctVal}`);
+                    correctBox.classList.add('correct-answer');
+
+                    // Check if selected is wrong, highlight it red
+                    if (selectedVal === correctVal) {
+                        score++;
+                    } else {
+                        const wrongBox = document.querySelector(`.opt-box-${index}-${selectedVal}`);
+                        wrongBox.classList.add('wrong-answer');
+                    }
+                }
+            });
+
+            if (!answeredAll) {
+                alert("Kamu belum menjawab semua soal! Yuk selesaikan dulu ya.");
+                return;
+            }
+
+            // Hitung nilai skala 100
+            const finalScore = Math.round((score / 30) * 100);
+            
+            document.getElementById('score-display').innerText = finalScore;
+            
+            let message = "";
+            if (finalScore >= 90) message = "Luar Biasa! Kamu sangat pintar! 🌟";
+            else if (finalScore >= 70) message = "Hebat! Pertahankan belajarmu ya! 👍";
+            else message = "Jangan menyerah, ayo baca materinya lagi dan coba lagi! 💪";
+            
+            document.getElementById('score-message').innerText = message;
+
+            document.getElementById('submit-section').classList.add('hidden');
+            document.getElementById('result-section').classList.remove('hidden');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Generate kuis pertama kali saat halaman dimuat
+        window.onload = generateQuiz;
+    </script>
+</body>
+</html>

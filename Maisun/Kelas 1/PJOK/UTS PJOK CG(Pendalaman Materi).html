@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kuis Interaktif PJOK Kelas 1</title>
+<style>
+:root{
+  --bg:#f4f7fb; --card:#fff; --ink:#243047; --muted:#667085;
+  --primary:#2563eb; --primary2:#1d4ed8; --good:#15803d; --bad:#dc2626;
+  --line:#d9e2f0; --soft:#eef5ff; --gold:#f59e0b;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+.wrap{max-width:900px;margin:0 auto;padding:22px}
+.hero{background:linear-gradient(135deg,#2563eb,#4f46e5);color:white;border-radius:22px;padding:26px 24px;margin-bottom:18px;box-shadow:0 10px 30px rgba(37,99,235,.18)}
+.hero h1{margin:0 0 6px;font-size:30px}
+.hero p{margin:4px 0;opacity:.94}
+.badge{display:inline-block;background:rgba(255,255,255,.16);padding:6px 10px;border-radius:999px;font-weight:700;font-size:13px;margin-top:10px}
+h2{font-size:22px;margin:28px 0 12px}
+.material-card,.quiz-card,.result-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin:12px 0;box-shadow:0 5px 16px rgba(15,23,42,.05)}
+.material-card h3{margin:0 0 8px;font-size:18px;color:#173b82}
+.material-card ul{margin:8px 0 0;padding-left:22px}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+button{border:0;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer;font-size:15px}
+.primary{background:var(--primary);color:white}
+.primary:hover{background:var(--primary2)}
+.secondary{background:white;color:var(--ink);border:1px solid var(--line)}
+.progress{height:10px;background:#e8eef7;border-radius:999px;overflow:hidden;margin:12px 0 18px}
+.bar{height:100%;background:var(--primary);width:0;transition:width .2s}
+.qnum{font-size:13px;color:var(--muted);font-weight:700;margin-bottom:5px}
+.question{font-size:21px;font-weight:700;margin:0 0 15px}
+.choice{display:block;width:100%;text-align:left;background:#fbfdff;border:2px solid var(--line);margin:9px 0;padding:13px 14px;border-radius:13px;font-size:16px}
+.choice:hover{border-color:#9bb8f5}
+.choice.selected{border-color:var(--primary);background:var(--soft)}
+.choice.correct{border-color:var(--good);background:#edf9f0}
+.choice.wrong{border-color:var(--bad);background:#fff0f0}
+.choice:disabled{cursor:default}
+.explain{margin-top:12px;padding:11px 13px;border-radius:12px;background:#f8fafc;border-left:4px solid var(--primary);display:none}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+.nav button{min-width:120px}
+.hidden{display:none}
+.score{font-size:36px;font-weight:800;color:var(--primary);margin:6px 0}
+.mini{color:var(--muted);font-size:14px}
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:9px;margin-top:12px}
+.topic{background:#f8fbff;border:1px solid var(--line);border-radius:12px;padding:10px}
+.topic b{display:block}
+.footer{color:var(--muted);font-size:13px;text-align:center;padding:18px 0}
+@media(max-width:600px){
+  .wrap{padding:12px}.hero{padding:20px}.hero h1{font-size:25px}
+  .question{font-size:19px}.material-card,.quiz-card,.result-card{padding:15px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="badge">PJOK • Kelas 1 • Semester I</div>
+    <h1>Kuis Interaktif PJOK</h1>
+    <p>30 soal pilihan ganda • A, B, C • tanpa timer</p>
+    <p>Pelajari materinya dulu, lalu mulai kuis.</p>
+  </div>
+
+  <h2>Materi Pembelajaran</h2>
+  
+    <section class="material-card">
+      <h3>1. Pemanasan dan Pendinginan</h3>
+      <ul><li>Gerak tubuh sebelum olahraga disebut pemanasan.</li><li>Gerak tubuh setelah olahraga disebut pendinginan.</li></ul>
+    </section>
+    
+
+    <section class="material-card">
+      <h3>2. Gerak Lokomotor dan Nonlokomotor</h3>
+      <ul><li>Gerakan yang dilakukan dengan berpindah tempat disebut gerak lokomotor.</li><li>Gerakan yang dilakukan tanpa berpindah tempat disebut gerak nonlokomotor.</li><li>Gerakan memutar, mengayun, dan menekuk termasuk gerak nonlokomotor.</li></ul>
+    </section>
+    
+
+    <section class="material-card">
+      <h3>3. Berjalan dan Berlari</h3>
+      <ul><li>Saat berlari ke depan, pandangan mata ke depan lurus.</li><li>Saat berjalan mundur, pandangan mata tetap ke depan.</li><li>Melangkahkan kaki secara cepat disebut berlari atau lari.</li><li>Berjalan berpasangan dilakukan oleh 2 anak.</li></ul>
+    </section>
+    
+
+    <section class="material-card">
+      <h3>4. Melompat, Meloncat, dan Keseimbangan</h3>
+      <ul><li>Melompat dan meloncat dapat menguatkan otot kaki, paha, atau tungkai.</li><li>Gerakan menirukan pesawat terbang termasuk gerak nonlokomotor dan melatih keseimbangan.</li><li>Untuk meraih benda di atas, gerak dilakukan sambil melompat atau meloncat.</li></ul>
+    </section>
+    
+
+    <section class="material-card">
+      <h3>5. Sikap Tubuh dan Gerak Anggota Badan</h3>
+      <ul><li>Saat mengayun lengan, posisi awal tubuh berdiri tegak atau lurus.</li><li>Saat memutar badan, kedua tangan berada di samping badan.</li><li>Mengayun lengan ke kanan dan kiri dilakukan sampai rata-rata dengan bahu atau pundak.</li><li>Saat membungkuk, kedua tangan dapat memegang ujung kaki/kaki/alas/tanah.</li><li>Saat duduk selonjor, kedua kaki lurus ke depan.</li><li>Gerakan memutar lengan melatih kekuatan otot lengan, tangan, dan bahu.</li><li>Saat duduk bersila, kedua tangan memegang lutut.</li><li>Saat membelah kayu terjadi gerakan mengayun.</li></ul>
+    </section>
+    
+
+  <div class="controls">
+    <button class="primary" onclick="startQuiz()">Mulai 30 Soal</button>
+    <button class="secondary" onclick="newQuiz()">Buat Soal Baru</button>
+  </div>
+
+  <div id="quizArea" class="quiz-card hidden">
+    <div class="qnum" id="qnum"></div>
+    <div class="progress"><div class="bar" id="bar"></div></div>
+    <div class="question" id="question"></div>
+    <div id="choices"></div>
+    <div class="explain" id="explain"></div>
+    <div class="nav">
+      <button class="secondary" id="prevBtn" onclick="prevQuestion()">Sebelumnya</button>
+      <button class="primary" id="nextBtn" onclick="nextQuestion()">Berikutnya</button>
+    </div>
+  </div>
+
+  <div id="resultArea" class="result-card hidden">
+    <h2 style="margin-top:0">Hasil Kuis</h2>
+    <div class="score" id="score"></div>
+    <div id="resultText"></div>
+    <div class="topic-grid" id="topicStats"></div>
+    <div class="controls">
+      <button class="primary" onclick="newQuiz()">Buat 30 Soal Baru</button>
+      <button class="secondary" onclick="startQuiz()">Ulangi Set Ini</button>
+    </div>
+  </div>
+
+  <div class="footer">Sumber materi: PENDALAMAN MATERI PSTS PENJASORKES Kelas 1 Semester I.</div>
+</div>
+
+<script>
+const BANK = [{"q": "Sebelum olahraga, kita melakukan gerakan …", "o": ["pemanasan", "pendinginan", "tidur"], "a": 0, "cat": "Pemanasan"}, {"q": "Setelah olahraga, kita melakukan gerakan …", "o": ["lari", "pendinginan", "melompat"], "a": 1, "cat": "Pendinginan"}, {"q": "Gerakan tubuh sebelum olahraga disebut …", "o": ["pemanasan", "berjalan mundur", "duduk"], "a": 0, "cat": "Pemanasan"}, {"q": "Gerakan tubuh setelah olahraga disebut …", "o": ["pemanasan", "pendinginan", "lari cepat"], "a": 1, "cat": "Pendinginan"}, {"q": "Gerakan yang berpindah tempat disebut gerak …", "o": ["nonlokomotor", "lokomotor", "diam"], "a": 1, "cat": "Gerak Lokomotor"}, {"q": "Gerakan yang tidak berpindah tempat disebut gerak …", "o": ["lokomotor", "lari", "nonlokomotor"], "a": 2, "cat": "Gerak Nonlokomotor"}, {"q": "Memutar badan termasuk gerak …", "o": ["nonlokomotor", "lokomotor", "berpindah rumah"], "a": 0, "cat": "Gerak Nonlokomotor"}, {"q": "Mengayun lengan termasuk gerak …", "o": ["lokomotor", "nonlokomotor", "jalan"], "a": 1, "cat": "Gerak Nonlokomotor"}, {"q": "Menekuk badan termasuk gerak …", "o": ["nonlokomotor", "lokomotor", "berlari"], "a": 0, "cat": "Gerak Nonlokomotor"}, {"q": "Gerak tanpa berpindah tempat adalah …", "o": ["lokomotor", "nonlokomotor", "berlari"], "a": 1, "cat": "Gerak Nonlokomotor"}, {"q": "Saat berlari ke depan, pandangan mata ke …", "o": ["belakang", "samping", "depan lurus"], "a": 2, "cat": "Berlari"}, {"q": "Saat berjalan mundur, pandangan mata ke arah …", "o": ["depan", "belakang", "lantai saja"], "a": 0, "cat": "Berjalan Mundur"}, {"q": "Melangkahkan kaki secara cepat disebut …", "o": ["duduk", "berlari", "membungkuk"], "a": 1, "cat": "Berlari"}, {"q": "Gerakan berjalan berpasangan dilakukan oleh … anak.", "o": ["1", "2", "3"], "a": 1, "cat": "Berjalan Berpasangan"}, {"q": "Saat lari ke depan, mata sebaiknya melihat …", "o": ["ke depan", "ke belakang", "ke kaki terus"], "a": 0, "cat": "Berlari"}, {"q": "Berjalan berpasangan artinya berjalan bersama …", "o": ["2 anak", "5 anak", "10 anak"], "a": 0, "cat": "Berjalan Berpasangan"}, {"q": "Melompat dapat menguatkan otot …", "o": ["kaki", "telinga", "mata"], "a": 0, "cat": "Melompat"}, {"q": "Meloncat dapat menguatkan otot …", "o": ["kaki", "jari tangan", "mata"], "a": 0, "cat": "Meloncat"}, {"q": "Gerakan menirukan pesawat terbang melatih …", "o": ["keseimbangan", "suara", "kecepatan membaca"], "a": 0, "cat": "Keseimbangan"}, {"q": "Gerakan menirukan pesawat terbang termasuk gerak …", "o": ["nonlokomotor", "lokomotor", "diam total"], "a": 0, "cat": "Keseimbangan"}, {"q": "Untuk meraih benda di atas, kita dapat …", "o": ["melompat", "duduk", "tidur"], "a": 0, "cat": "Melompat"}, {"q": "Untuk meraih benda yang tinggi, kita dapat …", "o": ["meloncat", "bersila", "membungkuk"], "a": 0, "cat": "Meloncat"}, {"q": "Otot yang dapat dikuatkan dengan melompat adalah otot …", "o": ["paha", "telinga", "mata"], "a": 0, "cat": "Melompat"}, {"q": "Otot kaki juga disebut otot …", "o": ["tungkai", "leher", "mata"], "a": 0, "cat": "Melompat"}, {"q": "Posisi awal saat mengayun lengan adalah …", "o": ["berdiri tegak", "tidur", "duduk selonjor"], "a": 0, "cat": "Mengayun Lengan"}, {"q": "Saat memutar badan, kedua tangan berada di …", "o": ["samping badan", "atas kepala", "belakang kaki"], "a": 0, "cat": "Memutar Badan"}, {"q": "Mengayun lengan ke kanan dan kiri sampai rata dengan …", "o": ["bahu", "lutut", "kaki"], "a": 0, "cat": "Mengayun Lengan"}, {"q": "Bahu disebut juga …", "o": ["pundak", "lutut", "telapak kaki"], "a": 0, "cat": "Mengayun Lengan"}, {"q": "Saat membungkuk, kedua tangan dapat memegang …", "o": ["ujung kaki", "kepala teman", "udara"], "a": 0, "cat": "Membungkuk"}, {"q": "Saat duduk selonjor, kedua kaki lurus ke …", "o": ["depan", "belakang", "samping"], "a": 0, "cat": "Duduk Selonjor"}, {"q": "Gerakan memutar lengan melatih otot …", "o": ["lengan", "mata", "telinga"], "a": 0, "cat": "Memutar Lengan"}, {"q": "Gerakan memutar lengan juga melatih otot …", "o": ["bahu", "hidung", "rambut"], "a": 0, "cat": "Memutar Lengan"}, {"q": "Saat duduk bersila, kedua tangan memegang …", "o": ["lutut", "kepala", "sepatu teman"], "a": 0, "cat": "Duduk Bersila"}, {"q": "Gerakan membelah kayu menggunakan gerakan …", "o": ["mengayun", "berjalan mundur", "bersila"], "a": 0, "cat": "Mengayun"}, {"q": "Kegiatan yang dilakukan sebelum bermain olahraga agar tubuh siap adalah …", "o": ["pemanasan", "pendinginan", "tidur"], "a": 0, "cat": "Pemanasan"}, {"q": "Kegiatan setelah selesai olahraga agar tubuh kembali rileks adalah …", "o": ["pendinginan", "berlari cepat", "melompat tinggi"], "a": 0, "cat": "Pendinginan"}, {"q": "Berjalan dari satu tempat ke tempat lain merupakan gerak …", "o": ["lokomotor", "nonlokomotor", "diam"], "a": 0, "cat": "Gerak Lokomotor"}, {"q": "Menggerakkan badan tetapi tetap di tempat merupakan gerak …", "o": ["nonlokomotor", "lokomotor", "lari"], "a": 0, "cat": "Gerak Nonlokomotor"}, {"q": "Ketika berlari ke depan, kita tidak melihat ke …", "o": ["belakang", "depan", "arah tujuan"], "a": 0, "cat": "Berlari"}, {"q": "Dua anak berjalan bersama-sama disebut berjalan …", "o": ["berpasangan", "sendiri", "berjajar jauh"], "a": 0, "cat": "Berjalan Berpasangan"}, {"q": "Gerakan pesawat terbang dapat membuat kita belajar menjaga …", "o": ["keseimbangan", "suara", "warna"], "a": 0, "cat": "Keseimbangan"}, {"q": "Ketika ingin mengambil benda di tempat tinggi, kita bisa …", "o": ["meloncat", "duduk bersila", "membungkuk"], "a": 0, "cat": "Meloncat"}, {"q": "Sikap tubuh yang benar sebagai awal mengayun lengan adalah …", "o": ["tegak", "membungkuk", "tidur"], "a": 0, "cat": "Mengayun Lengan"}, {"q": "Ketika memutar badan, tangan berada di …", "o": ["samping badan", "bawah kaki", "dalam saku"], "a": 0, "cat": "Memutar Badan"}, {"q": "Saat duduk selonjor, kaki tidak ditekuk tetapi lurus ke …", "o": ["depan", "belakang", "atas"], "a": 0, "cat": "Duduk Selonjor"}, {"q": "Saat duduk bersila, tangan memegang …", "o": ["lutut", "bahu", "kepala"], "a": 0, "cat": "Duduk Bersila"}];
+let quiz = [];
+let answers = [];
+let current = 0;
+let started = false;
+
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function makeSet(){
+  // Pastikan semua area materi terwakili; sisanya diambil acak.
+  const byCat = {};
+  BANK.forEach(item => (byCat[item.cat] ||= []).push(item));
+  const categories = Object.keys(byCat);
+  let chosen = [];
+  categories.forEach(cat => chosen.push(shuffle(byCat[cat])[0]));
+  const remaining = BANK.filter(x => !chosen.includes(x));
+  quiz = shuffle(chosen.concat(shuffle(remaining).slice(0, 30-chosen.length))).slice(0,30);
+  // Acak pilihan jawaban dan sesuaikan indeks jawaban benar.
+  quiz = quiz.map(item => {
+    const pairs=item.o.map((text,idx)=>({text,correct:idx===item.a}));
+    const mixed=shuffle(pairs);
+    return {...item, o:mixed.map(x=>x.text), a:mixed.findIndex(x=>x.correct)};
+  });
+  answers = Array(quiz.length).fill(null);
+  current = 0;
+}
+
+function startQuiz(){
+  if(!quiz.length) makeSet();
+  started=true;
+  document.getElementById('quizArea').classList.remove('hidden');
+  document.getElementById('resultArea').classList.add('hidden');
+  renderQuestion();
+  window.scrollTo({top:document.getElementById('quizArea').offsetTop-12,behavior:'smooth'});
+}
+
+function newQuiz(){
+  makeSet();
+  started=true;
+  document.getElementById('quizArea').classList.remove('hidden');
+  document.getElementById('resultArea').classList.add('hidden');
+  renderQuestion();
+  window.scrollTo({top:document.getElementById('quizArea').offsetTop-12,behavior:'smooth'});
+}
+
+function renderQuestion(){
+  const item=quiz[current];
+  document.getElementById('qnum').textContent=`Soal ${current+1} dari ${quiz.length} • Materi: ${item.cat}`;
+  document.getElementById('bar').style.width=`${((current+1)/quiz.length)*100}%`;
+  document.getElementById('question').textContent=item.q;
+  const choices=document.getElementById('choices');
+  choices.innerHTML='';
+  const letters=['A','B','C'];
+  item.o.forEach((text,idx)=>{
+    const btn=document.createElement('button');
+    btn.className='choice';
+    btn.innerHTML=`<b>${letters[idx]}.</b> ${escapeHtml(text)}`;
+    btn.onclick=()=>chooseAnswer(idx);
+    if(answers[current]!==null){
+      btn.disabled=true;
+      if(idx===item.a) btn.classList.add('correct');
+      if(idx===answers[current] && idx!==item.a) btn.classList.add('wrong');
+    }
+    choices.appendChild(btn);
+  });
+  const exp=document.getElementById('explain');
+  if(answers[current]!==null){
+    exp.style.display='block';
+    exp.innerHTML = answers[current]===item.a
+      ? '✅ Benar! Hebat!'
+      : `❌ Belum tepat. Jawaban yang benar: <b>${letters[item.a]}. ${escapeHtml(item.o[item.a])}</b>`;
+  } else {
+    exp.style.display='none';
+  }
+  document.getElementById('prevBtn').disabled=current===0;
+  document.getElementById('nextBtn').textContent=current===quiz.length-1?'Lihat Hasil':'Berikutnya';
+}
+
+function chooseAnswer(idx){
+  if(answers[current]!==null) return;
+  answers[current]=idx;
+  renderQuestion();
+}
+
+function prevQuestion(){
+  if(current>0){ current--; renderQuestion(); }
+}
+
+function nextQuestion(){
+  if(answers[current]===null){
+    alert('Pilih salah satu jawaban A, B, atau C terlebih dahulu.');
+    return;
+  }
+  if(current<quiz.length-1){
+    current++;
+    renderQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult(){
+  let score=answers.reduce((n,a,i)=>n+(a===quiz[i].a?1:0),0);
+  const pct=Math.round(score/quiz.length*100);
+  document.getElementById('score').textContent=`${score} / ${quiz.length} (${pct}%)`;
+  let msg=pct>=90?'🌟 Sangat bagus!':pct>=75?'👏 Bagus!':pct>=60?'😊 Cukup baik, terus berlatih!':'💪 Yuk belajar materi lagi lalu coba kembali!';
+  document.getElementById('resultText').innerHTML=`<b>${msg}</b><p class="mini">Kamu sudah menyelesaikan semua soal.</p>`;
+  const stats={};
+  quiz.forEach((q,i)=>{
+    stats[q.cat] ||= {benar:0,total:0};
+    stats[q.cat].total++;
+    if(answers[i]===q.a) stats[q.cat].benar++;
+  });
+  document.getElementById('topicStats').innerHTML=Object.entries(stats).map(([k,v])=>
+    `<div class="topic"><b>${escapeHtml(k)}</b>${v.benar} benar dari ${v.total} soal</div>`
+  ).join('');
+  document.getElementById('quizArea').classList.add('hidden');
+  document.getElementById('resultArea').classList.remove('hidden');
+  window.scrollTo({top:document.getElementById('resultArea').offsetTop-12,behavior:'smooth'});
+}
+
+function escapeHtml(s){
+  return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+}
+
+makeSet();
+</script>
+</body>
+</html>
