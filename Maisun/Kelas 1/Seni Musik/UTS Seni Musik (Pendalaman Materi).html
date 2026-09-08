@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seni Musik Kelas 1 - Pendalaman Materi PSTS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#ff6fa5;
+    --purple:#8c6bff;
+    --blue:#4fc3f7;
+    --yellow:#ffd166;
+    --green:#4caf7d;
+    --red:#ff6b6b;
+    --bg:#fef6ff;
+    --card:#ffffff;
+    --text:#3a3355;
+    --shadow: 0 8px 20px rgba(140,107,255,0.15);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Nunito', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(160deg, #fef6ff 0%, #eef4ff 100%);
+    color: var(--text);
+    padding-bottom: 60px;
+  }
+  h1,h2,h3,.brand{
+    font-family:'Baloo 2', system-ui, sans-serif;
+  }
+  header{
+    background: linear-gradient(120deg, var(--purple), var(--pink));
+    color:white;
+    padding: 28px 20px 34px;
+    text-align:center;
+    border-radius: 0 0 32px 32px;
+    box-shadow: var(--shadow);
+  }
+  header h1{
+    margin:0 0 6px;
+    font-size: clamp(22px, 5vw, 32px);
+  }
+  header p{
+    margin:0;
+    opacity:0.95;
+    font-weight:600;
+  }
+  .wrap{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 20px 16px;
+  }
+  .section-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size: clamp(20px, 4.5vw, 26px);
+    margin: 26px 0 14px;
+  }
+  .section-title span.badge{
+    background: var(--yellow);
+    color:#5a4400;
+    font-size:14px;
+    padding:4px 12px;
+    border-radius:20px;
+    font-family:'Nunito',sans-serif;
+    font-weight:800;
+  }
+  .materi-card{
+    background: var(--card);
+    border-radius:18px;
+    box-shadow: var(--shadow);
+    margin-bottom:14px;
+    overflow:hidden;
+    border: 3px solid transparent;
+  }
+  .materi-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:16px 18px;
+    cursor:pointer;
+    user-select:none;
+    background: #fff;
+  }
+  .materi-head .icon{
+    font-size:26px;
+    flex-shrink:0;
+    width:42px;
+    height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: #f2edff;
+    border-radius:12px;
+  }
+  .materi-head h3{
+    margin:0;
+    font-size:17px;
+    flex:1;
+  }
+  .materi-head .chevron{
+    transition: transform 0.25s ease;
+    font-size:16px;
+    color: var(--purple);
+  }
+  .materi-card.open .chevron{ transform: rotate(180deg); }
+  .materi-body{
+    max-height:0;
+    overflow:hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 18px;
+    font-size:15.5px;
+    line-height:1.6;
+  }
+  .materi-card.open .materi-body{
+    max-height:600px;
+    padding: 0 18px 18px;
+  }
+  .materi-body ul{ margin:8px 0; padding-left:20px; }
+  .materi-body .contoh{
+    background:#f6f2ff;
+    border-left:4px solid var(--purple);
+    padding:8px 12px;
+    border-radius:8px;
+    margin-top:8px;
+    font-size:14.5px;
+  }
+
+  .cta-row{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin: 26px 0 6px;
+  }
+  button{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:16px;
+    border:none;
+    border-radius:16px;
+    padding:14px 26px;
+    cursor:pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: var(--shadow);
+  }
+  button:active{ transform: scale(0.96); }
+  .btn-primary{ background: var(--pink); color:white; }
+  .btn-secondary{ background: white; color: var(--purple); border:2px solid var(--purple); }
+  .btn-green{ background: var(--green); color:white; }
+  .btn-yellow{ background: var(--yellow); color:#5a4400; }
+
+  #quiz-area{ display:none; }
+
+  .progress-wrap{
+    position: sticky;
+    top:0;
+    z-index:50;
+    background: var(--bg);
+    padding: 12px 0 10px;
+  }
+  .progress-info{
+    display:flex;
+    justify-content:space-between;
+    font-weight:800;
+    font-size:14px;
+    color: var(--purple);
+    margin-bottom:6px;
+    padding: 0 2px;
+  }
+  .progress-bar-bg{
+    background: #e7e0ff;
+    border-radius: 20px;
+    height:14px;
+    overflow:hidden;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+  }
+  .progress-bar-fill{
+    height:100%;
+    background: linear-gradient(90deg, var(--pink), var(--purple));
+    border-radius:20px;
+    transition: width 0.3s ease;
+    width:0%;
+  }
+
+  .question-card{
+    background:var(--card);
+    border-radius:20px;
+    box-shadow: var(--shadow);
+    padding: 22px 20px;
+    margin-top:16px;
+  }
+  .q-number{
+    display:inline-block;
+    background: var(--blue);
+    color:white;
+    font-family:'Baloo 2',sans-serif;
+    font-weight:800;
+    font-size:13px;
+    padding: 4px 12px;
+    border-radius:20px;
+    margin-bottom:10px;
+  }
+  .q-text{
+    font-size:18px;
+    font-weight:700;
+    margin: 4px 0 18px;
+    line-height:1.5;
+  }
+  .option{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:#faf8ff;
+    border:2.5px solid #ece5ff;
+    border-radius:14px;
+    padding:12px 14px;
+    margin-bottom:10px;
+    cursor:pointer;
+    font-weight:700;
+    font-size:16px;
+    transition: all 0.15s ease;
+  }
+  .option:hover{ border-color: var(--purple); }
+  .option .letter{
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    background: var(--purple);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Baloo 2',sans-serif;
+    flex-shrink:0;
+  }
+  .option.selected{
+    border-color: var(--purple);
+    background: #efe9ff;
+  }
+  .option.correct{
+    border-color: var(--green);
+    background: #e6f7ee;
+  }
+  .option.correct .letter{ background: var(--green); }
+  .option.incorrect{
+    border-color: var(--red);
+    background: #ffecec;
+  }
+  .option.incorrect .letter{ background: var(--red); }
+  .option.disabled{ cursor:default; }
+
+  .feedback{
+    margin-top:10px;
+    font-weight:800;
+    font-size:15px;
+    padding:10px 14px;
+    border-radius:12px;
+  }
+  .feedback.correct{ background:#e6f7ee; color:#1f7a4d; }
+  .feedback.incorrect{ background:#ffecec; color:#c0392b; }
+
+  .nav-row{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-top:20px;
+  }
+  .nav-row button{ flex:1; }
+  button:disabled{ opacity:0.4; cursor:not-allowed; }
+
+  #result-area{
+    display:none;
+    text-align:center;
+  }
+  .result-card{
+    background:var(--card);
+    border-radius:24px;
+    box-shadow: var(--shadow);
+    padding: 32px 22px;
+    margin-top:16px;
+  }
+  .result-emoji{ font-size:56px; }
+  .result-score{
+    font-family:'Baloo 2',sans-serif;
+    font-size:42px;
+    font-weight:800;
+    color: var(--purple);
+    margin: 6px 0;
+  }
+  .result-sub{ font-weight:700; color:#6b6485; margin-bottom:18px; }
+  .review-item{
+    text-align:left;
+    background:#faf8ff;
+    border-radius:14px;
+    padding:12px 16px;
+    margin-bottom:10px;
+    font-size:14.5px;
+  }
+  .review-item .q{ font-weight:800; margin-bottom:6px; }
+  .review-item .ans-correct{ color:#1f7a4d; font-weight:700; }
+  .review-item .ans-wrong{ color:#c0392b; font-weight:700; }
+
+  footer{
+    text-align:center;
+    color:#9b93b8;
+    font-size:13px;
+    margin-top: 40px;
+  }
+
+  @media print{
+    header, .cta-row, #quiz-area button, .progress-wrap{ display:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎵 Seni Musik Kelas 1</h1>
+  <p>Pendalaman Materi &amp; Latihan Soal PSTS - Semester Gasal</p>
+</header>
+
+<div class="wrap">
+
+  <div class="section-title">📘 Ringkasan Materi <span class="badge">baca dulu ya!</span></div>
+  <div id="materi-list"></div>
+
+  <div class="cta-row">
+    <button class="btn-primary" onclick="startQuiz()">🚀 Mulai Latihan Soal (30 Soal)</button>
+  </div>
+
+  <div id="quiz-area">
+    <div class="progress-wrap">
+      <div class="progress-info">
+        <span id="progress-label">Soal 1 dari 30</span>
+        <span id="progress-score">Benar: 0</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    </div>
+
+    <div class="question-card" id="question-card"></div>
+
+    <div class="nav-row">
+      <button class="btn-secondary" id="prev-btn" onclick="prevQuestion()">⬅️ Sebelumnya</button>
+      <button class="btn-primary" id="next-btn" onclick="nextQuestion()" disabled>Selanjutnya ➡️</button>
+    </div>
+  </div>
+
+  <div id="result-area">
+    <div class="result-card">
+      <div class="result-emoji" id="result-emoji">🏆</div>
+      <div class="result-score" id="result-score">0 / 30</div>
+      <div class="result-sub" id="result-sub">Kerja bagus!</div>
+      <div class="cta-row">
+        <button class="btn-green" onclick="reviewAnswers()">📝 Lihat Pembahasan</button>
+        <button class="btn-yellow" onclick="generateNewQuiz()">🔄 Buat Soal Baru</button>
+        <button class="btn-secondary" onclick="window.print()">🖨️ Simpan / Cetak PDF</button>
+      </div>
+      <div id="review-list" style="margin-top:20px; display:none;"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Dibuat untuk latihan mandiri • Soal diacak setiap kali dibuat ulang 🎶</footer>
+
+<script>
+/* =========================================================
+   MATERI (dipisah per judul)
+========================================================= */
+const materi = [
+  {
+    icon:"⏱️",
+    title:"1. Tempo (Cepat Lambatnya Bunyi)",
+    body:`<p>Tempo adalah <b>tanda cepat lambatnya bunyi</b> atau lagu. Tempo membantu kita mengetahui apakah sebuah lagu dinyanyikan dengan kencang atau pelan.</p>
+          <div class="contoh">Contoh: Lagu yang dinyanyikan dengan kencang berarti memiliki tempo cepat.</div>`
+  },
+  {
+    icon:"🎚️",
+    title:"2. Macam-Macam Tempo",
+    body:`<p>Tanda tempo terdiri dari <b>3 macam</b>, yaitu:</p>
+          <ul>
+            <li><b>Cepat</b> - lagu dinyanyikan dengan kencang.</li>
+            <li><b>Sedang</b> - lagu dinyanyikan tidak terlalu cepat dan tidak terlalu lambat.</li>
+            <li><b>Lambat</b> - lagu dinyanyikan dengan pelan.</li>
+          </ul>`
+  },
+  {
+    icon:"👏",
+    title:"3. Perkusi Tubuh",
+    body:`<p>Perkusi tubuh adalah cara membuat bunyi menggunakan <b>anggota tubuh</b>, tanpa alat musik.</p>
+          <div class="contoh">Contoh perkusi tubuh: <b>tepuk tangan</b>, <b>petik jari</b>, dan <b>hentak kaki</b>.</div>`
+  },
+  {
+    icon:"🎶",
+    title:"4. Irama",
+    body:`<p>Irama adalah <b>panjang pendeknya bunyi</b> yang membentuk pola ketukan dalam sebuah lagu.</p>
+          <div class="contoh">Contoh: Lagu "Kunang-Kunang" memiliki irama 3 ketukan.</div>`
+  },
+  {
+    icon:"🔊",
+    title:"5. Bunyi Panjang dan Bunyi Pendek",
+    body:`<ul>
+            <li><b>Bunyi panjang</b> adalah bunyi yang suaranya terdengar <b>lama</b>.</li>
+            <li><b>Bunyi pendek</b> adalah bunyi yang suaranya terdengar <b>sebentar</b>.</li>
+          </ul>`
+  },
+  {
+    icon:"🏃",
+    title:"6. Contoh Bunyi di Sekitar Kita",
+    body:`<ul>
+            <li>Bunyi <b>"tab tab tab"</b> adalah bunyi orang <b>berlari</b>.</li>
+            <li>Bunyi <b>detak jam dinding</b> termasuk bunyi <b>lambat</b>.</li>
+            <li>Bunyi langkah orang <b>berjalan</b> termasuk tempo <b>sedang</b>.</li>
+          </ul>`
+  },
+  {
+    icon:"🎼",
+    title:"7. Tempo Pada Lagu",
+    body:`<ul>
+            <li>Lagu yang <b>tenang dan sedih</b> biasanya bertempo <b>lambat</b>.</li>
+            <li>Lagu yang <b>gembira</b> biasanya bertempo <b>cepat</b>.</li>
+            <li>Tempo <b>cepat</b> digambarkan seperti <b>orang berlari</b>.</li>
+            <li>Tempo <b>sedang</b> digambarkan seperti <b>orang berjalan</b>.</li>
+            <li>Lagu <b>"Naik Delman"</b> memiliki tempo <b>cepat</b>.</li>
+          </ul>`
+  }
+];
+
+const materiListEl = document.getElementById('materi-list');
+materi.forEach((m, i) => {
+  const card = document.createElement('div');
+  card.className = 'materi-card';
+  card.innerHTML = `
+    <div class="materi-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="icon">${m.icon}</div>
+      <h3>${m.title}</h3>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="materi-body">${m.body}</div>`;
+  materiListEl.appendChild(card);
+});
+// buka materi pertama secara default
+materiListEl.children[0].classList.add('open');
+
+/* =========================================================
+   BANK SOAL (dikelompokkan per materi, untuk diacak & dipilih)
+   format: {q, options:[..3..], correct: index}
+========================================================= */
+const bank = {
+  tempo: [
+    {q:"Tanda cepat lambatnya bunyi disebut ….", options:["Nada","Tempo","Not"], correct:1},
+    {q:"Cepat lambatnya sebuah lagu dinamakan ….", options:["Irama","Tempo","Suara"], correct:1},
+    {q:"Tempo digunakan untuk menunjukkan ….", options:["Tinggi rendah nada","Cepat lambat bunyi","Warna suara"], correct:1},
+    {q:"Istilah musik untuk kecepatan lagu adalah ….", options:["Melodi","Tempo","Harmoni"], correct:1},
+    {q:"Jika sebuah lagu dinyanyikan dengan kencang, berarti lagu itu memiliki tempo ….", options:["Lambat","Cepat","Sedang"], correct:1},
+    {q:"Yang dimaksud tempo dalam musik adalah ….", options:["Panjang pendek bunyi","Cepat lambat bunyi","Tinggi rendah bunyi"], correct:1},
+    {q:"Untuk mengetahui lagu dinyanyikan cepat atau lambat, kita memperhatikan ….", options:["Nada","Tempo","Liriknya"], correct:1},
+    {q:"Tempo adalah salah satu unsur musik yang berkaitan dengan ….", options:["Kecepatan bunyi","Ketinggian nada","Jenis alat musik"], correct:0}
+  ],
+  macamTempo: [
+    {q:"Tanda tempo terdiri dari 3 macam, yaitu cepat, sedang, dan ….", options:["Lambat","Tinggi","Rendah"], correct:0},
+    {q:"Berikut ini yang bukan macam tempo adalah ….", options:["Cepat","Sedang","Nyaring"], correct:2},
+    {q:"Tempo yang paling pelan disebut tempo ….", options:["Cepat","Sedang","Lambat"], correct:2},
+    {q:"Tempo yang tidak terlalu cepat dan tidak terlalu lambat disebut tempo ….", options:["Sedang","Cepat","Lambat"], correct:0},
+    {q:"Urutan tempo dari yang paling lambat ke paling cepat adalah ….", options:["Cepat - Sedang - Lambat","Lambat - Sedang - Cepat","Sedang - Cepat - Lambat"], correct:1},
+    {q:"Ada berapa macam tanda tempo yang sudah dipelajari?", options:["2 macam","3 macam","4 macam"], correct:1},
+    {q:"Tempo yang paling kencang disebut tempo ….", options:["Lambat","Sedang","Cepat"], correct:2},
+    {q:"Selain cepat dan lambat, ada juga tempo yang disebut ….", options:["Sedang","Tinggi","Rendah"], correct:0}
+  ],
+  perkusi: [
+    {q:"Perkusi tubuh adalah cara membuat bunyi dari ….", options:["Alat musik","Anggota tubuh","Radio"], correct:1},
+    {q:"Contoh dari perkusi tubuh adalah ….", options:["Meniup seruling","Tepuk tangan","Memukul drum"], correct:1},
+    {q:"Bunyi yang dihasilkan dari hentakan kaki termasuk ….", options:["Perkusi tubuh","Perkusi alat","Nyanyian"], correct:0},
+    {q:"Berikut ini contoh perkusi tubuh, kecuali ….", options:["Petik jari","Tepuk tangan","Memukul gitar"], correct:2},
+    {q:"Bunyi tepuk tangan dihasilkan dengan cara ….", options:["Menggunakan alat musik","Menggunakan anggota tubuh","Menggunakan mulut"], correct:1},
+    {q:"Hentak kaki, tepuk tangan, dan petik jari adalah contoh ….", options:["Perkusi tubuh","Not angka","Notasi musik"], correct:0},
+    {q:"Bunyi yang dihasilkan tanpa alat musik, hanya dengan tubuh disebut ….", options:["Perkusi alat","Perkusi tubuh","Melodi"], correct:1},
+    {q:"Salah satu manfaat perkusi tubuh adalah untuk berlatih ….", options:["Irama","Warna","Bentuk"], correct:0}
+  ],
+  irama: [
+    {q:"Irama adalah panjang pendek ….", options:["Nada","Bunyi","Warna suara"], correct:1},
+    {q:"Panjang pendeknya bunyi dalam sebuah lagu disebut ….", options:["Tempo","Irama","Dinamika"], correct:1},
+    {q:"Lagu 'Kunang-Kunang' memiliki irama … ketukan.", options:["2","3","4"], correct:1},
+    {q:"Irama berkaitan erat dengan ….", options:["Panjang pendek bunyi","Cepat lambat bunyi","Tinggi rendah bunyi"], correct:0},
+    {q:"Untuk merasakan irama sebuah lagu, kita bisa ….", options:["Bertepuk tangan mengikuti ketukan","Diam saja","Menutup telinga"], correct:0},
+    {q:"Ketukan dalam sebuah lagu berkaitan dengan ….", options:["Irama","Warna suara","Tinggi nada"], correct:0},
+    {q:"Pola ketukan yang teratur dalam lagu menunjukkan adanya ….", options:["Melodi","Irama","Harmoni"], correct:1},
+    {q:"Lagu yang dinyanyikan dengan pola panjang pendek bunyi yang berulang menunjukkan ….", options:["Irama","Tempo","Suara"], correct:0}
+  ],
+  bunyiPanjangPendek: [
+    {q:"Bunyi panjang adalah bunyi yang suaranya ….", options:["Sebentar","Lama","Keras"], correct:1},
+    {q:"Bunyi pendek adalah bunyi yang suaranya ….", options:["Lama","Sebentar","Nyaring"], correct:1},
+    {q:"Contoh bunyi panjang misalnya bunyi ….", options:["Peluit yang ditiup lama","Ketukan sekali","Tepukan cepat"], correct:0},
+    {q:"Contoh bunyi pendek misalnya bunyi ….", options:["Lonceng yang berdenting lama","Tepuk tangan sekali","Alarm yang berbunyi terus"], correct:1},
+    {q:"Semakin lama suatu bunyi terdengar, maka bunyi itu semakin ….", options:["Pendek","Panjang","Kecil"], correct:1},
+    {q:"Bunyi yang cepat berhenti disebut bunyi ….", options:["Panjang","Pendek","Sedang"], correct:1},
+    {q:"Perbedaan bunyi panjang dan pendek terletak pada ….", options:["Lama tidaknya bunyi terdengar","Tinggi rendah nada","Jenis alat musik"], correct:0},
+    {q:"Bunyi terompet yang ditiup sebentar termasuk bunyi ….", options:["Panjang","Pendek","Sedang"], correct:1}
+  ],
+  contohBunyi: [
+    {q:"Bunyi \"tab tab tab\" adalah bunyi orang ….", options:["Berjalan","Berlari","Tidur"], correct:1},
+    {q:"Bunyi detak jam dinding termasuk bunyi ….", options:["Cepat","Lambat","Sedang"], correct:1},
+    {q:"Bunyi langkah orang berjalan termasuk tempo ….", options:["Cepat","Lambat","Sedang"], correct:2},
+    {q:"Bunyi langkah kaki orang yang sedang berlari termasuk tempo ….", options:["Lambat","Sedang","Cepat"], correct:2},
+    {q:"Detak jantung saat kita beristirahat termasuk bunyi ….", options:["Cepat","Lambat","Keras"], correct:1},
+    {q:"Suara kereta api yang melaju kencang termasuk contoh bunyi bertempo ….", options:["Lambat","Cepat","Sedang"], correct:1},
+    {q:"Suara kura-kura berjalan pelan bisa diibaratkan contoh tempo ….", options:["Cepat","Lambat","Sedang"], correct:1},
+    {q:"Bunyi tetesan air hujan yang sangat deras termasuk tempo ….", options:["Lambat","Cepat","Sedang"], correct:1}
+  ],
+  tempoLagu: [
+    {q:"Lagu yang tenang dan sedih biasanya memiliki tempo ….", options:["Cepat","Lambat","Sedang"], correct:1},
+    {q:"Lagu yang gembira biasanya memiliki tempo ….", options:["Lambat","Cepat","Sedang"], correct:1},
+    {q:"Tempo cepat jika digambarkan seperti ….", options:["Orang berjalan","Orang berlari","Orang tidur"], correct:1},
+    {q:"Tempo sedang jika digambarkan seperti ….", options:["Orang berlari","Orang berjalan","Orang tidur"], correct:1},
+    {q:"Lagu \"Naik Delman\" memiliki tempo ….", options:["Lambat","Sedang","Cepat"], correct:2},
+    {q:"Lagu yang biasa dinyanyikan untuk menidurkan adik biasanya bertempo ….", options:["Cepat","Lambat","Sedang"], correct:1},
+    {q:"Lagu mars biasanya dinyanyikan dengan tempo ….", options:["Lambat","Cepat","Sedang"], correct:1},
+    {q:"Lagu \"Kunang-Kunang\" cocok dinyanyikan dengan perasaan ….", options:["Sedih","Gembira","Marah"], correct:1}
+  ]
+};
+
+// jumlah soal yang diambil per kategori supaya total 30 & mencakup semua materi
+const quota = {
+  tempo:4, macamTempo:4, perkusi:4, irama:4,
+  bunyiPanjangPendek:4, contohBunyi:5, tempoLagu:5
+};
+
+/* =========================================================
+   LOGIKA KUIS
+========================================================= */
+let quizQuestions = [];
+let currentIndex = 0;
+let userAnswers = [];   // index pilihan user, null jika belum dijawab
+let answeredCorrect = [];
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function buildQuizSet(){
+  let selected = [];
+  for(const key in quota){
+    const pool = shuffle(bank[key]);
+    selected = selected.concat(pool.slice(0, quota[key]));
+  }
+  selected = shuffle(selected);
+  // acak urutan opsi tiap soal, sambil menandai index jawaban benar yang baru
+  return selected.map(item => {
+    const optionsWithFlag = item.options.map((text, idx) => ({text, isCorrect: idx === item.correct}));
+    const shuffledOptions = shuffle(optionsWithFlag);
+    return {
+      q: item.q,
+      options: shuffledOptions.map(o => o.text),
+      correct: shuffledOptions.findIndex(o => o.isCorrect)
+    };
+  });
+}
+
+function startQuiz(){
+  quizQuestions = buildQuizSet();
+  currentIndex = 0;
+  userAnswers = new Array(quizQuestions.length).fill(null);
+  answeredCorrect = new Array(quizQuestions.length).fill(false);
+  document.getElementById('quiz-area').style.display = 'block';
+  document.getElementById('result-area').style.display = 'none';
+  document.querySelector('.section-title').scrollIntoView({behavior:'smooth'});
+  renderQuestion();
+  document.getElementById('quiz-area').scrollIntoView({behavior:'smooth'});
+}
+
+function renderQuestion(){
+  const item = quizQuestions[currentIndex];
+  const card = document.getElementById('question-card');
+  const letters = ['A','B','C'];
+
+  let optionsHtml = '';
+  item.options.forEach((opt, idx) => {
+    optionsHtml += `<div class="option" data-idx="${idx}" onclick="selectOption(${idx})">
+        <div class="letter">${letters[idx]}</div>
+        <div>${opt}</div>
+      </div>`;
+  });
+
+  card.innerHTML = `
+    <div class="q-number">Soal ${currentIndex+1} dari ${quizQuestions.length}</div>
+    <div class="q-text">${item.q}</div>
+    <div id="options-container">${optionsHtml}</div>
+    <div id="feedback-area"></div>
+  `;
+
+  updateProgress();
+
+  // jika soal ini sudah dijawab sebelumnya, tampilkan kembali statusnya
+  if(userAnswers[currentIndex] !== null){
+    showAnswerState(userAnswers[currentIndex]);
+  }
+
+  document.getElementById('prev-btn').disabled = currentIndex === 0;
+  document.getElementById('next-btn').disabled = userAnswers[currentIndex] === null;
+  document.getElementById('next-btn').innerText = currentIndex === quizQuestions.length - 1 ? 'Selesai 🏁' : 'Selanjutnya ➡️';
+}
+
+function selectOption(idx){
+  if(userAnswers[currentIndex] !== null) return; // sudah dijawab, kunci pilihan
+  userAnswers[currentIndex] = idx;
+  const item = quizQuestions[currentIndex];
+  answeredCorrect[currentIndex] = (idx === item.correct);
+  showAnswerState(idx);
+  document.getElementById('next-btn').disabled = false;
+  updateProgress();
+}
+
+function showAnswerState(selectedIdx){
+  const item = quizQuestions[currentIndex];
+  const opts = document.querySelectorAll('#options-container .option');
+  opts.forEach((el, idx) => {
+    el.classList.add('disabled');
+    el.onclick = null;
+    if(idx === item.correct) el.classList.add('correct');
+    if(idx === selectedIdx && idx !== item.correct) el.classList.add('incorrect');
+    if(idx === selectedIdx) el.classList.add('selected');
+  });
+  const fb = document.getElementById('feedback-area');
+  if(selectedIdx === item.correct){
+    fb.innerHTML = `<div class="feedback correct">✅ Benar sekali, hebat!</div>`;
+  } else {
+    const letters = ['A','B','C'];
+    fb.innerHTML = `<div class="feedback incorrect">❌ Belum tepat. Jawaban yang benar: ${letters[item.correct]}. ${item.options[item.correct]}</div>`;
+  }
+}
+
+function updateProgress(){
+  const answeredCount = userAnswers.filter(a => a !== null).length;
+  const correctCount = answeredCorrect.filter(Boolean).length;
+  document.getElementById('progress-label').innerText = `Soal ${currentIndex+1} dari ${quizQuestions.length}`;
+  document.getElementById('progress-score').innerText = `Benar: ${correctCount}`;
+  document.getElementById('progress-bar').style.width = `${(answeredCount/quizQuestions.length)*100}%`;
+}
+
+function nextQuestion(){
+  if(currentIndex < quizQuestions.length - 1){
+    currentIndex++;
+    renderQuestion();
+    document.getElementById('quiz-area').scrollIntoView({behavior:'smooth', block:'start'});
+  } else {
+    showResult();
+  }
+}
+
+function prevQuestion(){
+  if(currentIndex > 0){
+    currentIndex--;
+    renderQuestion();
+  }
+}
+
+function showResult(){
+  document.getElementById('quiz-area').style.display = 'none';
+  document.getElementById('result-area').style.display = 'block';
+  const correctCount = answeredCorrect.filter(Boolean).length;
+  const total = quizQuestions.length;
+  document.getElementById('result-score').innerText = `${correctCount} / ${total}`;
+
+  let emoji = '🙂', sub = 'Terus berlatih ya!';
+  const pct = correctCount/total;
+  if(pct === 1){ emoji='🏆'; sub='Sempurna! Kamu hebat sekali!'; }
+  else if(pct >= 0.8){ emoji='🌟'; sub='Bagus sekali, hampir sempurna!'; }
+  else if(pct >= 0.6){ emoji='😄'; sub='Kerja bagus, sedikit lagi lebih baik!'; }
+  else if(pct >= 0.4){ emoji='💪'; sub='Lumayan, ayo belajar lagi ya!'; }
+  else { emoji='📚'; sub='Yuk baca materi lagi, pasti bisa!'; }
+
+  document.getElementById('result-emoji').innerText = emoji;
+  document.getElementById('result-sub').innerText = sub;
+  document.getElementById('review-list').style.display = 'none';
+  document.getElementById('result-area').scrollIntoView({behavior:'smooth'});
+}
+
+function reviewAnswers(){
+  const list = document.getElementById('review-list');
+  const letters = ['A','B','C'];
+  let html = '';
+  quizQuestions.forEach((item, i) => {
+    const userIdx = userAnswers[i];
+    const isCorrect = userIdx === item.correct;
+    html += `<div class="review-item">
+      <div class="q">${i+1}. ${item.q}</div>
+      <div class="${isCorrect ? 'ans-correct' : 'ans-wrong'}">
+        Jawabanmu: ${userIdx !== null ? letters[userIdx] + '. ' + item.options[userIdx] : '(belum dijawab)'} ${isCorrect ? '✅' : '❌'}
+      </div>
+      ${!isCorrect ? `<div class="ans-correct">Jawaban benar: ${letters[item.correct]}. ${item.options[item.correct]}</div>` : ''}
+    </div>`;
+  });
+  list.innerHTML = html;
+  list.style.display = 'block';
+}
+
+function generateNewQuiz(){
+  startQuiz();
+}
+</script>
+
+</body>
+</html>
