@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Latihan Interaktif Bahasa Inggris - Kelas 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#ff6b9d;
+    --purple:#845ec2;
+    --blue:#4d8de4;
+    --yellow:#ffc75f;
+    --green:#43c59e;
+    --red:#ff6f6f;
+    --bg:#fef6ff;
+    --card:#ffffff;
+    --text:#3a3a55;
+    --shadow: 0 6px 18px rgba(120,90,200,0.15);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Nunito', sans-serif;
+    background: linear-gradient(160deg,#fef6ff 0%, #eef4ff 100%);
+    color:var(--text);
+    padding-bottom:60px;
+  }
+  h1,h2,h3{ font-family:'Baloo 2', sans-serif; margin:0 0 8px; }
+
+  header{
+    background: linear-gradient(120deg, var(--purple), var(--pink));
+    color:white;
+    padding: 28px 20px 60px;
+    text-align:center;
+    border-radius: 0 0 40px 40px;
+    box-shadow: var(--shadow);
+    position:relative;
+  }
+  header h1{ font-size:1.9rem; }
+  header p{ margin:6px 0 0; opacity:0.95; font-weight:600; }
+  .emoji-row{ font-size:1.6rem; margin-top:10px; letter-spacing:6px;}
+
+  .container{
+    max-width: 900px;
+    margin: -35px auto 0;
+    padding: 0 16px;
+  }
+
+  .card{
+    background: var(--card);
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+    padding: 22px 20px;
+    margin-bottom: 22px;
+  }
+
+  .materi-card h2{
+    color: var(--purple);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:1.25rem;
+    border-bottom: 3px dashed #f0e3ff;
+    padding-bottom:10px;
+    margin-bottom:14px;
+  }
+  .materi-card h2 .badge{
+    background: var(--yellow);
+    color:#5a3d00;
+    font-size:0.8rem;
+    padding:3px 10px;
+    border-radius:20px;
+    font-weight:800;
+  }
+  .materi-card p, .materi-card li{ line-height:1.6; font-size:0.98rem; }
+  .materi-card table{
+    width:100%;
+    border-collapse: collapse;
+    margin:10px 0;
+    font-size:0.95rem;
+  }
+  .materi-card th, .materi-card td{
+    border:1px solid #ecdcff;
+    padding:8px 10px;
+    text-align:left;
+  }
+  .materi-card th{ background:#f6ecff; color:var(--purple); }
+  .materi-card .example{
+    background:#f3f9ff;
+    border-left:5px solid var(--blue);
+    padding:10px 14px;
+    border-radius:10px;
+    margin:10px 0;
+    font-weight:600;
+  }
+  .materi-card .tip{
+    background:#fff6e6;
+    border-left:5px solid var(--yellow);
+    padding:10px 14px;
+    border-radius:10px;
+    margin:10px 0;
+  }
+  .toc{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:6px;
+  }
+  .toc a{
+    text-decoration:none;
+    background:#f6ecff;
+    color:var(--purple);
+    padding:6px 12px;
+    border-radius:16px;
+    font-weight:700;
+    font-size:0.85rem;
+  }
+
+  .sticky-bar{
+    position: sticky;
+    top:0;
+    z-index:50;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(4px);
+    padding: 10px 16px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin: 18px auto;
+    max-width:900px;
+    flex-wrap:wrap;
+  }
+  .progress-wrap{
+    flex:1;
+    min-width:180px;
+  }
+  .progress-track{
+    background:#eee3ff;
+    border-radius:20px;
+    height:14px;
+    overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background: linear-gradient(90deg, var(--green), var(--blue));
+    transition: width 0.35s ease;
+  }
+  .progress-label{ font-size:0.8rem; font-weight:700; color:var(--purple); margin-bottom:4px;}
+  .score-pill{
+    background: var(--green);
+    color:white;
+    font-weight:800;
+    padding:8px 16px;
+    border-radius:20px;
+    font-size:0.9rem;
+    white-space:nowrap;
+  }
+  .btn{
+    border:none;
+    cursor:pointer;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    border-radius:16px;
+    padding:10px 18px;
+    font-size:0.9rem;
+    color:white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    transition: transform 0.15s ease;
+  }
+  .btn:hover{ transform: translateY(-2px); }
+  .btn:active{ transform: translateY(0); }
+  .btn-new{ background: linear-gradient(120deg, var(--pink), var(--purple)); }
+  .btn-download{ background: linear-gradient(120deg, var(--blue), var(--green)); }
+  .btn-reset{ background:#b0b0c0; }
+
+  .action-row{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin: 18px 0 26px;
+  }
+
+  #quiz-section h2{
+    text-align:center;
+    color:var(--purple);
+    font-size:1.5rem;
+  }
+  #quiz-section > p.subtitle{
+    text-align:center;
+    margin-top:0;
+    color:#7a7a95;
+    font-weight:700;
+  }
+
+  .question-card{
+    border-radius:20px;
+    background: var(--card);
+    box-shadow: var(--shadow);
+    padding: 18px 18px 16px;
+    margin-bottom: 16px;
+    border: 2px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+  .question-card.answered-correct{ border-color: var(--green); }
+  .question-card.answered-wrong{ border-color: var(--red); }
+
+  .q-topic{
+    display:inline-block;
+    background:#eef2ff;
+    color:var(--blue);
+    font-size:0.72rem;
+    font-weight:800;
+    padding:3px 10px;
+    border-radius:12px;
+    margin-bottom:8px;
+  }
+  .q-number{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    color:var(--purple);
+    margin-right:6px;
+  }
+  .q-text{
+    font-size:1.02rem;
+    font-weight:700;
+    margin-bottom:12px;
+    line-height:1.5;
+  }
+  .options{
+    display:grid;
+    gap:10px;
+  }
+  .option-btn{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-align:left;
+    background:#f8f7ff;
+    border:2px solid #e6e1fb;
+    border-radius:14px;
+    padding:10px 14px;
+    font-family:'Nunito',sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--text);
+    cursor:pointer;
+    transition: all 0.15s ease;
+  }
+  .option-btn .letter{
+    background: var(--purple);
+    color:white;
+    font-weight:800;
+    font-family:'Baloo 2', sans-serif;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    font-size:0.85rem;
+  }
+  .option-btn:hover{ background:#efe9ff; }
+  .option-btn.correct{
+    background: #e3fbf1;
+    border-color: var(--green);
+  }
+  .option-btn.correct .letter{ background: var(--green); }
+  .option-btn.wrong{
+    background: #ffecec;
+    border-color: var(--red);
+  }
+  .option-btn.wrong .letter{ background: var(--red); }
+  .option-btn.disabled{ cursor:default; opacity:0.9; }
+
+  .explanation{
+    margin-top:10px;
+    font-size:0.88rem;
+    background:#fffbea;
+    border-left:4px solid var(--yellow);
+    padding:8px 12px;
+    border-radius:10px;
+    display:none;
+  }
+  .explanation.show{ display:block; }
+
+  #result-banner{
+    text-align:center;
+    padding:24px;
+    border-radius:22px;
+    background: linear-gradient(120deg, var(--green), var(--blue));
+    color:white;
+    box-shadow: var(--shadow);
+    margin: 10px 0 20px;
+    display:none;
+  }
+  #result-banner h2{ font-size:1.6rem; }
+  #result-banner p{ font-weight:700; }
+
+  footer{
+    text-align:center;
+    color:#9a90b5;
+    font-size:0.8rem;
+    margin-top:20px;
+  }
+
+  @media print{
+    .sticky-bar, .action-row, .btn, .toc{ display:none !important; }
+    .option-btn{ border:1px solid #ccc; }
+    body{ background:white; }
+    header{ background:white; color:black; box-shadow:none; }
+    .card{ box-shadow:none; border:1px solid #ddd; }
+  }
+
+  @media (max-width:480px){
+    header h1{ font-size:1.4rem; }
+    .sticky-bar{ flex-direction:column; align-items:stretch; }
+    .score-pill{ text-align:center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🍉 Latihan Interaktif Bahasa Inggris 🍎</h1>
+  <p>Materi: Buah, Rasa Makanan, dan Kalimat "Like/Likes" — Kelas 3</p>
+  <div class="emoji-row">🍎🍊🍌🍓🍉🥝🍍</div>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h3 style="color:var(--purple)">📚 Daftar Materi &amp; Soal</h3>
+    <div class="toc">
+      <a href="#materi1">1. Kata Sandang a/an</a>
+      <a href="#materi2">2. Buah Jamak (-s/-es)</a>
+      <a href="#materi3">3. Rasa Makanan</a>
+      <a href="#materi4">4. Like/Likes (+)</a>
+      <a href="#materi5">5. Don't/Doesn't (-)</a>
+      <a href="#materi6">6. Do/Does (?)</a>
+      <a href="#materi7">7. Jawaban Singkat</a>
+      <a href="#materi8">8. Susun Kata Acak</a>
+      <a href="#quiz-section">📝 Mulai Latihan Soal</a>
+    </div>
+  </div>
+
+  <!-- MATERI 1 -->
+  <div class="card materi-card" id="materi1">
+    <h2>🍎 1. Kata Sandang "a" dan "an" <span class="badge">MATERI</span></h2>
+    <p>Kita memakai <b>a</b> di depan kata benda yang diawali <b>bunyi konsonan</b>, dan <b>an</b> di depan kata benda yang diawali <b>bunyi vokal (a, i, u, e, o)</b>.</p>
+    <div class="example">Contoh: <b>an</b> apple 🍎, <b>an</b> orange 🍊, <b>an</b> avocado 🥑, <b>a</b> banana 🍌, <b>a</b> mango 🥭, <b>a</b> watermelon 🍉</div>
+    <table>
+      <tr><th>Buah</th><th>Dengan Kata Sandang</th></tr>
+      <tr><td>🍎 apple</td><td>an apple</td></tr>
+      <tr><td>🍊 orange</td><td>an orange</td></tr>
+      <tr><td>🥑 avocado</td><td>an avocado</td></tr>
+      <tr><td>🍌 banana</td><td>a banana</td></tr>
+      <tr><td>🍓 strawberry</td><td>a strawberry</td></tr>
+      <tr><td>🍋 lemon</td><td>a lemon</td></tr>
+    </table>
+    <div class="tip">💡 Tips: Dengar bunyi huruf pertamanya, bukan hurufnya saja. Contoh "an hour" karena bunyinya "our" (vokal), walau huruf pertamanya "h".</div>
+  </div>
+
+  <!-- MATERI 2 -->
+  <div class="card materi-card" id="materi2">
+    <h2>🍇 2. Buah dalam Bentuk Jamak (-s / -es) <span class="badge">MATERI</span></h2>
+    <p>Jika buahnya lebih dari satu (jamak), kita tambahkan <b>-s</b> atau <b>-es</b> di akhir kata, dan gunakan angka di depannya (two, three, four, dst).</p>
+    <div class="example">Contoh: two strawberr<b>ies</b>, three orange<b>s</b>, two mango<b>es</b>, two starfruit<b>s</b>, three dragon fruit<b>s</b></div>
+    <table>
+      <tr><th>Aturan</th><th>Contoh</th></tr>
+      <tr><td>Tambah -s (kebanyakan kata)</td><td>orange → orange<b>s</b>, kiwi → kiwi<b>s</b></td></tr>
+      <tr><td>Kata berakhiran -y → ganti "y" jadi "ies"</td><td>strawberry → strawberr<b>ies</b></td></tr>
+      <tr><td>Kata berakhiran -o → tambah "-es"</td><td>mango → mango<b>es</b></td></tr>
+    </table>
+    <div class="tip">💡 Tips: Selalu sebutkan jumlahnya dulu, misalnya "two apples", "three bananas".</div>
+  </div>
+
+  <!-- MATERI 3 -->
+  <div class="card materi-card" id="materi3">
+    <h2>🍭 3. Kata Sifat Rasa Makanan (Taste Adjectives) <span class="badge">MATERI</span></h2>
+    <p>Berikut kata-kata untuk menjelaskan rasa makanan dan minuman dalam Bahasa Inggris:</p>
+    <table>
+      <tr><th>Rasa (Inggris)</th><th>Artinya</th><th>Contoh Makanan</th></tr>
+      <tr><td>sweet</td><td>manis</td><td>candy, cake, chocolate, ice cream, watermelon</td></tr>
+      <tr><td>sour</td><td>asam</td><td>lemon, lime, kiwi, mango muda</td></tr>
+      <tr><td>bitter</td><td>pahit</td><td>coffee, bitter melon</td></tr>
+      <tr><td>salty</td><td>asin</td><td>salt, chips, crackers</td></tr>
+      <tr><td>spicy</td><td>pedas</td><td>chili, hot sauce</td></tr>
+      <tr><td>plain</td><td>tawar</td><td>plain rice, plain bread</td></tr>
+    </table>
+    <div class="example">Contoh kalimat: "The taste of coffee is <b>bitter</b>." / "Watermelon is <b>sweet</b> and fresh."</div>
+  </div>
+
+  <!-- MATERI 4 -->
+  <div class="card materi-card" id="materi4">
+    <h2>😋 4. Kalimat Positif dengan "Like / Likes" <span class="badge">MATERI</span></h2>
+    <p>Kita memakai <b>like</b> untuk subjek I, You, We, They (dan nama orang jamak), dan <b>likes</b> untuk subjek He, She, It (dan nama orang tunggal).</p>
+    <table>
+      <tr><th>Subjek</th><th>Kata Kerja</th><th>Contoh</th></tr>
+      <tr><td>I / You / We / They</td><td>like</td><td>I <b>like</b> burgers.</td></tr>
+      <tr><td>He / She / It / (nama tunggal)</td><td>likes</td><td>My friend <b>likes</b> sandwich and milk.</td></tr>
+    </table>
+    <div class="example">Contoh: "They <b>like</b> fried noodles." / "Danu <b>likes</b> watermelon."</div>
+  </div>
+
+  <!-- MATERI 5 -->
+  <div class="card materi-card" id="materi5">
+    <h2>🙅 5. Kalimat Negatif dengan "Don't / Doesn't" <span class="badge">MATERI</span></h2>
+    <p>Untuk kalimat negatif (tidak suka), gunakan <b>don't like</b> untuk I/You/We/They, dan <b>doesn't like</b> untuk He/She/It/nama tunggal.</p>
+    <table>
+      <tr><th>Subjek</th><th>Bentuk Negatif</th><th>Contoh</th></tr>
+      <tr><td>I / You / We / They</td><td>don't like</td><td>They <b>don't like</b> meatballs.</td></tr>
+      <tr><td>He / She / It / (nama tunggal)</td><td>doesn't like</td><td>Edo <b>doesn't like</b> a cup of tea.</td></tr>
+    </table>
+    <div class="tip">💡 Tips: Setelah "doesn't", kata kerja kembali ke bentuk dasar. Contoh: "Nana doesn't like bananas" (bukan "likes").</div>
+  </div>
+
+  <!-- MATERI 6 -->
+  <div class="card materi-card" id="materi6">
+    <h2>❓ 6. Kalimat Tanya dengan "Do / Does" <span class="badge">MATERI</span></h2>
+    <p>Gunakan <b>Does</b> di awal kalimat tanya untuk He/She/It/nama tunggal, dan <b>Do</b> untuk I/You/We/They/nama jamak.</p>
+    <table>
+      <tr><th>Kata Tanya</th><th>Subjek</th><th>Contoh</th></tr>
+      <tr><td>Does</td><td>He/She/It/nama tunggal</td><td><b>Does</b> Lala like iced syrup?</td></tr>
+      <tr><td>Do</td><td>I/You/We/They/nama jamak</td><td><b>Do</b> Danu and Budi like fried noodles?</td></tr>
+    </table>
+  </div>
+
+  <!-- MATERI 7 -->
+  <div class="card materi-card" id="materi7">
+    <h2>🗨️ 7. Jawaban Singkat (Short Answer) <span class="badge">MATERI</span></h2>
+    <p>Jawaban singkat untuk pertanyaan Do/Does menggunakan pola berikut:</p>
+    <table>
+      <tr><th>Pertanyaan</th><th>Jawaban Ya</th><th>Jawaban Tidak</th></tr>
+      <tr><td>Does she/he...?</td><td>Yes, she/he <b>does</b>.</td><td>No, she/he <b>doesn't</b>.</td></tr>
+      <tr><td>Do they/you/we...?</td><td>Yes, they/we/I <b>do</b>.</td><td>No, they/we/I <b>don't</b>.</td></tr>
+    </table>
+    <div class="example">Contoh: "Does Lala like iced syrup?" → "Yes, she <b>does</b>."</div>
+  </div>
+
+  <!-- MATERI 8 -->
+  <div class="card materi-card" id="materi8">
+    <h2>🔤 8. Menyusun Kata Acak Menjadi Kalimat <span class="badge">MATERI</span></h2>
+    <p>Urutan kalimat Bahasa Inggris yang benar biasanya: <b>Subjek + (don't/doesn't) + like + Objek + Keterangan</b>.</p>
+    <div class="example">Contoh acak: "like – Nana – doesn't – bananas – breakfast – for" <br>→ Susunan benar: <b>"Nana doesn't like bananas for breakfast."</b></div>
+    <div class="example">Contoh acak: "do – they – meatballs – like – not" <br>→ Susunan benar: <b>"They do not like meatballs."</b></div>
+  </div>
+
+  <!-- STICKY PROGRESS BAR -->
+  <div class="sticky-bar">
+    <div class="progress-wrap">
+      <div class="progress-label" id="progress-label">Terjawab: 0 / 30</div>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <div class="score-pill" id="score-pill">Skor: 0</div>
+  </div>
+
+  <div class="action-row">
+    <button class="btn btn-new" onclick="generateQuiz()">🔄 Buat 30 Soal Baru</button>
+    <button class="btn btn-reset" onclick="resetAnswers()">🧹 Ulangi Soal Ini</button>
+    <button class="btn btn-download" onclick="window.print()">⬇️ Download / Cetak (PDF)</button>
+  </div>
+
+  <div id="result-banner">
+    <h2 id="result-title">🎉 Selamat!</h2>
+    <p id="result-text"></p>
+  </div>
+
+  <div id="quiz-section">
+    <h2>📝 Latihan Soal Pilihan Ganda</h2>
+    <p class="subtitle">30 soal acak mencakup semua materi di atas. Klik jawaban A, B, atau C!</p>
+    <div id="quiz-container"></div>
+  </div>
+
+</div>
+
+<footer>Dibuat otomatis berdasarkan materi Pendalaman PSTS Bahasa Inggris Kelas 3 — Semester 1 2026/2027</footer>
+
+<script>
+// ============ QUESTION BANK (mencakup semua materi + soal serupa tambahan) ============
+const BANK = [
+  // ---- MATERI 1: a / an ----
+  {topic:"Kata Sandang a/an", text:"It is a fruit. It is 🍎 .... (apple)", options:["a apple","an apple","apples"], answer:1, exp:"Apple diawali bunyi vokal 'a', jadi memakai 'an apple'."},
+  {topic:"Kata Sandang a/an", text:"It is a fruit. It is 🍊 .... (orange)", options:["a orange","oranges","an orange"], answer:2, exp:"Orange diawali bunyi vokal, jadi 'an orange'."},
+  {topic:"Kata Sandang a/an", text:"It is a fruit. It is 🥑 .... (avocado)", options:["an avocado","a avocado","avocados"], answer:0, exp:"Avocado diawali bunyi vokal, jadi 'an avocado'."},
+  {topic:"Kata Sandang a/an", text:"It is a fruit. It is 🍌 .... (banana)", options:["an banana","a banana","bananas"], answer:1, exp:"Banana diawali bunyi konsonan 'b', jadi 'a banana'."},
+  {topic:"Kata Sandang a/an", text:"It is a fruit. It is 🍓 .... (strawberry)", options:["a strawberry","an strawberry","strawberries"], answer:0, exp:"Strawberry diawali bunyi konsonan, jadi 'a strawberry'."},
+  {topic:"Kata Sandang a/an", text:"It is a fruit. It is 🍋 .... (lemon)", options:["an lemon","lemons","a lemon"], answer:2, exp:"Lemon diawali bunyi konsonan 'l', jadi 'a lemon'."},
+  {topic:"Kata Sandang a/an", text:"It is a fruit. It is 🍍 .... (pineapple)", options:["a pineapple","an pineapple","pineapples"], answer:0, exp:"Pineapple diawali bunyi konsonan 'p', jadi 'a pineapple'."},
+  {topic:"Kata Sandang a/an", text:"It is a fruit. It is 🥭 .... (mango)", options:["an mango","mangoes","a mango"], answer:2, exp:"Mango diawali bunyi konsonan 'm', jadi 'a mango'."},
+  {topic:"Kata Sandang a/an", text:"It is a fruit. It is 🍑 .... (peach)", options:["a peach","an peach","peaches"], answer:0, exp:"Peach diawali bunyi konsonan 'p', jadi 'a peach'."},
+  {topic:"Kata Sandang a/an", text:"It is a fruit. It is 🍐 .... (pear)", options:["a pear","pears","an pear"], answer:0, exp:"Pear diawali bunyi konsonan 'p', jadi 'a pear'."},
+
+  // ---- MATERI 2: plural -s/-es ----
+  {topic:"Buah Jamak (-s/-es)", text:"Look at the pictures! 🍓🍓 These are ....", options:["two strawberrys","two strawberries","two strawberry"], answer:1, exp:"Kata berakhiran -y menjadi '-ies': strawberry → strawberries."},
+  {topic:"Buah Jamak (-s/-es)", text:"Look at the pictures! 🥝🥝🥝 These are ....", options:["three kiwies","three kiwi","three kiwis"], answer:2, exp:"Kiwi cukup ditambah '-s' menjadi kiwis."},
+  {topic:"Buah Jamak (-s/-es)", text:"Look at the pictures! 🥭🥭 These are ....", options:["two mangos","two mangoes","two mango"], answer:1, exp:"Kata berakhiran -o umumnya ditambah '-es': mango → mangoes."},
+  {topic:"Buah Jamak (-s/-es)", text:"Look at the pictures! 🍊🍊🍊 These are ....", options:["three oranges","three orange","three orangs"], answer:0, exp:"Orange ditambah '-s' menjadi oranges."},
+  {topic:"Buah Jamak (-s/-es)", text:"Look at the pictures! (dragon fruit x3) These are ....", options:["three dragon fruit","three dragon fruits","three dragons fruit"], answer:1, exp:"Dragon fruit ditambah '-s' di akhir kata menjadi dragon fruits."},
+  {topic:"Buah Jamak (-s/-es)", text:"Look at the pictures! (starfruit x2) These are ....", options:["two starfruits","two starfruities","two starfruit"], answer:0, exp:"Starfruit ditambah '-s' menjadi starfruits."},
+  {topic:"Buah Jamak (-s/-es)", text:"Look at the pictures! 🍑🍑 These are ....", options:["two peachs","two peach","two peaches"], answer:2, exp:"Kata berakhiran -ch ditambah '-es': peach → peaches."},
+  {topic:"Buah Jamak (-s/-es)", text:"Look at the pictures! 🍐🍐 These are ....", options:["two pears","two pearies","two pear"], answer:0, exp:"Pear ditambah '-s' menjadi pears."},
+
+  // ---- MATERI 3: taste ----
+  {topic:"Rasa Makanan", text:"The taste of coffee ☕ is ....", options:["sweet","bitter","salty"], answer:1, exp:"Coffee (kopi) rasanya bitter (pahit)."},
+  {topic:"Rasa Makanan", text:"The taste of a lemon 🍋 is ....", options:["sour","sweet","spicy"], answer:0, exp:"Lemon rasanya sour (asam)."},
+  {topic:"Rasa Makanan", text:"The taste of candy 🍬 is ....", options:["bitter","sour","sweet"], answer:2, exp:"Candy (permen) rasanya sweet (manis)."},
+  {topic:"Rasa Makanan", text:"The taste of chili 🌶️ is ....", options:["spicy","plain","sour"], answer:0, exp:"Chili (cabai) rasanya spicy (pedas)."},
+  {topic:"Rasa Makanan", text:"The taste of salt 🧂 is ....", options:["sweet","salty","bitter"], answer:1, exp:"Salt (garam) rasanya salty (asin)."},
+  {topic:"Rasa Makanan", text:"I like watermelon because the taste is .... and fresh.", options:["bitter","sweet","sour"], answer:1, exp:"Watermelon rasanya sweet (manis) dan segar."},
+  {topic:"Rasa Makanan", text:"Which food has a sweet taste?", options:["chili","chocolate","lemon"], answer:1, exp:"Chocolate (cokelat) memiliki rasa sweet (manis)."},
+  {topic:"Rasa Makanan", text:"Which food has a sour taste?", options:["candy","salt","kiwi"], answer:2, exp:"Kiwi memiliki rasa sour (asam)."},
+
+  // ---- MATERI 4: like / likes ----
+  {topic:"Like/Likes (Positif)", text:"I 🍔 .... burgers.", options:["like","likes","liking"], answer:0, exp:"Subjek 'I' memakai 'like', bukan 'likes'."},
+  {topic:"Like/Likes (Positif)", text:"My friend .... sandwich and milk for breakfast.", options:["like","likes","liking"], answer:1, exp:"Subjek tunggal (my friend = he/she) memakai 'likes'."},
+  {topic:"Like/Likes (Positif)", text:"They .... fried noodles.", options:["likes","like","liked"], answer:1, exp:"Subjek 'they' memakai 'like'."},
+  {topic:"Like/Likes (Positif)", text:"Danu .... watermelon very much.", options:["like","likes","don't like"], answer:1, exp:"Danu adalah subjek tunggal, jadi memakai 'likes'."},
+  {topic:"Like/Likes (Positif)", text:"We .... pizza for lunch.", options:["likes","like","liking"], answer:1, exp:"Subjek 'we' memakai 'like'."},
+  {topic:"Like/Likes (Positif)", text:"She .... a cup of tea every morning.", options:["like","likes","do like"], answer:1, exp:"Subjek 'she' memakai 'likes'."},
+
+  // ---- MATERI 5: don't / doesn't ----
+  {topic:"Don't/Doesn't (Negatif)", text:"Edo .... like a cup of tea. (X)", options:["don't","doesn't","not"], answer:1, exp:"Subjek tunggal 'Edo' memakai 'doesn't like'."},
+  {topic:"Don't/Doesn't (Negatif)", text:"Nana .... like bananas for breakfast.", options:["doesn't","don't","isn't"], answer:0, exp:"Nana adalah subjek tunggal, memakai 'doesn't'."},
+  {topic:"Don't/Doesn't (Negatif)", text:"They .... like meatballs.", options:["doesn't","not","don't"], answer:2, exp:"Subjek jamak 'they' memakai 'don't'."},
+  {topic:"Don't/Doesn't (Negatif)", text:"I .... like syrup for breakfast.", options:["doesn't","don't","not"], answer:1, exp:"Subjek 'I' memakai 'don't'."},
+  {topic:"Don't/Doesn't (Negatif)", text:"My mother .... like spicy food.", options:["don't","doesn't","isn't"], answer:1, exp:"My mother = she (tunggal), jadi memakai 'doesn't'."},
+  {topic:"Don't/Doesn't (Negatif)", text:"We .... like bitter coffee.", options:["doesn't","don't","not like"], answer:1, exp:"Subjek 'we' memakai 'don't'."},
+
+  // ---- MATERI 6: Do / Does questions ----
+  {topic:"Kalimat Tanya Do/Does", text:".... Lala like iced syrup?", options:["Do","Does","Is"], answer:1, exp:"Lala adalah subjek tunggal (she), jadi memakai 'Does'."},
+  {topic:"Kalimat Tanya Do/Does", text:".... Danu and Budi like fried noodles?", options:["Does","Do","Is"], answer:1, exp:"Danu and Budi adalah subjek jamak (they), memakai 'Do'."},
+  {topic:"Kalimat Tanya Do/Does", text:".... you like ice cream?", options:["Does","Are","Do"], answer:2, exp:"Subjek 'you' memakai 'Do'."},
+  {topic:"Kalimat Tanya Do/Does", text:".... he like bitter coffee?", options:["Do","Does","Is"], answer:1, exp:"Subjek 'he' memakai 'Does'."},
+  {topic:"Kalimat Tanya Do/Does", text:".... they like spicy chili?", options:["Do","Does","Did"], answer:0, exp:"Subjek 'they' memakai 'Do'."},
+  {topic:"Kalimat Tanya Do/Does", text:".... Lani like watermelon?", options:["Do","Is","Does"], answer:2, exp:"Lani adalah subjek tunggal (she), memakai 'Does'."},
+
+  // ---- MATERI 7: short answers ----
+  {topic:"Jawaban Singkat", text:"Does Lala like iced syrup? Yes, she ....", options:["do","does","is"], answer:1, exp:"Jawaban untuk 'Does...?' adalah 'does'."},
+  {topic:"Jawaban Singkat", text:"Do Danu and Budi like fried noodles? Yes, they ....", options:["does","do","are"], answer:1, exp:"Jawaban untuk 'Do...?' adalah 'do'."},
+  {topic:"Jawaban Singkat", text:"Does Edo like tea? No, he ....", options:["don't","doesn't","isn't"], answer:1, exp:"Jawaban negatif untuk 'Does...?' adalah 'doesn't'."},
+  {topic:"Jawaban Singkat", text:"Do you like candy? Yes, I ....", options:["do","does","am"], answer:0, exp:"Jawaban untuk 'Do you...?' adalah 'do'."},
+
+  // ---- MATERI 8: jumbled words ----
+  {topic:"Susun Kata Acak", text:"Susun kata acak berikut: like – Nana – doesn't – bananas – breakfast – for", options:["Nana doesn't like bananas for breakfast.","Nana like doesn't bananas for breakfast.","Doesn't Nana bananas like for breakfast."], answer:0, exp:"Urutan yang benar: Subjek + doesn't + like + objek + keterangan."},
+  {topic:"Susun Kata Acak", text:"Susun kata acak berikut: do – they – meatballs – like – not", options:["They meatballs do not like.","They do not like meatballs.","Not they do like meatballs."], answer:1, exp:"Urutan yang benar: They + do not + like + meatballs."},
+  {topic:"Susun Kata Acak", text:"Susun kata acak berikut: burgers – I – like", options:["Burgers I like.","Like I burgers.","I like burgers."], answer:2, exp:"Urutan yang benar: Subjek + like + objek → I like burgers."},
+  {topic:"Susun Kata Acak", text:"Susun kata acak berikut: coffee – doesn't – she – like – bitter", options:["She doesn't like bitter coffee.","Doesn't she like bitter coffee.","She like doesn't bitter coffee."], answer:0, exp:"Urutan yang benar: She + doesn't + like + bitter coffee."}
+];
+
+let currentQuiz = [];
+let answeredCount = 0;
+let score = 0;
+const TOTAL_Q = 30;
+
+function shuffle(array){
+  const arr = array.slice();
+  for(let i = arr.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function shuffleOptionsForQuestion(q){
+  const indices = shuffle([0,1,2]);
+  const newOptions = indices.map(i => q.options[i]);
+  const newAnswer = indices.indexOf(q.answer);
+  return { topic: q.topic, text: q.text, options: newOptions, answer: newAnswer, exp: q.exp };
+}
+
+function generateQuiz(){
+  const pool = shuffle(BANK);
+  const picked = pool.slice(0, Math.min(TOTAL_Q, pool.length));
+  currentQuiz = picked.map(shuffleOptionsForQuestion);
+  answeredCount = 0;
+  score = 0;
+  renderQuiz();
+  updateProgress();
+  document.getElementById('result-banner').style.display = 'none';
+  document.getElementById('quiz-section').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function resetAnswers(){
+  currentQuiz = currentQuiz.map(q => ({...q}));
+  answeredCount = 0;
+  score = 0;
+  renderQuiz();
+  updateProgress();
+  document.getElementById('result-banner').style.display = 'none';
+}
+
+function renderQuiz(){
+  const container = document.getElementById('quiz-container');
+  container.innerHTML = '';
+  const letters = ['A','B','C'];
+  currentQuiz.forEach((q, idx) => {
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = 'q-card-' + idx;
+
+    const topic = document.createElement('div');
+    topic.className = 'q-topic';
+    topic.textContent = q.topic;
+    card.appendChild(topic);
+
+    const qText = document.createElement('div');
+    qText.className = 'q-text';
+    qText.innerHTML = '<span class="q-number">' + (idx+1) + '.</span>' + q.text;
+    card.appendChild(qText);
+
+    const optionsWrap = document.createElement('div');
+    optionsWrap.className = 'options';
+
+    q.options.forEach((optText, optIdx) => {
+      const btn = document.createElement('button');
+      btn.className = 'option-btn';
+      btn.innerHTML = '<span class="letter">' + letters[optIdx] + '</span><span>' + optText + '</span>';
+      btn.onclick = () => selectAnswer(idx, optIdx);
+      optionsWrap.appendChild(btn);
+    });
+
+    card.appendChild(optionsWrap);
+
+    const exp = document.createElement('div');
+    exp.className = 'explanation';
+    exp.id = 'exp-' + idx;
+    exp.textContent = '💡 ' + q.exp;
+    card.appendChild(exp);
+
+    container.appendChild(card);
+  });
+}
+
+function selectAnswer(qIdx, optIdx){
+  const q = currentQuiz[qIdx];
+  if(q.locked) return;
+  q.locked = true;
+  answeredCount++;
+
+  const card = document.getElementById('q-card-' + qIdx);
+  const buttons = card.querySelectorAll('.option-btn');
+  buttons.forEach((b, i) => {
+    b.classList.add('disabled');
+    b.onclick = null;
+    if(i === q.answer) b.classList.add('correct');
+    if(i === optIdx && optIdx !== q.answer) b.classList.add('wrong');
+  });
+
+  if(optIdx === q.answer){
+    score++;
+    card.classList.add('answered-correct');
+  } else {
+    card.classList.add('answered-wrong');
+  }
+
+  document.getElementById('exp-' + qIdx).classList.add('show');
+  updateProgress();
+
+  if(answeredCount === currentQuiz.length){
+    showResult();
+  }
+}
+
+function updateProgress(){
+  const total = currentQuiz.length || TOTAL_Q;
+  document.getElementById('progress-label').textContent = 'Terjawab: ' + answeredCount + ' / ' + total;
+  document.getElementById('progress-fill').style.width = (answeredCount / total * 100) + '%';
+  document.getElementById('score-pill').textContent = 'Skor: ' + score + ' / ' + total;
+}
+
+function showResult(){
+  const total = currentQuiz.length;
+  const pct = Math.round((score/total) * 100);
+  const banner = document.getElementById('result-banner');
+  const title = document.getElementById('result-title');
+  const text = document.getElementById('result-text');
+  let emoji = '🎉';
+  let msg = 'Kerja bagus!';
+  if(pct < 50){ emoji = '💪'; msg = 'Ayo coba lagi, kamu pasti bisa!'; }
+  else if(pct < 80){ emoji = '👍'; msg = 'Bagus sekali, sedikit lagi sempurna!'; }
+  else { emoji = '🌟'; msg = 'Luar biasa! Kamu hebat!'; }
+  title.textContent = emoji + ' ' + msg;
+  text.textContent = 'Skor akhir kamu: ' + score + ' dari ' + total + ' (' + pct + '%)';
+  banner.style.display = 'block';
+  banner.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+// initial load
+generateQuiz();
+</script>
+
+</body>
+</html>
