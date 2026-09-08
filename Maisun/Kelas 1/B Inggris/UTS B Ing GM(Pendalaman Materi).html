@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal Latihan Interaktif & Materi - Bahasa Inggris Kelas 1</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f7f6;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2980b9;
+        }
+        .materi-container {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .materi-section {
+            margin-bottom: 20px;
+        }
+        .materi-section h3 {
+            color: #16a085;
+            border-left: 4px solid #16a085;
+            padding-left: 10px;
+        }
+        .quiz-container {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ecf0f1;
+        }
+        .question-text {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+        .options li {
+            margin-bottom: 8px;
+        }
+        .options label {
+            cursor: pointer;
+            padding: 5px;
+            display: block;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .options label:hover {
+            background-color: #ecf0f1;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+        #result-container {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #e8f8f5;
+            border: 2px solid #1abc9c;
+        }
+        #score-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #27ae60;
+        }
+        .feedback {
+            font-weight: bold;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        .correct-feedback { color: #27ae60; }
+        .wrong-feedback { color: #e74c3c; }
+    </style>
+</head>
+<body>
+
+    <h1>Latihan PTS Bahasa Inggris - Kelas 1</h1>
+
+    <!-- MATERI SECTION -->
+    <div class="materi-container">
+        <h2>📚 Ringkasan Materi Pembelajaran</h2>
+        
+        <div class="materi-section">
+            <h3>1. Greetings & Partings (Salam dan Perpisahan)</h3>
+            <ul>
+                <li><strong>Good morning</strong> = Selamat pagi (Diucapkan saat matahari terbit / pagi hari)</li>
+                <li><strong>Good afternoon</strong> = Selamat siang/sore</li>
+                <li><strong>Good evening</strong> = Selamat malam</li>
+                <li><strong>Good night</strong> = Selamat malam (Diucapkan saat akan tidur atau berpisah di malam hari)</li>
+                <li><strong>How are you today?</strong> = Bagaimana kabarmu? &rarr; Jawaban: <em>I am fine</em> (Saya baik-baik saja)</li>
+                <li><strong>What is your name?</strong> = Siapa namamu? &rarr; Jawaban: <em>My name is...</em> (Nama saya adalah...)</li>
+                <li><strong>Nice to meet you</strong> = Senang bertemu denganmu &rarr; Jawaban: <em>Nice to meet you too</em> (Senang bertemu denganmu juga)</li>
+                <li><strong>Thank you</strong> = Terima kasih &rarr; Jawaban: <em>You are welcome</em> (Sama-sama)</li>
+                <li><strong>Good bye / See you</strong> = Selamat tinggal / Sampai jumpa</li>
+            </ul>
+        </div>
+
+        <div class="materi-section">
+            <h3>2. Numbers (Angka 0-10)</h3>
+            <ul>
+                <li><strong>0</strong> = Zero</li>
+                <li><strong>1</strong> = One</li>
+                <li><strong>2</strong> = Two</li>
+                <li><strong>3</strong> = Three</li>
+                <li><strong>4</strong> = Four</li>
+                <li><strong>5</strong> = Five</li>
+                <li><strong>6</strong> = Six</li>
+                <li><strong>7</strong> = Seven</li>
+                <li><strong>8</strong> = Eight</li>
+                <li><strong>9</strong> = Nine</li>
+                <li><strong>10</strong> = Ten</li>
+            </ul>
+        </div>
+
+        <div class="materi-section">
+            <h3>3. Classroom Objects (Benda-benda di Sekolah)</h3>
+            <ul>
+                <li><strong>Eraser</strong> = Penghapus</li>
+                <li><strong>Sharpener</strong> = Serutan pensil</li>
+                <li><strong>Pencil</strong> = Pensil</li>
+                <li><strong>Pen</strong> = Pulpen</li>
+                <li><strong>Book</strong> = Buku</li>
+                <li><strong>Bag</strong> = Tas</li>
+                <li><strong>Hat</strong> = Topi</li>
+                <li><strong>Ruler</strong> = Penggaris</li>
+                <li><strong>Table</strong> = Meja</li>
+                <li><strong>Chair</strong> = Kursi</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- QUIZ SECTION -->
+    <div class="quiz-container">
+        <h2>✍️ Soal Latihan Interaktif (30 Soal)</h2>
+        <p>Pilihlah salah satu jawaban (A, B, atau C) yang paling benar!</p>
+        
+        <form id="quiz-form">
+            
+        <div class="question-block" id="qblock-1">
+            <div class="question-text">1. The sun shines in the morning. We say...</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q1" value="a"> A. Good night</label></li>
+                <li><label><input type="radio" name="q1" value="b"> B. Good morning</label></li>
+                <li><label><input type="radio" name="q1" value="c"> C. Good afternoon</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-2">
+            <div class="question-text">2. Before going to sleep at night, we say...</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q2" value="a"> A. Good night</label></li>
+                <li><label><input type="radio" name="q2" value="b"> B. Good morning</label></li>
+                <li><label><input type="radio" name="q2" value="c"> C. Good evening</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-3">
+            <div class="question-text">3. Teacher: 'How are you today?'<br>Student: '...'</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q3" value="a"> A. My name is Daffa</label></li>
+                <li><label><input type="radio" name="q3" value="b"> B. See you</label></li>
+                <li><label><input type="radio" name="q3" value="c"> C. I am fine</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-4">
+            <div class="question-text">4. Niken: 'What is your name?'<br>Kanaya: '... name is Kanaya.'</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q4" value="a"> A. My</label></li>
+                <li><label><input type="radio" name="q4" value="b"> B. Your</label></li>
+                <li><label><input type="radio" name="q4" value="c"> C. Her</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-5">
+            <div class="question-text">5. Daffa: 'Nice to meet you.'<br>Farrel: 'Nice to ... you too.'</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q5" value="a"> A. see</label></li>
+                <li><label><input type="radio" name="q5" value="b"> B. meet</label></li>
+                <li><label><input type="radio" name="q5" value="c"> C. greeting</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-6">
+            <div class="question-text">6. Aurel: 'Thank you, Zahra.'<br>Zahra: 'You are ...'</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q6" value="a"> A. fine</label></li>
+                <li><label><input type="radio" name="q6" value="b"> B. welcome</label></li>
+                <li><label><input type="radio" name="q6" value="c"> C. good</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-7">
+            <div class="question-text">7. Raka: 'Good bye, Abi.'<br>Abi: '...'</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q7" value="a"> A. Good bye</label></li>
+                <li><label><input type="radio" name="q7" value="b"> B. Good morning</label></li>
+                <li><label><input type="radio" name="q7" value="c"> C. Thank you</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-8">
+            <div class="question-text">8. Raffa: 'Good evening, Riko.'<br>Riko: '...'</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q8" value="a"> A. Good night</label></li>
+                <li><label><input type="radio" name="q8" value="b"> B. Good evening</label></li>
+                <li><label><input type="radio" name="q8" value="c"> C. Good afternoon</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-9">
+            <div class="question-text">9. When you meet your friend at 1 PM (siang hari), you say...</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q9" value="a"> A. Good morning</label></li>
+                <li><label><input type="radio" name="q9" value="b"> B. Good night</label></li>
+                <li><label><input type="radio" name="q9" value="c"> C. Good afternoon</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-10">
+            <div class="question-text">10. Sita: 'Hello, Budi.'<br>Budi: '...'</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q10" value="a"> A. Hello, Sita</label></li>
+                <li><label><input type="radio" name="q10" value="b"> B. See you</label></li>
+                <li><label><input type="radio" name="q10" value="c"> C. Thank you</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-11">
+            <div class="question-text">11. 'Penghapus' in English is...</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q11" value="a"> A. Eraser</label></li>
+                <li><label><input type="radio" name="q11" value="b"> B. Sharpener</label></li>
+                <li><label><input type="radio" name="q11" value="c"> C. Ruler</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-12">
+            <div class="question-text">12. I use a ... to sharpen my pencil. (serutan pensil)</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q12" value="a"> A. Book</label></li>
+                <li><label><input type="radio" name="q12" value="b"> B. Sharpener</label></li>
+                <li><label><input type="radio" name="q12" value="c"> C. Bag</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-13">
+            <div class="question-text">13. You wear a ... on your head to go to school. (topi)</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q13" value="a"> A. Hat</label></li>
+                <li><label><input type="radio" name="q13" value="b"> B. Shoes</label></li>
+                <li><label><input type="radio" name="q13" value="c"> C. Tie</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-14">
+            <div class="question-text">14. 'Buku' in English is...</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q14" value="a"> A. Pencil</label></li>
+                <li><label><input type="radio" name="q14" value="b"> B. Book</label></li>
+                <li><label><input type="radio" name="q14" value="c"> C. Eraser</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-15">
+            <div class="question-text">15. We bring our books to school in a ... (tas)</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q15" value="a"> A. Bag</label></li>
+                <li><label><input type="radio" name="q15" value="b"> B. Table</label></li>
+                <li><label><input type="radio" name="q15" value="c"> C. Chair</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-16">
+            <div class="question-text">16. I use a ... to write on my book. (pensil)</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q16" value="a"> A. Pen</label></li>
+                <li><label><input type="radio" name="q16" value="b"> B. Pencil</label></li>
+                <li><label><input type="radio" name="q16" value="c"> C. Eraser</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-17">
+            <div class="question-text">17. 'Penggaris' in English is...</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q17" value="a"> A. Ruler</label></li>
+                <li><label><input type="radio" name="q17" value="b"> B. Sharpener</label></li>
+                <li><label><input type="radio" name="q17" value="c"> C. Book</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-18">
+            <div class="question-text">18. We sit on a ... in the classroom. (kursi)</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q18" value="a"> A. Table</label></li>
+                <li><label><input type="radio" name="q18" value="b"> B. Chair</label></li>
+                <li><label><input type="radio" name="q18" value="c"> C. Whiteboard</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-19">
+            <div class="question-text">19. The teacher writes on the ... (papan tulis)</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q19" value="a"> A. Whiteboard</label></li>
+                <li><label><input type="radio" name="q19" value="b"> B. Table</label></li>
+                <li><label><input type="radio" name="q19" value="c"> C. Chair</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-20">
+            <div class="question-text">20. Riri has nine ... (penghapus)</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q20" value="a"> A. erasers</label></li>
+                <li><label><input type="radio" name="q20" value="b"> B. sharpeners</label></li>
+                <li><label><input type="radio" name="q20" value="c"> C. hats</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-21">
+            <div class="question-text">21. It is number 1. The English word is...</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q21" value="a"> A. Two</label></li>
+                <li><label><input type="radio" name="q21" value="b"> B. One</label></li>
+                <li><label><input type="radio" name="q21" value="c"> C. Three</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-22">
+            <div class="question-text">22. It is number 2. The English word is...</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q22" value="a"> A. Two</label></li>
+                <li><label><input type="radio" name="q22" value="b"> B. Four</label></li>
+                <li><label><input type="radio" name="q22" value="c"> C. Five</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-23">
+            <div class="question-text">23. It is number 3. The English word is...</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q23" value="a"> A. Six</label></li>
+                <li><label><input type="radio" name="q23" value="b"> B. Three</label></li>
+                <li><label><input type="radio" name="q23" value="c"> C. Eight</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-24">
+            <div class="question-text">24. It is number 4. The English word is...</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q24" value="a"> A. Four</label></li>
+                <li><label><input type="radio" name="q24" value="b"> B. Seven</label></li>
+                <li><label><input type="radio" name="q24" value="c"> C. Ten</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-25">
+            <div class="question-text">25. It is number 6. The English word is...</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q25" value="a"> A. Five</label></li>
+                <li><label><input type="radio" name="q25" value="b"> B. Six</label></li>
+                <li><label><input type="radio" name="q25" value="c"> C. Nine</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-26">
+            <div class="question-text">26. It is number 7. The English word is...</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q26" value="a"> A. Eight</label></li>
+                <li><label><input type="radio" name="q26" value="b"> B. Seven</label></li>
+                <li><label><input type="radio" name="q26" value="c"> C. Zero</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-27">
+            <div class="question-text">27. It is number 8. The English word is...</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q27" value="a"> A. Eight</label></li>
+                <li><label><input type="radio" name="q27" value="b"> B. Nine</label></li>
+                <li><label><input type="radio" name="q27" value="c"> C. Ten</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-28">
+            <div class="question-text">28. It is number 10. The English word is...</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q28" value="a"> A. Ten</label></li>
+                <li><label><input type="radio" name="q28" value="b"> B. Zero</label></li>
+                <li><label><input type="radio" name="q28" value="c"> C. One</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-29">
+            <div class="question-text">29. It is number 0. The English word is...</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q29" value="a"> A. One</label></li>
+                <li><label><input type="radio" name="q29" value="b"> B. Zero</label></li>
+                <li><label><input type="radio" name="q29" value="c"> C. Two</label></li>
+            </ul>
+        </div>
+    
+        <div class="question-block" id="qblock-30">
+            <div class="question-text">30. What number comes after four? (setelah empat)</div>
+            <ul class="options">
+                <li><label><input type="radio" name="q30" value="a"> A. Three</label></li>
+                <li><label><input type="radio" name="q30" value="b"> B. Five</label></li>
+                <li><label><input type="radio" name="q30" value="c"> C. Six</label></li>
+            </ul>
+        </div>
+    
+            <button type="button" class="submit-btn" onclick="calculateScore()">Kumpulkan & Lihat Nilai</button>
+        </form>
+
+        <div id="result-container">
+            <p>Nilai Kamu:</p>
+            <div id="score-text"></div>
+            <p id="score-message"></p>
+            <button class="submit-btn" style="background-color:#7f8c8d; margin-top:15px; padding:10px;" onclick="location.reload()">Ulangi Kuis</button>
+        </div>
+    </div>
+
+    <script>
+        const answers = {"1": "b", "2": "a", "3": "c", "4": "a", "5": "b", "6": "b", "7": "a", "8": "b", "9": "c", "10": "a", "11": "a", "12": "b", "13": "a", "14": "b", "15": "a", "16": "b", "17": "a", "18": "b", "19": "a", "20": "a", "21": "b", "22": "a", "23": "b", "24": "a", "25": "b", "26": "b", "27": "a", "28": "a", "29": "b", "30": "b"};
+
+        function calculateScore() {
+            let score = 0;
+            const totalQuestions = Object.keys(answers).length;
+            
+            // Clear previous feedback
+            document.querySelectorAll('.feedback').forEach(e => e.remove());
+
+            for (let i = 1; i <= totalQuestions; i++) {
+                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                const questionBlock = document.getElementById(`qblock-${i}`);
+                const feedbackEl = document.createElement('div');
+                feedbackEl.className = 'feedback';
+                
+                if (selectedOption) {
+                    if (selectedOption.value === answers[i]) {
+                        score++;
+                        feedbackEl.innerText = "✔️ Benar!";
+                        feedbackEl.classList.add('correct-feedback');
+                    } else {
+                        feedbackEl.innerText = "❌ Salah! Jawaban yang benar adalah: " + answers[i].toUpperCase();
+                        feedbackEl.classList.add('wrong-feedback');
+                    }
+                } else {
+                    feedbackEl.innerText = "⚠️ Belum dijawab. Jawaban yang benar adalah: " + answers[i].toUpperCase();
+                    feedbackEl.classList.add('wrong-feedback');
+                }
+                questionBlock.appendChild(feedbackEl);
+            }
+
+            const finalScore = Math.round((score / totalQuestions) * 100);
+            
+            const resultContainer = document.getElementById('result-container');
+            const scoreText = document.getElementById('score-text');
+            const scoreMessage = document.getElementById('score-message');
+            
+            resultContainer.style.display = 'block';
+            scoreText.innerText = finalScore;
+            
+            if(finalScore === 100) {
+                scoreMessage.innerText = "Luar biasa! Sempurna! 🎉";
+            } else if(finalScore >= 80) {
+                scoreMessage.innerText = "Sangat bagus! Pertahankan! 👍";
+            } else if(finalScore >= 60) {
+                scoreMessage.innerText = "Bagus, tapi masih perlu belajar lagi. Semangat! 💪";
+            } else {
+                scoreMessage.innerText = "Jangan menyerah! Ayo pelajari materi di atas lagi. 📚";
+            }
+            
+            // Scroll to bottom
+            resultContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
