@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Materi & Soal Interaktif IPAS Kelas 3 - Tubuh Manusia</title>
+<style>
+  :root{
+    --pink:#ff6fa5;
+    --blue:#4da6ff;
+    --yellow:#ffd93d;
+    --green:#4caf82;
+    --purple:#8e6fff;
+    --bg:#f5f7ff;
+    --card:#ffffff;
+    --ink:#2b2b3d;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', Verdana, sans-serif;
+    background:linear-gradient(180deg,#eaf2ff 0%, #f5f7ff 300px, #f5f7ff 100%);
+    color:var(--ink);
+    line-height:1.55;
+  }
+  header{
+    background:linear-gradient(135deg,var(--purple),var(--blue));
+    color:white;
+    padding:36px 20px 60px;
+    text-align:center;
+    border-radius:0 0 40px 40px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.15);
+  }
+  header h1{margin:0 0 8px;font-size:1.8em;}
+  header p{margin:0;opacity:0.95;font-size:1.05em;}
+  .wrap{max-width:880px;margin:-30px auto 60px;padding:0 16px;}
+  .card{
+    background:var(--card);
+    border-radius:18px;
+    padding:22px 24px;
+    margin-bottom:18px;
+    box-shadow:0 4px 14px rgba(30,40,90,0.08);
+  }
+  .section-title{
+    display:flex;align-items:center;gap:10px;
+    font-size:1.4em;font-weight:800;margin:36px 0 16px;
+    color:var(--purple);
+  }
+  .section-title span.badge{
+    background:var(--purple);color:white;border-radius:50%;
+    width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:0.9em;
+  }
+  .materi-card{border-left:8px solid var(--blue);}
+  .materi-card h3{margin-top:0;color:var(--blue);font-size:1.15em;}
+  .materi-card ul{margin:8px 0 0;padding-left:20px;}
+  .materi-card:nth-child(odd){border-left-color:var(--pink);}
+  .materi-card:nth-child(odd) h3{color:#e0538a;}
+  .toolbar{
+    display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:10px 0 24px;
+  }
+  button{
+    font-family:inherit;font-size:1em;font-weight:700;
+    border:none;border-radius:30px;padding:12px 22px;cursor:pointer;
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  button:active{transform:scale(0.96);}
+  #btnGenerate{background:var(--purple);color:white;box-shadow:0 4px 10px rgba(142,111,255,0.4);}
+  #btnSubmit{background:var(--green);color:white;box-shadow:0 4px 10px rgba(76,175,130,0.4);}
+  #btnReset{background:#e0e0ea;color:var(--ink);}
+  .q-card{
+    background:var(--card);border-radius:16px;padding:18px 20px;margin-bottom:14px;
+    box-shadow:0 3px 10px rgba(30,40,90,0.07);
+    border:2px solid transparent;
+  }
+  .q-topic{
+    display:inline-block;font-size:0.75em;font-weight:700;color:white;
+    background:var(--blue);padding:3px 10px;border-radius:20px;margin-bottom:8px;
+  }
+  .q-text{font-weight:700;margin:4px 0 12px;font-size:1.05em;}
+  .opt{
+    display:flex;align-items:center;gap:10px;
+    background:#f7f8ff;border-radius:12px;padding:10px 14px;margin-bottom:8px;
+    cursor:pointer;border:2px solid transparent;
+  }
+  .opt:hover{background:#eef0ff;}
+  .opt input{transform:scale(1.2);}
+  .opt-label{font-weight:700;color:var(--purple);margin-right:4px;}
+  .q-card.correct{border-color:var(--green);background:#f2fbf6;}
+  .q-card.wrong{border-color:#ff5d6c;background:#fff3f4;}
+  .opt.right-answer{background:#dcf6e6;border-color:var(--green);}
+  .opt.chosen-wrong{background:#ffe1e4;border-color:#ff5d6c;}
+  #scoreBox{
+    text-align:center;font-size:1.3em;font-weight:800;padding:20px;border-radius:16px;
+    background:linear-gradient(135deg,var(--yellow),#ffb648);
+    display:none;margin-bottom:20px;color:#5a3d00;
+  }
+  footer{text-align:center;padding:20px;color:#8a8fa3;font-size:0.85em;}
+  .num{color:#8a8fa3;font-weight:600;margin-right:4px;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🧠 IPAS Kelas 3 — Mengenal Tubuh Manusia</h1>
+  <p>Rangkuman Materi + 30 Soal Latihan Interaktif (Pilihan Ganda A, B, C)</p>
+</header>
+
+<div class="wrap">
+
+  <div class="section-title"><span class="badge">📚</span> Rangkuman Materi</div>
+
+  <div class="card materi-card">
+    <h3>1. Organ Dalam Tubuh Manusia</h3>
+    <p>Tubuh manusia memiliki organ-organ dalam yang bekerja menjaga kita tetap sehat.</p>
+    <ul>
+      <li><b>Jantung</b> — memompa darah ke seluruh tubuh.</li>
+      <li><b>Lambung</b> — mencerna makanan.</li>
+      <li><b>Ginjal</b> — menyaring darah dan menghasilkan urine.</li>
+      <li><b>Hati</b> — menyaring racun dalam tubuh.</li>
+      <li><b>Paru-paru</b> — digunakan untuk bernapas.</li>
+      <li><b>Organ reproduksi</b> — berhubungan dengan perkembangbiakan manusia.</li>
+    </ul>
+  </div>
+
+  <div class="card materi-card">
+    <h3>2. Bagian Tangan dan Kaki</h3>
+    <ul>
+      <li><b>Tangan</b>: jari tangan, pergelangan, lengan bawah, siku, lengan atas, ketiak.</li>
+      <li><b>Kaki</b>: paha, lutut, tulang kering, mata kaki, telapak kaki, jari kaki.</li>
+    </ul>
+  </div>
+
+  <div class="card materi-card">
+    <h3>3. Pancaindra Manusia dan Fungsinya</h3>
+    <p>Alat indra adalah organ tubuh yang berfungsi untuk mengetahui keadaan di luar tubuh. Ada lima alat indra (pancaindra):</p>
+    <ul>
+      <li><b>Mata</b> — untuk melihat.</li>
+      <li><b>Telinga</b> — untuk mendengar.</li>
+      <li><b>Hidung</b> — untuk mencium bau, sebagai alat pernapasan, dan menyaring debu/kotoran dari udara.</li>
+      <li><b>Lidah</b> — untuk mengecap rasa.</li>
+      <li><b>Kulit</b> — untuk meraba dan merasakan.</li>
+    </ul>
+  </div>
+
+  <div class="card materi-card">
+    <h3>4. Cara Merawat Pancaindra</h3>
+    <ul>
+      <li><b>Mata</b>: membaca dengan pencahayaan cukup, makan makanan yang mengandung vitamin A.</li>
+      <li><b>Telinga</b>: tidak mendengarkan suara terlalu keras, tidak memasukkan benda ke dalam telinga.</li>
+      <li><b>Hidung</b>: menghindari asap rokok dan polusi, membersihkan hidung secara teratur.</li>
+      <li><b>Lidah</b>: menggosok gigi secara teratur, makan makanan yang mengandung vitamin C.</li>
+      <li><b>Kulit</b>: mandi dua kali sehari, minum air putih yang cukup.</li>
+    </ul>
+  </div>
+
+  <div class="card materi-card">
+    <h3>5. Bagian-Bagian Mata dan Fungsinya</h3>
+    <ul>
+      <li><b>Retina</b> — menangkap cahaya yang masuk.</li>
+      <li><b>Iris</b> — menentukan warna mata.</li>
+      <li><b>Lensa</b> — membiaskan dan memfokuskan cahaya.</li>
+      <li><b>Pupil</b> — menentukan banyak sedikitnya cahaya yang masuk.</li>
+    </ul>
+  </div>
+
+  <div class="card materi-card">
+    <h3>6. Bagian-Bagian Telinga dan Fungsinya</h3>
+    <ul>
+      <li><b>Daun telinga</b> — mengumpulkan gelombang suara.</li>
+      <li><b>Gendang telinga</b> — menerima gelombang suara yang masuk.</li>
+      <li><b>Tulang pendengaran</b> — meneruskan getaran ke rumah siput.</li>
+      <li><b>Rumah siput (koklea)</b> — mengubah getaran menjadi sinyal.</li>
+      <li><b>Saraf pendengaran</b> — meneruskan sinyal ke otak.</li>
+    </ul>
+  </div>
+
+  <div class="card materi-card">
+    <h3>7. Fungsi Rangka Tubuh</h3>
+    <ul>
+      <li>Memberi bentuk dan menyokong tubuh.</li>
+      <li>Melindungi organ-organ tubuh (contoh: tengkorak melindungi otak, rangka dada melindungi jantung dan paru-paru).</li>
+      <li>Menjadi tempat melekatnya otot.</li>
+    </ul>
+  </div>
+
+  <div class="card materi-card">
+    <h3>8. Fungsi Otot</h3>
+    <p>Otot berfungsi sebagai <b>alat gerak aktif</b> tubuh, sedangkan rangka disebut alat gerak pasif karena bergerak dengan bantuan otot. Contohnya, saat kita berjalan, berlari, atau mengangkat tangan, otot bekerja untuk menggerakkan tubuh.</p>
+  </div>
+
+  <div class="card materi-card">
+    <h3>9. Lidah dan Rasa</h3>
+    <p>Bintik-bintik kecil pada permukaan lidah disebut <b>papila</b>. Lidah dapat mengecap lima rasa dasar: manis, asam, pahit, asin, dan umami (gurih).</p>
+  </div>
+
+  <div class="section-title"><span class="badge">📝</span> Latihan Soal (30 Soal)</div>
+
+  <div class="toolbar">
+    <button id="btnGenerate">🔄 Buat Soal Baru (Acak)</button>
+    <button id="btnSubmit">✅ Periksa Jawaban</button>
+    <button id="btnReset">🧹 Ulangi dari Awal</button>
+  </div>
+
+  <div id="scoreBox"></div>
+  <div id="quizContainer"></div>
+
+  <div class="toolbar" style="margin-top:10px;">
+    <button id="btnSubmit2">✅ Periksa Jawaban</button>
+  </div>
+
+</div>
+
+<footer>Dibuat berdasarkan materi PTS IPAS Ganjil Kelas 3 — Tubuh Manusia. Selamat belajar! 🌟</footer>
+
+<script>
+// ---------- BANK SOAL (bisa diacak & dibuat ulang) ----------
+const bank = [
+// 1. Organ Dalam Tubuh
+{topic:"Organ Dalam Tubuh", q:"Organ yang berfungsi memompa darah ke seluruh tubuh adalah ...", opts:["Jantung","Lambung","Ginjal"], ans:0},
+{topic:"Organ Dalam Tubuh", q:"Organ yang berfungsi menyaring darah dan menghasilkan urine adalah ...", opts:["Hati","Ginjal","Paru-paru"], ans:1},
+{topic:"Organ Dalam Tubuh", q:"Organ yang berfungsi mencerna makanan di dalam tubuh adalah ...", opts:["Lambung","Jantung","Ginjal"], ans:0},
+{topic:"Organ Dalam Tubuh", q:"Organ yang berfungsi untuk bernapas adalah ...", opts:["Hati","Paru-paru","Lambung"], ans:1},
+{topic:"Organ Dalam Tubuh", q:"Organ yang berfungsi menyaring racun dalam tubuh adalah ...", opts:["Hati","Jantung","Ginjal"], ans:0},
+{topic:"Organ Dalam Tubuh", q:"Organ dalam manusia yang berhubungan dengan proses perkembangbiakan disebut ...", opts:["Organ pernapasan","Organ reproduksi","Organ pencernaan"], ans:1},
+{topic:"Organ Dalam Tubuh", q:"Berikut ini yang termasuk organ dalam tubuh manusia adalah ...", opts:["Jari tangan","Jantung","Telapak kaki"], ans:1},
+
+// 2. Bagian Tangan dan Kaki
+{topic:"Bagian Tangan & Kaki", q:"Bagian tangan yang menghubungkan lengan bawah dengan telapak tangan disebut ...", opts:["Siku","Pergelangan","Ketiak"], ans:1},
+{topic:"Bagian Tangan & Kaki", q:"Bagian kaki yang berada di antara paha dan tulang kering adalah ...", opts:["Lutut","Mata kaki","Jari kaki"], ans:0},
+{topic:"Bagian Tangan & Kaki", q:"Bagian tubuh yang digunakan untuk berjalan dan menahan berat badan adalah ...", opts:["Telapak kaki","Lengan atas","Siku"], ans:0},
+{topic:"Bagian Tangan & Kaki", q:"Bagian tangan yang terletak di bawah ketiak dan di atas siku adalah ...", opts:["Lengan atas","Lengan bawah","Pergelangan"], ans:0},
+{topic:"Bagian Tangan & Kaki", q:"Bagian kaki yang menghubungkan tulang kering dengan telapak kaki disebut ...", opts:["Lutut","Mata kaki","Paha"], ans:1},
+{topic:"Bagian Tangan & Kaki", q:"Persendian yang memungkinkan tangan dapat menekuk adalah ...", opts:["Siku","Ketiak","Telapak tangan"], ans:0},
+{topic:"Bagian Tangan & Kaki", q:"Bagian tubuh yang berjumlah 10 pada kedua tangan dan berfungsi untuk memegang adalah ...", opts:["Jari tangan","Pergelangan","Siku"], ans:0},
+
+// 3. Pancaindra & Fungsinya
+{topic:"Pancaindra & Fungsinya", q:"Alat indra yang berfungsi untuk melihat adalah ...", opts:["Mata","Telinga","Hidung"], ans:0},
+{topic:"Pancaindra & Fungsinya", q:"Alat indra yang berfungsi untuk mendengar adalah ...", opts:["Lidah","Telinga","Kulit"], ans:1},
+{topic:"Pancaindra & Fungsinya", q:"Alat indra yang berfungsi untuk mengecap rasa makanan adalah ...", opts:["Hidung","Kulit","Lidah"], ans:2},
+{topic:"Pancaindra & Fungsinya", q:"Alat indra yang berfungsi untuk meraba dan merasakan adalah ...", opts:["Kulit","Mata","Telinga"], ans:0},
+{topic:"Pancaindra & Fungsinya", q:"Berikut ini adalah fungsi hidung, kecuali ...", opts:["Mencium bau","Alat pernapasan","Mendengar suara"], ans:2},
+{topic:"Pancaindra & Fungsinya", q:"Organ tubuh yang berfungsi untuk mengetahui keadaan di luar tubuh disebut ...", opts:["Alat indra","Alat gerak","Alat pencernaan"], ans:0},
+{topic:"Pancaindra & Fungsinya", q:"Hidung dapat menyaring debu dan kotoran yang masuk bersama ...", opts:["Makanan","Udara","Air"], ans:1},
+
+// 4. Cara Merawat Pancaindra
+{topic:"Cara Merawat Pancaindra", q:"Cara merawat mata agar tetap sehat adalah ...", opts:["Membaca di tempat gelap","Membaca dengan pencahayaan cukup","Menonton TV terlalu dekat"], ans:1},
+{topic:"Cara Merawat Pancaindra", q:"Salah satu cara menjaga kesehatan telinga adalah ...", opts:["Memasukkan benda ke dalam telinga","Mendengarkan musik terlalu keras","Tidak memasukkan benda apa pun ke telinga"], ans:2},
+{topic:"Cara Merawat Pancaindra", q:"Cara merawat hidung agar tetap sehat adalah ...", opts:["Menghindari asap rokok dan polusi","Sering mencium bau yang tajam","Tidak pernah dibersihkan"], ans:0},
+{topic:"Cara Merawat Pancaindra", q:"Agar lidah tetap sehat, sebaiknya kita ...", opts:["Menggosok gigi secara teratur","Makan makanan yang sangat panas","Jarang minum air"], ans:0},
+{topic:"Cara Merawat Pancaindra", q:"Cara merawat kulit yang benar adalah ...", opts:["Jarang mandi","Mandi dua kali sehari","Tidak minum air putih"], ans:1},
+{topic:"Cara Merawat Pancaindra", q:"Vitamin yang baik untuk kesehatan mata adalah ...", opts:["Vitamin A","Vitamin C","Vitamin D"], ans:0},
+{topic:"Cara Merawat Pancaindra", q:"Vitamin yang baik untuk kesehatan lidah adalah ...", opts:["Vitamin A","Vitamin C","Vitamin B"], ans:1},
+
+// 5. Bagian Mata
+{topic:"Bagian Mata", q:"Bagian mata yang berfungsi menangkap cahaya yang masuk adalah ...", opts:["Retina","Iris","Pupil"], ans:0},
+{topic:"Bagian Mata", q:"Bagian mata yang menentukan warna mata seseorang adalah ...", opts:["Lensa","Iris","Retina"], ans:1},
+{topic:"Bagian Mata", q:"Bagian mata yang berfungsi membiaskan dan memfokuskan cahaya adalah ...", opts:["Lensa","Pupil","Iris"], ans:0},
+{topic:"Bagian Mata", q:"Bagian mata yang mengatur banyak sedikitnya cahaya yang masuk ke mata adalah ...", opts:["Pupil","Retina","Lensa"], ans:0},
+{topic:"Bagian Mata", q:"Bagian mata yang berwarna hitam di tengah dan akan membesar saat gelap adalah ...", opts:["Pupil","Iris","Retina"], ans:0},
+{topic:"Bagian Mata", q:"Bagian mata yang berfungsi seperti layar untuk menerima bayangan benda adalah ...", opts:["Retina","Lensa","Iris"], ans:0},
+{topic:"Bagian Mata", q:"Bagian mata yang cara kerjanya mirip dengan lensa kamera adalah ...", opts:["Lensa mata","Pupil","Retina"], ans:0},
+
+// 6. Bagian Telinga
+{topic:"Bagian Telinga", q:"Bagian telinga yang berfungsi mengumpulkan gelombang suara adalah ...", opts:["Daun telinga","Gendang telinga","Rumah siput"], ans:0},
+{topic:"Bagian Telinga", q:"Bagian telinga yang berfungsi menerima gelombang suara yang masuk adalah ...", opts:["Saraf pendengaran","Gendang telinga","Tulang pendengaran"], ans:1},
+{topic:"Bagian Telinga", q:"Bagian telinga yang berfungsi mengubah getaran menjadi sinyal adalah ...", opts:["Rumah siput","Daun telinga","Gendang telinga"], ans:0},
+{topic:"Bagian Telinga", q:"Bagian telinga yang berfungsi meneruskan getaran ke rumah siput adalah ...", opts:["Tulang pendengaran","Saraf pendengaran","Daun telinga"], ans:0},
+{topic:"Bagian Telinga", q:"Bagian telinga yang bertugas meneruskan sinyal suara ke otak adalah ...", opts:["Saraf pendengaran","Gendang telinga","Daun telinga"], ans:0},
+{topic:"Bagian Telinga", q:"Bagian telinga yang terlihat dari luar dan berbentuk seperti corong adalah ...", opts:["Daun telinga","Rumah siput","Saraf pendengaran"], ans:0},
+{topic:"Bagian Telinga", q:"Rumah siput pada telinga disebut juga dengan istilah ...", opts:["Koklea","Retina","Iris"], ans:0},
+
+// 7. Fungsi Rangka
+{topic:"Fungsi Rangka", q:"Salah satu fungsi rangka tubuh manusia adalah ...", opts:["Memberi bentuk dan menyokong tubuh","Mencerna makanan","Mengecap rasa"], ans:0},
+{topic:"Fungsi Rangka", q:"Rangka tubuh berfungsi untuk melindungi ...", opts:["Organ-organ tubuh","Pakaian","Rambut"], ans:0},
+{topic:"Fungsi Rangka", q:"Bagian tubuh yang tersusun dari tulang-tulang disebut ...", opts:["Rangka","Otot","Kulit"], ans:0},
+{topic:"Fungsi Rangka", q:"Tanpa rangka, tubuh manusia tidak akan memiliki ...", opts:["Bentuk yang tegak","Rasa lapar","Suara"], ans:0},
+{topic:"Fungsi Rangka", q:"Rangka yang melindungi otak berada di bagian ...", opts:["Tengkorak","Kaki","Tangan"], ans:0},
+{topic:"Fungsi Rangka", q:"Rangka dada berfungsi melindungi organ ...", opts:["Jantung dan paru-paru","Mata","Lidah"], ans:0},
+{topic:"Fungsi Rangka", q:"Selain menyokong tubuh dan melindungi organ, rangka juga berfungsi sebagai tempat melekatnya ...", opts:["Otot","Kulit","Rambut"], ans:0},
+
+// 8. Fungsi Otot
+{topic:"Fungsi Otot", q:"Otot pada tubuh manusia berfungsi sebagai alat ...", opts:["Gerak","Pencernaan","Pernapasan"], ans:0},
+{topic:"Fungsi Otot", q:"Otot disebut sebagai alat gerak aktif karena ...", opts:["Dapat berkontraksi dan menggerakkan tubuh","Tidak dapat bergerak sama sekali","Hanya melindungi tubuh"], ans:0},
+{topic:"Fungsi Otot", q:"Ketika kita berlari, bagian tubuh yang bekerja keras untuk menggerakkan kaki adalah ...", opts:["Otot","Kulit","Rambut"], ans:0},
+{topic:"Fungsi Otot", q:"Rangka disebut alat gerak pasif karena bergerak dengan bantuan ...", opts:["Otot","Darah","Udara"], ans:0},
+{topic:"Fungsi Otot", q:"Contoh gerakan tubuh yang melibatkan kerja otot adalah ...", opts:["Mengangkat tangan","Diam tanpa bergerak","Tidur sepanjang hari"], ans:0},
+{topic:"Fungsi Otot", q:"Otot yang menempel pada rangka dan membantu menggerakkan tubuh disebut otot ...", opts:["Rangka","Jantung","Polos"], ans:0},
+{topic:"Fungsi Otot", q:"Tubuh dapat bergerak, menekuk, dan berjalan karena adanya kerja sama antara rangka dan ...", opts:["Otot","Darah","Kulit"], ans:0},
+
+// 9. Lidah dan Rasa
+{topic:"Lidah dan Rasa", q:"Bintik-bintik kecil pada permukaan lidah disebut ...", opts:["Papila","Pupil","Retina"], ans:0},
+{topic:"Lidah dan Rasa", q:"Lidah dapat mengecap rasa berikut ini, kecuali ...", opts:["Manis","Asin","Harum"], ans:2},
+{topic:"Lidah dan Rasa", q:"Rasa gurih pada makanan disebut juga rasa ...", opts:["Umami","Asam","Pahit"], ans:0},
+{topic:"Lidah dan Rasa", q:"Contoh makanan yang memiliki rasa asam adalah ...", opts:["Jeruk nipis","Gula","Garam"], ans:0},
+{topic:"Lidah dan Rasa", q:"Contoh makanan yang memiliki rasa manis adalah ...", opts:["Gula","Cuka","Garam"], ans:0},
+{topic:"Lidah dan Rasa", q:"Contoh makanan yang memiliki rasa asin adalah ...", opts:["Garam","Madu","Jeruk nipis"], ans:0},
+{topic:"Lidah dan Rasa", q:"Fungsi utama lidah sebagai alat indra adalah untuk ...", opts:["Mengecap rasa makanan","Melihat warna benda","Mendengar suara"], ans:0},
+];
+
+const TOTAL_QUESTIONS = 30;
+let currentQuiz = [];
+
+function shuffleArray(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function buildQuiz(){
+  // group by topic to guarantee coverage of every materi
+  const byTopic = {};
+  bank.forEach(item=>{
+    if(!byTopic[item.topic]) byTopic[item.topic]=[];
+    byTopic[item.topic].push(item);
+  });
+  const topics = Object.keys(byTopic);
+  const perTopic = Math.floor(TOTAL_QUESTIONS/topics.length);
+  let chosen = [];
+  let leftover = [];
+
+  topics.forEach(t=>{
+    const shuffled = shuffleArray(byTopic[t]);
+    chosen = chosen.concat(shuffled.slice(0,perTopic));
+    leftover = leftover.concat(shuffled.slice(perTopic));
+  });
+
+  const remainingNeeded = TOTAL_QUESTIONS - chosen.length;
+  leftover = shuffleArray(leftover);
+  chosen = chosen.concat(leftover.slice(0,remainingNeeded));
+  chosen = shuffleArray(chosen).slice(0,TOTAL_QUESTIONS);
+
+  // shuffle options within each question, keep correct answer tracked
+  currentQuiz = chosen.map(item=>{
+    const optionIdx = [0,1,2];
+    const shuffledIdx = shuffleArray(optionIdx);
+    const newOpts = shuffledIdx.map(i=>item.opts[i]);
+    const newAns = shuffledIdx.indexOf(item.ans);
+    return {topic:item.topic, q:item.q, opts:newOpts, ans:newAns};
+  });
+
+  renderQuiz();
+}
+
+function renderQuiz(){
+  const container = document.getElementById('quizContainer');
+  container.innerHTML = '';
+  document.getElementById('scoreBox').style.display='none';
+
+  currentQuiz.forEach((item, idx)=>{
+    const card = document.createElement('div');
+    card.className='q-card';
+    card.id = 'q'+idx;
+
+    const topicTag = document.createElement('div');
+    topicTag.className='q-topic';
+    topicTag.textContent = item.topic;
+    card.appendChild(topicTag);
+
+    const qText = document.createElement('div');
+    qText.className='q-text';
+    qText.innerHTML = '<span class="num">'+(idx+1)+'.</span>'+item.q;
+    card.appendChild(qText);
+
+    const letters = ['A','B','C'];
+    item.opts.forEach((opt, oi)=>{
+      const label = document.createElement('label');
+      label.className='opt';
+      label.id = 'q'+idx+'_opt'+oi;
+      label.innerHTML = '<input type="radio" name="q'+idx+'" value="'+oi+'"> <span class="opt-label">'+letters[oi]+'.</span> '+opt;
+      card.appendChild(label);
+    });
+
+    container.appendChild(card);
+  });
+}
+
+function checkAnswers(){
+  let score = 0;
+  currentQuiz.forEach((item, idx)=>{
+    const selected = document.querySelector('input[name="q'+idx+'"]:checked');
+    const card = document.getElementById('q'+idx);
+    // reset styles
+    card.classList.remove('correct','wrong');
+    for(let oi=0; oi<3; oi++){
+      document.getElementById('q'+idx+'_opt'+oi).classList.remove('right-answer','chosen-wrong');
+    }
+    const rightOptEl = document.getElementById('q'+idx+'_opt'+item.ans);
+    rightOptEl.classList.add('right-answer');
+
+    if(selected){
+      const val = parseInt(selected.value);
+      if(val === item.ans){
+        score++;
+        card.classList.add('correct');
+      } else {
+        card.classList.add('wrong');
+        document.getElementById('q'+idx+'_opt'+val).classList.add('chosen-wrong');
+      }
+    } else {
+      card.classList.add('wrong');
+    }
+  });
+
+  const scoreBox = document.getElementById('scoreBox');
+  const percent = Math.round((score/currentQuiz.length)*100);
+  let msg = '🎉 Kerja bagus!';
+  if(percent < 50) msg = '💪 Ayo belajar lagi, kamu pasti bisa!';
+  else if(percent < 80) msg = '👍 Bagus, terus semangat belajar!';
+  scoreBox.innerHTML = 'Nilai kamu: '+score+' / '+currentQuiz.length+' ('+percent+'%)<br>'+msg;
+  scoreBox.style.display='block';
+  scoreBox.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function resetQuiz(){
+  buildQuiz();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+document.getElementById('btnGenerate').addEventListener('click', buildQuiz);
+document.getElementById('btnSubmit').addEventListener('click', checkAnswers);
+document.getElementById('btnSubmit2').addEventListener('click', checkAnswers);
+document.getElementById('btnReset').addEventListener('click', resetQuiz);
+
+// initial build
+buildQuiz();
+</script>
+
+</body>
+</html>
