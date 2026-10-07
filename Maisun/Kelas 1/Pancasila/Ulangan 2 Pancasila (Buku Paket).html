@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Latihan Soal Pendidikan Pancasila Kelas 1 - Aturan dan Tempat Tinggal</title>
+<style>
+:root{
+  --bg:#fff8e7; --card:#ffffff; --ink:#2b2b3a; --green:#1f8a70; --green-d:#16664f;
+  --orange:#ff8c42; --blue:#3a86ff; --pink:#ff5d8f; --yellow:#ffd23f;
+  --ok:#2dbd6e; --bad:#e5484d; --line:#e9dfc4;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Baloo 2","Nunito","Comic Sans MS","Trebuchet MS",Verdana,sans-serif;
+  font-size:19px;line-height:1.6}
+header{background:linear-gradient(135deg,#1f8a70,#3a86ff);color:#fff;text-align:center;padding:28px 16px 22px}
+header h1{margin:0 0 6px;font-size:1.8rem}
+header p{margin:0;opacity:.95}
+.progress-wrap{position:sticky;top:0;z-index:50;background:#fff;border-bottom:3px solid var(--line);padding:8px 14px;
+  box-shadow:0 3px 8px rgba(0,0,0,.08)}
+.progress-top{display:flex;justify-content:space-between;font-weight:700;font-size:.95rem;max-width:860px;margin:0 auto 4px}
+.bar{max-width:860px;margin:0 auto;height:16px;background:#eee;border-radius:99px;overflow:hidden}
+.bar>div{height:100%;width:0;background:linear-gradient(90deg,var(--yellow),var(--orange));border-radius:99px;transition:width .3s}
+main{max-width:860px;margin:0 auto;padding:18px 14px 60px}
+h2.section{font-size:1.5rem;color:var(--green-d);margin:30px 0 12px;border-left:10px solid var(--orange);padding-left:12px}
+.mat{background:var(--card);border-radius:20px;padding:16px 20px;margin:14px 0;border:3px solid var(--line);box-shadow:0 4px 0 var(--line)}
+.mat h3{margin:0 0 6px;color:#fff;display:inline-block;padding:4px 16px;border-radius:99px;font-size:1.15rem}
+.mat.a h3{background:var(--green)} .mat.b h3{background:var(--blue)} .mat.c h3{background:var(--pink)} .mat.d h3{background:var(--orange)}
+.mat h4{margin:12px 0 2px;color:var(--green-d);font-size:1.05rem}
+.mat p{margin:4px 0}
+.mat ul,.mat ol{margin:4px 0 4px 0;padding-left:26px}
+.mat li{margin:2px 0}
+.tag{display:inline-block;background:var(--yellow);border-radius:10px;padding:0 10px;font-weight:700}
+.q{background:var(--card);border-radius:20px;padding:16px 18px;margin:14px 0;border:3px solid var(--line);box-shadow:0 4px 0 var(--line)}
+.q .topic{font-size:.8rem;font-weight:700;color:#fff;border-radius:99px;padding:2px 12px;display:inline-block}
+.t-a{background:var(--green)} .t-b{background:var(--blue)} .t-c{background:var(--pink)}
+.q .text{font-weight:700;font-size:1.15rem;margin:8px 0 10px}
+.q .no{display:inline-block;min-width:34px;height:34px;line-height:34px;text-align:center;border-radius:50%;background:var(--orange);color:#fff;margin-right:6px}
+.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fffdf4;border:3px solid var(--line);
+  border-radius:16px;padding:10px 14px;margin:8px 0;font:inherit;color:inherit;cursor:pointer;min-height:54px}
+.opt:hover{border-color:var(--blue)}
+.opt .let{flex:0 0 38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+.opt.sel{border-color:var(--blue);background:#e8f0ff}
+.opt.sel .let{background:var(--orange)}
+.locked .opt{cursor:default}
+.opt.right{border-color:var(--ok);background:#e6f9ee}
+.opt.right .let{background:var(--ok)}
+.opt.wrong{border-color:var(--bad);background:#ffecec}
+.opt.wrong .let{background:var(--bad)}
+.fb{margin-top:6px;font-weight:700;font-size:1rem}
+.fb.ok{color:var(--ok)} .fb.bad{color:var(--bad)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:26px 0}
+button.btn{font:inherit;font-weight:800;border:0;border-radius:99px;padding:12px 24px;color:#fff;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.2);font-size:1.05rem}
+button.btn:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(0,0,0,.2)}
+.b-check{background:var(--green)} .b-new{background:var(--orange)} .b-dl{background:var(--blue)} .b-pdf{background:var(--pink)}
+.result{display:none;text-align:center;background:#fff;border:4px dashed var(--orange);border-radius:24px;padding:18px;margin:18px 0}
+.result.show{display:block}
+.result .score{font-size:2.6rem;font-weight:800;color:var(--green-d)}
+.stars{font-size:2rem}
+footer{text-align:center;color:#888;font-size:.85rem;padding-bottom:30px}
+@media(max-width:520px){body{font-size:17px}header h1{font-size:1.4rem}.btn{width:100%}}
+@media print{
+  .progress-wrap,.actions,header p{display:none}
+  body{background:#fff;font-size:14px}
+  .q,.mat{box-shadow:none;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📘 Latihan Soal Pendidikan Pancasila</h1>
+  <p>Kelas 1 SD/MI • Aturan dalam Keluarga, Patuh Aturan di Rumah, dan Peduli dengan Tempat Tinggal</p>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-top"><span id="pText">Terjawab: 0 / 30</span><span id="pPct">0%</span></div>
+  <div class="bar"><div id="pBar"></div></div>
+</div>
+
+<main>
+
+<h2 class="section">📖 Ayo Belajar Materi Dulu!</h2>
+
+<section class="mat a">
+  <h3>A. Aturan dalam Keluarga</h3>
+  <p><b>Aturan</b> adalah perbuatan yang harus dilakukan.</p>
+  <p>Aturan ada di sekitar kita. Aturan ada di rumah dan di tempat lain.</p>
+  <h4>Aturan dalam keluarga</h4>
+  <ul>
+    <li>Setiap keluarga memiliki aturan.</li>
+    <li>Aturan dalam keluarga dibuat oleh orang tua.</li>
+    <li>Anggota keluarga harus patuh aturan.</li>
+  </ul>
+  <h4>Contoh aturan dalam keluarga</h4>
+  <ul>
+    <li>Bangun pagi</li>
+    <li>Izin orang tua jika keluar rumah</li>
+    <li>Menjaga kebersihan rumah</li>
+    <li>Berdoa sebelum dan sesudah makan</li>
+    <li>Meletakkan barang pada tempatnya</li>
+    <li>Membawa piring kotor ke dapur setelah makan</li>
+  </ul>
+  <h4>Kalau patuh dan kalau melanggar</h4>
+  <ul>
+    <li>Anak yang mematuhi aturan tidak membuat repot orang tua.</li>
+    <li>Anak yang mematuhi aturan akan disayang orang tua.</li>
+    <li>Anak yang melanggar aturan akan ditegur orang tua.</li>
+  </ul>
+  <h4>Cerita Anang</h4>
+  <p>Minggu pagi itu Ayah dan Ibu tidak ada di rumah. Anang bermain bola basket di kamar. Kamar Anang jadi berantakan.
+  Anang tidak patuh aturan. Seharusnya Anang bermain bola basket di lapangan, bukan di kamar.</p>
+</section>
+
+<section class="mat b">
+  <h3>B. Patuh Aturan di Rumah</h3>
+  <p>Aturan dibuat untuk dipatuhi. Tujuan aturan untuk kebaikan bersama.</p>
+  <p>Coba bayangkan jika tidak ada aturan. Semua akan kacau dan berantakan.</p>
+  <p>Aturan di rumah harus dilaksanakan. Aturan yang dilaksanakan banyak manfaatnya.</p>
+  <h4>Manfaat aturan di rumah</h4>
+  <ul>
+    <li>Membuat disiplin</li>
+    <li>Rumah rapi dan bersih</li>
+    <li>Suasana rumah nyaman</li>
+    <li>Menjaga kerukunan keluarga</li>
+    <li>Tugas di rumah terlaksana dengan baik</li>
+    <li>Saling menyayangi antaranggota keluarga</li>
+    <li>Sebagai wujud bakti anak pada orang tua</li>
+  </ul>
+  <h4>Akibat melanggar aturan</h4>
+  <p>Aturan yang dilanggar ada akibatnya. Misalnya, dilarang melakukan sesuatu. Bahkan, mendapatkan hukuman.</p>
+  <ul>
+    <li>Mendapat sanksi atau hukuman</li>
+    <li>Merugikan diri sendiri</li>
+    <li>Mengganggu orang lain</li>
+    <li>Mendapat penilaian tidak baik</li>
+    <li>Mendapat kesulitan</li>
+  </ul>
+</section>
+
+<section class="mat c">
+  <h3>C. Peduli dengan Tempat Tinggal</h3>
+  <p>Setiap orang punya tempat tinggal. Tempat tinggal harus dirawat agar bersih.
+  Tempat tinggal yang bersih membuat nyaman.</p>
+  <p>Tempat tinggal bisa nyaman jika penghuninya punya kepedulian.</p>
+  <h4>Contoh peduli tempat tinggal</h4>
+  <ul>
+    <li>Selalu menjaga kebersihan rumah</li>
+    <li>Membersihkan rumah secara teratur</li>
+    <li>Tidak merusak bagian rumah</li>
+    <li>Cepat memperbaiki rumah jika ada kerusakan</li>
+    <li>Menanam dan merawat pohon di sekitar rumah</li>
+  </ul>
+  <h4>Bersama-sama membersihkan rumah</h4>
+  <p>Setiap anggota keluarga harus peduli. Tugas membersihkan rumah bisa dilakukan secara bersama-sama.
+  Tugas itu bisa dibagi secara adil. Misalnya, ayah membersihkan halaman. Ibu membersihkan bagian dalam rumah.
+  Anak bisa membantu ayah atau ibunya.</p>
+  <p>Keluarga yang peduli tempat tinggal akan merasakan banyak manfaatnya. Keluarga itu akan betah dan kerasan karena mereka merasa nyaman.</p>
+</section>
+
+<section class="mat d">
+  <h3>⭐ Aku Ingat</h3>
+  <ol>
+    <li>Aturan adalah perbuatan yang harus dilakukan.</li>
+    <li>Setiap keluarga memiliki aturan.</li>
+    <li>Contoh aturan dalam keluarga yaitu menjaga kebersihan.</li>
+    <li>Anggota keluarga harus patuh aturan.</li>
+    <li>Aturan dibuat untuk dipatuhi.</li>
+    <li>Contoh manfaat aturan di rumah yaitu menjaga kerukunan keluarga.</li>
+    <li>Anak yang melanggar aturan akan mendapat sanksi atau hukuman.</li>
+    <li>Tujuan aturan untuk kebaikan bersama.</li>
+    <li>Tempat tinggal harus dirawat agar bersih.</li>
+    <li>Tempat tinggal yang bersih membuat nyaman.</li>
+  </ol>
+</section>
+
+<h2 class="section">✏️ Ayo Jawab Soal!</h2>
+<p>Pilih jawaban yang paling benar: <b>A</b>, <b>B</b>, atau <b>C</b>. Ada 30 soal. Tekan <span class="tag">Periksa Jawaban</span> kalau sudah selesai.</p>
+
+<div id="quiz"></div>
+
+<div class="result" id="result">
+  <div class="stars" id="stars"></div>
+  <div class="score" id="score"></div>
+  <p id="msg"></p>
+</div>
+
+<div class="actions">
+  <button class="btn b-check" id="btnCheck">✅ Periksa Jawaban</button>
+  <button class="btn b-new" id="btnNew">🔄 Soal Baru</button>
+  <button class="btn b-dl" id="btnDl">⬇️ Unduh File (.html)</button>
+  <button class="btn b-pdf" id="btnPdf">🖨️ Cetak / Simpan PDF</button>
+</div>
+
+</main>
+<footer>Sumber materi: Buku Pendidikan Pancasila Kelas I SD/MI, Bab Aturan. Soal dibuat ulang setiap tombol "Soal Baru" ditekan.</footer>
+
+<script>
+/* Bank soal: [pertanyaan, jawaban benar, pengecoh 1, pengecoh 2] */
+var BANK = {
+  a: [
+    ["Aturan adalah perbuatan yang harus ...", "dilakukan", "dilupakan", "ditinggalkan"],
+    ["Aturan dalam keluarga dibuat oleh ...", "orang tua", "teman", "tetangga"],
+    ["Yang harus patuh aturan dalam keluarga adalah ...", "semua anggota keluarga", "hanya ayah", "tidak ada"],
+    ["Mana contoh aturan dalam keluarga?", "Bangun pagi", "Bermain sampai malam", "Membuang sampah sembarangan"],
+    ["Jika mau keluar rumah, kita harus ...", "izin orang tua", "pergi diam-diam", "tidak bilang siapa-siapa"],
+    ["Sebelum dan sesudah makan kita ...", "berdoa", "berlari", "tidur"],
+    ["Barang harus diletakkan ...", "pada tempatnya", "di lantai", "di mana saja"],
+    ["Setelah makan, piring kotor dibawa ke ...", "dapur", "kamar tidur", "halaman"],
+    ["Anak yang patuh aturan tidak membuat ... orang tua.", "repot", "sedih", "marah"],
+    ["Anak yang patuh aturan akan ... orang tua.", "disayang", "dimarahi", "dilupakan"],
+    ["Anak yang melanggar aturan akan ... orang tua.", "ditegur", "diberi hadiah", "dipuji"],
+    ["Anang bermain bola basket di kamar. Apakah Anang patuh aturan?", "Tidak patuh", "Patuh", "Tidak tahu"],
+    ["Kamar Anang jadi ... karena bermain bola basket.", "berantakan", "rapi", "bersih"],
+    ["Seharusnya Anang bermain bola basket di ...", "lapangan", "kamar", "dapur"],
+    ["Aturan ada di ...", "rumah dan tempat lain", "hanya di sekolah", "tidak ada di mana-mana"],
+    ["Ani minta izin ibu sebelum keluar rumah. Ani anak yang ...", "patuh", "nakal", "malas"],
+    ["Budi lupa berdoa sebelum makan. Seharusnya Budi ...", "berdoa sebelum makan", "tidak usah makan", "berlari-lari"],
+    ["Dito membuang mainan di lantai. Seharusnya mainan diletakkan ...", "pada tempatnya", "di jalan", "di lantai"]
+  ],
+  b: [
+    ["Aturan dibuat untuk ...", "dipatuhi", "dilanggar", "dilupakan"],
+    ["Tujuan aturan untuk ...", "kebaikan bersama", "kesenangan sendiri", "membuat bingung"],
+    ["Jika tidak ada aturan, semua akan ...", "kacau dan berantakan", "rapi", "tenang"],
+    ["Manfaat aturan di rumah adalah membuat ...", "disiplin", "malas", "nakal"],
+    ["Karena ada aturan, rumah menjadi ...", "rapi dan bersih", "kotor", "gelap"],
+    ["Karena ada aturan, suasana rumah menjadi ...", "nyaman", "ribut", "menakutkan"],
+    ["Aturan menjaga ... keluarga.", "kerukunan", "pertengkaran", "kemarahan"],
+    ["Karena patuh aturan, anggota keluarga saling ...", "menyayangi", "membenci", "mengejek"],
+    ["Anak yang patuh aturan menunjukkan ... pada orang tua.", "bakti", "kemarahan", "kenakalan"],
+    ["Akibat melanggar aturan adalah ...", "mendapat hukuman", "mendapat hadiah", "mendapat pujian"],
+    ["Melanggar aturan itu merugikan ...", "diri sendiri", "tidak ada orang", "hanya teman"],
+    ["Melanggar aturan bisa ... orang lain.", "mengganggu", "menolong", "menyenangkan"],
+    ["Anak yang melanggar aturan mendapat penilaian ...", "tidak baik", "sangat baik", "hebat"],
+    ["Anak yang melanggar aturan akan mendapat ...", "kesulitan", "kemudahan", "mainan"],
+    ["Aturan di rumah harus ...", "dilaksanakan", "diabaikan", "dilupakan"],
+    ["Sinta rajin patuh aturan. Rumah Sinta menjadi ...", "nyaman", "ribut", "kotor"],
+    ["Dimas melanggar aturan. Ibu akan ... Dimas.", "menegur", "memuji", "memberi hadiah"],
+    ["Pernyataan mana yang benar?", "Aturan dibuat untuk dipatuhi", "Aturan dibuat untuk dilanggar", "Aturan tidak ada gunanya"]
+  ],
+  c: [
+    ["Setiap orang punya ...", "tempat tinggal", "kebun", "kapal"],
+    ["Tempat tinggal harus ... agar bersih.", "dirawat", "dirusak", "dikotori"],
+    ["Tempat tinggal yang bersih membuat ...", "nyaman", "sakit", "takut"],
+    ["Mana contoh peduli tempat tinggal?", "Menjaga kebersihan rumah", "Mencoret dinding", "Membuang sampah di lantai"],
+    ["Rumah harus dibersihkan secara ...", "teratur", "jarang", "tidak pernah"],
+    ["Kita tidak boleh ... bagian rumah.", "merusak", "merawat", "membersihkan"],
+    ["Jika ada kerusakan, rumah harus cepat ...", "diperbaiki", "dibiarkan", "dirusak"],
+    ["Di sekitar rumah, kita menanam dan merawat ...", "pohon", "sampah", "batu"],
+    ["Yang harus peduli tempat tinggal adalah ...", "setiap anggota keluarga", "hanya ibu", "hanya ayah"],
+    ["Tugas membersihkan rumah bisa dilakukan ...", "bersama-sama", "sendirian saja", "tidak usah"],
+    ["Tugas membersihkan rumah dibagi secara ...", "adil", "tidak adil", "marah-marah"],
+    ["Ayah membersihkan ...", "halaman", "bagian dalam rumah", "kamar tidur anak"],
+    ["Ibu membersihkan ...", "bagian dalam rumah", "halaman", "jalan raya"],
+    ["Anak bisa ... ayah atau ibunya membersihkan rumah.", "membantu", "mengganggu", "menakuti"],
+    ["Keluarga yang peduli akan betah dan kerasan karena merasa ...", "nyaman", "takut", "lapar"],
+    ["Genteng rumah bocor. Kita harus ...", "cepat memperbaiki", "membiarkan saja", "merusaknya"],
+    ["Mana yang termasuk peduli tempat tinggal?", "Menyapu lantai", "Mencoret dinding", "Menginjak tanaman"],
+    ["Rani menyiram tanaman di halaman rumah. Rani anak yang ...", "peduli", "tidak peduli", "malas"]
+  ]
+};
+var TOPICS = {a:"A. Aturan dalam Keluarga", b:"B. Patuh Aturan di Rumah", c:"C. Peduli dengan Tempat Tinggal"};
+var PER_TOPIC = 10, LETTERS = ["A","B","C"];
+var current = [], checked = false;
+
+/* Fisher-Yates */
+function shuffle(arr){
+  var a = arr.slice();
+  for (var i=a.length-1;i>0;i--){
+    var j = Math.floor(Math.random()*(i+1));
+    var t=a[i]; a[i]=a[j]; a[j]=t;
+  }
+  return a;
+}
+
+function buildSet(){
+  var set = [];
+  ["a","b","c"].forEach(function(k){
+    shuffle(BANK[k]).slice(0,PER_TOPIC).forEach(function(item){
+      var opts = shuffle([item[1],item[2],item[3]]);
+      set.push({topic:k, q:item[0], opts:opts, answer:opts.indexOf(item[1]), picked:-1});
+    });
+  });
+  return set; /* urut per materi: 10 soal A, 10 soal B, 10 soal C */
+}
+
+function render(){
+  var box = document.getElementById("quiz");
+  box.innerHTML = "";
+  current.forEach(function(item, i){
+    var q = document.createElement("div"); q.className = "q"; q.id = "q"+i;
+    var tp = document.createElement("span"); tp.className = "topic t-"+item.topic; tp.textContent = TOPICS[item.topic];
+    var tx = document.createElement("div"); tx.className = "text";
+    var no = document.createElement("span"); no.className = "no"; no.textContent = i+1;
+    tx.appendChild(no); tx.appendChild(document.createTextNode(item.q));
+    q.appendChild(tp); q.appendChild(tx);
+    item.opts.forEach(function(o, k){
+      var b = document.createElement("button"); b.type = "button"; b.className = "opt"; b.dataset.k = k;
+      var l = document.createElement("span"); l.className = "let"; l.textContent = LETTERS[k];
+      var t = document.createElement("span"); t.textContent = o;
+      b.appendChild(l); b.appendChild(t);
+      b.addEventListener("click", function(){ pick(i,k); });
+      q.appendChild(b);
+    });
+    var fb = document.createElement("div"); fb.className = "fb"; q.appendChild(fb);
+    box.appendChild(q);
+  });
+  updateProgress();
+}
+
+function pick(i,k){
+  if (checked) return;
+  current[i].picked = k;
+  var btns = document.querySelectorAll("#q"+i+" .opt");
+  btns.forEach(function(b){ b.classList.toggle("sel", Number(b.dataset.k)===k); });
+  updateProgress();
+}
+
+function updateProgress(){
+  var n = current.filter(function(x){return x.picked>=0;}).length;
+  document.getElementById("pText").textContent = "Terjawab: "+n+" / "+current.length;
+  var pct = Math.round(n/current.length*100);
+  document.getElementById("pPct").textContent = pct+"%";
+  document.getElementById("pBar").style.width = pct+"%";
+}
+
+function check(){
+  var unanswered = current.filter(function(x){return x.picked<0;}).length;
+  if (unanswered>0 && !confirm("Masih ada "+unanswered+" soal yang belum dijawab. Tetap periksa?")) return;
+  checked = true;
+  var score = 0;
+  current.forEach(function(item,i){
+    var q = document.getElementById("q"+i); q.classList.add("locked");
+    var fb = q.querySelector(".fb");
+    q.querySelectorAll(".opt").forEach(function(b){
+      var k = Number(b.dataset.k);
+      b.classList.remove("sel");
+      if (k===item.answer) b.classList.add("right");
+      else if (k===item.picked) b.classList.add("wrong");
+    });
+    if (item.picked===item.answer){ score++; fb.className="fb ok"; fb.textContent="🎉 Benar! Hebat!"; }
+    else { fb.className="fb bad"; fb.textContent = (item.picked<0?"Belum dijawab. ":"Belum tepat. ")+"Jawaban yang benar: "+LETTERS[item.answer]+". "+item.opts[item.answer]; }
+  });
+  var nilai = Math.round(score/current.length*100);
+  var stars = score>=27?"⭐⭐⭐":(score>=20?"⭐⭐":(score>=12?"⭐":"💪"));
+  document.getElementById("stars").textContent = stars;
+  document.getElementById("score").textContent = score+" / "+current.length+"  (Nilai "+nilai+")";
+  document.getElementById("msg").textContent = score>=27?"Luar biasa! Kamu paham sekali materinya!":
+    (score>=20?"Bagus sekali! Ayo baca materi lagi supaya makin pintar.":"Ayo belajar lagi! Baca materi di atas, lalu coba Soal Baru.");
+  var r = document.getElementById("result"); r.classList.add("show");
+  r.scrollIntoView({behavior:"smooth", block:"center"});
+}
+
+function newSet(){
+  checked = false;
+  current = buildSet();
+  document.getElementById("result").classList.remove("show");
+  render();
+  document.getElementById("quiz").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function downloadFile(){
+  var clone = document.documentElement.cloneNode(true);
+  var qz = clone.querySelector("#quiz"); if (qz) qz.innerHTML = "";
+  var rs = clone.querySelector("#result"); if (rs) rs.classList.remove("show");
+  var html = "<!DOCTYPE html>\n" + clone.outerHTML;
+  var blob = new Blob([html], {type:"text/html"});
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "soal-aturan-keluarga-kelas-1.html";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){URL.revokeObjectURL(a.href);}, 1000);
+}
+
+document.getElementById("btnCheck").addEventListener("click", check);
+document.getElementById("btnNew").addEventListener("click", newSet);
+document.getElementById("btnDl").addEventListener("click", downloadFile);
+document.getElementById("btnPdf").addEventListener("click", function(){ window.print(); });
+
+current = buildSet();
+render();
+</script>
+</body>
+</html>
