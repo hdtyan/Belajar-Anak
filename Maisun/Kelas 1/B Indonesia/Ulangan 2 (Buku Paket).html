@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kuis Bahasa Indonesia Kelas 1 - Bersikap Santun</title>
+<style>
+  :root{
+    --bg:#fff8e7; --card:#ffffff; --ink:#2b2b3a; --muted:#6b6b80;
+    --blue:#3b82f6; --green:#22a559; --red:#e5484d; --orange:#ff9f1c; --purple:#8b5cf6; --teal:#14b8a6;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Baloo 2","Comic Sans MS","Trebuchet MS",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:19px;line-height:1.55}
+  header{background:linear-gradient(135deg,#ff9f1c,#ff6b6b);color:#fff;text-align:center;padding:22px 14px 18px;border-radius:0 0 28px 28px}
+  header h1{margin:0;font-size:1.7rem}
+  header p{margin:6px 0 0;font-size:1rem;opacity:.95}
+  .wrap{max-width:820px;margin:0 auto;padding:16px 14px 60px}
+  h2.sec{font-size:1.45rem;margin:26px 0 10px;display:flex;align-items:center;gap:8px}
+  .card{background:var(--card);border-radius:20px;padding:16px 18px;margin:12px 0;box-shadow:0 3px 0 rgba(0,0,0,.08);border:3px solid #ffe3a3}
+  .card h3{margin:0 0 8px;font-size:1.2rem}
+  .m1{border-color:#bfdbfe}.m1 h3{color:var(--blue)}
+  .m2{border-color:#bbf7d0}.m2 h3{color:var(--green)}
+  .m3{border-color:#ddd6fe}.m3 h3{color:var(--purple)}
+  .m4{border-color:#fed7aa}.m4 h3{color:var(--orange)}
+  .m5{border-color:#99f6e4}.m5 h3{color:var(--teal)}
+  .bubble{border-radius:16px;padding:10px 14px;margin:8px 0;background:#f4f8ff;border:2px dashed #93c5fd}
+  .bubble b{color:var(--red);text-decoration:underline}
+  table.suku{width:100%;border-collapse:collapse;text-align:center;font-size:1.25rem}
+  table.suku td{padding:8px 4px;border:2px solid #e5e7eb;letter-spacing:.12em}
+  table.suku th{background:#ecfdf5;padding:6px;border:2px solid #e5e7eb}
+  .chips span{display:inline-block;background:#fef3c7;border-radius:999px;padding:2px 14px;margin:3px;font-weight:700}
+  ol,ul{margin:6px 0 6px 22px;padding:0}
+  .peta{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .peta div{background:#f0fdfa;border:2px solid #99f6e4;border-radius:14px;padding:8px 12px;font-size:.95rem}
+  .peta b{color:var(--teal);display:block}
+  @media(max-width:520px){.peta{grid-template-columns:1fr}body{font-size:18px}}
+
+  /* sticky progress */
+  #bar{position:sticky;top:0;z-index:10;background:var(--bg);padding:10px 0 8px}
+  #bar .top{display:flex;justify-content:space-between;font-weight:700;font-size:.95rem}
+  .track{height:16px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin-top:4px}
+  #fill{height:100%;width:0;background:linear-gradient(90deg,#22a559,#84cc16);transition:width .3s}
+
+  .q{background:#fff;border-radius:20px;padding:16px;margin:14px 0;border:3px solid #e5e7eb;box-shadow:0 3px 0 rgba(0,0,0,.06)}
+  .q .no{display:inline-block;background:var(--blue);color:#fff;border-radius:999px;padding:0 12px;font-weight:700;margin-bottom:6px}
+  .q .txt{font-size:1.2rem;font-weight:700;margin-bottom:10px}
+  .opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;font:inherit;font-size:1.1rem;
+    background:#f9fafb;border:3px solid #e5e7eb;border-radius:14px;padding:10px 12px;margin:8px 0;cursor:pointer;color:var(--ink)}
+  .opt:hover{border-color:var(--blue);background:#eff6ff}
+  .opt .L{flex:0 0 36px;height:36px;border-radius:50%;background:var(--orange);color:#fff;display:grid;place-items:center;font-weight:800}
+  .opt.ok{background:#dcfce7;border-color:var(--green)}
+  .opt.ok .L{background:var(--green)}
+  .opt.no{background:#fee2e2;border-color:var(--red)}
+  .opt.no .L{background:var(--red)}
+  .q.done .opt{cursor:default;pointer-events:none}
+  .fb{min-height:1.4em;font-weight:700;margin-top:4px}
+  .fb.g{color:var(--green)}.fb.r{color:var(--red)}
+
+  .btns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:22px 0}
+  button.big{font:inherit;font-weight:800;font-size:1.1rem;border:none;border-radius:16px;padding:12px 20px;cursor:pointer;color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.2)}
+  button.big:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(0,0,0,.2)}
+  .b-fin{background:var(--green)}.b-new{background:var(--blue)}.b-pdf{background:var(--purple)}
+  #result{display:none;text-align:center;background:#fff;border:4px solid var(--orange);border-radius:24px;padding:20px;margin:16px 0}
+  #result .big-n{font-size:2.6rem;font-weight:800;color:var(--orange)}
+  #stars{font-size:2rem}
+  footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:20px}
+
+  @media print{
+    body{background:#fff;font-size:14px}
+    header{background:none;color:#000;border-bottom:2px solid #000}
+    .btns,#bar{display:none}
+    .card,.q{box-shadow:none;break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌟 Bersikap Santun 🌟</h1>
+  <p>Bahasa Indonesia Kelas 1 • Pelajaran 3</p>
+</header>
+
+<div class="wrap">
+
+<h2 class="sec">📖 Materi: Baca dulu ya!</h2>
+
+<!-- MATERI 1 -->
+<div class="card m1">
+  <h3>1. Ungkapan dan Sikap Santun</h3>
+  <p><b>Santun</b> berarti baik budi bahasa dan perilakunya.</p>
+  <p>Contoh sikap santun: <b>menolong orang lain</b> dan <b>berbicara dengan bahasa yang baik</b>. Hadi menolong seorang kakek. Itu sikap santun. 👴🤝</p>
+  <p>Kita ucapkan kata-kata santun:</p>
+  <div class="bubble">🙏 Kita ucapkan <b>terima kasih</b> ketika ada orang yang membantu kita.</div>
+  <div class="bubble">😔 Kita ucapkan <b>maaf</b> ketika melakukan kesalahan.</div>
+  <div class="bubble">🆘 Kita ucapkan <b>tolong</b> ketika kita membutuhkan bantuan orang lain.</div>
+  <div class="bubble">🚪 Kita ucapkan <b>permisi</b> ketika hendak bertanya atau meminta izin.</div>
+</div>
+
+<!-- MATERI 2 -->
+<div class="card m2">
+  <h3>2. Contoh Memakai Kata Santun</h3>
+  <ul>
+    <li>Ibu meminta bantuan Bela. Ibu mengucap kata <b>tolong</b>.</li>
+    <li>Kata <b>terima kasih</b> diucapkan saat kita <b>ditolong</b>.</li>
+    <li>Rio tidak sengaja memecahkan pot bunga. Rio berkata, <i>"Maaf Ibu, Rio tidak sengaja."</i></li>
+    <li>Dika menolong Keni yang terjatuh. Keni mengucapkan <b>terima kasih</b>.</li>
+    <li>Ina tidak sengaja merusak mainan Dewi. Ina mengucapkan <b>maaf</b>.</li>
+    <li>Kita meminta maaf saat <b>berbuat salah</b>.</li>
+  </ul>
+</div>
+
+<!-- MATERI 3 -->
+<div class="card m3">
+  <h3>3. Melafalkan Suku Kata ka-, ki-, ku-, ke-, ko-</h3>
+  <p>Kata <b>kasih</b> diawali suku kata <b>ka-</b>. Ayo baca bersama guru!</p>
+  <table class="suku">
+    <tr><th>ka- / ki-</th><th>ku- / ke- / ko-</th></tr>
+    <tr><td>ka ca</td><td>ku ku</td></tr>
+    <tr><td>ka ki</td><td>ku at</td></tr>
+    <tr><td>ki ta</td><td>ko tak</td></tr>
+    <tr><td>ki lo</td><td>ko tor</td></tr>
+    <tr><td>ka ta</td><td>ke las</td></tr>
+    <tr><td>ka li</td><td>ke pal</td></tr>
+    <tr><td>ku pas</td><td>ki pas</td></tr>
+    <tr><td>ku lit</td><td>ki rim</td></tr>
+  </table>
+  <p>Cara menggabung: <b>ka + ca = kaca</b>, <b>ku + ku = kuku</b>, <b>ko + tak = kotak</b>.</p>
+  <p>Pemenggalan kata: <b>ka-kek</b> (kakek).</p>
+</div>
+
+<!-- MATERI 4 -->
+<div class="card m4">
+  <h3>4. Membaca Kalimat</h3>
+  <p>Ayo baca kalimat-kalimat ini. Setiap kalimat diakhiri <b>tanda titik (.)</b></p>
+  <div class="chips">
+    <span>Kakak naik kuda.</span><span>Kuku adik panjang.</span>
+    <span>Kelas ini kotor.</span><span>Kopi itu pahit.</span>
+    <span>Kipas itu rusak.</span><span>Kaki Syifa luka.</span>
+    <span>Kakak kirim kue.</span><span>Kucing kejar tikus.</span>
+  </div>
+</div>
+
+<!-- MATERI 5 -->
+<div class="card m5">
+  <h3>5. Menyapa dan Peta Konsep</h3>
+  <p><b>Menyapa</b> berarti menegur atau mengajak orang lain bercakap-cakap.</p>
+  <p>Contoh kalimat sapaan: <b>selamat pagi</b>, <b>apa kabar</b>, dan lain-lain.</p>
+  <p>Dalam <b>Bersikap Santun</b>, kita belajar:</p>
+  <div class="peta">
+    <div><b>👂 Mendengarkan</b>penjelasan ucapan santun dan cerita dari guru.</div>
+    <div><b>👀 Membaca</b>suku kata dan kalimat dengan ka, ki, ku, ke, ko.</div>
+    <div><b>🗣️ Berbicara</b>mengucapkan kata santun dan sapaan, bercakap-cakap dengan teman.</div>
+    <div><b>✏️ Menulis</b>menjodohkan kata dan menulis ulang kalimat dengan ka, ki, ku, ke, ko.</div>
+  </div>
+</div>
+
+<h2 class="sec">📝 Ayo Berlatih!</h2>
+<p>Pilih jawaban <b>A</b>, <b>B</b>, atau <b>C</b>. Tidak ada timer, santai saja!</p>
+
+<div id="bar">
+  <div class="top"><span id="prog">Terjawab: 0 / 30</span><span id="sc">Benar: 0</span></div>
+  <div class="track"><div id="fill"></div></div>
+</div>
+
+<div id="quiz"></div>
+
+<div id="result">
+  <div id="stars"></div>
+  <div class="big-n" id="rs"></div>
+  <p id="rm"></p>
+</div>
+
+<div class="btns">
+  <button class="big b-fin" id="finish">✅ Lihat Nilai</button>
+  <button class="big b-new" id="renew">🔄 Soal Baru</button>
+  <button class="big b-pdf" id="pdf">⬇️ Unduh / Cetak PDF</button>
+</div>
+
+<footer>Dibuat untuk belajar Bahasa Indonesia Kelas 1 SD/MI • Pelajaran 3 Bersikap Santun</footer>
+</div>
+
+<script>
+// Bank soal: [kelompok, pertanyaan, jawaban benar, salah1, salah2]
+// Kelompok 1 = ungkapan & sikap santun, 2 = suku kata & kalimat, 3 = sapaan & peta konsep
+var BANK = [
+ // ---- Kelompok 1
+ [1,"Ketika ada orang yang membantu kita, kita mengucapkan ...","terima kasih","maaf","permisi"],
+ [1,"Ketika kita berbuat salah, kita mengucapkan ...","maaf","terima kasih","tolong"],
+ [1,"Ketika kita butuh bantuan, kita mengucapkan ...","tolong","maaf","permisi"],
+ [1,"Ketika hendak bertanya atau meminta izin, kita mengucapkan ...","permisi","tolong","terima kasih"],
+ [1,"Hadi menolong seorang kakek. Itu contoh sikap ...","santun","nakal","malas"],
+ [1,"Santun berarti baik budi bahasa dan ...","perilakunya","makanannya","mainannya"],
+ [1,"Ibu meminta bantuan Bela. Ibu mengucap kata ...","tolong","maaf","terima kasih"],
+ [1,"Bela membantu Ibu. Ibu berkata ...","terima kasih","maaf","permisi"],
+ [1,"Rio tidak sengaja memecahkan pot bunga. Rio berkata ...","\"Maaf Ibu, Rio tidak sengaja.\"","\"Terima kasih, Ibu.\"","\"Permisi, Ibu.\""],
+ [1,"Dika menolong Keni yang terjatuh. Keni mengucapkan ...","terima kasih","maaf","permisi"],
+ [1,"Ina tidak sengaja merusak mainan Dewi. Ina mengucapkan ...","maaf","terima kasih","permisi"],
+ [1,"Kamu mau lewat di depan orang. Kamu berkata ...","permisi","terima kasih","selamat pagi"],
+ [1,"Kamu ingin masuk ke ruang guru. Kamu berkata ...","\"Permisi, Bu Guru.\"","\"Selamat tidur, Bu Guru.\"","\"Pergi, Bu Guru.\""],
+ [1,"Temanmu memberi pensil. Kamu berkata ...","terima kasih","maaf","permisi"],
+ [1,"Kamu tidak sengaja menginjak kaki teman. Kamu berkata ...","maaf","terima kasih","permisi"],
+ [1,"Kamu tidak bisa membuka botol minum. Kamu berkata, \"... bantu aku.\"","Tolong","Maaf","Permisi"],
+ [1,"Mana yang sikap santun?","Menolong teman","Berteriak pada teman","Mengambil mainan tanpa izin"],
+ [1,"Mana yang sikap santun?","Mengucap terima kasih","Memukul teman","Berkata kasar"],
+ [1,"Mana yang BUKAN sikap santun?","Berkata kasar","Mengucap tolong","Mengucap maaf"],
+ [1,"Kata terima kasih diucapkan saat kita ...","ditolong","berbuat salah","mau lewat"],
+ [1,"Kata kasih diawali suku kata ...","ka","ki","ku"],
+ [1,"Kita meminta maaf saat ...","berbuat salah","menolong orang lain","meminta bantuan"],
+ // ---- Kelompok 2
+ [2,"ka + ta = ...","kata","kita","kota"],
+ [2,"ki + ta = ...","kita","kata","kuta"],
+ [2,"ku + ku = ...","kuku","kaki","kiku"],
+ [2,"ko + tak = ...","kotak","katak","kutak"],
+ [2,"ke + las = ...","kelas","kilas","kulas"],
+ [2,"ku + lit = ...","kulit","kalit","kelit"],
+ [2,"ka + li = ...","kali","kuli","kola"],
+ [2,"ki + pas = ...","kipas","kapas","kupas"],
+ [2,"Kata yang diawali suku kata ka adalah ...","kaki","kuku","kipas"],
+ [2,"Kata yang diawali suku kata ki adalah ...","kirim","kuku","kelas"],
+ [2,"Kata yang diawali suku kata ku adalah ...","kuda","kopi","kaki"],
+ [2,"Kata yang diawali suku kata ke adalah ...","kelas","kotak","kuku"],
+ [2,"Kata yang diawali suku kata ko adalah ...","kopi","kaki","kipas"],
+ [2,"Suku kata pertama kata kakak adalah ...","ka","ki","ku"],
+ [2,"Lengkapi kata: ___ da (kuda)","ku","ka","ko"],
+ [2,"Lengkapi kata: ___ pi (kopi)","ko","ka","ke"],
+ [2,"Kakak naik ... .","kuda","kaca","kipas"],
+ [2,"Kopi itu ... .","pahit","luka","rusak"],
+ [2,"Kipas itu ... .","rusak","pahit","panjang"],
+ [2,"Kucing kejar ... .","tikus","kue","kuda"],
+ [2,"Kaki Syifa ... .","luka","pahit","kotor"],
+ [2,"Pemenggalan kata kakek yang benar adalah ...","ka-kek","kak-ek","kake-k"],
+ [2,"Kelas ini ... .","kotor","pahit","naik"],
+ [2,"Kuku adik ... .","panjang","pahit","rusak"],
+ // ---- Kelompok 3
+ [3,"Menyapa berarti ...","menegur atau mengajak orang bercakap-cakap","berlari cepat","tidur siang"],
+ [3,"Sapaan di pagi hari adalah ...","Selamat pagi","Selamat malam","Selamat tidur"],
+ [3,"Kalimat untuk menyapa teman adalah ...","Apa kabar?","Aku pergi dulu.","Ini pisang."],
+ [3,"Bertemu temanmu di pagi hari, kamu berkata ...","\"Selamat pagi!\"","\"Selamat malam!\"","\"Selamat tidur!\""],
+ [3,"Tanda di akhir kalimat berita adalah tanda ...","titik (.)","koma (,)","tanda tanya (?)"],
+ [3,"Judul pelajaran 3 adalah ...","Bersikap Santun","Bermain Bola","Berlari Cepat"],
+ [3,"Saat mendengarkan guru, kita ...","diam dan menyimak","berlari-lari","berteriak"],
+ [3,"Selain mendengarkan, membaca, dan berbicara, kita juga belajar ...","menulis","berenang","menari"],
+ [3,"Saat bercakap-cakap dengan teman, kita memakai bahasa yang ...","baik","kasar","keras sekali"],
+ [3,"Temanmu bertanya, \"Apa kabar?\" Jawabanmu ...","\"Aku baik, terima kasih.\"","\"Selamat tidur.\"","\"Aku pergi.\""],
+ [3,"Kata terima kasih, maaf, tolong, dan permisi adalah ungkapan ...","santun","marah","sedih"],
+ [3,"Mana kalimat yang benar?","Kakak kirim kue.","kakak kirim kue","Kakak kirim kue,"]
+];
+var QUOTA = {1:12, 2:12, 3:6}; // total 30, mencakup semua materi
+
+function shuffle(a){ // Fisher-Yates
+  a = a.slice();
+  for (var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; }
+  return a;
+}
+
+var current = [], answered = 0, correct = 0;
+
+function build(){
+  var picked = [];
+  [1,2,3].forEach(function(g){
+    var pool = BANK.filter(function(b){return b[0]===g;});
+    picked = picked.concat(shuffle(pool).slice(0,QUOTA[g]));
+  });
+  picked = shuffle(picked);
+  current = picked.map(function(b){
+    var opts = shuffle([ {t:b[2],c:true},{t:b[3],c:false},{t:b[4],c:false} ]);
+    return {q:b[1], opts:opts};
+  });
+  answered = 0; correct = 0;
+  render();
+}
+
+function render(){
+  var box = document.getElementById('quiz');
+  box.innerHTML = '';
+  current.forEach(function(item, i){
+    var d = document.createElement('div');
+    d.className = 'q';
+    var h = '<span class="no">Soal ' + (i+1) + '</span><div class="txt"></div>';
+    d.innerHTML = h;
+    d.querySelector('.txt').textContent = item.q;
+    item.opts.forEach(function(o, k){
+      var b = document.createElement('button');
+      b.className = 'opt';
+      b.innerHTML = '<span class="L">' + 'ABC'[k] + '</span><span class="T"></span>';
+      b.querySelector('.T').textContent = o.t;
+      b.addEventListener('click', function(){ pick(d, b, o, item); });
+      d.appendChild(b);
+    });
+    var fb = document.createElement('div'); fb.className = 'fb'; d.appendChild(fb);
+    box.appendChild(d);
+  });
+  document.getElementById('result').style.display = 'none';
+  update();
+}
+
+function pick(d, btn, o, item){
+  if (d.classList.contains('done')) return;
+  d.classList.add('done');
+  answered++;
+  var btns = d.querySelectorAll('.opt');
+  var fb = d.querySelector('.fb');
+  if (o.c){
+    correct++; btn.classList.add('ok');
+    fb.textContent = '🎉 Hebat, benar!'; fb.className = 'fb g';
+  } else {
+    btn.classList.add('no');
+    item.opts.forEach(function(x,k){ if (x.c) btns[k].classList.add('ok'); });
+    fb.textContent = '😊 Belum tepat. Jawaban benar berwarna hijau.'; fb.className = 'fb r';
+  }
+  update();
+}
+
+function update(){
+  document.getElementById('prog').textContent = 'Terjawab: ' + answered + ' / 30';
+  document.getElementById('sc').textContent = 'Benar: ' + correct;
+  document.getElementById('fill').style.width = (answered/30*100) + '%';
+}
+
+document.getElementById('finish').addEventListener('click', function(){
+  var r = document.getElementById('result');
+  var nilai = Math.round(correct/30*100);
+  var stars = nilai>=90 ? '⭐⭐⭐' : nilai>=70 ? '⭐⭐' : nilai>=50 ? '⭐' : '💪';
+  var msg = nilai>=90 ? 'Luar biasa! Kamu anak yang santun dan pintar!' :
+            nilai>=70 ? 'Bagus sekali! Terus belajar ya.' :
+            nilai>=50 ? 'Lumayan! Baca materi lagi, lalu coba soal baru.' :
+            'Ayo semangat! Baca materi lagi dan coba lagi.';
+  document.getElementById('stars').textContent = stars;
+  document.getElementById('rs').textContent = 'Nilai: ' + nilai + ' (benar ' + correct + ' dari 30)';
+  document.getElementById('rm').textContent = (answered<30 ? 'Masih ada ' + (30-answered) + ' soal yang belum dijawab. ' : '') + msg;
+  r.style.display = 'block';
+  r.scrollIntoView({behavior:'smooth', block:'center'});
+});
+
+document.getElementById('renew').addEventListener('click', function(){
+  build();
+  window.scrollTo({top: document.getElementById('bar').offsetTop - 10, behavior:'smooth'});
+});
+
+document.getElementById('pdf').addEventListener('click', function(){ window.print(); });
+
+build();
+</script>
+</body>
+</html>
